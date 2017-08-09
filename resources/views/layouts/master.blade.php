@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div id="app" class="wrapper">
       <!-- SECCION SIDEBAR -->
         <div class="sidebar" data-active-color="blue" data-background-color="black" >
             <!--

@@ -30,7 +30,7 @@
 
 
 
-        <div class="col-md-6">
+        <div id="componentDocumentos" class="col-md-6">
             <div class="card">
 	            <div class="card-header" data-background-color="blue">
 		            <h4 class="card-title">Documentos</h4>
@@ -48,6 +48,46 @@
                 </div>
 	            <div class="card-content  table-full-width">
                     <ul class="list-group">
+                        <li class="list-group-item" v-for="doc in docs" :class="{'editting': doc.editting }">
+                            <div class="row">
+                                <template v-if="!doc.editting">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <h4><i class="fa fa-file-text-o" aria-hidden="true"></i> <span v-text="doc.titulo"></span></h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <button v-on:click="edit(doc)" class="btn btn-primary btn-just-icon btn-round">
+                                            <i class="material-icons">mode_edit</i>
+                                        </button>
+                                        <button v-on:click="" class="btn btn-danger btn-just-icon btn-round ">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i> 
+                                                </span>
+                                                <input type="text" v-model="doc.titulo" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <button v-on:click="" class="btn btn-success btn-just-icon btn-round">
+                                            <i class="material-icons">check</i>
+                                        </button>
+                                        <button v-on:click="" class="btn btn-warning btn-just-icon btn-round ">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </div>
+                                </template>
+                            </div><!-- ./row -->
+                        </li><!-- ./list-group-item -->
+                        {{--
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-sm-8">
@@ -121,6 +161,8 @@
                                 </div>
                             </div><!-- ./row -->
                         </li><!-- ./list-group-item -->
+
+                        --}}
                     </ul><!-- ./list-group -->
         
 
@@ -142,14 +184,42 @@
 </script>
 <script>
     let mv = new Vue({
+        el:'#componentDocumentos',
         data:{
-            
+            docs:[
+                {
+                    titulo:'Titulo del documento',
+                    editting:false
+                },
+                {
+                    titulo:'Segundo documnto',
+                    editting:true
+                },
+                {
+                    titulo:'Tercer docuemnto ',
+                    editting:false
+                },
+            ],
         },
         computed:{
 
         },
         methods:{
+             edit: function(doc){
+                  this.docs.forEach(function(doc){
+                        doc.editting=false;
+                    });
+                  return doc.editting=true;  
+             },
+            cancel:function(){
 
+            }
+            // delete: function(){
+
+            // },
+            // update:function(){
+
+            // },
         }
     });
 </script>
