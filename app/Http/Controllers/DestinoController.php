@@ -15,6 +15,8 @@ class DestinoController extends Controller
     public function index()
     {
         //
+        $destinos=Destino::latest()->paginate(15);
+        return view('pages.destinos.index',compact('destinos'));
     }
 
     /**
@@ -24,7 +26,7 @@ class DestinoController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.destinos.create');
     }
 
     /**
@@ -35,7 +37,16 @@ class DestinoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(),[
+          'nombre' => 'required',
+          'rfc' => 'required',
+          'email' => 'nullable|email'
+
+        ]
+      );
+      $destino = Destino::create(request(['nombre','email','telefono','celular','direccion','rfc','ciudad','codigo_postal','pais']));
+      $request->session()->flash('success', 'Un nuevo destino fue agregado exitosamente');
+      return redirect('/destinos/'.$destino->id);
     }
 
     /**
@@ -46,7 +57,8 @@ class DestinoController extends Controller
      */
     public function show(Destino $destino)
     {
-        //
+      return view('pages.destinos.show', compact('destino'));
+
     }
 
     /**
@@ -57,7 +69,7 @@ class DestinoController extends Controller
      */
     public function edit(Destino $destino)
     {
-        //
+        return view('pages.destinos.edit', compact('destino'));
     }
 
     /**
@@ -69,7 +81,23 @@ class DestinoController extends Controller
      */
     public function update(Request $request, Destino $destino)
     {
-        //
+      //Valida los datos
+     $this->validate(request(),
+         [
+             'nombre' => 'required',
+             'rfc'    => 'required',
+             'email'  => 'nullable|email'
+         ]
+     );
+     //Prepara los nuevos valores de los datos
+     $inputs = [ 'nombre'=>$request->nombre,'email'=>$request->email , 'telefono'=>$request->telefono , 'celular' => $request->celular , 'direccion' => $request->direccion , 'rfc' => $request->rfc , 'ciudad' => $request->ciudad , 'codigo_postal' => $request->codigo_postal, 'pais' => $request->pais ];
+     //proceso de guardatos en la tabla/modelo datos_empresas
+     $destino = Destino::find($destino->id);
+     $destino->fill($inputs);
+     $destino->save();
+     //Se envia mensaje y se redirecciona a la vista clientes.show
+     $request->session()->flash('success', 'Los datos se guardaron correctamente');
+     return redirect('/destinos/' . $destino->id);
     }
 
     /**
@@ -80,6 +108,18 @@ class DestinoController extends Controller
      */
     public function destroy(Destino $destino)
     {
-        //
+
+      $destino = Destino::find($destino->id);
+      if(count($destino))
+      {
+          $destino->delete();
+      }
+
+      $request->session()->flash('success', 'El registro fue elimado correctamente');
+    }
+
+    public function search(Request $request){
+      $destinos = Destino::where('nombre','LIKE','%'.$request->s.'%')->paginate(15);
+        return view('pages.destinos.search', compact('destinos','request'));
     }
 }

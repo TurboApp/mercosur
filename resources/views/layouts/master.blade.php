@@ -9,7 +9,7 @@
     <title>MERCOSUR app - @yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-    
+
     <!-- Bootstrap core CSS     -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Material Dashboard CSS    -->
@@ -20,6 +20,8 @@
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/font-roboto.css" />
     <link href="/css/font-material-icons.css" rel="stylesheet">
+    {{-- estilo añadir archivo --}}
+    <link href="/css/html5fileupload.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -134,7 +136,7 @@
                             <li class="separator hidden-lg hidden-md"></li>
                         </ul>
                         @yield('nav-top')
-                    
+
                     </div>
                 </div>
             </nav>
@@ -148,7 +150,7 @@
             @include('layouts.partials.footer')
         </div>
     </div>
-    
+
 </body>
 <!--   Core JS Files   -->
 <!--<script src="/js/app.js" type="text/javascript"></script>-->
@@ -195,6 +197,7 @@
 <!-- Axios -->
 <script src="/js/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/html5fileupload.js"></script>
 
 
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->

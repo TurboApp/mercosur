@@ -11,8 +11,6 @@ Route::get('/clientes/', 'ClienteController@index');
 
 Route::get('/clientes/busqueda/', 'ClienteController@search');
 
-Route::get('/clientes/resultados/', 'ClienteController@results');
-
 Route::get('/clientes/nuevo', 'ClienteController@create');
 
 Route::get('/clientes/{cliente}/editar', 'ClienteController@edit');
@@ -29,8 +27,6 @@ Route::delete('/clientes/{cliente}/destroy', 'ClienteController@destroy');
 Route::get('/agentes/', 'AgenteController@index');
 
 Route::get('/agentes/busqueda/', 'AgenteController@search');
-
-Route::get('/agentes/resultados/', 'AgenteController@results');
 
 Route::get('/agentes/nuevo', 'AgenteController@create');
 
@@ -49,32 +45,39 @@ Route::get('/destinos/', 'DestinoController@index');
 
 Route::get('/destinos/busqueda/', 'DestinoController@search');
 
-Route::get('/destinos/resultados/', 'DestinoController@results');
-
 Route::get('/destinos/nuevo', 'DestinoController@create');
 
-Route::get('/destinos/{agente}/editar', 'DestinoController@edit');
+Route::post('/destinos','DestinoController@store');
 
-Route::get('/destinos/{agente}', 'DestinoController@show');
+Route::get('/destinos/{destino}/editar', 'DestinoController@edit');
 
-#RUTAS DE LINEAS DE TRANSPORTE
-// Route::get('/transporte/', 'AgenteController@index');
+Route::patch('/destinos/{destino}', 'DestinoController@update');
 
-// Route::get('/transporte/busqueda/', 'AgenteController@search');
+Route::get('/destinos/{destino}', 'DestinoController@show');
 
-// Route::get('/transporte/resultados/', 'AgenteController@results');
+Route::delete('/destinos/{destino}/destroy','DestinoController@destroy');
 
-// Route::get('/transporte/nuevo', 'AgenteController@create');
+#RUTAS DE TRANSPORTES
+Route::get('/transportes/', 'LineasTransporteController@index');
 
-// Route::get('/transporte/{agente}/editar', 'AgenteController@edit');
+Route::get('/transportes/busqueda/', 'LineasTransporteController@search');
 
-// Route::get('/transporte/{agente}', 'AgenteController@show');
+Route::get('/transportes/nuevo','LineasTransporteController@create');
 
-// Route::post('/transporte', 'AgenteController@store');
+Route::post('/transportes','LineasTransporteController@store');
 
-// Route::patch('/transporte/{agente}', 'AgenteController@update');
+Route::get('/transportes/{transporte}','LineasTransporteController@show');
 
-// Route::delete('/transporte/{agente}/destroy', 'AgenteController@destroy');
+Route::get('/transportes/{transporte}/editar','LineasTransporteController@edit');
+
+Route::patch('/transportes/{transporte}','LineasTransporteController@update');
+
+Route::delete('/transportes/{transporte}/destroy','LineasTransporteController@destroy');
+
+#RUTAS DE TRAFICO
+
+Route::get('/traficos/nuevo', 'OrdenServicioController@create');
+
 
 #RUTAS DE VARIOS
 Route::get('/varios/', function(){
