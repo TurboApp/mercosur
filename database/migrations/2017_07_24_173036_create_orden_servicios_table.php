@@ -15,16 +15,16 @@ class CreateOrdenServiciosTable extends Migration
     {
         Schema::create('orden_servicios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipo',35);
+            $table->string('tipo',35)->nullable();
             $table->integer('id_agente')->unsigned();
             $table->integer('id_cliente')->unsigned();
-            $table->integer('numero_servicio');
-            $table->date('fecha_recepcion');
-            $table->string('hora_recepcion',12);
-            $table->string('observaciones');
+            $table->integer('numero_servicio')->nullable();
+            $table->date('fecha_recepcion')->nullable();
+            $table->string('hora_recepcion',12)->nullable();
+            $table->string('observaciones')->nullable();
             $table->integer('id_destino')->unsigned();
-            $table->string('pais_destino',35);
-            $table->string('estado',20);
+            $table->string('pais_destino',35)->nullable();
+            $table->string('estado',20)->nullable();
             $table->timestamps();
 
             $table->foreign('id_agente')->references('id')->on('agentes');

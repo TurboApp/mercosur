@@ -51,7 +51,7 @@
                 </li>
             </ul>
         </div>
-        
+
     </li>
     <!-- DESTINOS -->
     <li {{ Request::is('destinos*') ? ' class=active' : ''}}>
@@ -75,32 +75,58 @@
                 </li>
             </ul>
         </div>
-        
+
     </li>
     <!-- TRASNPORTES -->
-    <li {{ Request::is('trasnportes*') ? ' class=active' : ''}}>
+    <li {{ Request::is('transportes*') ? ' class=active' : ''}}>
         <a  href="#menuTransportes" data-toggle="collapse">
             <i class="fa fa-truck" aria-hidden="true"></i>
             <p>Lineas de transpotes
                 <b class="caret"></b>
             </p>
         </a>
-        <div class="collapse {{ Request::is('destinos*')  ? 'in' : ''}}" id="menuTransportes">
+        <div class="collapse {{ Request::is('transportes*')  ? 'in' : ''}}" id="menuTransportes">
             <ul class="nav">
-                <li {{ Request::is('trasnportes*') && !Request::is('destinos/nuevo') ? ' class=active' : ''}}>
-                    <a href="/trasnportes/">
+                <li {{ Request::is('transportes*') && !Request::is('transportes/nuevo') ? ' class=active' : ''}}>
+                    <a href="/transportes/">
                         Todos los trasnportes
                     </a>
                 </li>
-                <li {{ Request::is('trasnportes/nuevo') ? ' class=active' : ''}}>
-                    <a href="/trasnportes/nuevo">
+                <li {{ Request::is('transportes/nuevo') ? ' class=active' : ''}}>
+                    <a href="/transportes/nuevo">
                         Añadir nuevo
                     </a>
                 </li>
             </ul>
         </div>
-        
+
     </li>
+
+    {{-- TRAFICO --}}
+    <li {{ Request::is('traficos*') ? ' class=active' : ''}}>
+        <a  href="#menuTraficos" data-toggle="collapse">
+            <i class="material-icons">traffic</i>
+            <p>Trafico
+                <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse {{ Request::is('traficos*')  ? 'in' : ''}}" id="menuTraficos">
+            <ul class="nav">
+                <li {{ Request::is('traficos*') && !Request::is('traficos/nuevo') ? ' class=active' : ''}}>
+                    <a href="/traficos/">
+                        Todos los Traficos
+                    </a>
+                </li>
+                <li {{ Request::is('traficos/nuevo') ? ' class=active' : ''}}>
+                    <a href="/traficos/nuevo">
+                        Nuevo Servicio
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </li>
+
     <!-- VARIADO -->
     <!-- NOTIFICACIONES -->
     <li {{ Request::is('varios*') ? ' class=active' : ''}}>

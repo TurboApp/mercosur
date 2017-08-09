@@ -14,7 +14,8 @@ class LineasTransporteController extends Controller
      */
     public function index()
     {
-        //
+        $transportes=LineasTransporte::latest()->paginate(15);
+        return view('pages.transportes.index',compact('transportes'));
     }
 
     /**
@@ -24,7 +25,7 @@ class LineasTransporteController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.transportes.create');
     }
 
     /**
@@ -35,7 +36,17 @@ class LineasTransporteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // dd(request()->all());
+        $this->validate(request(),[
+          'nombre' => 'required',
+          'rfc' => 'required',
+          'email' => 'nullable|email'
+        ]
+      );
+
+        $transporte=LineasTransporte::create(request(['nombre','tipo','email','telefono','celular','direccion','rfc','codigo_postal','ciudad','pais']));
+        $request->session()->flash('success', 'Una nueva Linea de Transporte fue agregado exitosamente');
+        return redirect('/transportes/'.$transporte->id);
     }
 
     /**
@@ -44,9 +55,9 @@ class LineasTransporteController extends Controller
      * @param  \App\LineasTransporte  $lineasTransporte
      * @return \Illuminate\Http\Response
      */
-    public function show(LineasTransporte $lineasTransporte)
+    public function show(LineasTransporte $transporte)
     {
-        //
+        return view('pages.transportes.show', compact('transporte'));
     }
 
     /**
@@ -55,9 +66,9 @@ class LineasTransporteController extends Controller
      * @param  \App\LineasTransporte  $lineasTransporte
      * @return \Illuminate\Http\Response
      */
-    public function edit(LineasTransporte $lineasTransporte)
+    public function edit(LineasTransporte $transporte)
     {
-        //
+        return view('pages.transportes.edit',compact('transporte'));
     }
 
     /**
@@ -67,9 +78,25 @@ class LineasTransporteController extends Controller
      * @param  \App\LineasTransporte  $lineasTransporte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LineasTransporte $lineasTransporte)
+    public function update(Request $request, LineasTransporte $transporte)
     {
-        //
+      //Valida los datos
+       $this->validate(request(),
+           [
+               'nombre' => 'required',
+               'rfc'    => 'required',
+               'email'  => 'nullable|email'
+           ]
+       );
+       //Prepara los nuevos valores de los datos
+       $inputs = [ 'nombre'=>$request->nombre,'email'=>$request->email , 'telefono'=>$request->telefono , 'celular' => $request->celular , 'direccion' => $request->direccion , 'rfc' => $request->rfc , 'ciudad' => $request->ciudad , 'codigo_postal' => $request->codigo_postal, 'pais' => $request->pais, 'tipo' => $request->tipo ];
+       //proceso de guardatos en la tabla/modelo datos_empresas
+       $transporte = LineasTransporte::find($transporte->id);
+       $transporte->fill($inputs);
+       $transporte->save();
+       //Se envia mensaje y se redirecciona a la vista clientes.show
+       $request->session()->flash('success', 'Los datos se guardaron correctamente');
+       return redirect('/transportes/' . $transporte->id);
     }
 
     /**
@@ -78,8 +105,23 @@ class LineasTransporteController extends Controller
      * @param  \App\LineasTransporte  $lineasTransporte
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LineasTransporte $lineasTransporte)
+    public function destroy(LineasTransporte $transporte)
     {
-        //
+        $destino = LineasTransporte::find($transporte->id);
+      if(count($transporte))
+      {
+          $transporte->delete();
+      }
+
+      $request->session()->flash('success', 'El registro fue elimado correctamente');
     }
+
+    public function search(Request $request)
+   {
+
+       $transportes = LineasTransporte::where('nombre','LIKE','%'.$request->s.'%')->paginate(15);
+       return view('pages.transportes.search', compact('transportes','request'));
+   }
+
+
 }

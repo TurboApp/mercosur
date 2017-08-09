@@ -24,7 +24,7 @@ class OrdenServicioController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.traficos.create');
     }
 
     /**
