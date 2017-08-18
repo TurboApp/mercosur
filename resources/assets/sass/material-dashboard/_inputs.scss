@@ -284,8 +284,6 @@
   @include form-group-validation-state(has-error, $brand-danger);
   @include form-group-validation-state(has-success, $brand-success);
   @include form-group-validation-state(has-info, $brand-info);
-  @include form-group-validation-state(has-none, 'trasnparent');
-  @include form-group-validation-state(has-fix, $brand-primary);
 
   textarea {
     resize: none;
@@ -399,16 +397,18 @@ select.form-control {
         opacity: 1;
     }
 
+    .has-info &{
+        color: $brand-info;
+        opacity: 1;
+    }
+
+    .has-warning &{
+        color: $brand-warning;
+        opacity: 1;
+    }
+
     .has-error &{
         color: $red;
         opacity: 1;
     }
-    .has-fix &{
-        color: $brand-primary;
-        opacity: 1;
-    }
-    .has-none &{
-        color: $gray-light;
-        opacity: 1;
-    }  
 }

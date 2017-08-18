@@ -14,7 +14,14 @@ class TipoDocumentoController extends Controller
      */
     public function index()
     {
-        //
+        $tipo_doc = TipoDocumento::latest()->get();
+        $todolist = array();
+        for($i=0; $i < count($tipo_doc); $i++){
+            $todolist[$i]['id'] = $tipo_doc[$i]->id;
+            $todolist[$i]['titulo'] = $tipo_doc[$i]->documento;
+        }
+
+        return compact('todolist');
     }
 
     /**

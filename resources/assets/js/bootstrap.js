@@ -6,11 +6,43 @@ window._ = require('lodash');
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
-
 try {
-    window.$ = window.jQuery = require('jquery');
+	
+	window.$ = window.jQuery = require('jquery');
+	//require('jquery');
+	
+	require('./vendor/jquery-ui.min.js');
 
     require('bootstrap-sass');
+
+	//require('moment');
+	
+
+    // require('./vendor/material.min.js');
+
+    // require('./vendor/perfect-scrollbar.jquery.min.js');
+		
+    // require('./vendor/bootstrap-datetimepicker.js');
+    // require('./vendor/bootstrap-notify.js');
+	// require('datatables.net');
+	
+	// //require('./vendor/sweetalert2.js');
+	
+	// require('./vendor/fullcalendar.min.js');
+	// require('./vendor/chartist.min.js');
+	// require('./vendor/jasny-bootstrap.min.js');
+	// require('./vendor/jquery.bootstrap-wizard.js');
+	// require('./vendor/jquery.select-bootstrap.js');
+	// require('./vendor/jquery.sharrre.js');
+	// require('./vendor/jquery.tagsinput.js');
+	// require('./vendor/jquery.validate.js');
+	// require('./vendor/nouislider.min.js');
+
+	
+	// require('./vendor/material-dashboard.js');
+	// require('./vendor/mercosur.js');
+	
+	
 } catch (e) {}
 
 /**
@@ -51,3 +83,4 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+

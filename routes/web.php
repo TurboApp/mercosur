@@ -83,3 +83,5 @@ Route::get('/traficos/nuevo', 'OrdenServicioController@create');
 Route::get('/varios/', function(){
     return view('pages.varios.index');
 });
+
+Route::get('/tipodocumentos','TipoDocumentoController@index');
