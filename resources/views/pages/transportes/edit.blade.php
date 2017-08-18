@@ -121,7 +121,8 @@
                                     <div class="form-group">
                                       <label class="col-sm-3 label-on-left">Tipo</label>
                                         <div class="col-md-8 btn-group bootstrap-select show-tick">
-                                          <select class="selectpicker" name="tipo" value="{{ $transporte->tipo }}" data-style="select-with-transition" title="{{ $transporte->tipo }}"  data-size="7" tabindex="-98">
+                                          <select class="selectpicker" name="tipo" value="{{$transporte->tipo}}" title="{{$transporte->tipo}}" data-style="select-with-transition"  data-size="7" tabindex="-98">
+                                            {{-- <option value="{{$transporte->tipo}}" disabled selected>{{$transporte->tipo}}</option> --}}
                                             <option value="Nacional">Nacional</option>
                                             <option value="Extranjero">Extranjero</option>
                                           </select>

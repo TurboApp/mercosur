@@ -135,29 +135,6 @@
             <p>Varios</p>
         </a>
     </li>
-    <!-- TRAFICO -->
-    <li {{ Request::is('trafico*') ? ' class=active' : ''}}>
-        <a data-toggle="collapse" href="#menuTrafico"  >
-            <i class="material-icons">traffic</i>
-            <p>Tráfico
-                <b class="caret"></b>
-            </p>
-        </a>
-        <div class="collapse" id="menuTrafico">
-            <ul class="nav">
-                <li>
-                    <a href="./nuevo_servicio.html">
-                        Nuevo servicio
-                    </a>
-                </li>
-                <li>
-                    <a href="./lista_servicios.html">
-                        Lista de servicios
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
     <!-- NOTIFICACIONES -->
     <li>
         <a href="../notificaciones.html">

@@ -82,4 +82,10 @@ class OrdenServicioController extends Controller
     {
         //
     }
+
+    public function autocomplete(){
+      $dato=OrdenServicio::select('nombre'->where('nombre','LIKE','%'.$request->input('query').'%'))->get();
+      return response()->json($dato);
+    }
+
 }

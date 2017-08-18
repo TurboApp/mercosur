@@ -94,7 +94,6 @@
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
                     <div class="row">
-                      <form class="form-inline">
                         <label class="col-sm-2 label-on-left">Dirección</label>
                         <div class="col-sm-10">
                             <div class="row">
@@ -131,7 +130,7 @@
                                 </div>
                             </div>
                         </div><!-- ./col-md-10 -->
-                      </form>
+
                     </div><!-- ./row -->
                     <div class="row">
                       {{-- <div class="col-md-6 col-sm-6"> --}}
@@ -165,7 +164,6 @@
                 </div><!-- ./card-footer -->
             </form>
         </div>  <!-- ./card -->
-
     </div>
 </div>
 @endsection

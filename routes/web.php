@@ -66,17 +66,21 @@ Route::get('/transportes/nuevo','LineasTransporteController@create');
 
 Route::post('/transportes','LineasTransporteController@store');
 
-Route::get('/transportes/{transporte}','LineasTransporteController@show');
-
 Route::get('/transportes/{transporte}/editar','LineasTransporteController@edit');
 
 Route::patch('/transportes/{transporte}','LineasTransporteController@update');
+
+Route::get('/transportes/{transporte}','LineasTransporteController@show');
 
 Route::delete('/transportes/{transporte}/destroy','LineasTransporteController@destroy');
 
 #RUTAS DE TRAFICO
 
 Route::get('/traficos/nuevo', 'OrdenServicioController@create');
+
+#busqueda
+// Route::get('/traficos/nuevo', array('as'=>'search','uses'=>'OrdenServicioController@busqueda'));
+Route::get('autocomplete', array('as'=>'autocomplete','OrdenServicioController@autocomplete'));
 
 
 #RUTAS DE VARIOS

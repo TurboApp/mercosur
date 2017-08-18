@@ -556,4 +556,14 @@
 
     $('.html5fileupload.demo_multi').html5fileupload();
 </script>
+<script type="text/javascript">
+  var path = "{{route('autocomplete')}}";
+  $('inpu.typeahead').typeahead({
+    source: function(query,process){
+      return $.get(path,{query:quey}, function (data){
+        return process(data)
+      })
+    }
+  });
+</script>
 @endpush
