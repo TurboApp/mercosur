@@ -87,3 +87,5 @@ Route::get('autocomplete', array('as'=>'autocomplete','OrdenServicioController@a
 Route::get('/varios/', function(){
     return view('pages.varios.index');
 });
+
+Route::get('/tipodocumentos','TipoDocumentoController@index');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
-use App\DatosEmpresa;
+
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -19,6 +19,7 @@ class ClienteController extends Controller
         $clientes = Cliente::latest()->paginate(15);
        
         return view('pages.clientes.index', compact('clientes'));
+        
     }
 
    

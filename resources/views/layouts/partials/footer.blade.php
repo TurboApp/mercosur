@@ -4,32 +4,30 @@
             <ul>
                 <li>
                     <a href="#">
-                        Home
+                        <!--Home-->
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        Company
+                        <!--Company-->
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        Portfolio
+                        <!--Portfolio-->
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        Blog
+                        <!--Blog-->
                     </a>
                 </li>
             </ul>
         </nav>
         <p class="copyright pull-right">
-            &copy;
-            <script>
-                document.write(new Date().getFullYear())
-            </script>
+            <!--&copy; 2017
             <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+            -->
         </p>
     </div>
 </footer>

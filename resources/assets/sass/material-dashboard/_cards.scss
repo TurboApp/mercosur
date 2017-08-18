@@ -329,39 +329,6 @@
             border-top: none;
         }
     }
-    .list-group{
-        margin:0;
-        .list-group-item
-        {
-            border-left:none;
-            border-right:none;
-            padding-top: 0;
-            padding-bottom: 0;
-            &:first-child{
-                border-radius: 0;
-                border-top:none; 
-            }
-            &:last-child{
-                border-radius: 0;
-                border-bottom:none;
-            }
-            &.editting{
-                box-shadow: inset 0px 0px 15px 1px rgba(0,0,0,0.15);
-                font-size: 1.3em;
-                .input-group-addon{
-                    padding-left:0;
-                }
-                .form-control, 
-                .form-group .form-control,
-                .form-group.is-focused .form-control{
-                    font-size: inherit;
-                    background-image:none; 
-                    
-                }
-            }
-            
-        }
-    }
 
     .nav-pills,
     .tab-content{

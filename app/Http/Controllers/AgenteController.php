@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agente;
-use App\DatosEmpresa;
+
 use Illuminate\Http\Request;
 
 class AgenteController extends Controller
@@ -15,6 +15,7 @@ class AgenteController extends Controller
      */
     public function index()
     {
+        
         $agentes = Agente::latest()->paginate(15);
         return view('pages.agentes.index', compact('agentes'));
     }

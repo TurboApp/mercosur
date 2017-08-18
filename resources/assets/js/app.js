@@ -7,6 +7,7 @@
 
 require('./bootstrap');
 
+
 window.Vue = require('vue');
 
 /**
@@ -14,9 +15,14 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import Card from './components/cards/Card.vue';
+Vue.component('card', Card);
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('fg-input', require('./components/form/formGroupInput.vue'));
+Vue.component('todo-list', require('./components/misselanius/todolist.vue'));
+Vue.component('app-pagination', require('./components/misselanius/pagination.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+ const app = new Vue({
+     el: '#app',
+
+ });

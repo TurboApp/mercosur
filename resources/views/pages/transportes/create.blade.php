@@ -94,6 +94,10 @@
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
                     <div class="row">
+<<<<<<< HEAD
+=======
+                      
+>>>>>>> origin/master
                         <label class="col-sm-2 label-on-left">Dirección</label>
                         <div class="col-sm-10">
                             <div class="row">
@@ -130,10 +134,14 @@
                                 </div>
                             </div>
                         </div><!-- ./col-md-10 -->
+<<<<<<< HEAD
 
+=======
+                      
+>>>>>>> origin/master
                     </div><!-- ./row -->
                     <div class="row">
-                      {{-- <div class="col-md-6 col-sm-6"> --}}
+                      
                         <label class="col-sm-2 label-on-left">País</label>
                         <div class="col-sm-3">
                             <div class="form-group label-floating is-empty">
@@ -142,8 +150,6 @@
                                 <span class="material-input"></span>
                             </div>
                         </div><!-- ./col-md-10 -->
-                      {{-- </div> --}}
-                      {{-- <div class="col-md-6 col-sm-6"> --}}
                         <label class="col-sm-2 label-on-left">Ciudad</label>
                         <div class="col-sm-5">
                             <div class="form-group label-floating is-empty">
@@ -152,11 +158,10 @@
                                 <span class="material-input"></span>
                             </div>
                         </div><!-- ./col-md-10 -->
-                      {{-- </div> --}}
+                      
                     </div>
                 </div><!-- ./card-content -->
                 <div class="card-footer text-right">
-                    <hr>
                     <button type="submit" class="btn btn-primary btn-round">
                         <i class="material-icons">save</i>
                         Guardar
@@ -168,10 +173,11 @@
 </div>
 @endsection
 @push('scripts')
+ 
   @include('layouts.partials.errors')
 
       <script>
-        $('#createDestino').validate({
+        $('#createTransporte').validate({
               errorPlacement: function(error, element) {
                   $(element).parent('div').addClass('has-error');
               }
@@ -184,17 +190,5 @@
           demo.getCountry('.typeahead');
 
       </script>
-      <script>
-          let mv = new Vue({
-              data:{
-
-              },
-              computed:{
-
-              },
-              methods:{
-
-              }
-          });
-      </script>
+     
 @endpush
