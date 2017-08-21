@@ -13,7 +13,7 @@ class CreateTiposDeUnidadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_de_unidades', function (Blueprint $table) {
+        Schema::create('tipos_unidads', function (Blueprint $table) {
             $table->increments('id');
             $table->string('unidad',35);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateTiposDeUnidadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_de_unidades');
+        Schema::dropIfExists('tipos_unidads');
     }
 }

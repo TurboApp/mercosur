@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-
+        Jenssegers\Date\DateServiceProvider::Class,
         /*
          * Application Service Providers...
          */
@@ -179,6 +179,9 @@ return [
 
         //sweetAlert 2
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+
+        //date español
+        
 
     ],
 
@@ -230,6 +233,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //sweet Alert 2
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        //fechas español
+        'Date' => Jenssegers\Date\Date::class,
     ],
 
 ];

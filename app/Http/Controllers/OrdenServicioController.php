@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\OrdenServicio;
+use App\Agente;
+use App\TipoUnidad;
+use App\UnidadesDeMedida;
+use App\Eje;
+use Carbon\Carbon;
+use Jenssegers\Date\Date;
+
 use Illuminate\Http\Request;
 
 class OrdenServicioController extends Controller
@@ -24,7 +31,18 @@ class OrdenServicioController extends Controller
      */
     public function create()
     {
-        return view('pages.traficos.create');
+        $data = array();
+        $data["tipo_servicio"]= ['Carga'=>'Carga','Descarga'=>'Descarga','Trasbordos'=>'Trasbordos','Otros servicios'=>'Otros servicios'];
+        $data["agentes"] = Agente::get();
+        $data["tipo"] = TipoUnidad::get()->pluck('unidad');
+        $today=Carbon::now();
+        $today = Date::instance(Carbon::now());
+        dd($data);
+        //$date = Carbon::createFromFormat('d/m/Y', "$today->day/$today->month/$today->year");
+        $data["hoy"]=$today;
+        //array_push($data["tipo_servicio"],$tipo_servicios);
+        //dd($data);
+        return view('pages.traficos.create', compact('data'));
     }
 
     /**

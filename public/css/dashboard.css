@@ -6689,6 +6689,7 @@ span.twitter-typeahead .tt-menu,
 span.twitter-typeahead .tt-dropdown-menu {
   position: absolute;
   top: 100%;
+  width: 100%;
   left: 0;
   z-index: 1000;
   display: none;
@@ -6706,16 +6707,19 @@ span.twitter-typeahead .tt-dropdown-menu {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
+  overflow-x: hidden;
 }
 
 span.twitter-typeahead .tt-suggestion {
   display: block;
-  padding: 3px 20px;
+  padding: 8px 20px;
   clear: both;
+  font-size: 1.3em;
   font-weight: normal;
   line-height: 1.42857143;
   color: #333333;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 span.twitter-typeahead .tt-suggestion.tt-cursor,

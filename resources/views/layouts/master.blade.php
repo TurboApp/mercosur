@@ -143,6 +143,8 @@
 </body>
     <script src="/js/app.js"></script>
     <script src="/js/scripts.js"></script>
+    <!-- datepicker en español -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
     
     
     @stack('scripts')

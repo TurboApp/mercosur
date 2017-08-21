@@ -85,3 +85,8 @@ Route::get('/varios/', function(){
 });
 
 Route::get('/tipodocumentos','TipoDocumentoController@index');
+
+#Busqueda con sugerencia typeahead
+
+Route::get('/find/cliente', 'SearchController@cliente');
+Route::get('/find/destino', 'SearchController@destino');
