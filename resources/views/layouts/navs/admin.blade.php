@@ -6,6 +6,53 @@
             <p>Inicio</p>
         </a>
     </li>
+    <!--USUARIOS-->
+    <li {{ Request::is('usuarios*') ? ' class=active' : ''}}>
+        <a  href="#menuUsuarios" data-toggle="collapse">
+            <i class="material-icons">account_circle</i>
+            <p>Usuarios
+                <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse {{ Request::is('usuarios*')  ? 'in' : ''}}" id="menuUsuarios">
+            <ul class="nav">
+                <li {{ Request::is('usuarios*') && !Request::is('usuarios/nuevo') ? ' class=active' : ''}}>
+                    <a href="/usuarios/">
+                        Todos los Usuarios
+                    </a>
+                </li>
+                <li {{ Request::is('usuarios/nuevo') ? ' class=active' : ''}}>
+                    <a href="/usuarios/nuevo">
+                        Añadir nuevo
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <!--USUARIOS-->
+    {{-- FUERZA DE TAREA --}}
+    <li {{ Request::is('fuerzas*') ? ' class=active' : ''}}>
+        <a  href="#menuFuerzas" data-toggle="collapse">
+            <i class="fa fa-users fa-lg" aria-hidden="true"></i>
+            <p>Fuerza de Tarea
+                <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse {{ Request::is('fuerzas*')  ? 'in' : ''}}" id="menuFuerzas">
+            <ul class="nav">
+                <li {{ Request::is('fuerzas*') && !Request::is('fuerzas/nuevo') ? ' class=active' : ''}}>
+                    <a href="/fuerzas/">
+                        Todos los Operarios
+                    </a>
+                </li>
+                <li {{ Request::is('fuerzas/nuevo') ? ' class=active' : ''}}>
+                    <a href="/fuerzas/nuevo">
+                        Añadir nuevo
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
     <!-- CLIENTES -->
     <li {{ Request::is('clientes*') ? ' class=active' : ''}}>
         <a  href="#menuClientes" data-toggle="collapse">
@@ -134,6 +181,30 @@
             <i class="fa fa-cubes" aria-hidden="true"></i>
             <p>Varios</p>
         </a>
+    </li>
+    {{-- HERRAMIENTAS  --}}
+    <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
+        <a  href="#menuHerramientas" data-toggle="collapse">
+            <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+            <p>Herramientas
+                <b class="caret"></b>
+            </p>
+        </a>
+        <div class="collapse {{ Request::is('herramientas*')  ? 'in' : ''}}" id="menuHerramientas">
+            <ul class="nav">
+                <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
+                    <a href="/herramientas/">
+                        Todos los Traficos
+                    </a>
+                </li>
+                <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
+                    <a href="/herramientas/nuevo">
+                        Agregar Herramientas
+                    </a>
+                </li>
+            </ul>
+        </div>
+
     </li>
     <!-- NOTIFICACIONES -->
     <li>

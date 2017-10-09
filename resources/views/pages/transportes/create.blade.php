@@ -94,10 +94,7 @@
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
                     <div class="row">
-<<<<<<< HEAD
-=======
-                      
->>>>>>> origin/master
+
                         <label class="col-sm-2 label-on-left">Dirección</label>
                         <div class="col-sm-10">
                             <div class="row">
@@ -134,14 +131,10 @@
                                 </div>
                             </div>
                         </div><!-- ./col-md-10 -->
-<<<<<<< HEAD
 
-=======
-                      
->>>>>>> origin/master
                     </div><!-- ./row -->
                     <div class="row">
-                      
+
                         <label class="col-sm-2 label-on-left">País</label>
                         <div class="col-sm-3">
                             <div class="form-group label-floating is-empty">
@@ -158,7 +151,7 @@
                                 <span class="material-input"></span>
                             </div>
                         </div><!-- ./col-md-10 -->
-                      
+
                     </div>
                 </div><!-- ./card-content -->
                 <div class="card-footer text-right">
@@ -173,7 +166,7 @@
 </div>
 @endsection
 @push('scripts')
- 
+
   @include('layouts.partials.errors')
 
       <script>
@@ -190,5 +183,5 @@
           demo.getCountry('.typeahead');
 
       </script>
-     
+
 @endpush

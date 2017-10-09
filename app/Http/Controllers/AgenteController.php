@@ -15,7 +15,7 @@ class AgenteController extends Controller
      */
     public function index()
     {
-        
+
         $agentes = Agente::latest()->paginate(15);
         return view('pages.agentes.index', compact('agentes'));
     }
@@ -45,7 +45,7 @@ class AgenteController extends Controller
                 'email'  => 'nullable|email'
             ]
         );
-        
+
         $agente = Agente::create(request(['nombre','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
 
         $request->session()->flash('success', 'Un nuevo Agente se agrego satisfactoriamente');
@@ -115,13 +115,13 @@ class AgenteController extends Controller
         {
             $agente->delete();
         }
-            
+
         $request->session()->flash('success', 'El registro fue elimado correctamente');
     }
 
      public function search(Request $request)
     {
-        
+
         $agentes = Agente::where('nombre','LIKE','%'.$request->s.'%')->paginate(15);
         return view('pages.agentes.search', compact('agentes','request'));
     }

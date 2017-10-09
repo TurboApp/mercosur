@@ -10,8 +10,8 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
-    
+
+
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mercosur.css') }}">
@@ -21,7 +21,7 @@
 <body>
 <div id="app">
     <div class="wrapper">
-        <div class="sidebar" data-active-color="blue" data-background-color="black" >
+        <div class="sidebar blue-grey darken-3" data-active-color="blue" data-background-color="black" >
             <div class="logo">
                 <a href="/" class="simple-text">
                     MERCOSUR <sub>app</sub>
@@ -36,22 +36,25 @@
                 <!-- usuario -->
                 <div class="user">
                     <div class="photo">
-                        <img src="/img/default-avatar.png" />
+                        <img src="{{Storage::url(auth()->user()->url_avatar)}}" />
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            Nombre de usuario
+                             <span class="text-uppercase">{{auth()->user()->user}}</span>
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample" >
+                          <form id="salir"  action="{{route('logout')}}" method="post">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">Mi Perfil</a>
+                                    <a href="/perfil/{{auth()->user()->id}}">Mi Perfil</a>
                                 </li>
                                 <li>
-                                    <a href="#">Configuración</a>
+                                    {{ csrf_field() }}
+                                    <a id="logout" href="#">Salir</a>
                                 </li>
                             </ul>
+                          </form>
                         </div>
                     </div>
                 </div><!-- ./user -->
@@ -62,7 +65,7 @@
             </div>
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
-        <div class="main-panel">
+        <div class="main-panel grey lighten-2">
             <!-- NAVEGACION -->
             <nav class="navbar navbar-transparent navbar-absolute">
                 <div class="container-fluid">
@@ -143,7 +146,14 @@
 </body>
     <script src="/js/app.js"></script>
     <script src="/js/scripts.js"></script>
-    
-    
+
+
     @stack('scripts')
+    <script type="text/javascript">
+      (function(){
+        document.getElementById("logout").onclick=function(){
+          document.getElementById("salir").submit();
+        }
+      }());
+    </script>
 </html>

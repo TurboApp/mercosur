@@ -17,17 +17,19 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',150);
-            $table->string('email')->length(60)->unique();
+            $table->string('apellido',150);
+            $table->string('email')->length(60)->unique()->nullable();
             $table->string('direccion',160);
-            $table->string('telefono',15);
-            $table->integer('celular')->length(15)->unique();
-            $table->string('url_avatar');
-            $table->string('user',15);
-            $table->string('password');
-            $table->integer('id_perfil')->unsigned();
+            $table->string('telefono',15)->nullable();
+            $table->string('celular')->length(10);
+            $table->string('url_avatar')->nullable();
+            $table->string('user',50)->unique();
+            $table->string('password',50);
+            $table->integer('perfil_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('id_perfil')->references('id')->on('perfiles');
+
+            $table->foreign('perfil_id')->references('id')->on('perfils')->onDelete('cascade');
         });
     }
 

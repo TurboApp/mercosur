@@ -2,28 +2,27 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class User extends Authenticatable
+
+class User extends Model implements Authenticatable
 {
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
+  use \Illuminate\Auth\Authenticatable;
+  use Notifiable;
+  protected $guard="users";
+  protected $fillable=['nombre','apellido','email','direccion','telefono','celular','url_avatar','user','password','perfil_id'];
+  protected $hidden = [
         'password', 'remember_token',
     ];
+
+  public function puestos(){
+    return $this->belongsToMany('App\Puesto','user_puesto','id_usuario','id_puesto');
+  }
+
+  public function perfil(){
+    return $this->belongsTo('App\Perfil');
+  }
+
 }

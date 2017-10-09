@@ -48,7 +48,7 @@
                                 <td>{{ ( $agente->telefono !== 'null' ) ? $agente->telefono : '' }}</td>
                                 <td>{{ ( $agente->celular !== 'null' ) ? $agente->celular : '' }}</td>
                                 <td>{{ ( $agente->email !== 'null' ) ? $agente->email : '' }}</td>
-                                
+
                                 <td class="td-actions text-right">
                                     <a href="/agentes/{{ $agente->id }}" rel="tooltip" class="btn btn-info" data-original-title="info" title="Información">
                                        <i class="material-icons">insert_drive_file</i>
@@ -67,9 +67,9 @@
             <div class="card-footer text-center">
                 {{ $agentes->links() }}
             </div>
-            
+
         </div><!-- ./card -->
-       
+
     </div><!-- ./col-md-12 -->
 
 </div><!-- ./row -->
@@ -77,7 +77,5 @@
 
 
 @push('scripts')
-    @include('layouts.partials.notify')
+    @include('layouts.partials.error')
 @endpush
-
-
