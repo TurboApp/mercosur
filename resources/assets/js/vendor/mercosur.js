@@ -202,7 +202,7 @@ $().ready(function(){
 
 });
 
-demo = {
+app = {
 
     getCountry:function( item ){
         var countries = new Bloodhound({
@@ -211,24 +211,70 @@ demo = {
             prefetch: '/data/country.json',
             
         });
-        
         // Initializing the typeahead with remote dataset without highlighting
         $( item ).typeahead({
         hint: true,
         highlight: true,
         minLength: 0,
-        
         }, {
             lmit:8,
             name: 'country',
             display:'country',
             source: countries,
             templates: {
-                
                 suggestion: function (data) {
                     return '<p><span  class="flag '+ data.abb.toLowerCase() +'"></span><span class="country">' + data.country + '</span></p>';
                 }
-                
+            }
+        });
+    },
+
+    getMarcaVehiculo:function( item ){
+        var marcasV = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('marca'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: '/data/marcavehiculos.json',
+            
+        });
+        // Initializing the typeahead with remote dataset without highlighting
+        $( item ).typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 0,
+        }, {
+            lmit:8,
+            name: 'marca',
+            display:'marca',
+            source: marcasV,
+            templates: {
+                suggestion: function (data) {
+                    return '<p><span  class="icon-m-v '+ data.icono +'"></span><span class="marca-vehiculo">' + data.marca + '</span></p>';
+                }
+            }
+        });
+    },
+
+    getTipoVehiculo:function( item ){
+        var tipoV = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tipo'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            prefetch: '/data/tipovehiculos.json',
+            
+        });
+        // Initializing the typeahead with remote dataset without highlighting
+        $( item ).typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 0,
+        }, {
+            lmit:8,
+            name: 'tipoVehiculo',
+            display:'tipo',
+            source: tipoV,
+            templates: {
+                suggestion: function (data) {
+                    return '<p><span class="tt-dataset">' + data.tipo + '</span></p>';
+                }
             }
         });
     },
@@ -292,8 +338,8 @@ demo = {
          });
 
          $('.timepicker').datetimepicker({
-//          format: 'H:mm',    // use this format if you want the 24hours timepicker
-            format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+            format: 'HH:mm',    // use this format if you want the 24hours timepicker
+//            format: 'h:mm A',    //use this format if you want the 12hours timpiecker with AM/PM toggle
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",
@@ -804,6 +850,8 @@ demo = {
         md.startAnimationForBarChart(websiteViewsChart);
 
     },
+
+    
 
     showSwal: function(type){
 

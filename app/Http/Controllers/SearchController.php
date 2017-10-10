@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
-use App\Destino;
+use App\OrdenServicio;
+use App\LineasTransporte;
 
 use Illuminate\Http\Request;
 
@@ -16,6 +17,11 @@ class SearchController extends Controller
 
     public function destino(Request $request)
     {
-        return Destino::search($request->get('q'))->get();
+        return OrdenServicio::search($request->get('q'))->distinct()->select('destino')->get();
+    }
+
+    public function transporte(Request $request)
+    {
+        return LineasTransporte::search($request->get('q'))->get();
     }
 }

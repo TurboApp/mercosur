@@ -14,12 +14,25 @@ class CreateOrdenServicioTransportesTable extends Migration
     public function up()
     {
         Schema::create('orden_servicio_transportes', function (Blueprint $table) {
+            
             $table->increments('id');
+
             $table->integer('id_orden_servicio')->unsigned();
             $table->integer('id_linea_transporte')->unsigned();
+            $table->string('nombre_operador',120);
+            $table->string('tipo_unidad');
+            $table->string('medida_unidad',30);
+            $table->string('ejes',25);
+            $table->smallInteger('cantidad');
+            $table->string('talon_embarque');
+            $table->string('marca_vehiculo');
+            $table->string('placas_tractor');
+            $table->string('placas_caja');
+            $table->string('sellos')->nullable();
+            $table->string('type');
+
             $table->timestamps();
-            $table->foreign('id_orden_servicio')->references('id')->on('orden_servicios');
-            $table->foreign('id_linea_transporte')->references('id')->on('lineas_transportes');
+            
         });
     }
 

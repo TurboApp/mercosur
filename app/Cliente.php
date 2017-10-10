@@ -7,7 +7,6 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Cliente extends Model
 {
     use SearchableTrait;
-    
     protected $searchable = [
         'columns' => [
             'clientes.id' => 10,
@@ -15,9 +14,11 @@ class Cliente extends Model
             'clientes.rfc' => 3,
             
         ],
-        // 'joins' => [
-        //     'profiles' => ['users.id','profiles.user_id'],
-        // ],
     ];
     
+
+    public function servicio()
+    {
+        return $this->hasMany('App\OrdenServicio','cliente_id','id');
+    }
 }

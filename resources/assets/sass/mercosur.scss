@@ -411,3 +411,67 @@
         top: 80px;
     }
 }
+
+
+.tab-pane{
+    display:none;
+}
+.tab-pane.active{
+    display:block;
+}
+.selectpicker,.datepicker,.timepicker{
+    cursor: pointer;
+}
+
+.btn-descripcion-servicio{
+    margin-bottom:60px;
+    padding-bottom: 60px;
+}
+.service-icon{
+    background-image: url("/img/servicios-iconos/servicios-icons.png");
+    display: inline-block;
+    &.descarga,&.carga,
+    &.trasbordo,&.otros-servicios{
+        height:128px;
+        width: 250px;
+        display: block;
+    }
+    &.carga{
+        background-position:0px 0px;
+        &.on{
+            background-position:250px 0px;
+        }
+    }
+    &.descarga{
+        background-position:0px -128px;
+        &.on{
+            background-position:250px -128px;
+        }
+    }
+    &.trasbordo{
+        background-position:0px -256px;
+        &.on{
+            background-position:250px -256px;
+        }
+    }
+    &.otros-servicios{
+        background-position:0px -384px;
+        &.on{
+            background-position:250px -384px;
+        }
+    }
+}
+.btn-group.bootstrap-select{
+    margin-top:2px;
+}
+.error_selectpicker{
+    border-bottom:2px solid #F44336 !important;
+}
+.card-collapse.has-error{
+    border-color:#F44336 !important;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}

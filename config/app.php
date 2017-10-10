@@ -180,8 +180,16 @@ return [
         //sweetAlert 2
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
+        //EXCEL
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        
+        //Laravel collective
+        Collective\Html\HtmlServiceProvider::class,
         //date español
         
+        //Data tables
+        
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -235,6 +243,14 @@ return [
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         //fechas español
         'Date' => Jenssegers\Date\Date::class,
+        //Exportar de excel a laravel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        //Laravel collective para escribir html
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,  
+        //'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

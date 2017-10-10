@@ -30,7 +30,8 @@
                     buttonsStyling: false
                     }).then(function(){
                         
-                       window.location = "{{$redirect}}";
+                        window.location = "{{$redirect}}";
+
                         
                     })
                 }, function (dismiss) {

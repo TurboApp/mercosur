@@ -3,46 +3,38 @@
 @section('title','Información del cliente')
 
 @section('nav-top')
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        <a href="/clientes" rel="tooltip" data-placement="bottom" title="Ir a clientes">
-            <i class="material-icons">reply</i>
-            <p class="hidden-lg hidden-md">Ir a clientes</p>
-        </a>
-    </li>
-    <li>
-        <a href="/clientes/{{ $cliente->id }}/editar" rel="tooltip" data-placement="bottom" title="Editar">
-            <i class="material-icons">edit</i>
-            <p class="hidden-lg hidden-md">Editar</p>
-        </a>
-    </li>
-    <li>
-        <a href="#" rel="tooltip" class=" delete-cliente" data-placement="bottom" title="Eliminar">
-            <i class="material-icons">delete</i>
-            <p class="hidden-lg hidden-md">Eliminar</p>
-        </a>
-    </li>
-    <li>
-        <a href="/clientes/nuevo" rel="tooltip" data-placement="bottom" title="Agregar nuevo">
-            <i class="material-icons">person_add</i>
-            <p class="hidden-lg hidden-md">Agregar</p>
-        </a>
-    </li>
-    
-    
-    <li class="separator hidden-lg hidden-md"></li>
-</ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/clientes" title="Ir a clientes">
+                <i class="material-icons">reply</i>
+                <p class="hidden-lg hidden-md">Ir a clientes</p>
+            </a>
+        </li>
+        <li>
+            <a href="/clientes/{{ $cliente->id }}/editar" title="Editar">
+                <i class="material-icons">edit</i>
+                <p class="hidden-lg hidden-md">Editar</p>
+            </a>
+        </li>
+        <li>
+            <a href="#" class=" delete-cliente" title="Eliminar">
+                <i class="material-icons">delete</i>
+                <p class="hidden-lg hidden-md">Eliminar</p>
+            </a>
+        </li>
+        <li>
+            <a href="/clientes/nuevo"  title="Agregar nuevo">
+                <i class="material-icons">person_add</i>
+                <p class="hidden-lg hidden-md">Agregar</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
 
-<form class="navbar-form navbar-right" method="GET" action="/clientes/busqueda/" role="search">
-    <div class="form-group form-search is-empty">
-        <input type="text" class="form-control" name="s" placeholder="Buscar">
-        <span class="material-input"></span>
-    </div>
-    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-        <i class="material-icons">search</i>
-        <div class="ripple-container"></div>
-    </button>
-</form>
+    @component('components.navbarsearch',[
+        'action'    => 'ClienteController@search',
+    ])
+    @endcomponent()
 @endsection
 @section('content')
 
@@ -67,15 +59,30 @@
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">RFC</label>
-                        <div class="col-sm-10">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" value="{{ ( $cliente->rfc !== 'null' ) ? $cliente->rfc : '' }}" disabled="">
-                                <span class="material-input"></span>
+                    <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" value="{{ ( $cliente->nombre_corto !== 'null' ) ? $cliente->nombre_corto : '' }}" disabled="">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                           
-                        </div><!-- ./col-md-10 -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-2 label-on-left">RFC</label>
+                                <div class="col-md-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" value="{{ ( $cliente->rfc !== 'null' ) ? $cliente->rfc : '' }}" disabled="">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
+                            </div>
+                        </div>
                     </div><!-- ./row -->
                     <div class="row">
                         <label class="col-sm-2 label-on-left">Email</label>
@@ -119,31 +126,39 @@
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Direcciòn</label>
-                        <div class="col-sm-6">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" value="{{ ( $cliente->direccion !== 'null' ? $cliente->direccion : '' ) }}" disabled="">
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Ciudad</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="ciudad" value="{{ ( $cliente->ciudad !== 'null' ) ? $cliente->ciudad : '' }}" maxlength="60">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                           
-                        </div><!-- ./col-md-10 -->
-                        <label class="col-sm-2 label-on-left">Codigo postal</label>
-                        <div class="col-sm-2">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" value="{{ ( $cliente->codigo_postal !== 'null' ) ? $cliente->codigo_postal : '' }}" disabled="">
-                                <span class="material-input"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-3 label-on-left">Codigo postal</label>
+                                <div class="col-md-9">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="codigo_postal" value="{{ ( $cliente->codigo_postal !== 'null' ) ? $cliente->codigo_postal : '' }}" maxlength="10">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        
-                        </div><!-- ./col-md-10 -->
+                        </div>
                     </div><!-- ./row -->
+                    
+                    
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Ciudad</label>
+                        <label class="col-sm-2 label-on-left">Dirección</label>
                         <div class="col-sm-10">
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label"></label>
-                                <input type="text" class="form-control" value="{{ ( $cliente->ciudad !== 'null' ) ? $cliente->ciudad : '' }}" disabled="">
+                                <textarea class="form-control" disabled="">{{ ( $cliente->direccion !== 'null' ? $cliente->direccion : '' ) }}</textarea>
                                 <span class="material-input"></span>
                             </div>
                             

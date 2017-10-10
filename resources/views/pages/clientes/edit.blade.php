@@ -3,25 +3,19 @@
 @section('title','Editar datos de cliente')
 
 @section('nav-top')
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        <a href="/clientes/{{$cliente->id}}" rel="tooltip" data-placement="bottom" title="Cancelar">
-            <i class="material-icons">cancel</i>
-            <p class="hidden-lg hidden-md">Cancelar</p>
-        </a>
-    </li>
-    <li class="separator hidden-lg hidden-md"></li>
-</ul>
-<form class="navbar-form navbar-right" method="GET" action="/clientes/busqueda/" role="search">
-    <div class="form-group form-search is-empty">
-        <input type="text" class="form-control" name="s" placeholder="Buscar">
-        <span class="material-input"></span>
-    </div>
-    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-        <i class="material-icons">search</i>
-        <div class="ripple-container"></div>
-    </button>
-</form>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/clientes/{{$cliente->id}}" title="Cancelar">
+                <i class="material-icons">cancel</i>
+                <p class="hidden-lg hidden-md">Cancelar</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
+    @component('components.navbarsearch',[
+        'action'    => 'ClienteController@search',
+    ])
+    @endcomponent()
 @endsection
 @section('content')
 <div class="row">
@@ -48,14 +42,30 @@
                         </div>
                     </div><!-- -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">RFC</label>
-                        <div class="col-sm-10">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="rfc" value="{{ $cliente->rfc }}" maxlength="15" required>
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="nombre_corto" value="{{ $cliente->nombre_corto }}" maxlength="30" required>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-sm-2 label-on-left">RFC</label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="rfc" value="{{ $cliente->rfc }}" maxlength="15" required>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
+                            </div>
+                        </div>
                     </div><!-- ./row -->
                     <div class="row">
                         <label class="col-sm-2 label-on-left">Email</label>
@@ -94,31 +104,39 @@
                             </div>
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
-                   
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Direcciòn</label>
-                        <div class="col-sm-6">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="direccion" value="{{ $cliente->direccion }}" maxlength="191">
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Ciudad</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="ciudad" value="{{ $cliente->ciudad }}" maxlength="60">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
-                        <label class="col-sm-2 label-on-left">Codigo postal</label>
-                        <div class="col-sm-2">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="codigo_postal" value="{{ $cliente->codigo_postal }}" maxlength="10">
-                                <span class="material-input"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-3 label-on-left">Codigo postal</label>
+                                <div class="col-md-9">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="codigo_postal" value="{{ $cliente->codigo_postal }}" maxlength="10">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
+                        </div>
                     </div><!-- ./row -->
+                    
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Ciudad</label>
+                        <label class="col-sm-2 label-on-left">Dirección</label>
                         <div class="col-sm-10">
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label"></label>
-                                <input type="text" class="form-control" name="ciudad" value="{{ $cliente->ciudad }}" maxlength="60">
+                                <textarea class="form-control" name="direccion" maxlength="191">{{ $cliente->direccion }}</textarea>
                                 <span class="material-input"></span>
                             </div>
                         </div><!-- ./col-md-10 -->

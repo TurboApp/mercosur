@@ -22,12 +22,18 @@
     "material-design-icons": "^3.0.1",
     "moment": "^2.18.1",
     "sweetalert": "^1.1.3",
-    "vue": "^2.1.10"
+    "vue": "^2.1.10",
+    "vue2-typeahead": "^1.0.14"
   },
   "dependencies": {
     "roboto-fontface": "^0.8.0",
     "sweetalert": "^1.1.3",
     "sweetalert2": "^6.6.8",
-    "vue-sweetalert": "^0.1.18"
+    "uiv": "^0.11.8",
+    "vue-animate": "0.0.4",
+    "vue-sweetalert": "^0.1.18",
+    "vue-typeahead": "^2.3.2",
+    "vue-upload-component": "^2.4.0-beta.11",
+    "vue2-animate": "^1.0.4"
   }
 }

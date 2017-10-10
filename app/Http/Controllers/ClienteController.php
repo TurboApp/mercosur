@@ -39,12 +39,13 @@ class ClienteController extends Controller
         $this->validate(request(),
             [
                 'nombre' => 'required',
+                'nombre_corto' => 'required',
                 'rfc'    => 'required',
                 'email'  => 'nullable|email'
             ]
         );
         
-        $cliente = Cliente::create(request(['nombre','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
+        $cliente = Cliente::create(request(['nombre','nombre_corto','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
         
         $request->session()->flash('success', 'El cliente se agrego a la base de datos satisfactoriamente');
         return redirect('/clientes/'.$cliente->id);
@@ -85,6 +86,7 @@ class ClienteController extends Controller
         $this->validate(request(),
             [
                 'nombre' => 'required',
+                'nombre_corto' => 'required',
                 'rfc'    => 'required',
                 'email'  => 'nullable|email'
             ]
@@ -92,9 +94,9 @@ class ClienteController extends Controller
         
         $update = Cliente::findOrFail($cliente->id);
         //Prepara los nuevos valores de los datos
-         $input = $request->all();
+        $input = $request->all();
         //proceso de guardatos en la tabla/modelo datos_empresas
-         $update->fill($input)->save();
+        $update->fill($input)->save();
         // //Se envia mensaje y se redirecciona a la vista clientes.show
         $request->session()->flash('success', 'Los datos se guardaron correctamente');
         return redirect('/clientes/' . $cliente->id);
@@ -114,8 +116,8 @@ class ClienteController extends Controller
         {
             $del->delete();
         }
-            
-        $request->session()->flash('success', 'El registro fue elimano correctamente');
+        var_dump($user->id);    
+        //$request->session()->flash('success', 'El registro fue elimano correctamente');
         
         return redirect('/clientes');
     }
@@ -123,8 +125,9 @@ class ClienteController extends Controller
 
     public function search(Request $request)
     {
-        $clientes = Cliente::where('nombre','LIKE','%'.$request->s.'%')->paginate(15);
         
+        $clientes = Cliente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%')->paginate(15);
+        $clientes->appends(['s'=>$request->s]);
         return view('pages.clientes.search', compact('clientes','request'));
     }
 

@@ -18,6 +18,8 @@
 @import "material-dashboard/plugins/perfect-scrollbar";
 @import "material-dashboard/plugins/typeahead";
 @import "material-dashboard/plugins/flags";
+@import "material-dashboard/plugins/marcas-vehiculos";
+@import "material-dashboard/plugins/jqueryfiler";
 
 // Core CSS
 @import "material-dashboard/typography";
@@ -25,6 +27,7 @@
 @import "material-dashboard/buttons";
 @import "material-dashboard/misc";
 @import "material-dashboard/inputs";
+@import "material-dashboard/inputfile";
 @import "material-dashboard/fileupload";
 @import "material-dashboard/alerts";
 @import "material-dashboard/tables";
@@ -51,5 +54,6 @@
 @import "material-dashboard/cards";
 @import "material-dashboard/tabs";
 @import "material-dashboard/responsive";
+@import "material-dashboard/preloader";
 
-
+@import "material-dashboard/getcolors";

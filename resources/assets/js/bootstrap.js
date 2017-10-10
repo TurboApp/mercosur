@@ -9,12 +9,12 @@ window._ = require('lodash');
 try {
 	
 	window.$ = window.jQuery = require('jquery');
-	//require('jquery');
 	
 	require('./vendor/jquery-ui.min.js');
-
+	
+	
     require('bootstrap-sass');
-
+	require ('bootstrap-select');
 	//require('moment');
 	
 

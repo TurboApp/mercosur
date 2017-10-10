@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ListasEmpaque;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListasEmpaqueController extends Controller
 {
@@ -36,6 +37,18 @@ class ListasEmpaqueController extends Controller
     public function store(Request $request)
     {
         //
+        //$name=$request->name;
+        $path = $request->file('file');
+        
+        //dd($path);
+
+        //$name =$request->name;
+        Excel::load($path, function($reader)
+        {
+         $results = $reader->get();
+         ListasEmpaque::insert($results->toArray());
+        });
+        return '0';
     }
 
     /**
