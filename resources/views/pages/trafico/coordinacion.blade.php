@@ -10,7 +10,6 @@
         <div class="col-md-12 ">
             <h2>Coordinación</h2>
         </div>
-        
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -62,9 +61,8 @@
     </div>
         <card>
         <template>
-            
             <div class="material-datatables">
-                <table id="servicios" class="table table-hover">
+                <table id="servicios" class="table table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Turno</th>
@@ -72,7 +70,7 @@
                             <th>Cliente</th>
                             <th>Supervisor</th>
                             <th>Estatus</th>
-                            <th>&nbsp;</th>
+                            <th><span class="visible-xs">Opciones</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -162,29 +160,32 @@
             
         });
         let table = $('#servicios').DataTable( {
-            "order": [],
-            "responsive": true,
-            "processing": true,
-            "serverSide": true,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            order: [],
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
             },
-            "ajax": "/API/coordinacion",
-            "columns":[
+            ajax: "/API/coordinacion",
+            columns:[
                 { 
-                    "data" : "turno",
-                    "render" : function(data, type, row){
+                    data : "turno",
+                    render : function(data, type, row){
                         return `
                             <span class="text-center yellow accent-2" style="display:block; font-size:5.2em;">`+data+`</span>
                         `;
                     }
                 },
                 { 
-                    "data" : "servicio.tipo",
-                    
-                    "render":function(data,type,row){
+                    data : "servicio.tipo",
+                    render :function(data,type,row){
                         return  `
-                        <figure class="`+data+` img-rounded" style="padding:5px;">
+                        <figure class="`+data+` img-rounded" style="padding:5px;max-width:200px;margin:0 auto;">
                             <img src="/img/servicios-iconos/`+data.toLowerCase()+`-icon-on.png" alt="`+ data +`">
                             <figcaption style="margin-top:1em;"><p class="text-center text-uppercase">`+data+`</p></figcaption>
                        </figure>
@@ -192,8 +193,8 @@
                     }
                 },
                 { 
-                    "data" : "servicio.cliente.nombre",
-                    "render": function(data, type, row){
+                    data : "servicio.cliente.nombre",
+                    render : function(data, type, row){
                         return `
                             <small class="text-muted">
                               <i class="fa fa-calendar-o" aria-hidden="true"></i> `+ row.servicio.date_humans +` - No. de servicio `+row.servicio.numero_servicio+` 
@@ -203,14 +204,14 @@
                     }     
                 },
                 {
-                    "data" : "supervisor_id",
-                    "render" : function(data, type, row){
+                    data : "supervisor_id",
+                    render : function(data, type, row){
                         return '<p class="lead text-muted">Jonh Doe</p>'
                     }
                 },
                 { 
-                    "data" : "servicio.status",
-                    "render": function(data, type, row){
+                    data : "servicio.status",
+                    render : function(data, type, row){
                         
                         switch (data) {
                             case "PARA ASIGNAR": case "Para asignar": case "para asignar":
@@ -232,9 +233,9 @@
                     }
                 },
                 {
-                    "orderable": false,
-                    "data":null,
-                    "render": function(data, type, row){
+                    orderable: false,
+                    data :null,
+                    render : function(data, type, row){
                         if(data.servicio.status !== 'Para asignar'){
                             return `
                                 <a href="#`+data.id+`" class="btn btn-success btn-simple btn-icon">

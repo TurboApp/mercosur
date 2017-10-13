@@ -25,9 +25,7 @@
         overflow: auto;
         width: 260px;
         z-index: 4;
-
         padding-bottom: 30px;
-
         .dropdown .dropdown-backdrop{
             display: none !important;
         }
@@ -309,8 +307,6 @@
         }
     }
 }
-
-
 .main-panel{
     position: relative;
     float: right;
@@ -361,7 +357,8 @@
 
 // windows os settings for perfect scrollbar off
 .sidebar .sidebar-wrapper,
-.main-panel{
+//.main-panel
+{
     .perfect-scrollbar-on &,
     &{
         overflow: hidden;
@@ -371,7 +368,8 @@
 // regular settings for perfect scrollbar off
 .perfect-scrollbar-off{
     .sidebar .sidebar-wrapper,
-    .main-panel{
+    //.main-panel
+    {
         overflow: auto;
     }
 }
@@ -426,8 +424,9 @@
                 overflow: inherit;
                 width: 80px;
                 box-shadow: none;
+                
             }
-
+            
             .logo{
                 display: none;
             }
@@ -590,10 +589,12 @@
         }
 
         .sidebar,
-        .main-panel{
+        //.main-panel
+        {
             overflow: visible;
             max-height: none;
             height: auto;
+            
         }
     }
 }

@@ -25266,6 +25266,40 @@ return hooks;
 }));
 
 /*!
+ Responsive 2.2.0
+ 2014-2017 SpryMedia Ltd - datatables.net/license
+*/
+(function(c){"function"===typeof define&&define.amd?define(["jquery","datatables.net"],function(k){return c(k,window,document)}):"object"===typeof exports?module.exports=function(k,j){k||(k=window);if(!j||!j.fn.dataTable)j=require("datatables.net")(k,j).$;return c(j,k,k.document)}:c(jQuery,window,document)})(function(c,k,j,q){function s(b,a,d){var e=a+"-"+d;if(l[e])return l[e];for(var c=[],b=b.cell(a,d).node().childNodes,a=0,d=b.length;a<d;a++)c.push(b[a]);return l[e]=c}function r(b,a,c){var e=a+
+    "-"+c;if(l[e]){for(var b=b.cell(a,c).node(),c=l[e][0].parentNode.childNodes,a=[],f=0,g=c.length;f<g;f++)a.push(c[f]);c=0;for(f=a.length;c<f;c++)b.appendChild(a[c]);l[e]=q}}var n=c.fn.dataTable,h=function(b,a){if(!n.versionCheck||!n.versionCheck("1.10.3"))throw"DataTables Responsive requires DataTables 1.10.3 or newer";this.s={dt:new n.Api(b),columns:[],current:[]};this.s.dt.settings()[0].responsive||(a&&"string"===typeof a.details?a.details={type:a.details}:a&&!1===a.details?a.details={type:!1}:a&&
+    !0===a.details&&(a.details={type:"inline"}),this.c=c.extend(!0,{},h.defaults,n.defaults.responsive,a),b.responsive=this,this._constructor())};c.extend(h.prototype,{_constructor:function(){var b=this,a=this.s.dt,d=a.settings()[0],e=c(k).width();a.settings()[0]._responsive=this;c(k).on("resize.dtr orientationchange.dtr",n.util.throttle(function(){var a=c(k).width();a!==e&&(b._resize(),e=a)}));d.oApi._fnCallbackReg(d,"aoRowCreatedCallback",function(e){-1!==c.inArray(!1,b.s.current)&&c(">td, >th",e).each(function(e){e=
+    a.column.index("toData",e);!1===b.s.current[e]&&c(this).css("display","none")})});a.on("destroy.dtr",function(){a.off(".dtr");c(a.table().body()).off(".dtr");c(k).off("resize.dtr orientationchange.dtr");c.each(b.s.current,function(a,e){!1===e&&b._setColumnVis(a,!0)})});this.c.breakpoints.sort(function(a,b){return a.width<b.width?1:a.width>b.width?-1:0});this._classLogic();this._resizeAuto();d=this.c.details;!1!==d.type&&(b._detailsInit(),a.on("column-visibility.dtr",function(){b._classLogic();b._resizeAuto();
+    b._resize()}),a.on("draw.dtr",function(){b._redrawChildren()}),c(a.table().node()).addClass("dtr-"+d.type));a.on("column-reorder.dtr",function(){b._classLogic();b._resizeAuto();b._resize()});a.on("column-sizing.dtr",function(){b._resizeAuto();b._resize()});a.on("preXhr.dtr",function(){var e=[];a.rows().every(function(){this.child.isShown()&&e.push(this.id(true))});a.one("draw.dtr",function(){a.rows(e).every(function(){b._detailsDisplay(this,false)})})});a.on("init.dtr",function(){b._resizeAuto();
+    b._resize();c.inArray(false,b.s.current)&&a.columns.adjust()});this._resize()},_columnsVisiblity:function(b){var a=this.s.dt,d=this.s.columns,e,f,g=d.map(function(a,b){return{columnIdx:b,priority:a.priority}}).sort(function(a,b){return a.priority!==b.priority?a.priority-b.priority:a.columnIdx-b.columnIdx}),i=c.map(d,function(a){return a.auto&&null===a.minWidth?!1:!0===a.auto?"-":-1!==c.inArray(b,a.includeIn)}),o=0;e=0;for(f=i.length;e<f;e++)!0===i[e]&&(o+=d[e].minWidth);e=a.settings()[0].oScroll;
+    e=e.sY||e.sX?e.iBarWidth:0;a=a.table().container().offsetWidth-e-o;e=0;for(f=i.length;e<f;e++)d[e].control&&(a-=d[e].minWidth);o=!1;e=0;for(f=g.length;e<f;e++){var m=g[e].columnIdx;"-"===i[m]&&(!d[m].control&&d[m].minWidth)&&(o||0>a-d[m].minWidth?(o=!0,i[m]=!1):i[m]=!0,a-=d[m].minWidth)}g=!1;e=0;for(f=d.length;e<f;e++)if(!d[e].control&&!d[e].never&&!i[e]){g=!0;break}e=0;for(f=d.length;e<f;e++)d[e].control&&(i[e]=g);-1===c.inArray(!0,i)&&(i[0]=!0);return i},_classLogic:function(){var b=this,a=this.c.breakpoints,
+    d=this.s.dt,e=d.columns().eq(0).map(function(a){var b=this.column(a),e=b.header().className,a=d.settings()[0].aoColumns[a].responsivePriority;a===q&&(b=c(b.header()).data("priority"),a=b!==q?1*b:1E4);return{className:e,includeIn:[],auto:!1,control:!1,never:e.match(/\bnever\b/)?!0:!1,priority:a}}),f=function(a,b){var d=e[a].includeIn;-1===c.inArray(b,d)&&d.push(b)},g=function(c,d,g,h){if(g)if("max-"===g){h=b._find(d).width;d=0;for(g=a.length;d<g;d++)a[d].width<=h&&f(c,a[d].name)}else if("min-"===g){h=
+    b._find(d).width;d=0;for(g=a.length;d<g;d++)a[d].width>=h&&f(c,a[d].name)}else{if("not-"===g){d=0;for(g=a.length;d<g;d++)-1===a[d].name.indexOf(h)&&f(c,a[d].name)}}else e[c].includeIn.push(d)};e.each(function(b,e){for(var d=b.className.split(" "),f=!1,h=0,k=d.length;h<k;h++){var j=c.trim(d[h]);if("all"===j){f=!0;b.includeIn=c.map(a,function(a){return a.name});return}if("none"===j||b.never){f=!0;return}if("control"===j){f=!0;b.control=!0;return}c.each(a,function(a,b){var c=b.name.split("-"),d=j.match(RegExp("(min\\-|max\\-|not\\-)?("+
+    c[0]+")(\\-[_a-zA-Z0-9])?"));d&&(f=!0,d[2]===c[0]&&d[3]==="-"+c[1]?g(e,b.name,d[1],d[2]+d[3]):d[2]===c[0]&&!d[3]&&g(e,b.name,d[1],d[2]))})}f||(b.auto=!0)});this.s.columns=e},_detailsDisplay:function(b,a){var d=this,e=this.s.dt,f=this.c.details;if(f&&!1!==f.type){var g=f.display(b,a,function(){return f.renderer(e,b[0],d._detailsObj(b[0]))});(!0===g||!1===g)&&c(e.table().node()).triggerHandler("responsive-display.dt",[e,b,g,a])}},_detailsInit:function(){var b=this,a=this.s.dt,d=this.c.details;"inline"===
+    d.type&&(d.target="td:first-child, th:first-child");a.on("draw.dtr",function(){b._tabIndexes()});b._tabIndexes();c(a.table().body()).on("keyup.dtr","td, th",function(a){a.keyCode===13&&c(this).data("dtr-keyboard")&&c(this).click()});var e=d.target;c(a.table().body()).on("click.dtr mousedown.dtr mouseup.dtr","string"===typeof e?e:"td, th",function(d){if(c(a.table().node()).hasClass("collapsed")&&c.inArray(c(this).closest("tr").get(0),a.rows().nodes().toArray())!==-1){if(typeof e==="number"){var g=
+    e<0?a.columns().eq(0).length+e:e;if(a.cell(this).index().column!==g)return}g=a.row(c(this).closest("tr"));d.type==="click"?b._detailsDisplay(g,false):d.type==="mousedown"?c(this).css("outline","none"):d.type==="mouseup"&&c(this).blur().css("outline","")}})},_detailsObj:function(b){var a=this,d=this.s.dt;return c.map(this.s.columns,function(e,c){if(!e.never&&!e.control)return{title:d.settings()[0].aoColumns[c].sTitle,data:d.cell(b,c).render(a.c.orthogonal),hidden:d.column(c).visible()&&!a.s.current[c],
+    columnIndex:c,rowIndex:b}})},_find:function(b){for(var a=this.c.breakpoints,d=0,c=a.length;d<c;d++)if(a[d].name===b)return a[d]},_redrawChildren:function(){var b=this,a=this.s.dt;a.rows({page:"current"}).iterator("row",function(c,e){a.row(e);b._detailsDisplay(a.row(e),!0)})},_resize:function(){var b=this,a=this.s.dt,d=c(k).width(),e=this.c.breakpoints,f=e[0].name,g=this.s.columns,i,h=this.s.current.slice();for(i=e.length-1;0<=i;i--)if(d<=e[i].width){f=e[i].name;break}var j=this._columnsVisiblity(f);
+    this.s.current=j;e=!1;i=0;for(d=g.length;i<d;i++)if(!1===j[i]&&!g[i].never&&!g[i].control){e=!0;break}c(a.table().node()).toggleClass("collapsed",e);var l=!1;a.columns().eq(0).each(function(a,c){j[c]!==h[c]&&(l=!0,b._setColumnVis(a,j[c]))});l&&(this._redrawChildren(),c(a.table().node()).trigger("responsive-resize.dt",[a,this.s.current]),0===a.page.info().recordsDisplay&&a.draw())},_resizeAuto:function(){var b=this.s.dt,a=this.s.columns;if(this.c.auto&&-1!==c.inArray(!0,c.map(a,function(a){return a.auto}))){c.isEmptyObject(l)||
+    c.each(l,function(a){a=a.split("-");r(b,1*a[0],1*a[1])});b.table().node();var d=b.table().node().cloneNode(!1),e=c(b.table().header().cloneNode(!1)).appendTo(d),f=c(b.table().body()).clone(!1,!1).empty().appendTo(d),g=b.columns().header().filter(function(a){return b.column(a).visible()}).to$().clone(!1).css("display","table-cell");c(f).append(c(b.rows({page:"current"}).nodes()).clone(!1)).find("th, td").css("display","");if(f=b.table().footer()){var f=c(f.cloneNode(!1)).appendTo(d),i=b.columns().footer().filter(function(a){return b.column(a).visible()}).to$().clone(!1).css("display",
+    "table-cell");c("<tr/>").append(i).appendTo(f)}c("<tr/>").append(g).appendTo(e);"inline"===this.c.details.type&&c(d).addClass("dtr-inline collapsed");c(d).find("[name]").removeAttr("name");d=c("<div/>").css({width:1,height:1,overflow:"hidden",clear:"both"}).append(d);d.insertBefore(b.table().node());g.each(function(c){c=b.column.index("fromVisible",c);a[c].minWidth=this.offsetWidth||0});d.remove()}},_setColumnVis:function(b,a){var d=this.s.dt,e=a?"":"none";c(d.column(b).header()).css("display",e);
+    c(d.column(b).footer()).css("display",e);d.column(b).nodes().to$().css("display",e);c.isEmptyObject(l)||d.cells(null,b).indexes().each(function(a){r(d,a.row,a.column)})},_tabIndexes:function(){var b=this.s.dt,a=b.cells({page:"current"}).nodes().to$(),d=b.settings()[0],e=this.c.details.target;a.filter("[data-dtr-keyboard]").removeData("[data-dtr-keyboard]");a="number"===typeof e?":eq("+e+")":e;"td:first-child, th:first-child"===a&&(a=">td:first-child, >th:first-child");c(a,b.rows({page:"current"}).nodes()).attr("tabIndex",
+    d.iTabIndex).data("dtr-keyboard",1)}});h.breakpoints=[{name:"desktop",width:Infinity},{name:"tablet-l",width:1024},{name:"tablet-p",width:768},{name:"mobile-l",width:480},{name:"mobile-p",width:320}];h.display={childRow:function(b,a,d){if(a){if(c(b.node()).hasClass("parent"))return b.child(d(),"child").show(),!0}else{if(b.child.isShown())return b.child(!1),c(b.node()).removeClass("parent"),!1;b.child(d(),"child").show();c(b.node()).addClass("parent");return!0}},childRowImmediate:function(b,a,d){if(!a&&
+    b.child.isShown()||!b.responsive.hasHidden())return b.child(!1),c(b.node()).removeClass("parent"),!1;b.child(d(),"child").show();c(b.node()).addClass("parent");return!0},modal:function(b){return function(a,d,e){if(d)c("div.dtr-modal-content").empty().append(e());else{var f=function(){g.remove();c(j).off("keypress.dtr")},g=c('<div class="dtr-modal"/>').append(c('<div class="dtr-modal-display"/>').append(c('<div class="dtr-modal-content"/>').append(e())).append(c('<div class="dtr-modal-close">&times;</div>').click(function(){f()}))).append(c('<div class="dtr-modal-background"/>').click(function(){f()})).appendTo("body");
+    c(j).on("keyup.dtr",function(a){27===a.keyCode&&(a.stopPropagation(),f())})}b&&b.header&&c("div.dtr-modal-content").prepend("<h2>"+b.header(a)+"</h2>")}}};var l={};h.renderer={listHiddenNodes:function(){return function(b,a,d){var e=c('<ul data-dtr-index="'+a+'" class="dtr-details"/>'),f=!1;c.each(d,function(a,d){d.hidden&&(c('<li data-dtr-index="'+d.columnIndex+'" data-dt-row="'+d.rowIndex+'" data-dt-column="'+d.columnIndex+'"><span class="dtr-title">'+d.title+"</span> </li>").append(c('<span class="dtr-data"/>').append(s(b,
+    d.rowIndex,d.columnIndex))).appendTo(e),f=!0)});return f?e:!1}},listHidden:function(){return function(b,a,d){return(b=c.map(d,function(a){return a.hidden?'<li data-dtr-index="'+a.columnIndex+'" data-dt-row="'+a.rowIndex+'" data-dt-column="'+a.columnIndex+'"><span class="dtr-title">'+a.title+'</span> <span class="dtr-data">'+a.data+"</span></li>":""}).join(""))?c('<ul data-dtr-index="'+a+'" class="dtr-details"/>').append(b):!1}},tableAll:function(b){b=c.extend({tableClass:""},b);return function(a,
+    d,e){a=c.map(e,function(a){return'<tr data-dt-row="'+a.rowIndex+'" data-dt-column="'+a.columnIndex+'"><td>'+a.title+":</td> <td>"+a.data+"</td></tr>"}).join("");return c('<table class="'+b.tableClass+' dtr-details" width="100%"/>').append(a)}}};h.defaults={breakpoints:h.breakpoints,auto:!0,details:{display:h.display.childRow,renderer:h.renderer.listHidden(),target:0,type:"inline"},orthogonal:"display"};var p=c.fn.dataTable.Api;p.register("responsive()",function(){return this});p.register("responsive.index()",
+    function(b){b=c(b);return{column:b.data("dtr-index"),row:b.parent().data("dtr-index")}});p.register("responsive.rebuild()",function(){return this.iterator("table",function(b){b._responsive&&b._responsive._classLogic()})});p.register("responsive.recalc()",function(){return this.iterator("table",function(b){b._responsive&&(b._responsive._resizeAuto(),b._responsive._resize())})});p.register("responsive.hasHidden()",function(){var b=this.context[0];return b._responsive?-1!==c.inArray(!1,b._responsive.s.current):
+    !1});h.version="2.2.0";c.fn.dataTable.Responsive=h;c.fn.DataTable.Responsive=h;c(j).on("preInit.dt.dtr",function(b,a){if("dt"===b.namespace&&(c(a.nTable).hasClass("responsive")||c(a.nTable).hasClass("dt-responsive")||a.oInit.responsive||n.defaults.responsive)){var d=a.oInit.responsive;!1!==d&&new h(a,c.isPlainObject(d)?d:{})}});return h});
+/*!
+ Bootstrap integration for DataTables' Responsive
+ ©2015-2016 SpryMedia Ltd - datatables.net/license
+*/
+(function(c){"function"===typeof define&&define.amd?define(["jquery","datatables.net-bs","datatables.net-responsive"],function(a){return c(a,window,document)}):"object"===typeof exports?module.exports=function(a,b){a||(a=window);if(!b||!b.fn.dataTable)b=require("datatables.net-bs")(a,b).$;b.fn.dataTable.Responsive||require("datatables.net-responsive")(a,b);return c(b,a,a.document)}:c(jQuery,window,document)})(function(c){var a=c.fn.dataTable,b=a.Responsive.display,g=b.modal,e=c('<div class="modal fade dtr-bs-modal" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"/></div></div></div>');
+b.modal=function(a){return function(b,d,f){if(c.fn.modal){if(!d){if(a&&a.header){var d=e.find("div.modal-header"),h=d.find("button").detach();d.empty().append('<h4 class="modal-title">'+a.header(b)+"</h4>").prepend(h)}e.find("div.modal-body").empty().append(f());e.appendTo("body").modal()}}else g(b,d,f)}};return a.Responsive});
+/*!
  * sweetalert2 v5.3.5
  * Released under the MIT License.
  */
@@ -36629,15 +36663,19 @@ end:"mouseup touchend"},f="noUi-target noUi-base noUi-origin noUi-handle noUi-ho
 a)}})(window.jQuery||window.Zepto);
 
  (function(){
-     isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+    isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-     if (isWindows && !$('body').hasClass('sidebar-mini')){
+    if (isWindows && !$('body').hasClass('sidebar-mini')){
         // if we are on windows OS we activate the perfectScrollbar function
-        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+        //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+        $('.sidebar .sidebar-wrapper').perfectScrollbar();
+        
 
         $('html').addClass('perfect-scrollbar-on');
+       
     } else {
         $('html').addClass('perfect-scrollbar-off');
+       
     }
  })();
 
@@ -36669,9 +36707,36 @@ $(document).ready(function(){
 
     md.initSidebarsCheck();
 
-    if($('body').hasClass('sidebar-mini')){
-        md.misc.sidebar_mini_active = true;
+    
+    if(localStorage.getItem("sidebar-mini") == "true")
+    {
+        $('body').addClass('sidebar-mini'); 
+        $('.sidebar .collapse').css('height','auto');
+        
+        $('.sidebar .collapse').collapse('hide').on('hidden.bs.collapse',function(){
+            $(this).css('height','auto');
+        });
+
+        if(isWindows){
+            //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+            $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
+        }
+         md.misc.sidebar_mini_active = true;
     }
+    else
+    {
+         md.misc.sidebar_mini_active = false;
+        
+    }
+   
+    
+   
+    // if($('body').hasClass('sidebar-mini'))
+    // {
+    
+    //     md.misc.sidebar_mini_active = true;
+        
+    // }
 
     window_width = $(window).width();
 
@@ -36712,7 +36777,7 @@ $(document).ready(function(){
             var $card = $(this).parent('.card');
 
             $card.find('.fix-broken-card').click(function(){
-                console.log(this);
+                
                 var $header = $(this).parent().parent().siblings('.card-header, .card-image');
 
                 $header.removeClass('hinge').addClass('fadeInDown');
@@ -36745,7 +36810,7 @@ $(window).resize(function(){
 
     // reset the seq for charts drawing animations
     seq = seq2 = 0;
-
+    
 });
 
 md = {
@@ -36788,12 +36853,21 @@ md = {
 
     initSidebarsCheck: function(){
         if($(window).width() <= 991){
+            if(isWindows){
+                $('.sidebar .sidebar-wrapper').perfectScrollbar();
+            }
+
             if($sidebar.length != 0){
                 md.initRightMenu();
-
+                
             } else {
                 md.initBootstrapNavbarMenu();
             }
+        }else if (isWindows && $('body').hasClass('sidebar-mini')){
+                // if we are on windows OS we activate the perfectScrollbar function
+                //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
+                        
         }
 
     },
@@ -36802,38 +36876,48 @@ md = {
         
         // when we are on a Desktop Screen and the collapse is triggered we check if the sidebar mini is active or not. If it is active then we don't let the collapse to show the elements because the elements from the collapse are showing on the hover state over the icons in sidebar mini, not on the click.
         $('.sidebar .collapse').on('show.bs.collapse',function(){
-            if($(window).width() > 991 && md.misc.sidebar_mini_active == true){
-                return false;
+            if($(window).width() > 991 && md.misc.sidebar_mini_active == true)
+            //if($(window).width() > 991 && ( localStorage.getItem("sidebar-mini") == "active") )
+            {
+               return false;
             } else{
+                
                 return true;
             }
         });
 
         $('#minimizeSidebar').click(function(){
             var $btn = $(this);
-
-            if(md.misc.sidebar_mini_active == true){
+            
+            if(md.misc.sidebar_mini_active == true)
+            //if( localStorage.getItem("sidebar-mini") === "active")
+            {
+            
                 $('body').removeClass('sidebar-mini');
+                
                 md.misc.sidebar_mini_active = false;
-
+                localStorage.setItem("sidebar-mini", "false");
+                
                 if(isWindows){
-                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                    //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                    $('.sidebar .sidebar-wrapper').perfectScrollbar();
                 }
 
             }else{
-
+                
                 $('.sidebar .collapse').collapse('hide').on('hidden.bs.collapse',function(){
                     $(this).css('height','auto');
                 });
 
                 if(isWindows){
-                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                   // $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                   $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
                 }
-
+                
                 setTimeout(function(){
                     $('body').addClass('sidebar-mini');
-
                     $('.sidebar .collapse').css('height','auto');
+                    localStorage.setItem("sidebar-mini", "true");
                     md.misc.sidebar_mini_active = true;
                 },300);
             }

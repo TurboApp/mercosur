@@ -78,7 +78,7 @@ class OrdenServicio extends Model
             $suffixes = array(' bytes', ' KB', ' MB', ' GB', ' TB');
             if($type==='Descarga'){
                 $file['descarga_id'] = $this->id;
-            }elseif($type==='Trasbordo'){
+            }else{
                 $file['descarga_id'] = $this->id;
                 $file['carga_id'] = $this->id;
             }

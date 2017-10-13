@@ -62,6 +62,9 @@
         
         @if( $data['tipo'] === "Carga")
         
+            @component('components.servicios.create.archivos')
+            @endcomponent()
+            
             @component('components.servicios.show.archivos',['data'  =>  $servicio->archivosDescarga])
             @endcomponent()
 

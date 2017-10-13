@@ -64,13 +64,15 @@
         <template>
             
             <div class="material-datatables">
-                <table id="servicios" class="table table-hover">
+                <table id="servicios" class="table table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Tipo</th>
                             <th>Cliente</th>
                             <th>Estatus</th>
-                            <th>&nbsp;</th>
+                            <th>
+                                <span class="visible-xs">Opciones</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,20 +160,20 @@
             
         });
         let table = $('#servicios').DataTable( {
-            "order": [],
-            "responsive": true,
-            "processing": true,
-            "serverSide": true,
-            "language": {
+            order: [],
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language: {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
             },
-            "ajax": "/API/servicios",
-            "columns":[
+            ajax: "/API/servicios",
+            columns:[
                 { 
                     "data" : "tipo",
                     "render":function(data,type,row){
                         return  `
-                        <figure class="`+data+` img-rounded" style="padding:5px;">
+                        <figure class="`+data+` img-rounded" style="padding:5px;max-width:200px;">
                             <img src="/img/servicios-iconos/`+data.toLowerCase()+`-icon-on.png" alt="`+ data +`">
                             <figcaption style="margin-top:1em;"><p class="text-center text-uppercase">`+data+`</p></figcaption>
                         </figure>

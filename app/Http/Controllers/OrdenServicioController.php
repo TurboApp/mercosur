@@ -15,6 +15,8 @@ use App\Http\Requests\RequestServicio;
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use DataTables;
+use File;
+use Response;
 
 use Illuminate\Http\Request;
 
@@ -128,15 +130,16 @@ class OrdenServicioController extends Controller
         }else{
             //Store Documentos - documentos
             $ordenServicio->addDocumentos($request->tipo, $request->documento);
-            //Store Archivos - archivos
-            if($request->hasFile('files')){
-                $ordenServicio->storearchivos($request->tipo, $request->file('files'));
-            }
+        }
+        //Store Archivos - archivos
+        if($request->hasFile('files')){
+            $ordenServicio->storearchivos($request->tipo, $request->file('files'));
         }
         
         //Asignar turno
         $date = str_replace('/', '-', $request->datos_generales['fecha_recepcion']);
-        $coordinacion = Coordinacion::whereDate('created_at',date('Y-m-d', strtotime($date)))->orderBy('turno','desc')->first();
+        $date=date('Y-m-d', strtotime($date));
+        $coordinacion = Coordinacion::whereDate( 'created_at', $date )->orderBy('turno','desc')->first();
         
         if($coordinacion){
             $turno = $coordinacion->turno + 1; 
@@ -147,7 +150,8 @@ class OrdenServicioController extends Controller
         //Store Coordinacion - coordinacions
         Coordinacion::create([
             'id_orden_servicio' => $ordenServicio->id,
-            'turno'             => $turno
+            'turno'             => $turno,
+            'fecha_servicio'    => $date
         ]);
             
         return redirect('/trafico/nuevo');
@@ -184,7 +188,7 @@ class OrdenServicioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\OrdenServicio  $ordenServicio
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function update(Request $request, OrdenServicio $ordenServicio)
     {
         //
@@ -201,6 +205,23 @@ class OrdenServicioController extends Controller
         //
     }
 
+    public function getArchivo(Request $request)
+    {
+        //dd($request->archivo);
+
+        $path = storage_path('app/documentos/'.$request->id .'/'. $request->archivo );
+        if(!File::exists($path)) 
+            $path = storage_path('app/public/avatars/') . 'default.png';
+        
+        $file = File::get($path);
+        
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+        return $response;
+        //return view('pages.viewer.index', compact('response'));
+    }
     //API
     public function almacen(Request $request){
         $fecha=Carbon::today()->format('Y-m-d');

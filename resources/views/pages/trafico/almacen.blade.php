@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title','Almacén')
 @section('content')
-<div class="container-fluid">
+<div class="container-fluido">
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -48,15 +48,14 @@
     <div class="row">
         <card>
         <template>
-            <!-- <template slot="title">Seleccione el cliente</template> -->
-            <div class="material-datatables table-responsive">
-                <table id="almacen" class="table table-hover">
+            <div class="material-datatables">
+                <table id="almacen" class="table table-hover" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Cliente</th>
                             <th>Fecha</th>
                             <th>Documentos</th>
-                            <th>&nbsp;</th>
+                            <th><span class="visible-xs">Detalles</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -243,7 +242,8 @@
                 $('#modal_destino').text(data.destino +" - "+ data.destino_pais);
                 $('#modal_fecha').text(data.fecha_recepcion + " - "+data.hora_recepcion);
                 $.each(data.documentos_descarga, function(key,val){
-                    if(data.status){
+                    console.log(val.status);
+                    if(val.status == "1"){
                         $('#modal_documentos').append("<li>"+val.tipo_documento+"-"+val.documento+"</li>");
                     }else{
                         $('#modal_documentos').append("<li>"+val.tipo_documento+"-"+val.documento+" <span class=\"badge light-green accent-4\"><i class=\"fa fa-check\"></i> Cargado</span></li>");

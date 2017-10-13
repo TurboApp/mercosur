@@ -78,6 +78,8 @@ Route::post('/trafico/servicio', 'OrdenServicioController@store');
 
 Route::get('/trafico/coordinacion', 'CoordinacionController@index');
 
+Route::get('/documentos/{id}/{archivo}', 'OrdenServicioController@getArchivo');
+
 Route::get('/API/almacen/item/{servicio}','OrdenServicioController@almacenItem');
 Route::get('/API/almacen/{date?}','OrdenServicioController@almacen');
 Route::get('/API/servicios/{date?}','OrdenServicioController@indexServicios');

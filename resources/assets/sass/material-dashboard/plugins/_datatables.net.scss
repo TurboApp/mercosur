@@ -37,7 +37,7 @@ div.dataTables_wrapper div.dataTables_length {
   label {
     font-weight: normal;
     text-align: left;
-    //white-space: nowrap;
+    white-space: nowrap;
     select {
       width: 75px;
       display: inline-block;
@@ -67,7 +67,7 @@ div.dataTables_wrapper div.dataTables_filter {
   text-align: right;
   label {
     font-weight: normal;
-    // white-space: nowrap;
+    white-space: nowrap;
     text-align: left;
     &::before{
       font-family:'FontAwesome';
@@ -89,7 +89,7 @@ div.dataTables_wrapper div.dataTables_filter {
 
     font-weight: 400;
 
-  // Placeholders and and labels-as-placeholders should look the same
+  //Placeholders and and labels-as-placeholders should look the same
     @include material-placeholder {
       color: $mdb-input-placeholder-color;
       font-weight: 400;
@@ -179,13 +179,13 @@ div.dataTables_wrapper div.dataTables_paginate {
   box-shadow: none;
 }
 
-// .dataTables_wrapper .dataTables_paginate .paginate_button:active {
-//   outline: none;
-//   background-color:$gray-lighter;
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  outline: none;
+  background-color:$gray-lighter;
   
-//   /* W3C */
-//   box-shadow: inset 0 0 3px lighten($gray-base, 65.9%);
-// }
+  /* W3C */
+  box-shadow: inset 0 0 3px lighten($gray-base, 65.9%);
+}
 
 div.dataTables_wrapper div.dataTables_paginate ul.pagination {
   margin: 2px 0;

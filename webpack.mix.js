@@ -21,7 +21,13 @@ let mix = require('laravel-mix');
     'resources/assets/js/vendor/typeahead.js',
 	'resources/assets/js/vendor/bootstrap-datetimepicker.js',
 	'resources/assets/js/vendor/bootstrap-notify.js',
- 	'node_modules/datatables.net/js/jquery.dataTables.js',
+	'node_modules/datatables.net/js/jquery.dataTables.js',
+	
+	// 'node_modules/datatables.net/js/dataTables.rowReorder.min.js',
+	
+	'resources/assets/js/vendor/dataTables.responsive.min.js',
+	'resources/assets/js/vendor/responsive.bootstrap.min.js',
+
 	'resources/assets/js/vendor/sweetalert2.js',
 	'resources/assets/js/vendor/select2.js',
 	'resources/assets/js/vendor/chartist.min.js',

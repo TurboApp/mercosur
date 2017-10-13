@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -21,17 +21,18 @@
           window.Laravel = {"csrfToken" : "{{csrf_token()}}" }
     </script>
     <style>
+    
     .Descarga, .descarga{
-        background:#f44336 !important;;
-        color:#fff !important;;
+        background:#f44336 !important;
+        color:#fff !important;
     }
     .Carga, .carga{
-        background:#e91e63 !important;;
-        color:#fff !important;;
+        background:#e91e63 !important;
+        color:#fff !important;
     }
     .Trasbordo, .trasbordo{
-        background:#9c27b0  !important;;
-        color:#fff !important;;
+        background:#9c27b0  !important;
+        color:#fff !important;
     }
     
     </style>
@@ -43,7 +44,7 @@
     </svg>
 </div>
 <div id="app">
-    <div class="wrapper">
+    <div class="wrapper  grey lighten-2">
         <div class="sidebar blue-grey darken-3" data-active-color="light-blue-darken-3" data-background-color="black" data-image="/img/sidebar-1.jpg">
             <div class="logo">
                 <a href="/" class="simple-text">
@@ -85,7 +86,7 @@
             </div>
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
-        <div class="main-panel grey lighten-2">
+        <div class="main-panel">
             
             <!-- NAVEGACION -->
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -172,20 +173,20 @@
     </div>
 </div>
 
-    <script src="/js/app.js"></script>
-    
-    <script src="/js/scripts.js"></script>
-   
-    <!-- datepicker en español -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
-    @stack('scripts')
 
-    <script>
-        $(window).on("load",function() {
+<script src="/js/app.js"></script>
+
+<script src="/js/scripts.js"></script>
+
+<!-- datepicker en español -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+@stack('scripts')
+
+<script>
+    $(window).on("load",function() {
         $(".loader").fadeOut("slow");
-        })
+    })
 
-    </script>
-
+</script>
 </body>
 </html>

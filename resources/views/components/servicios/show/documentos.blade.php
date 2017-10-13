@@ -49,7 +49,9 @@
                             @if( $documento->status )
                                 Almacén
                             @else
-                                <del><em class="text-muted">Cargado</em></del>
+                                <a href="/trafico/servicio/{{$documento->carga_id}}" >
+                                Cargado <i class="fa fa-external-link" aria-hidden="true"></i>
+                                </a>
                             @endif
                         </td>
                     </tr>
