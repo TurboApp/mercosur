@@ -500,6 +500,96 @@
   border-color: #F44336 !important;
 }
 
+.no-shadow {
+  -webkit-box-shadow: 0 0 0 0 !important;
+          box-shadow: 0 0 0 0 !important;
+}
+
+.hr {
+  border-top: 3px solid #1565c0 !important;
+  align: center;
+  width: 50%;
+  -webkit-box-shadow: 1px 1px 0px #888888 !important;
+          box-shadow: 1px 1px 0px #888888 !important;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+.selectpicker,
+.datepicker,
+.timepicker {
+  cursor: pointer;
+}
+
+.btn-descripcion-servicio {
+  margin-bottom: 60px;
+  padding-bottom: 60px;
+}
+
+.service-icon {
+  background-image: url("/img/servicios-iconos/servicios-icons.png");
+  display: inline-block;
+}
+
+.service-icon.descarga,
+.service-icon.carga,
+.service-icon.trasbordo,
+.service-icon.otros-servicios {
+  height: 128px;
+  width: 250px;
+  display: block;
+}
+
+.service-icon.carga {
+  background-position: 0px 0px;
+}
+
+.service-icon.carga.on {
+  background-position: 250px 0px;
+}
+
+.service-icon.descarga {
+  background-position: 0px -128px;
+}
+
+.service-icon.descarga.on {
+  background-position: 250px -128px;
+}
+
+.service-icon.trasbordo {
+  background-position: 0px -256px;
+}
+
+.service-icon.trasbordo.on {
+  background-position: 250px -256px;
+}
+
+.service-icon.otros-servicios {
+  background-position: 0px -384px;
+}
+
+.service-icon.otros-servicios.on {
+  background-position: 250px -384px;
+}
+
+.btn-group.bootstrap-select {
+  margin-top: 2px;
+}
+
+.error_selectpicker {
+  border-bottom: 2px solid #F44336 !important;
+}
+
+.card-collapse.has-error {
+  border-color: #F44336 !important;
+}
+
 .no-gutter > [class*='col-'] {
   padding-right: 0;
   padding-left: 0;

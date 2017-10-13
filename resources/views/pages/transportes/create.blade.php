@@ -169,12 +169,11 @@
                 </div><!-- ./card-footer -->
             </form>
         </div>  <!-- ./card -->
-
     </div>
 </div>
 @endsection
 @push('scripts')
- 
+
   @include('layouts.partials.errors')
 
       <script>
@@ -191,5 +190,5 @@
           demo.getCountry('.typeahead');
 
       </script>
-     
+
 @endpush

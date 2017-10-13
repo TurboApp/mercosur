@@ -41,6 +41,7 @@ class LineasTransporteController extends Controller
           'nombre' => 'required',
           'nombre_corto' => 'required',
           'rfc' => 'required',
+          'pais' => 'required',
           'email' => 'nullable|email'
         ]
       );
@@ -87,6 +88,7 @@ class LineasTransporteController extends Controller
                'nombre' => 'required',
                'nombre_corto' => 'required',
                'rfc'    => 'required',
+               'pais'   =>  'required',
                'email'  => 'nullable|email'
            ]
        );

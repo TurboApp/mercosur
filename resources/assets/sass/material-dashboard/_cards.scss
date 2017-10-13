@@ -84,7 +84,7 @@
     .card-actions{
         position: absolute;
         z-index: 1;
-        top: -50px;
+        top: -75px;
         width: calc(100% - 30px);
         left: 17px;
         right: 17px;
@@ -520,15 +520,27 @@
         }
     }
 }
+// .user-list-item.card-profile{
+//     margin-top:120px;
+//     .card-avatar{
+//         position: absolute;
+//         top:-60px;
+//         left: 0;
+//         right:0;
+//     }
+// }
+
 .user-list-item.card-profile{
-    margin-top:120px;
-    .card-avatar{
-        position: absolute;
-        top:-60px;
-        left: 0;
-        right:0;
-    }
+
+  .card-avatar{
+    position: relative;
+    z-index: 3;
+
+    left: 0;
+    right: 0;
+  }
 }
+
 .card-testimonial{
     margin-bottom: 65px;
 

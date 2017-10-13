@@ -16537,7 +16537,7 @@ footer .btn {
 .card .card-actions {
   position: absolute;
   z-index: 1;
-  top: -50px;
+  top: -75px;
   width: calc(100% - 30px);
   left: 17px;
   right: 17px;
@@ -16970,13 +16970,9 @@ footer .btn {
   margin-top: 0;
 }
 
-.user-list-item.card-profile {
-  margin-top: 120px;
-}
-
 .user-list-item.card-profile .card-avatar {
-  position: absolute;
-  top: -60px;
+  position: relative;
+  z-index: 3;
   left: 0;
   right: 0;
 }

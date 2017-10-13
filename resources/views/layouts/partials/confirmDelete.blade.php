@@ -1,6 +1,5 @@
 <script>
    $(document).ready(function(){
-        
        $('.{{$class}}').click(function(){
             swal({
                 showCancelButton: true,
@@ -19,7 +18,7 @@
                         method:'delete',
                         url:'{{$url}}',
                     });
-                        
+
                 swal({
                     allowOutsideClick: false,
                     allowEscapeKey:false,
@@ -29,10 +28,7 @@
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
                     }).then(function(){
-                        
-                        window.location = "{{$redirect}}";
-
-                        
+                      window.location = "{{$redirect}}";
                     })
                 }, function (dismiss) {
                 // dismiss can be 'cancel', 'overlay',
@@ -48,6 +44,6 @@
                 }
                 })
        });
-       
+
    });
    </script>

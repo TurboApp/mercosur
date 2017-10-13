@@ -15,7 +15,7 @@ class AgenteController extends Controller
      */
     public function index()
     {
-        
+
         $agentes = Agente::latest()->paginate(15);
         return view('pages.agentes.index', compact('agentes'));
     }
@@ -49,7 +49,7 @@ class AgenteController extends Controller
         );
         
         $agente = Agente::create(request(['nombre','nombre_corto','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
-
+       
         $request->session()->flash('success', 'Un nuevo Agente se agrego satisfactoriamente');
         return redirect('/agentes/'.$agente->id);
     }
@@ -118,7 +118,7 @@ class AgenteController extends Controller
         {
             $agente->delete();
         }
-            
+
         $request->session()->flash('success', 'El registro fue elimado correctamente');
     }
 
@@ -127,6 +127,7 @@ class AgenteController extends Controller
         
         $agentes = Agente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%')->paginate(15);
         $agentes->appends( [ 's' => $request->s ] );
+       
         return view('pages.agentes.search', compact('agentes','request'));
     }
 

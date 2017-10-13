@@ -20,6 +20,8 @@
         ])
         @endcomponent()   
         
+       
+
     </div><!-- ./col-md-12 -->
 
 </div><!-- ./row -->
@@ -27,7 +29,5 @@
 
 
 @push('scripts')
-    @include('layouts.partials.notify')
+    @include('layouts.partials.errors')
 @endpush
-
-

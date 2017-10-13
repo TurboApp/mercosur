@@ -11,8 +11,6 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    
-    
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mercosur.css') }}">
@@ -44,8 +42,9 @@
     </svg>
 </div>
 <div id="app">
+
     <div class="wrapper  grey lighten-2">
-        <div class="sidebar blue-grey darken-3" data-active-color="light-blue-darken-3" data-background-color="black" data-image="/img/sidebar-1.jpg">
+        <div class="sidebar" data-active-color="light-blue-darken-3" data-background-color="black" data-image="/img/sidebar-1.jpg">
             <div class="logo">
                 <a href="/" class="simple-text">
                     MERCOSUR <sub>app</sub>
@@ -60,34 +59,37 @@
                 <!-- usuario -->
                 <div class="user">
                     <div class="photo">
-                        <img src="/img/default-avatar.png" />
+                        <img src="{{Storage::url(auth()->user()->url_avatar)}}" /> 
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            Nombre de usuario
+                             <span class="text-uppercase">{{auth()->user()->user}}</span>
                             <b class="caret"></b>
                         </a>
                         <div class="collapse" id="collapseExample" >
+                          <form id="salir"  action="{{route('logout')}}" method="post">
                             <ul class="nav">
                                 <li>
-                                    <a href="#">Mi Perfil</a>
+                                    <a href="/perfil/{{auth()->user()->id}}">Mi Perfil</a>
                                 </li>
                                 <li>
-                                    <a href="#">Configuración</a>
+                                    {{ csrf_field() }}
+                                    <a id="logout" href="#">Salir</a>
                                 </li>
                             </ul>
+                          </form>
                         </div>
                     </div>
                 </div><!-- ./user -->
                 <!-- Navegación -->
-                <!-- 'layouts.navs.{perfil}' -->
-                @includeif('layouts.navs.admin')
+                
+                @includeif('layouts.navs.'.auth()->user()->perfil->perfil)
 
             </div>
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
-        <div class="main-panel">
-            
+        {{--  <div class="main-panel">  --}}
+        <div class="main-panel grey lighten-2">
             <!-- NAVEGACION -->
             <nav class="navbar navbar-transparent navbar-absolute">
                 <div class="container-fluid">
@@ -174,19 +176,23 @@
 </div>
 
 
-<script src="/js/app.js"></script>
-
-<script src="/js/scripts.js"></script>
-
-<!-- datepicker en español -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
-@stack('scripts')
-
-<script>
-    $(window).on("load",function() {
-        $(".loader").fadeOut("slow");
-    })
-
-</script>
+    <script src="/js/app.js"></script>
+    <script src="/js/scripts.js"></script>
+    <!-- datepicker en español -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+    @stack('scripts')
+    <script >
+        $(window).on("load",function() {
+            $(".loader").fadeOut("slow");
+        })
+    </script>
+    <script>
+        (function(){
+            document.getElementById("logout").onclick=function()
+            {
+                document.getElementById("salir").submit();
+            }
+        }());
+    </script>
 </body>
 </html>

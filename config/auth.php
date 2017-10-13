@@ -45,6 +45,20 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
+        // 'users' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        // ],
+
     ],
 
     /*
@@ -69,10 +83,19 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
+        //     'model'=>'App\User',
         //     'table' => 'users',
+        //     'password'=>[
+        //       'user'=>'user.password',
+        //       'expire'=>60,
+        //     ],
         // ],
     ],
 
