@@ -13,6 +13,10 @@ use App\UserPuesto;
 
 class UserController extends Controller
 {
+    function __construct(){
+      $this->middleware(['auth','perfils:Administrador']);
+    }
+
     public function index(){
       $usuarios=User::all();
       return view('pages.usuarios.index',compact('usuarios'));

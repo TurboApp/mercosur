@@ -25,4 +25,14 @@ class User extends Model implements Authenticatable
     return $this->belongsTo('App\Perfil');
   }
 
+  public function hasPerfils(array $perfiles)
+  {
+    foreach ($perfiles as $perfil) {
+      if ($this->perfil->perfil === $perfil) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
