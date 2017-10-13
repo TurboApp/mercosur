@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -10,18 +10,41 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
+    
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mercosur.css') }}">
-
+    
+    <script>
+          window.Laravel = {"csrfToken" : "{{csrf_token()}}" }
+    </script>
+    <style>
+    
+    .Descarga, .descarga{
+        background:#f44336 !important;
+        color:#fff !important;
+    }
+    .Carga, .carga{
+        background:#e91e63 !important;
+        color:#fff !important;
+    }
+    .Trasbordo, .trasbordo{
+        background:#9c27b0  !important;
+        color:#fff !important;
+    }
+    
+    </style>
 </head>
-
 <body>
+<div class="loader" >
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+    </svg>
+</div>
 <div id="app">
-    <div class="wrapper">
-        <div class="sidebar blue-grey darken-3" data-active-color="blue" data-background-color="black" >
+
+    <div class="wrapper  grey lighten-2">
+        <div class="sidebar" data-active-color="light-blue-darken-3" data-background-color="black" data-image="/img/sidebar-1.jpg">
             <div class="logo">
                 <a href="/" class="simple-text">
                     MERCOSUR <sub>app</sub>
@@ -36,7 +59,7 @@
                 <!-- usuario -->
                 <div class="user">
                     <div class="photo">
-                        <img src="{{Storage::url(auth()->user()->url_avatar)}}" />
+                        <img src="{{Storage::url(auth()->user()->url_avatar)}}" /> 
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -59,12 +82,13 @@
                     </div>
                 </div><!-- ./user -->
                 <!-- Navegación -->
-                <!-- 'layouts.navs.{perfil}' -->
-                @includeif('layouts.navs.admin')
+                
+                @includeif('layouts.navs.'.auth()->user()->perfil->perfil)
 
             </div>
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
+        {{--  <div class="main-panel">  --}}
         <div class="main-panel grey lighten-2">
             <!-- NAVEGACION -->
             <nav class="navbar navbar-transparent navbar-absolute">
@@ -87,13 +111,19 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="/" class="dropdown-toggle" data-toggle="dropdown" >
+                                <a href="{{ url()->previous() }}" class="dropdown-toggle" title="Atras">
+                                    <i class="material-icons">arrow_back</i>
+                                    <p class="hidden-lg hidden-md">Atras</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/" class="dropdown-toggle" title="Dashboard" >
                                     <i class="material-icons">dashboard</i>
                                     <p class="hidden-lg hidden-md">Inicio</p>
                                 </a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notificaciones">
                                     <i class="material-icons">notifications</i>
                                     <span class="notification">5</span>
                                     <p class="hidden-lg hidden-md">
@@ -120,7 +150,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown" rel="tooltip" data-placement="bottom" title="Mi perfil">
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown" title="Mi perfil">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
@@ -141,19 +171,28 @@
             <!-- pie de pagina -->
             @include('layouts.partials.footer')
         </div>
+        
     </div>
 </div>
-</body>
+
+
     <script src="/js/app.js"></script>
     <script src="/js/scripts.js"></script>
-
-
+    <!-- datepicker en español -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
     @stack('scripts')
-    <script type="text/javascript">
-      (function(){
-        document.getElementById("logout").onclick=function(){
-          document.getElementById("salir").submit();
-        }
-      }());
+    <script >
+        $(window).on("load",function() {
+            $(".loader").fadeOut("slow");
+        })
     </script>
+    <script>
+        (function(){
+            document.getElementById("logout").onclick=function()
+            {
+                document.getElementById("salir").submit();
+            }
+        }());
+    </script>
+</body>
 </html>

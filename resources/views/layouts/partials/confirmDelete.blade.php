@@ -1,6 +1,5 @@
 <script>
    $(document).ready(function(){
-
        $('.{{$class}}').click(function(){
             swal({
                 showCancelButton: true,
@@ -15,7 +14,6 @@
                 cancelButtonText: 'No, Cancelar',
                 buttonsStyling: false
                 }).then(function () {
-
                     axios({
                         method:'delete',
                         url:'{{$url}}',
@@ -30,10 +28,7 @@
                     confirmButtonClass: "btn btn-success",
                     buttonsStyling: false
                     }).then(function(){
-
                       window.location = "{{$redirect}}";
-
-
                     })
                 }, function (dismiss) {
                 // dismiss can be 'cancel', 'overlay',

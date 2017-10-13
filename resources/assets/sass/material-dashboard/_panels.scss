@@ -15,7 +15,8 @@
             &:hover,
             &:active,
             &[aria-expanded="true"]{
-                color: $brand-rose;
+                //color: $brand-rose;
+                color: $brand-primary;
             }
             &[aria-expanded="true"],
             &.expanded{

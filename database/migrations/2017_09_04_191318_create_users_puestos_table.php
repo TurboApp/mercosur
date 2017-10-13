@@ -13,12 +13,12 @@ class CreateUsersPuestosTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_puesto', function (Blueprint $table) {
+        Schema::create('puestos_usuarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_usuario')->unsigned();
-            $table->integer('id_puesto')->unsigned();
-            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_puesto')->references('id')->on('puestos')->onDelete('cascade');
+            $table->integer('id_usuario');
+            $table->integer('id_puesto');
+            //$table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('id_puesto')->references('id')->on('puestos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateUsersPuestosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_puestos');
+        Schema::dropIfExists('puestos_usuarios');
     }
 }

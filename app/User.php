@@ -18,13 +18,14 @@ class User extends Model implements Authenticatable
     ];
 
   public function puestos(){
-    return $this->belongsToMany('App\Puesto','user_puesto','id_usuario','id_puesto');
+    return $this->belongsToMany('App\Puesto','puestos_usuarios','id_usuario','id_puesto');
   }
 
   public function perfil(){
     return $this->belongsTo('App\Perfil');
   }
-
+  
+ 
   public function hasPerfils(array $perfiles)
   {
     foreach ($perfiles as $perfil) {

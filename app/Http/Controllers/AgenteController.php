@@ -38,16 +38,18 @@ class AgenteController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate(request(),
             [
                 'nombre' => 'required',
+                'nombre_corto' => 'required',
                 'rfc'    => 'required',
                 'email'  => 'nullable|email'
             ]
         );
-
-        $agente = Agente::create(request(['nombre','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
-
+        
+        $agente = Agente::create(request(['nombre','nombre_corto','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
+       
         $request->session()->flash('success', 'Un nuevo Agente se agrego satisfactoriamente');
         return redirect('/agentes/'.$agente->id);
     }
@@ -87,12 +89,13 @@ class AgenteController extends Controller
         $this->validate(request(),
             [
                 'nombre' => 'required',
+                'nombre_corto' => 'required',
                 'rfc'    => 'required',
                 'email'  => 'nullable|email'
             ]
         );
         //Prepara los nuevos valores de los datos
-        $inputs = [ 'nombre'=>$request->nombre,'email'=>$request->email , 'telefono'=>$request->telefono , 'celular' => $request->celular , 'direccion' => $request->direccion , 'rfc' => $request->rfc , 'ciudad' => $request->ciudad , 'codigo_postal' => $request->codigo_postal ];
+        $inputs = [ 'nombre'=>$request->nombre,'nombre_corto'=>$request->nombre_corto,'email'=>$request->email , 'telefono'=>$request->telefono , 'celular' => $request->celular , 'direccion' => $request->direccion , 'rfc' => $request->rfc , 'ciudad' => $request->ciudad , 'codigo_postal' => $request->codigo_postal ];
         //proceso de guardatos en la tabla/modelo datos_empresas
         $agente = Agente::find($agente->id);
         $agente->fill($inputs);
@@ -121,8 +124,19 @@ class AgenteController extends Controller
 
      public function search(Request $request)
     {
-
-        $agentes = Agente::where('nombre','LIKE','%'.$request->s.'%')->paginate(15);
+        
+        $agentes = Agente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%')->paginate(15);
+        $agentes->appends( [ 's' => $request->s ] );
+       
         return view('pages.agentes.search', compact('agentes','request'));
+    }
+
+
+    ///API devuelve solo os datos sin vistas
+
+    public function APIindex()
+    {
+        $agentes = Agente::get();
+        return $agentes->toJson();;
     }
 }

@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,7 +168,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-
+        Jenssegers\Date\DateServiceProvider::Class,
         /*
          * Application Service Providers...
          */
@@ -182,6 +182,17 @@ return [
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         //Laravel Captative
         Collective\Html\HtmlServiceProvider::class,
+
+        //EXCEL
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        
+        //Laravel collective
+        Collective\Html\HtmlServiceProvider::class,
+        //date español
+        
+        //Data tables
+        
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -233,8 +244,21 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //sweet Alert 2
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+<<<<<<< HEAD
+        //fechas español
+        'Date' => Jenssegers\Date\Date::class,
+        //Exportar de excel a laravel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        //Laravel collective para escribir html
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,  
+        //'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+=======
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+>>>>>>> 6d2873e0b702dd870b70ea3a18c5aa7b17c173a8
     ],
 
 ];

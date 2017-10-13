@@ -36,8 +36,8 @@
                     <h4 class="card-title">Edite los datos</h4>
                     <div class="row">
                         <div class="form-group label-floating is-empty">
-                            <label class="col-sm-2 label-on-left" for="transporte">* Nombre</label>
-                            <div class="col-sm-10">
+                            <label class="col-md-2 label-on-left" for="transporte">* Nombre</label>
+                            <div class="col-md-10">
                                 <div class="form-group label-floating is-empty">
                                     <label class="control-label"></label>
                                     <input type="text" class="form-control" name="nombre" value="{{ $transporte->nombre }}" maxlength="90" required>
@@ -47,18 +47,35 @@
                         </div>
                     </div><!-- -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">RFC</label>
-                        <div class="col-sm-10">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="rfc" value="{{ $transporte->rfc }}" maxlength="15" required>
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="nombre_corto" value="{{ $transporte->nombre_corto }}" maxlength="30" required>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-2 label-on-left">RFC</label>
+                                <div class="col-md-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="rfc" value="{{ $transporte->rfc }}" maxlength="15" required>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
+                            </div>
+                        </div>
                     </div><!-- ./row -->
+                    
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Email</label>
-                        <div class="col-sm-10">
+                        <label class="col-md-2 label-on-left">Email</label>
+                        <div class="col-md-10">
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group label-floating is-empty">
@@ -68,8 +85,8 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="row">
-                                        <label class="col-sm-3 label-on-left">Teléfono</label>
-                                        <div class="col-sm-9 ">
+                                        <label class="col-md-3 label-on-left">Teléfono</label>
+                                        <div class="col-md-9 ">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
                                                 <input type="text" class="form-control" name="telefono" value="{{ $transporte->telefono }}"  maxlength="20">
@@ -80,8 +97,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="row">
-                                        <label class="col-sm-3 label-on-left">Celular</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-md-3 label-on-left">Celular</label>
+                                        <div class="col-md-9">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
                                                 <input type="text" class="form-control" name="celular" value="{{ $transporte->celular }}"  maxlength="20">
@@ -95,61 +112,69 @@
                     </div><!-- ./row -->
 
                     <div class="row">
-                      <label class="col-sm-2 label-on-left">Dirección</label>
-                      <div class="col-sm-10">
-                          <div class="row">
-                              <div class="col-md-3">
-                                  <div class="form-group label-floating is-empty">
-                                      <label class="control-label"></label>
-                                      <input type="text" class="form-control" name="direccion" value="{{ $transporte->direccion }}" maxlength="60">
-                                  <span class="material-input"></span></div>
-                              </div>
-                              <div class="col-md-5">
-                                  <div class="row">
-                                      <label class="col-sm-3 label-on-left">Codigo Postal</label>
-                                      <div class="col-sm-9 ">
-                                          <div class="form-group label-floating is-empty">
-                                              <label class="control-label"></label>
-                                              <input type="text" class="form-control" name="codigo_postal" value="{{ $transporte->codigo_postal }}"  maxlength="20">
-                                              <span class="material-input"></span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="row">
-                                    <div class="form-group">
-                                      <label class="col-sm-3 label-on-left">Tipo</label>
-                                        <div class="col-md-8 btn-group bootstrap-select show-tick">
-                                          <select class="selectpicker" name="tipo" value="{{$transporte->tipo}}" title="{{$transporte->tipo}}" data-style="select-with-transition"  data-size="7" tabindex="-98">
-                                            {{-- <option value="{{$transporte->tipo}}" disabled selected>{{$transporte->tipo}}</option> --}}
-                                            <option value="Nacional">Nacional</option>
-                                            <option value="Extranjero">Extranjero</option>
-                                          </select>
-                                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Ciudad</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="ciudad" value="{{ $transporte->ciudad }}" maxlength="60">
+                                        <span class="material-input"></span>
                                     </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div><!-- ./col-md-10 -->
+                                </div><!-- ./col-md-10 -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-3 label-on-left">Codigo Postal</label>
+                                <div class="col-md-9">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="codigo_postal" value="{{ $transporte->codigo_postal }}"  maxlength="10">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div><!-- ./row -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">País</label>
-                        <div class="col-sm-3">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control typeahead" name="pais" value="{{ $transporte->pais }}" maxlength="60">
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Tipo</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <select class="selectpicker" name="tipo" value="{{ $transporte->tipo }}" data-style="select-with-transition" title="{{ $transporte->tipo }}"  data-size="7" tabindex="-98">
+                                            <option value="Nacional">Nacional</option>
+                                            <option value="Extranjero">Extranjero</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div><!-- ./col-md-10 -->
-                        <label class="col-sm-2 label-on-left">Ciudad</label>
-                        <div class="col-sm-5">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-3 label-on-left">País</label>
+                                <div class="col-md-9">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control typeahead" name="pais" value="{{ $transporte->pais }}" maxlength="20">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <label class="col-md-2 label-on-left">Dirección</label>
+                        <div class="col-md-10">
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label"></label>
-                                <input type="text" class="form-control" name="ciudad" value="{{ $transporte->ciudad }}" maxlength="60">
+                                <textarea class="form-control" name="direccion" maxlength="191">{{ $transporte->direccion }}</textarea>
                                 <span class="material-input"></span>
                             </div>
-                        </div><!-- ./col-md-10 -->
+                        </div>
                     </div>
                 </div><!-- ./card-content -->
                 <div class="card-footer text-right">

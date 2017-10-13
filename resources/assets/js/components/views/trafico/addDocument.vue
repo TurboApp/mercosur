@@ -1,0 +1,143 @@
+<template>
+<div>
+    <div>
+        <card-collapse :title="tituloDocumento(doc.tipo,doc.nombre)" v-for="(doc,index) in documentos" :key="index">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Tipo de documento</label>
+                            <div class="col-md-8">
+                                <select class="selectpicker" :name="tipoDoc(index)" data-style="select-with-transition" v-model="doc.tipo"  title=" " required>
+                                    <option value="FACTURA" >FACTURA</option> 
+                                    <option value="REMISIÓN">REMISIÓN</option> 
+                                    <option value="PREGUIA">PREGUIA</option> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">
+                                <template v-if="doc.tipo=='FACTURA' || doc.tipo=='REMISIÓN' || doc.tipo=='PREGUIA' ">
+                                    Numero
+                                </template>
+                                <template v-else>
+                                    Nombre
+                                </template>     
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" :name="nombreDoc(index)" v-model="doc.nombre" value="" maxlength="191" required>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Descripción</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" v-model="doc.descripcion" :name="descDoc(index)"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-danger btn-sm" @click="deleteForm(index)">
+                        <i class="material-icons">delete</i> Eliminar
+                    </button>
+                </div>
+            </div>
+        </card-collapse>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary btn-simple" @click="addDoc">
+                    <i class="material-icons">add_box</i> Agregar Documento
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
+<script>
+import cardCollapse from '../../cards/Collapse.vue';
+import inputFile from '../../uiComponents/inputFile.vue';
+import EventBus from '../../event-bus.js';
+
+export default {
+    components:{
+        'card-collapse':cardCollapse,
+        'input-file':inputFile,
+        
+    },
+    data(){
+        return{
+            documentos:[
+                {
+                tipo:'',
+                nombre:'',
+                descripcion:'',
+                archivo:''
+            }
+            ],
+   
+            newFile:[],
+            files:[],
+    
+        }
+    },
+    
+    methods:{
+        addDoc(){
+            this.documentos.push({
+                tipo:'',
+                nombre:'',
+                descripcion:''
+            });
+          
+            
+        },
+        deleteForm(index){
+            this.documentos.splice( index , 1 )
+            console.log(this.documentos.length);
+            if(this.documentos.length<1){
+                this.addDoc();
+            }
+        },
+        getFile(e){
+            this.newFile=e;
+        },
+
+       
+        tipoDoc(indice){
+            return 'documento['+(indice)+'][tipo_documento]';
+        },
+        nombreDoc(indice){
+            return 'documento['+(indice)+'][documento]';
+        },
+        descDoc(indice){
+            return 'documento['+(indice)+'][descripcion]';
+        },
+        
+        
+        tituloDocumento(tipo,nombre){
+            let titulo;
+            titulo = tipo + ' - ' + nombre;
+            if(titulo===' - '){
+                titulo = "Documento";
+            }
+            return titulo;    
+        }
+
+       
+    },
+    computed:{
+    },
+    updated() {
+        $(this.$el).find('.selectpicker').selectpicker('refresh');
+    },
+}
+</script>
+

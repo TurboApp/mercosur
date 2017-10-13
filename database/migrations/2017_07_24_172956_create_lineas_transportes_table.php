@@ -16,6 +16,7 @@ class CreateLineasTransportesTable extends Migration
         Schema::create('lineas_transportes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre')->length(90);
+            $table->string('nombre_corto',30);
             $table->string('tipo')->length(15)->nullable();
             $table->string('email')->length(60)->nullable();
             $table->string('telefono')->length(20)->nullable();
@@ -24,7 +25,7 @@ class CreateLineasTransportesTable extends Migration
             $table->string('rfc')->length(15)->nullable();
             $table->string('codigo_postal')->length(10)->nullable();
             $table->string('ciudad')->length(60)->nullable();
-            $table->string('pais')->length(20)->nullable();
+            $table->string('pais')->length(60)->nullable();
             $table->timestamps();
         });
     }

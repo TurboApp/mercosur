@@ -15,13 +15,13 @@ class CreateDocumentosTable extends Migration
     {
         Schema::create('documentos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('descarga_id')->unsigned();
+            $table->integer('carga_id')->nullable()->unsigned();
             $table->string('tipo_documento',45);
-            $table->integer('id_orden_servicio_transporte')->unsigned();
-            $table->string('num_documento',11);
-            $table->string('descripcion_mercancia',120);
-            $table->float('peso_bruto',8,2);
+            $table->string('documento',191);
+            $table->longText('descripcion')->nullable();
+            $table->smallInteger('status')->default(0);
             $table->timestamps();
-            $table->foreign('id_orden_servicio_transporte')->references('id')->on('orden_servicio_transportes');
         });
     }
 

@@ -1,13 +1,17 @@
  (function(){
-     isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+    isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-     if (isWindows && !$('body').hasClass('sidebar-mini')){
+    if (isWindows && !$('body').hasClass('sidebar-mini')){
         // if we are on windows OS we activate the perfectScrollbar function
-        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+        //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+        $('.sidebar .sidebar-wrapper').perfectScrollbar();
+        
 
         $('html').addClass('perfect-scrollbar-on');
+       
     } else {
         $('html').addClass('perfect-scrollbar-off');
+       
     }
  })();
 
@@ -39,9 +43,36 @@ $(document).ready(function(){
 
     md.initSidebarsCheck();
 
-    if($('body').hasClass('sidebar-mini')){
-        md.misc.sidebar_mini_active = true;
+    
+    if(localStorage.getItem("sidebar-mini") == "true")
+    {
+        $('body').addClass('sidebar-mini'); 
+        $('.sidebar .collapse').css('height','auto');
+        
+        $('.sidebar .collapse').collapse('hide').on('hidden.bs.collapse',function(){
+            $(this).css('height','auto');
+        });
+
+        if(isWindows){
+            //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+            $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
+        }
+         md.misc.sidebar_mini_active = true;
     }
+    else
+    {
+         md.misc.sidebar_mini_active = false;
+        
+    }
+   
+    
+   
+    // if($('body').hasClass('sidebar-mini'))
+    // {
+    
+    //     md.misc.sidebar_mini_active = true;
+        
+    // }
 
     window_width = $(window).width();
 
@@ -51,9 +82,9 @@ $(document).ready(function(){
     md.initMinimizeSidebar();
 
     //    Activate bootstrap-select
-    if($(".selectpicker").length != 0){
-        $(".selectpicker").selectpicker();
-    }
+     if($(".selectpicker").length != 0){
+         $(".selectpicker").selectpicker();
+     }
 
     //  Activate the tooltips
     $('[rel="tooltip"]').tooltip();
@@ -82,7 +113,7 @@ $(document).ready(function(){
             var $card = $(this).parent('.card');
 
             $card.find('.fix-broken-card').click(function(){
-                console.log(this);
+                
                 var $header = $(this).parent().parent().siblings('.card-header, .card-image');
 
                 $header.removeClass('hinge').addClass('fadeInDown');
@@ -115,7 +146,7 @@ $(window).resize(function(){
 
     // reset the seq for charts drawing animations
     seq = seq2 = 0;
-
+    
 });
 
 md = {
@@ -158,12 +189,21 @@ md = {
 
     initSidebarsCheck: function(){
         if($(window).width() <= 991){
+            if(isWindows){
+                $('.sidebar .sidebar-wrapper').perfectScrollbar();
+            }
+
             if($sidebar.length != 0){
                 md.initRightMenu();
-
+                
             } else {
                 md.initBootstrapNavbarMenu();
             }
+        }else if (isWindows && $('body').hasClass('sidebar-mini')){
+                // if we are on windows OS we activate the perfectScrollbar function
+                //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
+                        
         }
 
     },
@@ -172,38 +212,48 @@ md = {
         
         // when we are on a Desktop Screen and the collapse is triggered we check if the sidebar mini is active or not. If it is active then we don't let the collapse to show the elements because the elements from the collapse are showing on the hover state over the icons in sidebar mini, not on the click.
         $('.sidebar .collapse').on('show.bs.collapse',function(){
-            if($(window).width() > 991 && md.misc.sidebar_mini_active == true){
-                return false;
+            if($(window).width() > 991 && md.misc.sidebar_mini_active == true)
+            //if($(window).width() > 991 && ( localStorage.getItem("sidebar-mini") == "active") )
+            {
+               return false;
             } else{
+                
                 return true;
             }
         });
 
         $('#minimizeSidebar').click(function(){
             var $btn = $(this);
-
-            if(md.misc.sidebar_mini_active == true){
+            
+            if(md.misc.sidebar_mini_active == true)
+            //if( localStorage.getItem("sidebar-mini") === "active")
+            {
+            
                 $('body').removeClass('sidebar-mini');
+                
                 md.misc.sidebar_mini_active = false;
-
+                localStorage.setItem("sidebar-mini", "false");
+                
                 if(isWindows){
-                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                    //$('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+                    $('.sidebar .sidebar-wrapper').perfectScrollbar();
                 }
 
             }else{
-
+                
                 $('.sidebar .collapse').collapse('hide').on('hidden.bs.collapse',function(){
                     $(this).css('height','auto');
                 });
 
                 if(isWindows){
-                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                   // $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+                   $('.sidebar .sidebar-wrapper').perfectScrollbar('destroy');
                 }
-
+                
                 setTimeout(function(){
                     $('body').addClass('sidebar-mini');
-
                     $('.sidebar .collapse').css('height','auto');
+                    localStorage.setItem("sidebar-mini", "true");
                     md.misc.sidebar_mini_active = true;
                 },300);
             }

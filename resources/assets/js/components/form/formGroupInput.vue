@@ -1,6 +1,5 @@
-
 <template>
-  <div :class="addClass" >
+  <div :class="[addClass,{'is-empty':isFocused}]" >
     <template v-if="label">
       <label class="control-label" >
         {{label}}
@@ -18,8 +17,8 @@
     </template>  
     <div class="form-group " :class="(size) ? 'form-group-'+size : '' ">
 
-      <input class="form-control " :class="(size) ? 'input-'+size : '' "  v-bind="$props" :value="value" 
-        @input="$emit('input', $event.target.value )" >
+      <input class="form-control " :class="[(size) ? 'input-'+size : '', classInput]"  v-bind="$props" :value="value" 
+        @input="$emit('input', $event.target.value )" @focus="inFocus" @blur="outFocus">
         <span  class="help-block" v-text="help"></span>
       
     </div>
@@ -37,7 +36,11 @@
 </template>
 <script>
   export default {
-    
+    data(){
+      return{
+        isFocused:true
+      }
+    },
     props: {
       type: {
         type: String,
@@ -54,7 +57,8 @@
       required: Boolean,
       autofocus: Boolean,
       placeholder: String,
-      value: [String, Number]
+      value: [String, Number],
+      classInput:''
     },
     computed:{
       addClass(){
@@ -85,7 +89,16 @@
     methods:{
       typeIcon(icon){
         return (icon.substring(0,3) === 'fa-');
+      },
+      inFocus(){
+        this.isFocused=false;
+      },
+      outFocus(){
+        if(!this.value){
+          this.isFocused=true;
+        }
       }
+
     }
   }
 

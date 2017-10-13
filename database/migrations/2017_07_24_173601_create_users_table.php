@@ -20,16 +20,16 @@ class CreateUsersTable extends Migration
             $table->string('apellido',150);
             $table->string('email')->length(60)->unique()->nullable();
             $table->string('direccion',160);
-            $table->string('telefono',15)->nullable();
-            $table->string('celular')->length(10);
+            $table->string('telefono',20)->nullable();
+            $table->string('celular')->length(20);
             $table->string('url_avatar')->nullable();
             $table->string('user',50)->unique();
-            $table->string('password',50);
-            $table->integer('perfil_id')->unsigned();
+            $table->string('password');
+            $table->integer('perfil_id');
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('perfil_id')->references('id')->on('perfils')->onDelete('cascade');
+            //$table->foreign('perfil_id')->references('id')->on('perfils')->onDelete('cascade');
         });
     }
 

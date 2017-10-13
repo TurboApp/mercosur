@@ -15,21 +15,17 @@ class CreateOrdenServiciosTable extends Migration
     {
         Schema::create('orden_servicios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipo',35)->nullable();
-            $table->integer('id_agente')->unsigned();
-            $table->integer('id_cliente')->unsigned();
-            $table->integer('numero_servicio')->nullable();
-            $table->date('fecha_recepcion')->nullable();
-            $table->string('hora_recepcion',12)->nullable();
-            $table->string('observaciones')->nullable();
-            $table->integer('id_destino')->unsigned();
-            $table->string('pais_destino',35)->nullable();
-            $table->string('estado',20)->nullable();
+            $table->string('tipo',15);//Descarga,Carga,Trasbordo,Otros Servicios
+            $table->integer('agente_id')->unsigned();
+            $table->integer('cliente_id')->unsigned();
+            $table->integer('numero_servicio');
+            $table->date('fecha_recepcion');
+            $table->time('hora_recepcion');
+            $table->string('destino');
+            $table->string('destino_pais',60)->nullable();
+            $table->string('status',20);
+            $table->text('observaciones')->nullable();
             $table->timestamps();
-
-            $table->foreign('id_agente')->references('id')->on('agentes');
-            $table->foreign('id_cliente')->references('id')->on('clientes');
-            $table->foreign('id_destino')->references('id')->on('destinos');
         });
     }
 

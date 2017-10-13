@@ -3,25 +3,10 @@
 @section('title','Añadir nuevo agente')
 
 @section('nav-top')
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        <a href="{{ URL::previous() }}" rel="tooltip" data-placement="bottom" title="Ir atras">
-            <i class="material-icons">arrow_back</i>
-            <p class="hidden-lg hidden-md">Regresar</p>
-        </a>
-    </li>
-    <li class="separator hidden-lg hidden-md"></li>
-</ul>
-<form class="navbar-form navbar-right" method="GET" action="/agentes/busqueda/" role="search">
-    <div class="form-group form-search is-empty">
-        <input type="text" class="form-control" name="s" placeholder="Buscar">
-        <span class="material-input"></span>
-    </div>
-    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-        <i class="material-icons">search</i>
-        <div class="ripple-container"></div>
-    </button>
-</form>
+    @component('components.navbarsearch',[
+        'action' => 'AgenteController@search'
+    ])
+    @endcomponent()
 @endsection
 @section('content')
 <div class="row">
@@ -37,8 +22,8 @@
                     <h4 class="card-title">Ingrese los datos</h4>
                     <div class="row">
                         <div class="form-group label-floating is-empty">
-                            <label class="col-sm-2 label-on-left" for="agente">* Nombre</label>
-                            <div class="col-sm-10">
+                            <label class="col-md-2 label-on-left" for="agente">* Nombre</label>
+                            <div class="col-md-10">
                                 <div class="form-group label-floating is-empty">
                                     <label class="control-label"></label>
                                     <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" maxlength="90" required>
@@ -48,18 +33,34 @@
                         </div>
                     </div><!-- -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">RFC</label>
-                        <div class="col-sm-10">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="rfc" value="{{ old('rfc') }}" maxlength="15" required>
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="nombre_corto" value="{{ old('nombre_corto') }}" maxlength="15" required>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-2 label-on-left">RFC</label>
+                                <div class="col-md-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="rfc" value="{{ old('rfc') }}" maxlength="15" required>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
+                            </div>
+                        </div>
                     </div><!-- ./row -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Email</label>
-                        <div class="col-sm-10">
+                        <label class="col-md-2 label-on-left">Email</label>
+                        <div class="col-md-10">
                             <div class="row">
                                 <div class="col-md-3">                           
                                     <div class="form-group label-floating is-empty">
@@ -69,8 +70,8 @@
                                 </div>
                                 <div class="col-md-5"> 
                                     <div class="row">     
-                                        <label class="col-sm-3 label-on-left">Teléfono</label>
-                                        <div class="col-sm-9 ">                     
+                                        <label class="col-md-3 label-on-left">Teléfono</label>
+                                        <div class="col-md-9 ">                     
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
                                                 <input type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" maxlength="20">
@@ -81,8 +82,8 @@
                                 </div>
                                 <div class="col-md-4"> 
                                     <div class="row">     
-                                        <label class="col-sm-3 label-on-left">Celular</label>
-                                        <div class="col-sm-9">                     
+                                        <label class="col-md-3 label-on-left">Celular</label>
+                                        <div class="col-md-9">                     
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label"></label>
                                                 <input type="text" class="form-control" name="celular" value="{{old('celular') }}" maxlength="20">
@@ -95,29 +96,39 @@
                         </div><!-- ./col-md-10 -->
                     </div><!-- ./row -->
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Direcciòn</label>
-                        <div class="col-sm-6">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" maxlength="191">
-                                <span class="material-input"></span>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-4 label-on-left">Ciudad</label>
+                                <div class="col-md-8">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" maxlength="60">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
-                        <label class="col-sm-2 label-on-left">Codigo postal</label>
-                        <div class="col-sm-2">
-                            <div class="form-group label-floating is-empty">
-                                <label class="control-label"></label>
-                                <input type="text" class="form-control" name="codigo_postal" value="{{ old('codigo_postal') }}" maxlength="10">
-                                <span class="material-input"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="col-md-3 label-on-left">Codigo postal</label>
+                                <div class="col-md-9">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label"></label>
+                                        <input type="text" class="form-control" name="codigo_postal" value="{{ old('codigo_postal') }}" maxlength="10">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div><!-- ./col-md-10 -->
                             </div>
-                        </div><!-- ./col-md-10 -->
+                        </div>
                     </div><!-- ./row -->
+                    
+                    
                     <div class="row">
-                        <label class="col-sm-2 label-on-left">Ciudad</label>
-                        <div class="col-sm-10">
+                        <label class="col-md-2 label-on-left">Dirección</label>
+                        <div class="col-md-10">
                             <div class="form-group label-floating is-empty">
                                 <label class="control-label"></label>
-                                <input type="text" class="form-control" name="ciudad" value="{{ old('ciudad') }}" maxlength="60">
+                                <textarea class="form-control" name="direccion" maxlength="191">{{ old('direccion') }}</textarea>
                                 <span class="material-input"></span>
                             </div>
                         </div><!-- ./col-md-10 -->

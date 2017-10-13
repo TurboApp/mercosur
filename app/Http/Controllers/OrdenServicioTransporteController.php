@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\OrdenServicioTransporte;
+
 use Illuminate\Http\Request;
 
 class OrdenServicioTransporteController extends Controller

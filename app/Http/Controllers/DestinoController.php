@@ -39,7 +39,6 @@ class DestinoController extends Controller
     {
         $this->validate(request(),[
           'nombre' => 'required',
-          'rfc' => 'required',
           'email' => 'nullable|email'
 
         ]
@@ -85,7 +84,6 @@ class DestinoController extends Controller
      $this->validate(request(),
          [
              'nombre' => 'required',
-             'rfc'    => 'required',
              'email'  => 'nullable|email'
          ]
      );

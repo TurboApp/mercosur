@@ -25,9 +25,7 @@
         overflow: auto;
         width: 260px;
         z-index: 4;
-
         padding-bottom: 30px;
-
         .dropdown .dropdown-backdrop{
             display: none !important;
         }
@@ -237,11 +235,14 @@
         }
 
         .photo{
-            width: 80px;
-            height: 80px;
+            width: 34px;
+            height: 34px;
             overflow: hidden;
             border-radius: 50%;
-            margin: 0 auto;
+            float: left;
+            z-index: 5;
+            margin-right: 11px;
+            margin-left: 30px;
             @include shadow-big();
             @extend .animation-transition-general;
 
@@ -249,15 +250,19 @@
                 width: 100%;
             }
         }
-
+        
         a{
             text-align: center;
             color: $black-color;
             padding: $padding-base-vertical $padding-large-vertical;
-            text-align: center;
+            padding-left:0px;
             display: block;
             white-space: nowrap;
+            line-height: 22px;
             @extend .animation-transition-general;
+        }
+        .info > a {
+            text-align: left;
         }
     }
 
@@ -302,8 +307,6 @@
         }
     }
 }
-
-
 .main-panel{
     position: relative;
     float: right;
@@ -354,7 +357,8 @@
 
 // windows os settings for perfect scrollbar off
 .sidebar .sidebar-wrapper,
-.main-panel{
+//.main-panel
+{
     .perfect-scrollbar-on &,
     &{
         overflow: hidden;
@@ -364,7 +368,8 @@
 // regular settings for perfect scrollbar off
 .perfect-scrollbar-off{
     .sidebar .sidebar-wrapper,
-    .main-panel{
+    //.main-panel
+    {
         overflow: auto;
     }
 }
@@ -419,8 +424,9 @@
                 overflow: inherit;
                 width: 80px;
                 box-shadow: none;
+                
             }
-
+            
             .logo{
                 display: none;
             }
@@ -512,7 +518,8 @@
 
             .user{
                 position: relative;
-
+                display: block;
+                clear: both;
                 .nav{
                     a{
                         color: $black-color;
@@ -520,9 +527,10 @@
                 }
 
                 .photo{
-                    width: 50px;
-                    height: 50px;
-                    border-width: 2px;
+                    position: relative;
+                    display: block;
+                    float: none;
+                    margin: 0 23px;;
                 }
 
                 &:hover{
@@ -581,10 +589,12 @@
         }
 
         .sidebar,
-        .main-panel{
+        //.main-panel
+        {
             overflow: visible;
             max-height: none;
             height: auto;
+            
         }
     }
 }

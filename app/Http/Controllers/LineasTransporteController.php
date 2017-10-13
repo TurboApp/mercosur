@@ -39,13 +39,14 @@ class LineasTransporteController extends Controller
       // dd(request()->all());
         $this->validate(request(),[
           'nombre' => 'required',
+          'nombre_corto' => 'required',
           'rfc' => 'required',
           'pais' => 'required',
           'email' => 'nullable|email'
         ]
       );
 
-        $transporte=LineasTransporte::create(request(['nombre','tipo','email','telefono','celular','direccion','rfc','codigo_postal','ciudad','pais']));
+        $transporte=LineasTransporte::create(request(['nombre','nombre_corto','tipo','email','telefono','celular','direccion','rfc','codigo_postal','ciudad','pais']));
         $request->session()->flash('success', 'Una nueva Linea de Transporte fue agregado exitosamente');
         return redirect('/transportes/'.$transporte->id);
     }
@@ -85,13 +86,14 @@ class LineasTransporteController extends Controller
        $this->validate(request(),
            [
                'nombre' => 'required',
+               'nombre_corto' => 'required',
                'rfc'    => 'required',
                'pais'   =>  'required',
                'email'  => 'nullable|email'
            ]
        );
        //Prepara los nuevos valores de los datos
-       $inputs = [ 'nombre'=>$request->nombre,'email'=>$request->email , 'telefono'=>$request->telefono , 'celular' => $request->celular , 'direccion' => $request->direccion , 'rfc' => $request->rfc , 'ciudad' => $request->ciudad , 'codigo_postal' => $request->codigo_postal, 'pais' => $request->pais, 'tipo' => $request->tipo ];
+       $inputs = [ 'nombre'=>$request->nombre,'nombre_corto'=>$request->nombre_corto,'email'=>$request->email , 'telefono'=>$request->telefono , 'celular' => $request->celular , 'direccion' => $request->direccion , 'rfc' => $request->rfc , 'ciudad' => $request->ciudad , 'codigo_postal' => $request->codigo_postal, 'pais' => $request->pais, 'tipo' => $request->tipo ];
        //proceso de guardatos en la tabla/modelo datos_empresas
        $transporte = LineasTransporte::find($transporte->id);
        $transporte->fill($inputs);
@@ -122,6 +124,7 @@ class LineasTransporteController extends Controller
    {
 
        $transportes = LineasTransporte::where('nombre','LIKE','%'.$request->s.'%')->paginate(15);
+       $transportes->appends( [ 's' => $request->s ] );
        return view('pages.transportes.search', compact('transportes','request'));
    }
 
