@@ -14,7 +14,7 @@ use App\UserPuesto;
 class UserController extends Controller
 {
     function __construct(){
-      $this->middleware(['auth','perfils:Administrador']);
+      $this->middleware(['auth']);
     }
 
     public function index(){
@@ -67,7 +67,7 @@ class UserController extends Controller
     public function edit(User $usuario){
       $puesto=$usuario->puestos;
       $perfil=$usuario->perfil;
-      $perfiles=Perfil::pluck('perfil','id');
+      $perfiles=Perfil::pluck('descripcion','id');
       $perfiles=$perfiles->all();
       $puestos=Puesto::pluck('puesto','id');
       $puestos=$puestos->all();

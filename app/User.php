@@ -12,7 +12,7 @@ class User extends Model implements Authenticatable
   use \Illuminate\Auth\Authenticatable;
   use Notifiable;
   protected $guard="users";
-  protected $fillable=['nombre','apellido','email','direccion','telefono','celular','url_avatar','user','password','perfil_id'];
+  protected $fillable=['nombre','apellido','email','direccion','telefono','celular','url_avatar','user','perfil_id'];
   protected $hidden = [
         'password', 'remember_token',
     ];
@@ -24,8 +24,8 @@ class User extends Model implements Authenticatable
   public function perfil(){
     return $this->belongsTo('App\Perfil');
   }
-  
- 
+
+
   public function hasPerfils(array $perfiles)
   {
     foreach ($perfiles as $perfil) {

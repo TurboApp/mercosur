@@ -8,7 +8,6 @@
           </a>
       </li>
       <!--USUARIOS-->
-      @if (auth()->user()->hasPerfils(['admin']))
         <li {{ Request::is('usuarios*') ? ' class=active' : ''}}>
           <a  href="#menuUsuarios" data-toggle="collapse">
             <i class="material-icons">account_circle</i>
@@ -31,7 +30,6 @@
             </ul>
           </div>
         </li>
-      @endif
       <!--USUARIOS-->
       {{-- FUERZA DE TAREA --}}
       <li {{ Request::is('fuerzas*') ? ' class=active' : ''}}>
@@ -152,9 +150,9 @@
             </ul>
         </div>
       </li>
-      
-      
-      
+
+
+
     {{-- TRAFICO --}}
     <li {{ Request::is('trafico*') ? ' class=active' : ''}}>
         <a  href="#menuTrafico" data-toggle="collapse">
@@ -185,11 +183,11 @@
 
     </li>
 
-    
-    
-      
 
-      
+
+
+
+
       {{-- HERRAMIENTAS  --}}
       <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
           <a  href="#menuHerramientas" data-toggle="collapse">

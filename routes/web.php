@@ -4,7 +4,7 @@ Auth::routes();
 
 Route::group( ['middleware' => 'auth' ], function()
 {
-  Route::get('/', function () 
+  Route::get('/', function ()
   {
       return view('index');
   });
@@ -12,6 +12,8 @@ Route::group( ['middleware' => 'auth' ], function()
   // RUTAS MI PERFIL
 
   Route::get('/perfil/{user}','MiperfilController@index');
+  Route::get('/perfil/{user}/editar','MiperfilController@edit');
+  Route::patch('/perfil/{user}','MiperfilController@update');
 
 
   #RUTAS DE CLIENTES
@@ -25,7 +27,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/clientes/{cliente}/destroy', 'ClienteController@destroy');
 
   #RUTAS DE AGENTES
-  
+
   Route::get('/agentes/', 'AgenteController@index');
   Route::get('/API/agentes', 'AgenteController@APIindex');
   Route::get('/agentes/busqueda/', 'AgenteController@search');
@@ -61,13 +63,13 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/trafico/nuevo/servicio/{servicio}/{id?}', 'OrdenServicioController@create');
   Route::get('/trafico/nuevo/carga/{servicio}', 'OrdenServicioController@createCarga');
   Route::get('/trafico/nuevo/trasbordo', 'OrdenServicioController@createTrasbordo');
-  
+
   Route::get('/trafico/almacen/', 'OrdenServicioController@indexAlmacen');
-  
+
   Route::get('/trafico/servicio/{servicio}', 'OrdenServicioController@show');
   Route::post('/trafico/servicio', 'OrdenServicioController@store');
   Route::get('/trafico/coordinacion', 'CoordinacionController@index');
-  
+
   Route::get('/documentos/{id}/{archivo}', 'OrdenServicioController@getArchivo');
   Route::get('/API/servicios/{date?}','OrdenServicioController@indexServicios');
   Route::get('/API/coordinacion/{date?}','CoordinacionController@indexDatatable');
@@ -109,5 +111,3 @@ Route::group( ['middleware' => 'auth' ], function()
 
 
 });
-
-

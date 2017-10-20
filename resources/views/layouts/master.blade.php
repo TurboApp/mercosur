@@ -10,16 +10,16 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mercosur.css') }}">
-    
+
     <script>
           window.Laravel = {"csrfToken" : "{{csrf_token()}}" }
     </script>
     <style>
-    
+
     .Descarga, .descarga{
         background:#f44336 !important;
         color:#fff !important;
@@ -32,7 +32,7 @@
         background:#9c27b0  !important;
         color:#fff !important;
     }
-    
+
     </style>
 </head>
 <body>
@@ -59,7 +59,11 @@
                 <!-- usuario -->
                 <div class="user">
                     <div class="photo">
-                        <img src="{{Storage::url(auth()->user()->url_avatar)}}" /> 
+                        @if (auth()->user()->url_avatar)
+                          <img src="{{url(auth()->user()->url_avatar)}}" />
+                        @else
+                          <img src="{{asset('img/user-default.jpg')}}" alt="...">
+                        @endif
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
@@ -82,7 +86,7 @@
                     </div>
                 </div><!-- ./user -->
                 <!-- Navegación -->
-                
+
                 @includeif('layouts.navs.'.auth()->user()->perfil->perfil)
 
             </div>
@@ -171,7 +175,7 @@
             <!-- pie de pagina -->
             @include('layouts.partials.footer')
         </div>
-        
+
     </div>
 </div>
 
