@@ -62,7 +62,7 @@
         <card>
         <template>
             <div class="material-datatables">
-                <table id="servicios" class="table table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                <table id="servicios" class="table table-no-bordered " cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Turno</th>
@@ -204,9 +204,15 @@
                     }     
                 },
                 {
-                    data : "supervisor_id",
+                    data : "supervisor.nombre",
                     render : function(data, type, row){
-                        return '<p class="lead text-muted">Jonh Doe</p>'
+                        console.log(row);
+                        if(row.supervisor_id !== "Null"){
+                            return '<p class="lead text-muted">'+data+'</p>';
+                        }
+                        else{
+                            return '...';
+                        }
                     }
                 },
                 { 
@@ -236,21 +242,15 @@
                     orderable: false,
                     data :null,
                     render : function(data, type, row){
-                        if(data.servicio.status !== 'Para asignar'){
+                        if(data.supervicor_id !== 'Null'){
                             return `
-                                <a href="#`+data.id+`" class="btn btn-success btn-simple btn-icon">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
+                                <a href="/trafico/maniobra/`+data.id+`/detalles" class="btn btn-info btn-simple btn-icon">
+                                    <i class="fa fa-search-plus" aria-hidden="true"></i>
                                 </a>
-                                <span class="text-muted btn-icon">
-                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                </span>
                             `;
                         }else{
                             return `
-                                <a href="#`+data.id+`" class="btn btn-info btn-simple btn-icon">
-                                    <i class="fa fa-search-plus" aria-hidden="true"></i>
-                                </a>
-                                <a href="#`+data.id+`" class="btn btn-primary btn-simple btn-icon">
+                                <a href="/trafico/maniobra/`+data.id+`/detalles" class="btn btn-primary btn-simple btn-icon">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                 </a>
                             `;

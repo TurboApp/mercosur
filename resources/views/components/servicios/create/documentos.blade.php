@@ -23,54 +23,24 @@
             <hr style="border:0">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Documento</th>
-                                <th>Descripción</th>
-                                <th>Estatus</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>#</th>
-                                <th>Documento</th>
-                                <th>Descripción</th>
-                                <th>Estatus</th>
-                            </tr>  
-                        </tfoot>
-                        <tbody>
-                            @foreach($servicio->documentosDescarga as $index => $documento)
-                                <tr @if(! $documento->status ) class="text-muted" @endif >
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>
-                                        @if( $documento->status )
-                                            {{ $documento->tipo_documento }} - {{ $documento->documento }}
-                                        @else
-                                            <del><em class="text-muted">{{ $documento->tipo_documento }} - {{ $documento->documento }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if( $documento->status )
-                                            {{ $documento->descripcion }}
-                                        @else
-                                            <del><em class="text-muted">{{ $documento->descripcion }}</em></del>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if( $documento->status )
-                                            Almacén
-                                        @else
-                                            <del><em class="text-muted">Cargado</em></del>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>    
+                    <ul class="documentos-list">
+                        @foreach($servicio->documentosDescarga as $index => $documento)
+                            @if($documento->status)
+                            <li class="documento-item">
+                                <h4> {{ $documento->tipo_documento }} - {{ $documento->documento }} <small class="label label-default">Almacén</small></h4>
+                                
+                                <p> {{ $documento->descripcion }} </p>
+                            </li>
+                            @else
+                            <li class="documento-item">
+                                <h4> {{ $documento->tipo_documento }} - {{ $documento->documento }} <small class="label light-green accent-4"><i class="fa fa-check" aria-hidden="true"></i> Cargado</small> </h4>
+                                <em class="text-muted"> {{ $documento->descripcion }} </em>
+                            </li>
+                            @endif
+                        @endforeach
+                    </ul>  
                 </div>
-            </div>  
+            </div>
 
         @else
         

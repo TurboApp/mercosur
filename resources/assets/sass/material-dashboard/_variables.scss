@@ -42,7 +42,7 @@ $border-radius-extreme: 30px !default;
 
 // Typography
 $font-family-sans-serif: 'Roboto', 'Helvetica', 'Arial', sans-serif !default;
-$font-family-serif: 'Roboto Slab', 'Times New Roman', serif !default;
+$font-family-serif: 'Roboto-Slab', 'Times New Roman', serif !default;
 
 $headings-font-weight: 300 !default;
 
@@ -104,7 +104,7 @@ $link-hover-decoration: underline !default;
 //## Font, line-height, and color for body text, headings, and more.
 
 $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+//$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $font-family-base:        $font-family-sans-serif !default;
@@ -175,9 +175,9 @@ $padding-xs-horizontal:     5px !default;
 $line-height-large:         1.3333333 !default; // extra decimals for Win 8.1 Chrome
 $line-height-small:         1.5 !default;
 
-$border-radius-base:        0px !default;//4px !default;
-$border-radius-large:       0px !default;//6px !default;
-$border-radius-small:       0px !default;//3px !default;
+$border-radius-base:        0px;//0px !default;//4px !default;
+$border-radius-large:       0px; //!default;//6px !default;
+$border-radius-small:       0px; //!default;//3px !default;
 
 //** Global color for active items (e.g., navs or dropdowns).
 $component-active-color:    #fff !default;

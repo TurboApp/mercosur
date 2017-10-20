@@ -1,3 +1,38 @@
+.z-depth-0 {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.z-depth-1 {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.z-depth-1-half {
+  -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+
+.z-depth-2 {
+  -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+.z-depth-3 {
+  -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+}
+
+.z-depth-4 {
+  -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+}
+
+.z-depth-5 {
+  -webkit-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
 @media (min-width: 992px) {
   .typo-line {
     padding-left: 140px;
@@ -595,6 +630,16 @@
   padding-left: 0;
 }
 
+.documentos-list {
+  margin-bottom: 25px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.documentos-list .documento-item {
+  border-bottom: 1px solid #ddd;
+}
+
 .files-list {
   margin-bottom: 20px;
   padding-left: 0;
@@ -638,5 +683,57 @@
 
 .files-list .file-item a .file-details span {
   display: block;
+}
+
+.search-sup-wrapper {
+  font-size: 1.1em;
+  position: relative;
+  width: 100%;
+}
+
+.search-sup-wrapper label {
+  position: absolute;
+  left: 13px;
+  top: 28px;
+}
+
+.search-sup-wrapper .search-sup-input {
+  width: 100%;
+  padding: 16px 43px;
+  margin: 1em 0;
+  line-height: 1.1em;
+  border: 1px solid #9e9e9e;
+  border-radius: 23px;
+  -webkit-box-shadow: inset 0 0 17px rgba(158, 158, 158, 0.4), 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+          box-shadow: inset 0 0 17px rgba(158, 158, 158, 0.4), 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+
+.search-sup-wrapper .search-sup-input:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-box-shadow: 0 0 5px #82b1ff, 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+          box-shadow: 0 0 5px #82b1ff, 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  border: 1px solid #82b1ff;
+}
+
+figure.image-hover {
+  position: relative;
+  display: block;
+}
+
+figure.image-hover img {
+  width: 100%;
+}
+
+figure.image-hover figcaption {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.567);
+  color: #fff;
+  font-size: 1.7em;
+  line-height: 1em;
+  padding: 7px 14px;
+  font-family: 'Roboto-Slab', 'Times New Roman', serif;
+  width: 100%;
 }
 

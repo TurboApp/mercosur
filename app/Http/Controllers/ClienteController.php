@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
-
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -131,6 +130,7 @@ class ClienteController extends Controller
         return view('pages.clientes.search', compact('clientes','request'));
     }
 
-    
+
+   
 
 }

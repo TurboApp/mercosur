@@ -1,7 +1,7 @@
 <card type="header-icon" icon="fa-file-text-o">
     <template>
         <template slot="title">Registro de documentos</template>
-        <table class="table table-striped">
+        {{--  <table class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -57,6 +57,22 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table>  --}}
+        <ul class="documentos-list">
+            @foreach($data as $index => $documento)
+                @if($documento->status)
+                <li class="documento-item">
+                    <h4> {{ $documento->tipo_documento }} - {{ $documento->documento }} <small class="label label-default">Almacén</small></h4>
+                    
+                    <p> {{ $documento->descripcion }} </p>
+                </li>
+                @else
+                <li class="documento-item">
+                    <h4> {{ $documento->tipo_documento }} - {{ $documento->documento }} <small class="label light-green accent-4"><i class="fa fa-check" aria-hidden="true"></i> Cargado</small> </h4>
+                    <em class="text-muted"> {{ $documento->descripcion }} </em>
+                </li>
+                @endif
+            @endforeach
+        </ul>  
     </template>
 </card> 

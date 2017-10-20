@@ -89,7 +89,7 @@
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
         {{--  <div class="main-panel">  --}}
-        <div class="main-panel grey lighten-2">
+        <div class="main-panel ">
             <!-- NAVEGACION -->
             <nav class="navbar navbar-transparent navbar-absolute">
                 <div class="container-fluid">

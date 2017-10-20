@@ -100,7 +100,7 @@
 }
 
 .noUi-target {
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .noUi-horizontal {
@@ -3217,7 +3217,7 @@ svg {
 
 .bootstrap-datetimepicker-widget .picker-switch {
   text-align: center;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .bootstrap-datetimepicker-widget .picker-switch::after {
@@ -3236,7 +3236,7 @@ svg {
   line-height: 2.5;
   height: 2.5em;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 0px;
   margin: 2px 0px !important;
 }
 
@@ -3274,7 +3274,7 @@ svg {
 
 .bootstrap-datetimepicker-widget table th.prev span,
 .bootstrap-datetimepicker-widget table th.next span {
-  border-radius: 3px;
+  border-radius: 0px;
   height: 27px;
   width: 27px;
   line-height: 28px;
@@ -3312,7 +3312,7 @@ svg {
 }
 
 .bootstrap-datetimepicker-widget table td > div {
-  border-radius: 3px;
+  border-radius: 0px;
   height: 54px;
   line-height: 54px;
   width: 54px;
@@ -9810,6 +9810,17 @@ h6,
 }
 
 .title,
+.card-title,
+.info-title,
+.footer-brand,
+.footer-big h5,
+.footer-big h4,
+.media .media-heading {
+  font-weight: 700;
+  font-family: "Roboto-Slab", "Times New Roman", serif;
+}
+
+.title,
 .title a,
 .card-title,
 .card-title a,
@@ -9957,7 +9968,7 @@ h2.title {
 .sidebar .nav li > a,
 .off-canvas-sidebar .nav li > a {
   margin: 10px 15px 0;
-  border-radius: 3px;
+  border-radius: 0px;
   color: #3C4858;
 }
 
@@ -10349,7 +10360,7 @@ h2.title {
     left: 81px;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
             box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-    border-radius: 6px;
+    border-radius: 0px;
     color: rgba(0,0,0, 0.87);
     background: #fff;
   }
@@ -10540,7 +10551,7 @@ h2.title {
 .btn,
 .navbar .navbar-nav > li > a.btn {
   border: none;
-  border-radius: 3px;
+  border-radius: 0px;
   position: relative;
   padding: 12px 30px;
   margin: 10px 1px;
@@ -12082,7 +12093,7 @@ fieldset[disabled]
 
 .btn-group .dropdown-menu,
 .btn-group-vertical .dropdown-menu {
-  border-radius: 0 0 3px 3px;
+  border-radius: 0 0 0px 0px;
 }
 
 .btn-group.btn-group-raised,
@@ -12173,7 +12184,7 @@ h6,
 }
 
 .serif-font {
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-family: "Roboto-Slab", "Times New Roman", serif;
 }
 
 .page-header {
@@ -12551,7 +12562,7 @@ output {
 }
 
 .label {
-  border-radius: 2px;
+  border-radius: 0px;
 }
 
 .label,
@@ -13544,7 +13555,7 @@ select.form-control[multiple],
 .alert.alert-default {
   background-color: white;
   color: #555555;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 255, 255, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 255, 255, 0.4);
 }
@@ -13559,7 +13570,7 @@ select.form-control[multiple],
 .alert.alert-inverse {
   background-color: #2e2e2e;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(33, 33, 33, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(33, 33, 33, 0.4);
 }
@@ -13572,7 +13583,7 @@ select.form-control[multiple],
 .alert.alert-primary {
   background-color: #0287d6;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(2, 119, 189, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(2, 119, 189, 0.4);
 }
@@ -13585,7 +13596,7 @@ select.form-control[multiple],
 .alert.alert-success {
   background-color: #5cb860;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
 }
@@ -13598,7 +13609,7 @@ select.form-control[multiple],
 .alert.alert-info {
   background-color: #00bcd4;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
@@ -13611,7 +13622,7 @@ select.form-control[multiple],
 .alert.alert-warning {
   background-color: #ffa21a;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
@@ -13624,7 +13635,7 @@ select.form-control[multiple],
 .alert.alert-danger {
   background-color: #f55a4e;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
 }
@@ -13637,7 +13648,7 @@ select.form-control[multiple],
 .alert.alert-rose {
   background-color: #eb3573;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4);
           box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(233, 30, 99, 0.4);
 }
@@ -14008,7 +14019,7 @@ fieldset[disabled] .form-group.is-focused .checkbox label {
   border: 1px solid rgba(0,0,0, .54);
   overflow: hidden;
   z-index: 1;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .checkbox .checkbox-material .check:before {
@@ -14662,7 +14673,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .login-page .card-login {
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-  border-radius: 6px;
+  border-radius: 0px;
   padding-bottom: 20px;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
@@ -14731,7 +14742,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .register-page .card-signup {
-  border-radius: 6px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
           box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   margin-bottom: 100px;
@@ -15013,7 +15024,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   position: relative;
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-  border-radius: 6px;
+  border-radius: 0px;
   color: rgba(0,0,0, 0.87);
   background: #fff;
 }
@@ -15442,7 +15453,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 .modal-content {
   -webkit-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
           box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
-  border-radius: 6px;
+  border-radius: 0px;
   border: none;
 }
 
@@ -15535,7 +15546,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .navbar {
   border: 0;
-  border-radius: 3px;
+  border-radius: 0px;
   border-bottom: 1px solid #ededf3;
   padding: 10px 0;
 }
@@ -15590,7 +15601,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   font-weight: 500;
   font-size: 12px;
   text-transform: uppercase;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .navbar .navbar-nav > li > a:hover,
@@ -15807,7 +15818,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 
 .navbar .dropdown-menu,
 .navbar.navbar-default .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar .dropdown-menu li > a:hover,
@@ -15856,7 +15867,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-inverse .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-inverse .dropdown-menu li > a:hover,
@@ -15900,7 +15911,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-primary .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-primary .dropdown-menu li > a:hover,
@@ -15944,7 +15955,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-success .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-success .dropdown-menu li > a:hover,
@@ -15988,7 +15999,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-info .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-info .dropdown-menu li > a:hover,
@@ -16032,7 +16043,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-warning .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-warning .dropdown-menu li > a:hover,
@@ -16076,7 +16087,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-danger .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-danger .dropdown-menu li > a:hover,
@@ -16120,7 +16131,7 @@ fieldset[disabled] .navbar .btn-link:focus {
 }
 
 .navbar.navbar-rose .dropdown-menu {
-  border-radius: 3px !important;
+  border-radius: 0px !important;
 }
 
 .navbar.navbar-rose .dropdown-menu li > a:hover,
@@ -16223,7 +16234,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   line-height: 1.5em;
   background: #FFFFFF;
   border: none;
-  border-radius: 3px;
+  border-radius: 0px;
   -webkit-box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
           box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
@@ -16310,7 +16321,7 @@ footer ul li a {
   font-weight: 500;
   font-size: 12px;
   text-transform: uppercase;
-  border-radius: 3px;
+  border-radius: 0px;
   text-decoration: none;
   position: relative;
   display: block;
@@ -16350,7 +16361,7 @@ footer .btn {
   font-size: 13px;
   padding: 10px 20px;
   margin: 0 5px;
-  border-radius: 2px;
+  border-radius: 0px;
   -webkit-transition: all 150ms linear;
   transition: all 150ms linear;
 }
@@ -16458,7 +16469,7 @@ footer .btn {
   margin: 25px 0;
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-  border-radius: 6px;
+  border-radius: 0px;
   color: rgba(0,0,0, 0.87);
   background: #fff;
 }
@@ -16473,7 +16484,7 @@ footer .btn {
 
 .card .map {
   height: 280px;
-  border-radius: 6px;
+  border-radius: 0px;
   margin-top: 15px;
 }
 
@@ -16498,7 +16509,7 @@ footer .btn {
   margin-left: 15px;
   margin-right: 15px;
   margin-top: -30px;
-  border-radius: 6px;
+  border-radius: 0px;
   z-index: 3;
   -webkit-box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
           box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -16507,7 +16518,7 @@ footer .btn {
 .card .card-image img {
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: 0px;
   pointer-events: none;
 }
 
@@ -16614,7 +16625,7 @@ footer .btn {
   -webkit-box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
           box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   margin: -20px 15px 0;
-  border-radius: 3px;
+  border-radius: 0px;
   padding: 15px;
   background-color: #0277bd;
   position: relative;
@@ -16913,11 +16924,11 @@ footer .btn {
 
 .card-plain .card-image {
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .card-plain .card-image img {
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .card-raised {
@@ -16940,7 +16951,6 @@ footer .btn {
 .card-profile,
 .card-testimonial {
   margin-top: 30px;
-  text-align: center;
 }
 
 .card-profile .btn-just-icon.btn-raised,
@@ -17159,7 +17169,7 @@ footer .btn {
   top: 0;
   content: "";
   background-color: rgba(0, 0, 0, 0.56);
-  border-radius: 6px;
+  border-radius: 0px;
 }
 
 .card-product {
@@ -17248,7 +17258,7 @@ footer .btn {
 .nav-tabs {
   background: #0277bd;
   border: 0;
-  border-radius: 3px;
+  border-radius: 0px;
   padding: 0 15px;
 }
 
@@ -17256,7 +17266,7 @@ footer .btn {
   color: #FFFFFF;
   border: 0;
   margin: 0;
-  border-radius: 3px;
+  border-radius: 0px;
   line-height: 24px;
   text-transform: uppercase;
   font-size: 12px;

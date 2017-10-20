@@ -207,8 +207,6 @@ class OrdenServicioController extends Controller
 
     public function getArchivo(Request $request)
     {
-        //dd($request->archivo);
-
         $path = storage_path('app/documentos/'.$request->id .'/'. $request->archivo );
         if(!File::exists($path)) 
             $path = storage_path('app/public/avatars/') . 'default.png';

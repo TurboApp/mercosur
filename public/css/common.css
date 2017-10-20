@@ -79,6 +79,48 @@
   src: local("Roboto Black"), local("Roboto-Black"), url(/fonts/vendor/roboto-fontface/roboto/Roboto-Black.eot?2a82f89b0a35ee7f9d45ec2ec862f7b2) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto/Roboto-Black.woff2?2b8d6922c2c9957356bc50f475de4e79) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto/Roboto-Black.woff?4c3b6229efe63a13dbb4c3c32e292e61) format("woff"), url(/fonts/vendor/roboto-fontface/roboto/Roboto-Black.ttf?44236ad507eddcbfd986333f38bd13d5) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto/Roboto-Black.svg?ab04c7611d94b690aee3c08a18ae8748) format("svg");
 }
 
+@font-face {
+  font-family: "Roboto-Slab";
+  src: url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.eot?f4c4ec9dc2f97fffa532e28c5f93e639);
+  src: local("Roboto-Slab Light"), local("Roboto-Slab-Light"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.eot?f4c4ec9dc2f97fffa532e28c5f93e639) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.woff2?df8cdcb61e26b9eb510af837bbd1af32) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.woff?b926263603b6504da66b091ef6fac891) format("woff"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.ttf?79754934891c17dd798ca5e7eb5fa9a9) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.svg?930a8c3858b6dc851d8383fecb106c9b) format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto-Slab-Light";
+  src: url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.eot?f4c4ec9dc2f97fffa532e28c5f93e639);
+  src: local("Roboto-Slab Light"), local("Roboto-Slab-Light"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.eot?f4c4ec9dc2f97fffa532e28c5f93e639) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.woff2?df8cdcb61e26b9eb510af837bbd1af32) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.woff?b926263603b6504da66b091ef6fac891) format("woff"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.ttf?79754934891c17dd798ca5e7eb5fa9a9) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Light.svg?930a8c3858b6dc851d8383fecb106c9b) format("svg");
+}
+
+@font-face {
+  font-family: "Roboto-Slab";
+  src: url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.eot?0240069cc01e2ff64d07b87c9b41274a);
+  src: local("Roboto-Slab Regular"), local("Roboto-Slab-Regular"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.eot?0240069cc01e2ff64d07b87c9b41274a) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.woff2?aa85333ab226fadddff028038d62b19a) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.woff?ca55b76a8df958204ab0fb4523399598) format("woff"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.ttf?1ec06eed11bbcb1ee510b8f3522adea8) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.svg?3677224ee96b62d2212e8439da90ed23) format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto-Slab-Regular";
+  src: url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.eot?0240069cc01e2ff64d07b87c9b41274a);
+  src: local("Roboto-Slab Regular"), local("Roboto-Slab-Regular"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.eot?0240069cc01e2ff64d07b87c9b41274a) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.woff2?aa85333ab226fadddff028038d62b19a) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.woff?ca55b76a8df958204ab0fb4523399598) format("woff"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.ttf?1ec06eed11bbcb1ee510b8f3522adea8) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Regular.svg?3677224ee96b62d2212e8439da90ed23) format("svg");
+}
+
+@font-face {
+  font-family: "Roboto-Slab";
+  src: url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.eot?d3002aef8237cbf42ac7ef446f750251);
+  src: local("Roboto-Slab Bold"), local("Roboto-Slab-Bold"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.eot?d3002aef8237cbf42ac7ef446f750251) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.woff2?f17f9310f32fd44182c44dec7f260a3d) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.woff?3747ed083a2d8ae54c57f1d692c91fa7) format("woff"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.ttf?d63ef23299458362f3edbf6cd8c2c510) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.svg?c575f944d2642936cdfb88a4ad6c1b16) format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto-Slab-Bold";
+  src: url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.eot?d3002aef8237cbf42ac7ef446f750251);
+  src: local("Roboto-Slab Bold"), local("Roboto-Slab-Bold"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.eot?d3002aef8237cbf42ac7ef446f750251) format("embedded-opentype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.woff2?f17f9310f32fd44182c44dec7f260a3d) format("woff2"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.woff?3747ed083a2d8ae54c57f1d692c91fa7) format("woff"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.ttf?d63ef23299458362f3edbf6cd8c2c510) format("truetype"), url(/fonts/vendor/roboto-fontface/roboto-slab/Roboto-Slab-Bold.svg?c575f944d2642936cdfb88a4ad6c1b16) format("svg");
+}
+
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

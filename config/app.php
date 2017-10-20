@@ -191,9 +191,8 @@ return [
         //date español
         
         //Data tables
-        
         Yajra\DataTables\DataTablesServiceProvider::class,
-
+        
     ],
 
     /*
@@ -244,7 +243,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //sweet Alert 2
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
-<<<<<<< HEAD
         //fechas español
         'Date' => Jenssegers\Date\Date::class,
         //Exportar de excel a laravel
@@ -254,11 +252,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,  
-        //'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-=======
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
->>>>>>> 6d2873e0b702dd870b70ea3a18c5aa7b17c173a8
+        
     ],
 
 ];

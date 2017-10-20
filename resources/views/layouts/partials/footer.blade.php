@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="container-fluid">
         <nav class="pull-left">
-            <ul>
+            {{--  <ul>
                 <li>
                     <a href="#">
                         <!--Home-->
@@ -22,12 +22,10 @@
                         <!--Blog-->
                     </a>
                 </li>
-            </ul>
+            </ul>  --}}
         </nav>
         <p class="copyright pull-right">
-            {{--  &copy; 2017
-            <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-              --}}
+            
         </p>
     </div>
 </footer>  
