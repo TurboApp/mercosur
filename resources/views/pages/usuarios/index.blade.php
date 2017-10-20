@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-6 text-center">
                       <i class="fa fa-key fa-2x text-muted" aria-hidden="true"></i>
-                      <h4 class="category text-gray">{{$usuario->perfil->perfil}}</h4>
+                      <h4 class="category text-gray">{{$usuario->perfil->descripcion}}</h4>
                     </div>
                   </div>
                   <div class="col-md-12">

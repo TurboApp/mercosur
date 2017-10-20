@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class FuerzaTarea extends Model
 {
   protected $table="fuerza_tareas";

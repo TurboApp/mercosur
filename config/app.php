@@ -185,11 +185,11 @@ return [
 
         //EXCEL
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        
+
         //Laravel collective
         Collective\Html\HtmlServiceProvider::class,
         //date español
-        
+
         //Data tables
         Yajra\DataTables\DataTablesServiceProvider::class,
         
