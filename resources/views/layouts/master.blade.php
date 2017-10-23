@@ -60,7 +60,7 @@
                 <div class="user">
                     <div class="photo">
                         @if (auth()->user()->url_avatar)
-                          <img src="{{url(auth()->user()->url_avatar)}}" />
+                          <img src="{{Storage::url(auth()->user()->url_avatar)}}" />
                         @else
                           <img src="{{asset('img/user-default.jpg')}}" alt="...">
                         @endif

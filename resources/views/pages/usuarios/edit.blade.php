@@ -1,25 +1,10 @@
 @extends('layouts.master')
 @section('title','Editar Datos de Usuario')
 @section('nav-top')
-  <ul class="nav navbar-nav navbar-right">
-      <li>
-          <a href="/usuarios/{{$usuario->id}}" rel="tooltip" data-placement="bottom" title="Cancelar">
-              <i class="material-icons">cancel</i>
-              <p class="hidden-lg hidden-md">Cancelar</p>
-          </a>
-      </li>
-      <li class="separator hidden-lg hidden-md"></li>
-  </ul>
-  <form class="navbar-form navbar-right" method="GET" action="/usuarios/busqueda/" role="search">
-      <div class="form-group form-search is-empty">
-          <input type="text" class="form-control" name="s" placeholder="Buscar">
-          <span class="material-input"></span>
-      </div>
-      <button type="submit" class="btn btn-white btn-round btn-just-icon">
-          <i class="material-icons">search</i>
-          <div class="ripple-container"></div>
-      </button>
-  </form>
+  @component('components.navbarsearch',[
+      'action'    =>  'UserController@search',
+  ])
+  @endcomponent()
 @endsection
 @section('content')
   <div class="row">
@@ -105,13 +90,13 @@
                     <div class="row">
                       <label class="col-md-2 label-on-left">Telefono</label>
                       <div class="col-md-10">
-                        <input type="text" class="form-control" name="telefono" value="{{$usuario->telefono}}" maxlength="10">
+                        <input type="text" class="form-control" name="telefono" value="{{$usuario->telefono}}" maxlength="20">
                       </div>
                     </div>
                     <div class="row">
                       <label class="col-md-2 label-on-left">Celular</label>
                       <div class="col-md-10">
-                        <input type="text" class="form-control" name="celular" value="{{$usuario->celular}}" maxlength="10" required>
+                        <input type="text" class="form-control" name="celular" value="{{$usuario->celular}}" maxlength="20" required>
                       </div>
                     </div>
                     <div class="row">

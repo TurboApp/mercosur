@@ -12,12 +12,12 @@ class DescargasDataSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        
-        for($i = 0; $i < 400; $i++) {
+
+        for($i = 0; $i < 100; $i++) {
 
             $date = Carbon\Carbon::createFromTimeStamp($faker->dateTimeBetween('-30 days', '+30 days')->getTimestamp())->format('Y-m-j');
             $numero_servicio = App\OrdenServicio::getNumServicio();
-            
+
             //Store Datos generales - orden_servicios
             $datos_generales=[
                 'tipo'            => $faker->randomElement(['Descarga','Carga','Trasbordo']),//'Descarga',
@@ -28,13 +28,13 @@ class DescargasDataSeeder extends Seeder
                 'hora_recepcion'  => $faker->time('H:i', 'now'),
                 'destino'         => $faker->address,
                 'destino_pais'    => $faker->country,
-                'status'          => 'Para asignar', //$faker->randomElement(['PARA ASIGNAR','EN PROCESO','EN PAUSA','FINALIZADO','CANCELADO']),     
+                'status'          => 'Para asignar', //$faker->randomElement(['PARA ASIGNAR','EN PROCESO','EN PAUSA','FINALIZADO','CANCELADO']),
                 'observaciones'   => $faker->text(100)
             ];
 
             $ordenServicio = App\OrdenServicio::create($datos_generales);
 
-            
+
             $transporte_carga = [
                 'id_orden_servicio'    =>   $ordenServicio->id,
                 'id_linea_transporte'  =>   $faker->numberBetween(1,88),
@@ -51,14 +51,14 @@ class DescargasDataSeeder extends Seeder
                                                                     "JAULA GANADERA",
                                                                     "JAULA ENLONADA / CORTINA",
                                                                     "LOW BOY / CAMA BAJA",
-                                                                    "TOLVA",]), 
+                                                                    "TOLVA",]),
                 'medida_unidad'        =>   $faker->randomElement(['26 PIES','35 PIES','40 PIES','45 PIES','48 PIES','53 PIES']),
-                'ejes'                 =>   $faker->numberBetween(4,10), 
-                'cantidad'             =>   $faker->numberBetween(1,3), 
+                'ejes'                 =>   $faker->numberBetween(4,10),
+                'cantidad'             =>   $faker->numberBetween(1,3),
                 'talon_embarque'       =>   $faker->numberBetween(1000,9000),
-                'marca_vehiculo'       =>   $faker->sentence(4), 
-                'placas_tractor'       =>   $faker->word() . $faker->numberBetween( 1000, 9000 ), 
-                'placas_caja'          =>   $faker->word() . $faker->numberBetween( 1000, 9000 ), 
+                'marca_vehiculo'       =>   $faker->sentence(4),
+                'placas_tractor'       =>   $faker->word() . $faker->numberBetween( 1000, 9000 ),
+                'placas_caja'          =>   $faker->word() . $faker->numberBetween( 1000, 9000 ),
                 'type'                 =>   'Carga'
             ];
 
@@ -78,14 +78,14 @@ class DescargasDataSeeder extends Seeder
                                                                     "JAULA GANADERA",
                                                                     "JAULA ENLONADA / CORTINA",
                                                                     "LOW BOY / CAMA BAJA",
-                                                                    "TOLVA",]), 
+                                                                    "TOLVA",]),
                 'medida_unidad'        =>   $faker->randomElement(['26 PIES','35 PIES','40 PIES','45 PIES','48 PIES','53 PIES']),
-                'ejes'                 =>   $faker->numberBetween(4,10), 
-                'cantidad'             =>   $faker->numberBetween(1,3), 
+                'ejes'                 =>   $faker->numberBetween(4,10),
+                'cantidad'             =>   $faker->numberBetween(1,3),
                 'talon_embarque'       =>   $faker->numberBetween(1000,9000),
-                'marca_vehiculo'       =>   $faker->sentence(4), 
-                'placas_tractor'       =>   $faker->word() . $faker->numberBetween( 1000, 9000 ), 
-                'placas_caja'          =>   $faker->word() . $faker->numberBetween( 1000, 9000 ), 
+                'marca_vehiculo'       =>   $faker->sentence(4),
+                'placas_tractor'       =>   $faker->word() . $faker->numberBetween( 1000, 9000 ),
+                'placas_caja'          =>   $faker->word() . $faker->numberBetween( 1000, 9000 ),
                 'type'                 =>   'Descarga'
             ];
 
@@ -100,7 +100,7 @@ class DescargasDataSeeder extends Seeder
                         'carga_id' => $ordenServicio->id,
                         'tipo_documento' => $faker->randomElement(['FACTURA','REMISIÓN','PREGUIA']),
                         'documento'      => $faker->word() . $faker->numberBetween(1000,9000),
-                        'descripcion'    => $faker->text(199), 
+                        'descripcion'    => $faker->text(199),
                     ];
                     App\Documento::create( $documento );
                 }
@@ -113,7 +113,7 @@ class DescargasDataSeeder extends Seeder
                         'descarga_id' => $ordenServicio->id,
                         'tipo_documento' => $faker->randomElement(['FACTURA','REMISIÓN','PREGUIA']),
                         'documento'      => $faker->word() . $faker->numberBetween(1000,9000),
-                        'descripcion'    => $faker->text(199), 
+                        'descripcion'    => $faker->text(199),
                         'status' => 1
                     ];
                     App\Documento::create( $documento );
@@ -137,7 +137,7 @@ class DescargasDataSeeder extends Seeder
                     'descarga_id' => $ordenServicio->id,
                     'tipo_documento' => $faker->randomElement(['FACTURA','REMISIÓN','PREGUIA']),
                     'documento'      => $faker->word() . $faker->numberBetween(1000,9000),
-                    'descripcion'    => $faker->text(199), 
+                    'descripcion'    => $faker->text(199),
                 ];
                 $archivo = [
                     'descarga_id' => $ordenServicio->id,
@@ -152,27 +152,25 @@ class DescargasDataSeeder extends Seeder
                 //Update Archivos
                 $ordenServicio->updateArchivos($archivo);
             }
-        
+
             //Asignar turno
-            
+
             $coordinacion = App\Coordinacion::whereDate('fecha_servicio', $ordenServicio->fecha_recepcion)->orderBy('turno','desc')->first();
-            
+
             if($coordinacion){
-                $turno = $coordinacion->turno + 1; 
+                $turno = $coordinacion->turno + 1;
             }else{
                 $turno = 1;
             }
-            
+
             //Store Coordinacion - coordinacions
             App\Coordinacion::create([
                 'id_orden_servicio' => $ordenServicio->id,
                 'fecha_servicio'    => $ordenServicio->fecha_recepcion,
                 'turno'             => $turno
             ]);
-            
+
         }
 
     }
 }
-
-

@@ -1,25 +1,10 @@
 @extends('layouts.master')
 @section('title','Editar Operario')
   @section('nav-top')
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a href="{{ URL::previous() }}" rel="tooltip" data-placement="bottom" title="Ir atras">
-                <i class="material-icons">arrow_back</i>
-                <p class="hidden-lg hidden-md">Regresar</p>
-            </a>
-        </li>
-        <li class="separator hidden-lg hidden-md"></li>
-    </ul>
-    <form class="navbar-form navbar-right" method="GET" action="/usuarios/busqueda/" role="search">
-        <div class="form-group form-search is-empty">
-            <input type="text" class="form-control" name="s" placeholder="Buscar">
-            <span class="material-input"></span>
-        </div>
-        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i>
-            <div class="ripple-container"></div>
-        </button>
-    </form>
+    @component('components.navbarsearch',[
+        'action'    =>  'FuerzaTareaController@search',
+    ])
+    @endcomponent()
   @endsection
   @section('content')
     <form id="editOperario" class="form-horizontal" action="/fuerzas/{{$fuerza->id}}" method="post">
@@ -84,7 +69,7 @@
                       <label class="col-md-2 label-on-left">Telefono</label>
                       <div class="col-md-10">
                         <div class="form-group label-floating is-empty">
-                          <input type="text" name="telefono" value="{{$fuerza->telefono}}" class="form-control" maxlength="10">
+                          <input type="text" name="telefono" value="{{$fuerza->telefono}}" class="form-control" maxlength="20">
                         </div>
                       </div>
                     </div>
@@ -92,7 +77,7 @@
                         <label class="col-md-2 label-on-left">Celular</label>
                         <div class="col-md-10">
                           <div class="form-group label-floating is-empty">
-                            <input type="text" name="celular" value="{{$fuerza->celular}}" class="form-control" maxlength="10">
+                            <input type="text" name="celular" value="{{$fuerza->celular}}" class="form-control" maxlength="20">
                           </div>
                         </div>
                     </div>

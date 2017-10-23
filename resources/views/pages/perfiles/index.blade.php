@@ -9,7 +9,7 @@
         <div class="card card-profile transparent no-shadow">
           <div class="card-avatar" style="max-width:200px; max-height:200px;">
             @if (auth()->user()->url_avatar)
-              <img class="img" src="{{url(auth()->user()->url_avatar)}}" alt="">
+              <img class="img" src="{{Storage::url(auth()->user()->url_avatar)}}" alt="">
             @else
               <img src="{{asset('img/user-default.jpg')}}" alt="...">
             @endif
