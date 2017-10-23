@@ -82,21 +82,18 @@
             .then(function (response) {
                     if(response.data.length>0){
                         $.each(response.data, function(i, el){
-                            let nombreCompleto= el.nombre +' '+el.apellido;
-                            if(nombreCompleto.length>20){
-                               nombreCompleto = nombreCompleto.substr( 0, 17 ) + '...';     
-                            }
                             $(`
                                 <div class="col-md-6">
                                     <div class="card card-profile card-plain">
                                     <div class="col-xs-12 col-sm-5">
                                         <div class="card-image">
-                                            <img class="img" src="/storage/`+el.url_avatar+`" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
+                                            <img class="img" src="`+el.url_avatar.replace('public/','/storage/')+`" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-7">
                                         <div class="card-content">
-                                            <h3 class="card-title" title="`+ el.nombre +' '+el.apellido +`">`+ nombreCompleto +`</h3>
+                                            <h3 class="card-title text-truncate-ln2" title="`+ el.nombre +' '+el.apellido +`">`+ el.nombre +' '+el.apellido +`</h3>
+                                            <h6>`+ el.user +`</h6>
                                             <div class="footer">
                                                 <button type="button" data-id="`+ el.id +`" class="add_supervisor btn btn-just-icon btn-round btn-primary ">
                                                     <i class="fa fa-plus" aria-hidden="true"></i> 
@@ -134,21 +131,19 @@
                         resp.html("");
                         if(response.data.length>0){
                             $.each(response.data, function(i, el){
-                                let nombreCompleto= el.nombre +' '+el.apellido;
-                                if(nombreCompleto.length>20){
-                                nombreCompleto = nombreCompleto.substr( 0, 17 ) + '...';     
-                                }
+                                
                                 $(`
                                     <div class="col-md-6">
                                         <div class="card card-profile card-plain">
                                         <div class="col-xs-12 col-sm-5">
                                             <div class="card-image">
-                                                <img class="img" src="`+el.url_avatar+`" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
+                                                <img class="img" src="`+el.url_avatar.replace('public/','/storage/')+`" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-7">
                                             <div class="card-content">
-                                                <h3 class="card-title" title="`+el.nombre +' '+el.apellido+`">`+ nombreCompleto +`</h3>
+                                                <h3 class="card-title text-truncate-ln2" title="`+ el.nombre +' '+el.apellido +`">`+ el.nombre +' '+el.apellido +`</h3>
+                                                <h6>`+ el.user +`</h6>
                                                 <div class="footer">
                                                     <button type="button" data-id="`+ el.id +`" class="add_supervisor btn btn-just-icon btn-round btn-primary ">
                                                         <i class="fa fa-plus" aria-hidden="true"></i> 
@@ -199,7 +194,8 @@
                     let data=response.data;
                     $('#info_user').text(data.user);
                     if(data.url_avatar.length > 1){
-                        $('#info_avatar').attr("src",'/storage/'+data.url_avatar);
+                        console.log(data.url_avatar);
+                        $('#info_avatar').attr("src",data.url_avatar.replace("public/", "/storage/"));
                     }else{
                         $('#info_avatar').attr("src",'/img/user-default.jpg');
                     }
@@ -225,14 +221,14 @@
                     swal({
                         showCancelButton: true,
                         html: `
-                            <img class="z-depth-4 img img-circle img-resposive" src="`+ data.url_avatar +`" onerror='this.onerror = null; this.src="/img/user-default.jpg"' style="max-width:120px;margin:0 auto;">
+                            <img class="z-depth-4 img img-circle img-resposive" src="`+ data.url_avatar.replace('public/','/storage//') +`" onerror='this.onerror = null; this.src="/img/user-default.jpg"' style="max-width:120px;margin:0 auto;">
                             <h3 class="title">`+ data.nombre +' '+ data.apellido +`</h3>
                             <h6 class="text-muted text-uppercase">`+ data.user +`</h6>
                         `,
                         allowOutsideClick: false,
                         allowEscapeKey:false,
-                        confirmButtonClass: 'btn btn-primary',
                         cancelButtonClass: 'btn btn-simple btn-primary',
+                        confirmButtonClass: 'btn btn-primary',
                         confirmButtonText: 'Agregar',
                         cancelButtonText: 'Cancelar',
                         buttonsStyling: false

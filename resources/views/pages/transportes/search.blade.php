@@ -22,7 +22,9 @@
         @component('components.displaydatatable',[
             'datos' => $transportes,
             'name' => 'Transportes',
-            'url'   => 'transportes',
+            'urlTo'   => 'transportes',
+            'ajax'  => '/API/transportes/'.$request->s,
+            
         ])
         @endcomponent()
         

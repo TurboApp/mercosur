@@ -23,9 +23,12 @@
         </p>
         
         @component('components.displaydatatable',[
-            'datos' =>  $clientes,
+            'datos' => $clientes,
             'name'  => 'Cliente',
-            'url'   => 'clientes'
+            'urlTo' => 'clientes',
+            'ajax'  => '/API/clientes/'.$request->s,
+            //'icon'  => 'search',
+            //'title' => 'Resultados'
         ])
         @endcomponent()
        

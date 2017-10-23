@@ -14,7 +14,7 @@
     
     <div class="row">
         <div class="col-md-6">
-            <h3>{{$servicio->servicio->tipo}}</h3>
+            <h3 class="text-uppercase">{{$servicio->servicio->tipo}}</h3>
         </div>
         <div class="col-md-6">
             <div class="form-group text-right">
@@ -35,23 +35,26 @@
    
     <div class="row">
         <div  class="col-md-12">
-            {{--  <card class="grey lighten-4">  --}}
-            <card class=" light-green accent-3">
+            <card class="grey lighten-4  ">
+            {{--  <card class=" light-green accent-3">  --}}
             
                 <template>
                     {{--  <span class="text-muted">Cliente</span>  --}}
-                    <h1 class="title white-text">{{$servicio->servicio->cliente->nombre}}</h1>
+                    <h1 class="title">{{$servicio->servicio->cliente->nombre}}</h1>
                 </template>
+
             </card>
         </div>
     </div>
 
-
-
-    @yield('content-page')
     
-    {{--  @component('components.maniobra.search_supervisor')
-    @endcomponent()  --}}
+
+    
+        
+    @yield('content-page')
+
+    
+    
 
         
 @endsection

@@ -86,7 +86,10 @@ Route::group( ['middleware' => 'auth' ], function()
   #API
   
   
-  Route::get('/API/agentes', 'APIController@agentes');
+  Route::get('/API/agentes/{s?}', 'APIController@agentes');
+  Route::get('/API/clientes/{s?}', 'APIController@clientes');
+  Route::get('/API/transportes/{s?}', 'APIController@transportes');
+
   Route::get('/API/servicios/{date?}','APIController@servicios');
   Route::get('/API/coordinacion/{date?}','APIController@coordinacion');
   Route::get('/API/almacen/item/{servicio}','APIController@almacenItem');

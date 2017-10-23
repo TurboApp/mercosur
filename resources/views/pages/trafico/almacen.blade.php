@@ -222,6 +222,8 @@
                 
             ]
         } );
+
+        $.fn.dataTable.ext.errMode = 'throw';
        
         $(document).on("click",".open-modal",function(){
             let datos = $(this).data('datos');
@@ -235,14 +237,14 @@
             axios.get('/API/almacen/item/'+datos)
             .then(function(response){
                 let data=response.data;
-                console.log(data);
+                
                 $('#modal_num_servicio').text(data.numero_servicio);
                 $('#modal_agente').text(data.agente.nombre+" ("+data.agente.nombre_corto+")");
                 $('#modal_cliente').text(data.cliente.nombre);
                 $('#modal_destino').text(data.destino +" - "+ data.destino_pais);
                 $('#modal_fecha').text(data.fecha_recepcion + " - "+data.hora_recepcion);
                 $.each(data.documentos_descarga, function(key,val){
-                    console.log(val.status);
+                    
                     if(val.status == "1"){
                         $('#modal_documentos').append("<li>"+val.tipo_documento+"-"+val.documento+"</li>");
                     }else{
@@ -301,7 +303,7 @@
                 return;
             } 
             if( fechaInicio.diff(fechaFinal) > -1 ){
-                console.log("La fecha inicial no debe ser mayor a la fecha final");
+                
                 $.notify({
                     icon: "warning",
                     message: "La fecha inicial no debe ser mayor a la fecha final."

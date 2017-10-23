@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Coordinacion;
 use App\OrdenServicio;
 use App\Agente;
+use App\Cliente;
+use App\LineasTransporte as Transporte;
 use App\User;
+
+use DB;
 
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
@@ -119,10 +123,37 @@ class APIController extends Controller
         return DataTables::of($servicios)->toJson();
     }
 
-    public function agentes()
+    public function agentes(Request $request)
     {
-        $agentes = Agente::get();
-        return $agentes->toJson();;
+        if($request->s){
+            $agentes = Agente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%');
+        }else{
+            $agentes = Agente::get();
+        }
+        return DataTables::of($agentes)->toJson();
+        //return $agentes->toJson();;
+    }
+    public function clientes(Request $request)
+    {
+        if($request->s){
+            //$clientes = Cliente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%');
+            $clientes = Cliente::where(DB::raw("CONCAT(nombre,' ',nombre_corto)"), "LIKE","%$request->s%");
+            
+        }else{
+
+            $clientes = Cliente::get();
+        }
+        return DataTables::of($clientes)->toJson();
+        
+    }
+    public function transportes(Request $request)
+    {
+        if($request->s){
+            $transportes = Transporte::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%');
+        }else{
+            $transportes = Transporte::get();
+        }
+        return DataTables::of($transportes)->toJson();
     }
 
     public function supervisores(Request $request)

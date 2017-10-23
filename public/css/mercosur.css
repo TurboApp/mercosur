@@ -737,3 +737,18 @@ figure.image-hover figcaption {
   width: 100%;
 }
 
+.text-truncate {
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-truncate-ln2 {
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+

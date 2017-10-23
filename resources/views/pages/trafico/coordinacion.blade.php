@@ -206,7 +206,6 @@
                 {
                     data : "supervisor.nombre",
                     render : function(data, type, row){
-                        console.log(row);
                         if(row.supervisor_id !== "Null"){
                             return '<p class="lead text-muted">'+data+'</p>';
                         }
@@ -261,6 +260,9 @@
                 
             ]
         } );
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
         $("#filtros").on('click','a',function(){
             switch ($(this).data("filter")) {
                 case 'finalizados':
@@ -325,7 +327,7 @@
                 return;
             } 
             if( fechaInicio.diff(fechaFinal) > -1 ){
-                console.log("La fecha inicial no debe ser mayor a la fecha final");
+                
                 $.notify({
                     icon: "warning",
                     message: "La fecha inicial no debe ser mayor a la fecha final."

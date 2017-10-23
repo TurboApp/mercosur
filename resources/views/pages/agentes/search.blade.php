@@ -23,7 +23,10 @@
         @component('components.displaydatatable',[
             'datos' => $agentes,
             'name' => 'Agente',
-            'url'   => 'agentes',
+            'urlTo'   => 'agentes',
+            'ajax'  => '/API/agentes/'.$request->s,
+            //'icon'  => 'search',
+            //'title' => 'Resultados'
         ])
         @endcomponent()
         

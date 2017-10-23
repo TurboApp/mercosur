@@ -13,7 +13,8 @@
             @component('components.displaydatatable',[
                 'datos' => $transportes,
                 'name'  => 'Transporte',
-                'url'   => 'transportes',
+                'urlTo'   => 'transportes',
+                'ajax'  => '/API/transportes/',
                 'icon'  => 'fa-truck',
                 'title' => 'Todos los transportes'
             ])
