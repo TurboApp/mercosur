@@ -15,7 +15,7 @@
               <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                 <div class="fileinput-new thumbnail img-circle" style="max-width:170px;">
                   @if ($user->url_avatar)
-                    <img src="{{url($user->url_avatar)}}" alt="...">
+                    <img src="{{Storage::url($user->url_avatar)}}" alt="...">
                   @else
                     <img src="{{asset('img/user-default.jpg')}}" alt="...">
                   @endif

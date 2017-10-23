@@ -17,7 +17,7 @@ class CreateFuerzaTareasTable extends Migration
             $table->increments('id');
             $table->string('nombre',50);
             $table->string('apellido',50);
-            $table->string('direccion',50)->nullable();
+            $table->string('direccion')->nullable();
             $table->string('telefono',50)->nullable();
             $table->string('celular',50)->nullable();
             $table->string('categoria',50);

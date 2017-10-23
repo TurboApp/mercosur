@@ -199,9 +199,6 @@
           <div class="collapse {{ Request::is('herramientas*')  ? 'in' : ''}}" id="menuHerramientas">
               <ul class="nav">
                   <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                      <a href="/herramientas/">
-                          Todos los Traficos
-                      </a>
                   </li>
                   <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
                       <a href="/herramientas/nuevo">

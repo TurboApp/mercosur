@@ -12,7 +12,7 @@ class AgentesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        
+
             for($i = 0; $i < 10; $i++) {
                 App\Agente::create([
                     'nombre' => $faker->company,
@@ -21,7 +21,7 @@ class AgentesTableSeeder extends Seeder
                     'telefono' => $faker->tollFreePhoneNumber,
                     'celular' => $faker->e164PhoneNumber,
                     'direccion' => $faker->address,
-                    'rfc' => strtoupper($faker->word(4)) . $faker->randomNumber(5) ,
+                    'rfc' => strtoupper($faker->word(2)) . $faker->randomNumber(5) ,
                     'ciudad' => $faker->city,
                     'codigo_postal' => $faker->postcode,
                 ]);

@@ -1,12 +1,16 @@
 @extends('layouts.master')
-@section('title','Cards de Usuarios')
+@section('title','Busqueda de Usuarios')
   @section('nav-top')
     @component('components.navbarsearch',[
         'action'    =>  'UserController@search',
+        'value'     =>  $request->s
     ])
     @endcomponent()
   @endsection
   @section('content')
+    <div class="row">
+         <p class="lead text-muted"><i class="fa fa-search" aria-hidden="true"></i> Resultados de la busqueda. ({{$request->s}})</p>
+    </div>
     @if (!count($usuarios))
       <h2 class="text-center text-muted">No hay datos que mostrar</h2>
     @else
@@ -51,6 +55,3 @@
       </div>
     @endif
   @endsection
-  @push('scripts')
-    @include('layouts.partials.notify')
-  @endpush

@@ -1,32 +1,16 @@
 <?php
 namespace App\Http\Controllers;
-use App\Perfil;
-use App\Puesto;
-
-
 use Illuminate\Http\Request;
+use App\Puesto;
 
 class ToolController extends Controller
 {
-    public function index(){
-      return view('pages.herramientas.index');
-    }
-
     public function create(){
-      return view('pages.herramientas.create');
+      $puestos=Puesto::all();
+      return view('pages.herramientas.create',compact('puestos'));
     }
 
     public function store(Request $request){
-      if($request->perfil){
-        $this->validate(request(),[
-          'perfil' => 'required'
-        ]);
-        $pe=(new Perfil)->fill($request->all());
-        $pe->save();
-        $request->session()->flash('success', 'El perfil '.$pe->perfil.' se agrego a la base de datos satisfactoriamente');
-        return redirect('/herramientas/nuevo');
-      }
-      else {
         $this->validate(request(),[
           'puesto' => 'required'
         ]);
@@ -34,6 +18,16 @@ class ToolController extends Controller
         $pu->save();
         $request->session()->flash('success', 'El puesto '.$pu->puesto.' se agrego a la base de datos satisfactoriamente');
         return redirect('/herramientas/nuevo');
-      }
+    }
+
+    public function infopuesto(Puesto $puesto){
+      return $puesto->toJson();
+    }
+
+    public function update(Request $request){
+      $puesto=Puesto::find($request->id);
+      $puesto->update($request->only('puesto','descripcion'));
+      $request->session()->flash('success', 'El puesto '.$puesto->puesto.' se actualizo satisfactoriamente');
+      return redirect('/herramientas/nuevo');
     }
 }

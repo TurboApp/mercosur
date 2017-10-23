@@ -18,7 +18,7 @@ class UserController extends Controller
     }
 
     public function index(){
-      $usuarios=User::all();
+      $usuarios=User::latest()->paginate(15);
       return view('pages.usuarios.index',compact('usuarios'));
     }
 
@@ -107,4 +107,12 @@ class UserController extends Controller
       }
       $request->session()->flash('success', 'El usuario registro fue elimado');
     }
+
+    public function search(Request $request)
+   {
+       $usuarios = User::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('apellido', 'LIKE','%'.$request->s.'%')->paginate(15);
+       $usuarios->appends( [ 's' => $request->s ] );
+
+       return view('pages.usuarios.search', compact('usuarios','request'));
+   }
 }
