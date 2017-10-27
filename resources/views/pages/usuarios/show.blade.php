@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-md-10 col-sm-12  col-md-offset-1">
         <div class="card">
-          <div class="card-header card-header-icon" data-background-color="blue">
+          <div class="card-header card-header-icon" data-background-color="">
             <i class="fa fa-user fa-lg" aria-hidden="true"></i>
           </div>
           <div class="card-content">
@@ -19,14 +19,14 @@
               <div class="card-profile text-center" style="margin-top:100px;">
                 <div class="card-avatar"  style="max-width:170px; max-height:170px;">
                   @if ($usuario->url_avatar)
-                    <img class="img" src="{{Storage::url($usuario->url_avatar)}}" alt="">
+                    <img class="img img-responsive img-circle z-depth-3"  src="{{Storage::url($usuario->url_avatar)}}" alt=""  onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                   @else
-                    <img src="{{asset('img/user-default.jpg')}}" alt="...">
+                    <img src="{{asset('img/'.str_replace(" ","-",$usuario->perfil->perfil).'.png')}}" alt="..." class="img img-responsive img-circle z-depth-3" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                   @endif
                 </div>
               </div>
               <div class="row text-center">
-                <h6 class="category text-gray">{{$usuario->perfil->perfil}}</h6>
+                <h6 class="category text-gray">{{$usuario->perfil->descripcion}}</h6>
               </div>
               <div class="row text-center">
                 <h4 class="card-title">
@@ -45,7 +45,7 @@
                 <div class="col-md-3 text-right">
                   <a href="/usuarios/{{$usuario->id}}/editar"><button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon"><i class="fa fa-pencil fa-1x" aria-hidden="true"></i></button></a>
                   <a href="#" class="delete-usuario">
-                    <button type="button" class="btn btn-danger btn-round btn-just-icon"><i class="fa fa-times fa-1x" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-danger btn-round btn-just-icon"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button>
                   </a>
                 </div>
               </div>

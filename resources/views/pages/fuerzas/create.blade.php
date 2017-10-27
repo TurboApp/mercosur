@@ -12,14 +12,14 @@
     <div class="row">
     <div class="col-md-10 col-sm-12  col-md-offset-1">
       <div class="card">
-        <div class="card-header card-header-icon" data-background-color="blue">
+        <div class="card-header card-header-icon" data-background-color="">
           <i class="fa fa-users fa-lg" aria-hidden="true"></i>
         </div>
         <div class="card-content">
           <h4 class="card-title">Nuevo</h4>
           <div class="form-horizontal">
             <div class="row">
-              <label class="col-md-2 label-on-left">Nombre</label>
+              <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Nombre</label>
               <div class="col-md-10">
                 <div class="form-group label-floating is-empty">
                   <input type="text" name="nombre" value="{{old('nombre')}}" class="form-control" required>
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="row">
-              <label class="col-md-2 label-on-left">Apellido</label>
+              <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Apellido</label>
               <div class="col-md-10">
                 <div class="form-group label-floating is-empty">
                   <input type="text" name="apellido" value="{{old('apellido')}}" class="form-control" required>
@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="row">
-              <label class="col-md-2 label-on-left">Categoria</label>
+              <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Categoria</label>
               <div class="col-md-10">
                 <div class="btn-group bootstrap-select show-tick">
                   <select class="selectpicker" name="categoria"  data-style="select-with-transition" title="Selecione el Categoria" required>
@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          <button type="submit" class="btn btn-primary btn-round">
+          <button type="submit" class="btn btn-primary">
             <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
              Guardar
           </button>

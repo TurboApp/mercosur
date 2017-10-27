@@ -15,7 +15,7 @@
             <div class="col-md-3 col-sm-6">
               <div class="card card-profile card-plain">
                 <div class="card-avatar">
-                  <img src="{{asset('img/user-head.png')}}" alt="..." class="img img-responsive">
+                  <img src="{{asset('img/fuerza-'.str_replace(" ","-",$fuerza->categoria).'.png')}}" alt="..." class="img img-responsive" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                 </div>
                 <div class="card-content text-center">
                   <h4 class="card-title text-truncate-ln2">{{$fuerza->nombre}} {{$fuerza->apellido}}</h4>

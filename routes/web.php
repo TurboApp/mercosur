@@ -85,8 +85,8 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::get('/API/almacen/{date?}','OrdenServicioController@almacen');
 
   #API
-  
-  
+
+
   Route::get('/API/agentes/{s?}', 'APIController@agentes');
   Route::get('/API/clientes/{s?}', 'APIController@clientes');
   Route::get('/API/transportes/{s?}', 'APIController@transportes');
@@ -130,6 +130,7 @@ Route::group( ['middleware' => 'auth' ], function()
   #RUTAS herramientas
   Route::get('/herramientas/nuevo','ToolController@create');
   Route::post('/herramientas','ToolController@store');
+  Route::get('herramientas/puestos','ToolController@get');
   Route::patch('/herramientas/actualizar','ToolController@update');
   Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');
 });

@@ -2,12 +2,18 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Puesto;
+use DataTables;
 
 class ToolController extends Controller
 {
     public function create(){
       $puestos=Puesto::all();
       return view('pages.herramientas.create',compact('puestos'));
+    }
+
+    public function get(){
+      $puestos=Puesto::all();
+      return DataTables::of($puestos)->toJson();
     }
 
     public function store(Request $request){

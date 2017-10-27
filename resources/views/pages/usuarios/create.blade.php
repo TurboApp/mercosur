@@ -20,7 +20,7 @@
               <div class="form-horizontal">
                 <div class="row">
                   <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Nombre</label>
+                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Nombre</label>
                       <div class="col-md-10">
                         <div class="form-group label-floating is-empty">
                           <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Apellido</label>
+                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Apellido</label>
                     <div class="col-md-10">
                       <div class="form-group label-floating is-empty">
                         <input type="text" class="form-control" name="apellido" value="{{ old('apellido') }}" required>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Dirección</label>
+                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Dirección</label>
                     <div class="col-md-10">
                       <div class="form-group label-floating is-empty">
                         <input type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required>
@@ -68,7 +68,7 @@
                       </div>
                   </div>
                   <div class="col-md-6">
-                    <label class="col-md-2 label-on-left">Celular</label>
+                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Celular</label>
                       <div class="col-md-10">
                         <div class="form-group label-floating is-empty">
                           <input type="text" class="form-control" name="celular" value="{{ old('celular') }}" maxlength="10" required>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Puesto</label>
+                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Puesto</label>
                     <div class="col-md-10">
                       <div class="btn-group bootstrap-select show-tick">
                         {{-- {{$datos['puestos']}} --}}
@@ -118,19 +118,19 @@
                 </div>
                 <div class="form-horizontal">
                   <div class="row">
-                    <label class="col-md-4 label-on-left">Perfil de Usuario</label>
+                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Perfil de Usuario</label>
                     <div class="col-md-8">
                       <div class="btn-group bootstrap-select show-tick">
                         <select class="selectpicker" name="perfil_id"  data-style="select-with-transition" title="Selecione el Perfil" required>
                           @foreach ($perfiles as $index => $perfil)
-                            <option value={{$perfil->id}}>{{$perfil->perfil}}</option>
+                            <option value={{$perfil->id}}>{{$perfil->descripcion}}</option>
                           @endforeach
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-md-4 label-on-left">Nombre de Usuario</label>
+                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Nombre de Usuario</label>
                     <div class="col-md-8">
                       <div class="form-group label-floating is-empty">
                         <input type="text" class="form-control" name="user" value="{{ old('user') }}" required>
@@ -138,7 +138,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-md-4 label-on-left">Contraseña</label>
+                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Contraseña</label>
                     <div class="col-md-8">
                       <div class="form-group label-floating is-empty">
                         <input id="pass" type="password" class="form-control" name="password" value="{{ old('password') }}"  required>
@@ -146,7 +146,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-md-4 label-on-left">Confirmar Contraseña</label>
+                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Confirmar Contraseña</label>
                     <div class="col-md-8">
                       <input type="password" class="form-control" equalto="#pass" required>
                     </div>
@@ -156,7 +156,7 @@
             </div>
           </div>
         <div class="text-right">
-            <button type="submit" class="btn btn-primary btn-round">
+            <button type="submit" class="btn btn-primary">
               <i class="material-icons">save</i>
                Guardar
             </button>

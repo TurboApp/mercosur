@@ -202,7 +202,7 @@
                   </li>
                   <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
                       <a href="/herramientas/nuevo">
-                          Agregar Herramientas
+                          Puestos
                       </a>
                   </li>
               </ul>

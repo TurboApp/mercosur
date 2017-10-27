@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <div class="card">
-            <div class="card-header card-header-icon" data-background-color="blue">
+            <div class="card-header card-header-icon" data-background-color="">
               <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
             </div>
             <div class="card-content">
@@ -22,7 +22,7 @@
                 <div class="col-md-4">
                   <div class="card-profile text-center" style="margin-top:100px;">
                     <div class="card-avatar" style="max-width:170px; max-height:170px;">
-                      <img src="{{asset('img/user-head.png')}}" alt="...">
+                      <img src="{{asset('img/fuerza-'.str_replace(" ","-",$fuerza->categoria).'.png')}}" alt="..." class="img img-responsive" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                     </div>
                     <div class="row form-horizontal">
                       <div class="col-md-6 col-md-offset-3">
@@ -86,7 +86,7 @@
               </div>
             </div>
             <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary btn-round">
+              <button type="submit" class="btn btn-primary">
                 <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
                  Guardar
               </button>
