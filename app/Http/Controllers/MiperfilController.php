@@ -10,8 +10,8 @@ use App\User;
 
 class MiperfilController extends Controller
 {
-    public function index(){
-      return view('pages.perfiles.index');
+    public function show(){
+      return view('pages.perfiles.show');
     }
 
     public function edit(User $user){

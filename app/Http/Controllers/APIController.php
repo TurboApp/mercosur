@@ -42,7 +42,7 @@ class APIController extends Controller
         }
         
         foreach($data as $item){
-            $date_humans=Date::instance(Carbon::createFromFormat('Y-m-d',$item->servicio['fecha_recepcion']))->format('l j \\d\\e F \\d\\e Y');
+            $date_humans=Date::instance($item->servicio->fecha_recepcion)->format('l j \\d\\e F \\d\\e Y');
             $item->servicio['date_humans'] = $date_humans;
         }
         
@@ -80,7 +80,7 @@ class APIController extends Controller
             $servicio->documentosDescarga->each(function($item, $key) {
                 $item['nombre'] = $item->tipo_documento."-".$item->documento;
             });
-            $servicio['fecha'] = strtoupper(Date::instance(Carbon::createFromFormat("Y-m-d","$servicio->fecha_recepcion"))->format('d/M/Y'));
+            $servicio['fecha'] = strtoupper(Date::instance($servicio->fecha_recepcion)->format('d/M/Y'));
         }
 
         return DataTables::of($servicios)->toJson();
@@ -117,7 +117,8 @@ class APIController extends Controller
             $servicio->agente;
             $servicio->documentosDescarga;
             $servicio->documentosCarga;
-            $date_humans=Date::instance(Carbon::createFromFormat('Y-m-d',$servicio->fecha_recepcion))->format('l j \\d\\e F \\d\\e Y');
+            $date_humans=Date::instance($servicio->fecha_recepcion)->format('l j \\d\\e F \\d\\e Y');
+            
             $servicio['date_humans'] = $date_humans;
         }
         return DataTables::of($servicios)->toJson();
@@ -158,7 +159,7 @@ class APIController extends Controller
 
     public function supervisores(Request $request)
     {
-        if($request->s )
+        if($request->s)
         {
             $supervisores = User::where([
                     ['perfil_id', '6'],
@@ -169,12 +170,12 @@ class APIController extends Controller
                     ['apellido', 'LIKE','%'.$request->s.'%']
                 ])->get();
         }
-        else {
-            $supervisores = User::whereHas('perfil', function($q){
-                    $q->where('perfil','supervisor');
+        else 
+        {
+            $supervisores = User::whereHas( 'perfil' , function($q) {
+                    $q->where( 'perfil' , 'supervisor' );
             })->get();
         }
-        
         
         return $supervisores->toJson();
     }

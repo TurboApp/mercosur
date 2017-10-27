@@ -1,78 +1,60 @@
-<card type="header-icon" icon="fa-file-text-o">
+{{--  <card type="header-icon" icon="fa-file-text-o">  --}}
+        <h3 class="title">Documentos</h3>
+<card>
     <template>
-        <template slot="title">Registro de documentos</template>
-        {{--  <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>&nbsp;</th>
-                    <th>Documento</th>
-                    <th>Descripción</th>
-                    <th>Estatus</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>#</th>
-                    <th>&nbsp;</th>
-                    <th>Documento</th>
-                    <th>Descripción</th>
-                    <th>Estatus</th>
-                </tr>  
-            </tfoot>
-            <tbody>
-                @foreach($data as $index => $documento)
-                    <tr @if(! $documento->status ) class="text-muted" @endif >
-                        <td>{{ $index + 1 }}</td>
-                        <td>
-                            @if( $documento->status )
-                                <i class="fa fa-square-o" aria-hidden="true"></i>
-                            @else
-                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if( $documento->status )
-                                {{ $documento->tipo_documento }} - {{ $documento->documento }}
-                            @else
-                                <del><em class="text-muted">{{ $documento->tipo_documento }} - {{ $documento->documento }}
-                            @endif
-                        </td>
-                        <td>
-                            @if( $documento->status )
-                                {{ $documento->descripcion }}
-                            @else
-                                <del><em class="text-muted">{{ $documento->descripcion }}</em></del>
-                            @endif
-                        </td>
-                        <td>
-                            @if( $documento->status )
-                                Almacén
-                            @else
-                                <a href="/trafico/servicio/{{$documento->carga_id}}" >
-                                Cargado <i class="fa fa-external-link" aria-hidden="true"></i>
-                                </a>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>  --}}
-        <ul class="documentos-list">
+        
+        <ul class="document-list">
+            @foreach($data as $index => $documento)
+                <li class="document-item">
+                    
+                    @if($documento->status)
+                        <div class="document-icon text-center ">
+                            <img src="/img/iconos/almacen.svg">
+                            <label class="label label-default"> Almacen </label>
+                        </div>
+                    @else
+                        <div class="document-icon text-center ">
+                            <img src="/img/iconos/camion-cargado.svg" >
+                            <label class="label label-success"> Cargado </label>
+                        </div>
+                    @endif
+
+                    <div class="document-details">
+                        <h6 class="text-truncate" title="{{ $documento->tipo_documento }} - {{ $documento->documento }}"><b>{{ $documento->tipo_documento }} - {{ $documento->documento }}</b></h6>
+                        <p class="text-truncate-ln4">{{ $documento->descripcion }}</p>
+                        <span class="text-truncate text-muted">
+                            <small>
+                                <i class="fa fa-calendar-o" aria-hidden="true"></i> Descarga {{ $documento->created_at->format('j/m/Y - H:m:s') }}
+                            </small>
+                        </span>
+                        @if(!$documento->status)
+                        <span class="text-truncate text-muted">
+                            <small>
+                                <i class="fa fa-calendar-o" aria-hidden="true"></i> Carga {{ $documento->updated_at->format('j/m/Y - H:m:s') }}
+                            </small>
+                        </span>
+                        @endif
+                    </div>
+                    
+                </li>
+            @endforeach
+        </ul>
+
+        {{--  <ul class="documentos-list">
             @foreach($data as $index => $documento)
                 @if($documento->status)
                 <li class="documento-item">
                     <h4> {{ $documento->tipo_documento }} - {{ $documento->documento }} <small class="label label-default">Almacén</small></h4>
-                    
                     <p> {{ $documento->descripcion }} </p>
+                    <span>Descargado el {{ $documento->updated_at->format('j/m/Y - H:m:s') }}</span>
                 </li>
                 @else
                 <li class="documento-item">
                     <h4> {{ $documento->tipo_documento }} - {{ $documento->documento }} <small class="label light-green accent-4"><i class="fa fa-check" aria-hidden="true"></i> Cargado</small> </h4>
-                    <em class="text-muted"> {{ $documento->descripcion }} </em>
+                    <p class="text-muted"> {{ $documento->descripcion }} </p>
                 </li>
                 @endif
             @endforeach
-        </ul>  
+        </ul>    --}}
     </template>
 </card> 

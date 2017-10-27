@@ -1,6 +1,14 @@
 @extends('layouts.master')
 
-@section('title','Editar datos de cliente')
+
+@section('title','Cliente: '.str_limit($cliente->nombre, 24))
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Clientes' => 'clientes',  $cliente->nombre => '' ],
+    ])
+    @endcomponent()
+@endsection
 
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
@@ -8,6 +16,12 @@
             <a href="/clientes/{{$cliente->id}}" title="Cancelar">
                 <i class="material-icons">cancel</i>
                 <p class="hidden-lg hidden-md">Cancelar</p>
+            </a>
+        </li>
+        <li>
+            <a href="/clientes" title="Ir a clientes">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a clientes</p>
             </a>
         </li>
         <li class="separator hidden-lg hidden-md"></li>
@@ -28,10 +42,10 @@
                     <i class="material-icons">edit</i> 
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Edite los datos</h4>
+                    <h4 class="card-title">Edición</h4>
                     <div class="row">
                         <div class="form-group label-floating is-empty">
-                            <label class="col-sm-2 label-on-left" for="nombre">* Nombre</label>
+                            <label class="col-sm-2 label-on-left" for="nombre"><span class="text-danger">*</span> Nombre</label>
                             <div class="col-sm-10">
                                 <div class="form-group label-floating is-empty">
                                     <label class="control-label"></label>
@@ -44,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Nombre corto</label>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
@@ -56,7 +70,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <label class="col-sm-2 label-on-left">RFC</label>
+                                <label class="col-sm-2 label-on-left"><span class="text-danger">*</span> RFC</label>
                                 <div class="col-sm-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
@@ -155,7 +169,7 @@
                             <li>
                                  <button type="submit" class="btn btn-primary btn-round">
                                     <i class="material-icons">save</i>
-                                    Guardar
+                                    Guardar cambios
                                 </button>
                             </li>
                         </ul>

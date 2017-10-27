@@ -1,15 +1,9 @@
 @extends('layouts.master')
 
-@section('title','Información del agente')
+@section('title','Agente: '.str_limit($agente->nombre, 24))
 
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a href="/agentes" title="Todos los agentes">
-                <i class="material-icons">reply</i>
-                <p class="hidden-lg hidden-md">Regresar</p>
-            </a>
-        </li>
         <li>
             <a href="/agentes/{{ $agente->id }}/editar" title="Editar">
                 <i class="material-icons">edit</i>
@@ -29,6 +23,12 @@
                 <p class="hidden-lg hidden-md">Nuevo</p>
             </a>
         </li>
+        <li>
+            <a href="/agentes" title="Todos los agentes">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Regresar</p>
+            </a>
+        </li>
     
         <li class="separator hidden-lg hidden-md"></li>
     </ul>
@@ -38,6 +38,14 @@
     ])
     @endcomponent()
 @endsection
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Agentes' => 'agentes',  $agente->nombre => '' ],
+    ])
+    @endcomponent()
+@endsection
+
 @section('content')
 
 <div class="row">

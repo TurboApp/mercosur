@@ -113,7 +113,7 @@ class OrdenServicioController extends Controller
     public function store(RequestServicio $request)
     {
         //Store Datos generales - orden_servicios
-        $ordenServicio=OrdenServicio::createOrdenServicio( ['tipo' => $request->tipo] + $request->datos_generales );
+        $ordenServicio=OrdenServicio::createOrdenServicio( ['tipo' => $request->tipo] + [ 'user_id' => auth()->user()->id] + $request->datos_generales );
         
         //Store Transportes - orden_servicios_transportes
         foreach($request->transporte as $tipo => $transporte){

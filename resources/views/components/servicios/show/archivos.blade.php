@@ -1,27 +1,30 @@
-<card type="header-icon" icon="fa-folder-open-o">
+{{--  <card type="header-icon" icon="fa-folder-open-o">  --}}
+        <h3 class="title">Archivos</h3>  
+<card>
     <template>
-        <template slot="title">Archivos</template>
+        {{--  <template slot="title">Archivos</template>  --}}
         <ul class="files-list">
             @foreach($data as $index => $archivo)
                 <li class="file-item">
-                    <a href="{{ url($archivo->url) }} ">
+                    <a href="{{ url($archivo->url) }} " target="_blank">
                         <div class="file-icon">
-                            @if($archivo->extension === "xls")
+                            @if($archivo->extension === "xls" || $archivo->extension === "xlsx")
                                 <img src="/img/iconos/xls.svg">
-                            @elseif($archivo->extension === "xlsx")
-                                <img src="/img/iconos/excel.svg">
-
+                            @elseif($archivo->extension === "docx" || $archivo->extension === "doc")
+                                <img src="/img/iconos/doc.svg">
+                            @elseif($archivo->extension === "ppt" || $archivo->extension === "pptx")
+                                <img src="/img/iconos/ppt.svg">
                             @elseif($archivo->extension === "pdf")
                                 <img src="/img/iconos/pdf.svg">
-                            @elseif($archivo->extension === "jpg")
-                                <img src="{{Storage::url($archivo->url)}}">
+                            @else
+                                <img src="{{url($archivo->url)}}" style="padding:auto 15px;">
                             @endif
                         </div>
 
                         <div class="file-details">
-                            <span class="file-name"><b>{{ $archivo->nombre }}</b></span>
+                            <h6 class="file-name text-truncate"><b>{{ $archivo->nombre }}</b></h6>
                             <span class="file-size">{{ $archivo->size }}</span>
-                            <span class="file-minetype">{{ $archivo->minetype }}</span>
+                            <span class="file-minetype text-truncate-ln4">{{ $archivo->minetype }}</span>
                         </div>
                     </a>
                 </li>

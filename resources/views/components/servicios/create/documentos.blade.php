@@ -1,7 +1,10 @@
-<card type="header-icon" icon="fa-file-text-o">
+ <h3 class="title">Documentos</h3>
+ 
+{{--  <card type="header-icon" icon="fa-file-text-o">  --}}
+<card>
     <template>
         @if( isset($servicio->id) )
-            <template slot="title">Documentos</template>
+            {{--  <template slot="title">Documentos</template>  --}}
             <div class="row">
                 <div class="col-md-12">
                     <legend>Seleccione los documentos con la mercancia a cargar</legend>
@@ -44,7 +47,7 @@
 
         @else
         
-            <template slot="title">Registro de documentos</template>
+            {{--  <template slot="title">Registro de documentos</template>  --}}
             <add-document ></add-document>
 
         @endif   

@@ -20,7 +20,10 @@ class CreateDocumentosTable extends Migration
             $table->string('tipo_documento',45);
             $table->string('documento',191);
             $table->longText('descripcion')->nullable();
-            $table->smallInteger('status')->default(0);
+            $table->enum('status',[0,1])->default(0);
+            $table->dateTime('fecha_descarga');
+            $table->dateTime('fecha_carga')->nullable();
+
             $table->timestamps();
         });
     }

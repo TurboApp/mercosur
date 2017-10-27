@@ -11,7 +11,7 @@
         <h2 class="text-center text-muted">No se encontraron resultados</h2>
     @else
         <div class="table-responsive">
-            <table id="datatable" class="table table-hover" cellspacing="0" width="100%" style="width:100%">
+            <table id="datatable" class="table" cellspacing="0" width="100%" style="width:100%">
                 <thead>
                     <tr>
                         <th>{{ $name }}</th>
@@ -51,6 +51,11 @@
             responsive: true,
             processing: true,
             serverSide: true,
+    @if(isset($filter))
+        @if(!$filter)
+            searching: false,
+        @endif
+    @endif
             language: {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
             },

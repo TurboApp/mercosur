@@ -21,6 +21,7 @@ class CreateFuerzaTareasTable extends Migration
             $table->string('telefono',50)->nullable();
             $table->string('celular',50)->nullable();
             $table->string('categoria',50);
+            $table->enum('status',[0,1])->default(0);
             $table->timestamps();
         });
     }

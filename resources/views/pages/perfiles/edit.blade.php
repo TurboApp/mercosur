@@ -1,8 +1,14 @@
 @extends('layouts.master')
-@section('title','Editar Perfil')
-@section('nav-top')
 
+@section('title','Editar Perfil')
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Mi Perfil'=>'miPerfil' ],
+    ])
+    @endcomponent()
 @endsection
+
 @section('content')
   <form id="MyPerfil" action="/perfil/{{$user->id}}" method="post" class="form-horizontal" autocomplete="off" enctype="multipart/form-data">
     {{ csrf_field() }}
@@ -104,6 +110,7 @@
     </div>
   </form>
 @endsection
+
 @push('scripts')
   @include('layouts.partials.errors')
   <script type="text/javascript">

@@ -19,7 +19,7 @@
           window.Laravel = {"csrfToken" : "{{csrf_token()}}" }
     </script>
     <style>
-
+    {{-- #Color tipo de servicio --}}
     .Descarga, .descarga{
         background:#f44336 !important;
         color:#fff !important;
@@ -33,6 +33,28 @@
         color:#fff !important;
     }
 
+    {{-- #Color status maniobra  --}}
+    .para-asignar, .PARA-ASIGNAR{
+        background:#9e9e9e  !important;
+        color:#fff !important;
+    }
+    .en-proceso, .EN-PROSESO{
+        background:#ffeb3b !important;
+        color:#fff !important;
+    }
+    .en-pausa, .EN-PAUSA{
+        background:#ffa726 !important;
+        color:#fff !important;
+    }
+    .finalizado, .FINALIZADO{
+        background:#43a047 !important;
+        color:#fff !important;
+    }
+    .cancelado, .CANCELADO{
+        background:#f44336 !important;
+        color:#fff !important;
+    }
+
     </style>
 </head>
 <body>
@@ -42,9 +64,8 @@
     </svg>
 </div>
 <div id="app">
-
-    <div class="wrapper  grey lighten-2">
-        <div class="sidebar" data-active-color="light-blue-darken-3" data-background-color="black" data-image="/img/sidebar-1.jpg">
+     <div class="wrapper ">
+        <div class="sidebar" data-active-color="light-blue-darken-3" data-background-color="black" data-image="/img/sidebar-3.jpg">
             <div class="logo">
                 <a href="/" class="simple-text">
                     MERCOSUR <sub>app</sub>
@@ -66,14 +87,15 @@
                         @endif
                     </div>
                     <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                             <span class="text-uppercase">{{auth()->user()->user}}</span>
-                            <b class="caret"></b>
+                        <a data-toggle="collapse" href="#collapseProfile" class="collapsed">
+                            <p class="text-uppercase">{{auth()->user()->user}}
+                                <b class="caret"></b>
+                            </p>
                         </a>
-                        <div class="collapse" id="collapseExample" >
+                        <div class="collapse {{ Request::is('perfil*')  ? 'in' : ''}}" id="collapseProfile" >
                           <form id="salir"  action="{{route('logout')}}" method="post">
                             <ul class="nav">
-                                <li>
+                                <li {{ Request::is('perfil/*') ? ' class=active' : ''}}>
                                     <a href="/perfil/{{auth()->user()->id}}">Mi Perfil</a>
                                 </li>
                                 <li>
@@ -92,8 +114,18 @@
             </div>
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
-        {{--  <div class="main-panel">  --}}
-        <div class="main-panel ">
+        <div class="main-panel">
+            <nav class="nav grey lighten-3">
+                <div class="container-fluid">
+                    <div class="col-sm-6">
+                        @yield('breadcrump')
+                    </div>
+                    <div class="col-sm-6 text-right hidden-xs" style="padding:8px 12px; ">
+                        {{  ucfirst( Date::instance(Carbon\Carbon::now())->format('l j \\d\\e F \\d\\e Y') ) }}
+                    </div>
+                </div>
+            </nav>
+
             <!-- NAVEGACION -->
             <nav class="navbar navbar-transparent navbar-absolute">
                 <div class="container-fluid">
@@ -110,7 +142,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> @yield('title') </a>
+                        
+                        <a class="navbar-brand" href="#"> 
+                           @yield('title')
+                        </a>
+                        
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -154,7 +190,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown" title="Mi perfil">
+                                <a href="/perfil/{{auth()->user()->id}}" title="Mi perfil">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
@@ -166,22 +202,27 @@
                     </div>
                 </div>
             </nav>
-            <!-- CONTENIDO -->
-            <div class="content">
+            
+            {{-- CONTENIDO --}}
+                        
+            <div class="content" style="padding-top:0;">
                 <div class="container-fluid">
+                    
+                    
                     @yield('content')
+
                 </div>
             </div><!-- ./content -->
-            <!-- pie de pagina -->
-            @include('layouts.partials.footer')
         </div>
-
     </div>
 </div>
 
 
     <script src="/js/app.js"></script>
     <script src="/js/scripts.js"></script>
+
+    
+    
     <!-- datepicker en español -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
     @stack('scripts')

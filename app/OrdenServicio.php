@@ -4,6 +4,7 @@ namespace App;
 
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Jenssegers\Date\Date;
+use Carbon\Carbon;
 
 class OrdenServicio extends Model
 {
@@ -15,6 +16,12 @@ class OrdenServicio extends Model
         ],
     ];
     
+    protected $dates=['fecha_recepcion'];
+    // public function fechaRecepcionDate()
+    // {
+    //     return Carbon::createFromFormat('m/d/Y', $this->fecha_resepcion);
+    // }
+
     public function getTodayAttribute($date)
     {
         return new Date($date);
@@ -50,7 +57,7 @@ class OrdenServicio extends Model
     {   
         foreach($data as $documento){
             if($type==='Descarga'){
-                Documento::create(['descarga_id' => $this->id] + $documento + ['status' => 1]);
+                Documento::create(['descarga_id' => $this->id]+ ['fecha_descarga' => Carbon::now() ] + $documento + ['status' => 1]);
             }elseif($type==='Trasbordo'){
                 Documento::create(['descarga_id' => $this->id] + ['carga_id' => $this->id] + $documento );
             }

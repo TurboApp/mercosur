@@ -1,6 +1,8 @@
-<card type="header-icon" icon="fa-info">
+<h3 class="title">Datos generales</h3>
+{{--  <card type="header-icon" icon="fa-info">  --}}
+<card>
     <template>
-        <template slot="title">Datos generales</template>
+        {{--  <template slot="title">Datos generales</template>  --}}
         <div class="row ">
             <div class="col-md-6 ">
                 <div class="row">

@@ -27,10 +27,10 @@ $gray-color:  #999999 !default;
 
 $brand-default: #cecece !default;
 $brand-primary: $purple !default;
-$brand-success: $green !default;
-$brand-danger: $red !default;
-$brand-warning: $orange !default;
-$brand-info: $cyan !default;
+$brand-success: #64dd17 !default; //$green !default;
+$brand-danger: #FF4136 !default;
+$brand-warning: #FF851B !default;
+$brand-info: #7FDBFF !default;
 $brand-rose: $pink !default;
 
 $border-radius-base: 3px !default;
@@ -52,7 +52,7 @@ $font-weight-bold:    500 !default;
 $font-weight-extra-bold: 700 !default;
 $font-weight-ultra-bold: 900 !default;
 
-$body-bg: #EEEEEE !default;
+$body-bg: #e0e0e0 !default;//#EEEEEE !default;
 //---
 
 // import bs variables for sass, first declared wins.
@@ -74,10 +74,10 @@ $gray-light:             #999999 !default; // #999999
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 $brand-primary:         $light-blue-800; //darken(#428bca, 6.5%) !default; // #337ab777
-$brand-success:         #5cb85c !default;
+$brand-success:         red !default;  //#2ECC40 !default;//#5cb85c !default;
 $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
+$brand-danger:          #FF4136 !default;//#d9534f !default;
 
 $black-color:           #3C4858 !default;
 
@@ -87,7 +87,7 @@ $black-color:           #3C4858 !default;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg:               #fff !default;
+$body-bg:             #fff !default;
 //** Global text color on `<body>`.
 $text-color:            $gray-dark !default;
 
@@ -863,7 +863,7 @@ $badge-border-radius:         10px !default;
 $breadcrumb-padding-vertical:   8px !default;
 $breadcrumb-padding-horizontal: 15px !default;
 //** Breadcrumb background color
-$breadcrumb-bg:                 #f5f5f5 !default;
+$breadcrumb-bg:                 transparent !default; //#f5f5f5 !default;
 //** Breadcrumb text color
 $breadcrumb-color:              #ccc !default;
 //** Text color of current page in the breadcrumb
@@ -939,7 +939,7 @@ $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Point at which .dl-horizontal becomes horizontal
 $dl-horizontal-breakpoint:    $grid-float-breakpoint !default;
 //** Horizontal line color.
-$hr-border:                   $gray-lighter !default;
+$hr-border:                   #eeeeee !default;//$gray-lighter !default;
 
 
 // Bootstrap Material Design variables start with mdb-

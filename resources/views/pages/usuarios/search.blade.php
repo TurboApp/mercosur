@@ -29,7 +29,7 @@
               </div>
               <div class="col-md-7">
                 <div class="card-content">
-                    <h4 class="card-title text-truncate-ln2">{{$usuario->nombre}} {{$usuario->apellido}}</h4>
+                  <h4 class="card-title text-truncate" title="{{$usuario->nombre}} {{$usuario->apellido}}">{{$usuario->nombre}} {{$usuario->apellido}}</h4>
                   <p class="category text-muted text-uppercase">
                     @if (count($usuario->puestos))
                       @foreach ($usuario->puestos as $puesto)
@@ -39,7 +39,7 @@
                       <span class="text-danger">No asignado</span>
                     @endif
                   </p>
-                  <p class="category text-muted"><i class="fa fa-user-circle-o fa-1 text-muted" aria-hidden="true"></i> {{$usuario->user}}</p>
+                  <p class="category text-muted text-uppercase"><i class="fa fa-user-circle-o fa-1 text-muted" aria-hidden="true"></i> {{$usuario->user}}</p>
                   <div class="footer">
                     <a href="/usuarios/{{$usuario->id}}"><button type="button" class="btn btn-primary btn-simple btn-just-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
                     <a href="/usuarios/{{$usuario->id}}/editar"><button type="button" class="btn btn-success btn-simple btn-just-icon"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>

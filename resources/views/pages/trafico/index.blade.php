@@ -1,17 +1,28 @@
 @extends('layouts.master')
+
 @section('title','Servicios')
-@section('nav-top')
 
-
+@section('breadcrump')
+    @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => '' ],
+    ])
+    @endcomponent()
 @endsection
+
+@section('nav-top')
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/trafico/nuevo"  title="Nuevo servicio">
+                <i class="material-icons">add</i>
+                <p class="hidden-lg hidden-md">Nuevo servicio</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
+@endsection
+
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 ">
-            <h2>Servicios</h2>
-        </div>
-        
-    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -60,11 +71,11 @@
         </template>
         </div>
     </div>
+   
         <card>
         <template>
-            
             <div class="material-datatables">
-                <table id="servicios" class="table table-hover" cellspacing="0" width="100%" style="width:100%">
+                <table id="servicios" class="table" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Tipo</th>
@@ -89,38 +100,9 @@
             </div>
         </template>
         </card>
-        <ul class="list-inline">
-            <li>
-                <small>
-                    <span class="label-default" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    PARA ASIGNAR
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-info" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    EN PROCESO
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-warning" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    EN PAUSA
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-success" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    FINALIZADO
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-danger" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    CANCELADO
-                </small>
-            </li>
-        </ul>
+       
+       @include('layouts.partials.servicio-status-help')
+        
 </div>
 
 @endsection
@@ -192,19 +174,19 @@
                     "render": function(data, type, row){
                         switch (data) {
                             case "PARA ASIGNAR": case "Para asignar": case "para asignar":
-                                return '<span class="label label-default"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-default '+ data.replace(" ", "-") +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
 
                             case "EN PROCESO": case "En proceso": case "en proceso":
-                                return '<span class="label label-info"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-info '+ data.replace(" ", "-") +'"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "EN PAUSA": case "En pausa": case "en pasua":
-                                return '<span class="label label-warning"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-warning '+ data.replace(" ", "-") +'"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "FINALIZADO": case "Finalizado": case "finalizado":
-                                return '<span class="label label-success"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-success '+ data.replace(" ", "-") +'"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "CANCELADO": case "Cancelado": case "cancelado":
-                                return '<span class="label label-danger"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-danger '+ data.replace(" ", "-") +'"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
                                 
                         }
                     }

@@ -1,15 +1,17 @@
 @extends('layouts.master')
 
-@section('title','Información del cliente')
+
+@section('title','Cliente: '.str_limit($cliente->nombre, 24))
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Clientes' => 'clientes',  $cliente->nombre => '' ],
+    ])
+    @endcomponent()
+@endsection
 
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a href="/clientes" title="Ir a clientes">
-                <i class="material-icons">reply</i>
-                <p class="hidden-lg hidden-md">Ir a clientes</p>
-            </a>
-        </li>
         <li>
             <a href="/clientes/{{ $cliente->id }}/editar" title="Editar">
                 <i class="material-icons">edit</i>
@@ -26,6 +28,12 @@
             <a href="/clientes/nuevo"  title="Agregar nuevo">
                 <i class="material-icons">person_add</i>
                 <p class="hidden-lg hidden-md">Agregar</p>
+            </a>
+        </li>
+        <li>
+            <a href="/clientes" title="Ir a clientes">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a clientes</p>
             </a>
         </li>
         <li class="separator hidden-lg hidden-md"></li>

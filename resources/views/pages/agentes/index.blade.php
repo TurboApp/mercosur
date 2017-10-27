@@ -1,11 +1,28 @@
 @extends('layouts.master')
 @section('title','Agentes')
 @section('nav-top')
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/agentes/nuevo"  title="Agregar nuevo">
+                <i class="material-icons">add</i>
+                <p class="hidden-lg hidden-md">Agregar</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
     @component('components.navbarsearch',[
         'action' => 'AgenteController@search'
     ])
     @endcomponent()
 @endsection
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Agentes' => '' ],
+    ])
+    @endcomponent()
+@endsection
+
 @section('content')
 
 <div class="row">

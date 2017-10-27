@@ -1,6 +1,8 @@
-<card type="header-icon" icon="fa-info">
+{{--  <card type="header-icon" icon="fa-info">  --}}
+<h3 class="title">Datos generales</h3>
+<card>
     <template>
-        <template slot="title">Datos generales</template>
+        {{--  <template slot="title">Datos generales</template>  --}}
         <div class="row ">
             <div class="col-md-6 ">
                 <div class="row">
@@ -21,7 +23,8 @@
                             <span class="input-group-addon" title="Fecha">
                                 <i class="fa fa-calendar "></i> Fecha
                             </span>
-                            <input type="text" value="{{$data->fecha_recepcion}}" class="form-control" disabled>
+                           
+                            <input type="text" value="{{ $data->fecha_recepcion->format('d/m/Y') }}" class="form-control" disabled>
                             <span class="material-input"></span>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ class DescargasDataSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for($i = 0; $i < 100; $i++) {
+        for($i = 0; $i < 10; $i++) {
 
             $date = Carbon\Carbon::createFromTimeStamp($faker->dateTimeBetween('-30 days', '+30 days')->getTimestamp())->format('Y-m-j');
             $numero_servicio = App\OrdenServicio::getNumServicio();
@@ -29,7 +29,8 @@ class DescargasDataSeeder extends Seeder
                 'destino'         => $faker->address,
                 'destino_pais'    => $faker->country,
                 'status'          => 'Para asignar', //$faker->randomElement(['PARA ASIGNAR','EN PROCESO','EN PAUSA','FINALIZADO','CANCELADO']),
-                'observaciones'   => $faker->text(100)
+                'observaciones'   => $faker->text(100),
+                'user_id'         => 18
             ];
 
             $ordenServicio = App\OrdenServicio::create($datos_generales);
@@ -101,6 +102,10 @@ class DescargasDataSeeder extends Seeder
                         'tipo_documento' => $faker->randomElement(['FACTURA','REMISIÓN','PREGUIA']),
                         'documento'      => $faker->word() . $faker->numberBetween(1000,9000),
                         'descripcion'    => $faker->text(199),
+                        //'status'         => '0',
+                        'fecha_descarga' => new DateTime('2000-01-01'),
+                        'fecha_carga' => $ordenServicio->created_at,
+                        
                     ];
                     App\Documento::create( $documento );
                 }
@@ -114,7 +119,8 @@ class DescargasDataSeeder extends Seeder
                         'tipo_documento' => $faker->randomElement(['FACTURA','REMISIÓN','PREGUIA']),
                         'documento'      => $faker->word() . $faker->numberBetween(1000,9000),
                         'descripcion'    => $faker->text(199),
-                        'status' => 1
+                        'status'         => 1,
+                        'fecha_descarga' => new DateTime('2000-01-01'),
                     ];
                     App\Documento::create( $documento );
                 }
@@ -138,6 +144,9 @@ class DescargasDataSeeder extends Seeder
                     'tipo_documento' => $faker->randomElement(['FACTURA','REMISIÓN','PREGUIA']),
                     'documento'      => $faker->word() . $faker->numberBetween(1000,9000),
                     'descripcion'    => $faker->text(199),
+                    //'status'         => '0',
+                    //'fecha_descarga' => new DateTime('2000-01-01'),
+                    'fecha_carga' => $ordenServicio->created_at,
                 ];
                 $archivo = [
                     'descarga_id' => $ordenServicio->id,

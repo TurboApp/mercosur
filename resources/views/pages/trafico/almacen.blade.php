@@ -1,15 +1,42 @@
 @extends('layouts.master')
+
 @section('title','Almacén')
+
+@section('breadcrump')
+    @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo servicio' => 'seleccionarNuevoServicio', 'Almacén' => '' ],
+    ])
+    @endcomponent()
+@endsection
+
+@section('nav-top')
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/trafico/nuevo"  title="Nuevo servicio">
+                <i class="material-icons">add</i>
+                <p class="hidden-lg hidden-md">Nuevo servicio</p>
+            </a>
+        </li>
+        <li>
+            <a href="/trafico/nuevo" title="Ir a nuevo servicio">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a nuevo servicio</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
+@endsection
+
 @section('content')
 <div class="container-fluido">
     <div class="row">
-        <div class="col-md-6">
+        {{--  <div class="col-md-6">
             <div class="form-group">
                 <h2>Almacén</h2>
             </div>
-        </div>
+        </div>  --}}
         <template>
-            <div id="oneDate" class="col-md-4 col-md-offset-2">
+            <div id="oneDate" class="col-md-4 col-md-offset-8">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
@@ -18,7 +45,7 @@
                     <input type="text" id="fecha" name="fecha" value="{{$data->format('j/m/Y')}}" class="form-control"  maxlength="10">
                 </div>
             </div>    
-            <div id="rangeDate" class="col-md-6 hidden">
+            <div id="rangeDate" class="col-md-6 col-md-offset-6 hidden">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group">
@@ -49,7 +76,7 @@
         <card>
         <template>
             <div class="material-datatables">
-                <table id="almacen" class="table table-hover" cellspacing="0" width="100%" style="width:100%">
+                <table id="almacen" class="table" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
                             <th>Cliente</th>

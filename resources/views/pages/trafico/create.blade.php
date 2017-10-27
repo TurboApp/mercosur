@@ -1,24 +1,39 @@
 @extends('layouts.master')
-@section('title','Nueva orden de servicio')
-@section('nav-top')
 
+@section('title', $data['tipo'])
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo servicio' => 'seleccionarNuevoServicio', $data['tipo'] => '' ],
+    ])
+    @endcomponent()
 @endsection
+
+@section('nav-top')
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/trafico/nuevo"  title="Nuevo servicio">
+                <i class="material-icons">add</i>
+                <p class="hidden-lg hidden-md">Nuevo servicio</p>
+            </a>
+        </li>
+        <li>
+            <a href="/trafico/nuevo" title="Ir a nuevo servicio">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a nuevo servicio</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
+@endsection
+
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 col-sm-12">
-            <h2 class="text-uppercase">{{ $data['tipo'] }}</h2>
-        </div>
-        <div class="col-md-6">
-            <div class="text-right form-group">
-                {{ ucfirst( $data["hoy"]->format('l j \\d\\e F \\d\\e Y') ) }}
-                <p class="lead text-muted">Número de servicio {{$data["numero_servicio"]}}</p>
-            </div>
-        </div>
-    </div>
-
+    
+        <p class="lead text-muted pull-right">Número de servicio {{$data["numero_servicio"]}}</p>
     {!! Form::open(array('url' => '/trafico/servicio', 'method'=>'post', 'id'=>'formNuevoServicio', 'class'=>'form-horizontal','files'=>true, 'autocomplete'=>'off')) !!}
         {!! Form::hidden('tipo', $data['tipo']) !!}        
+        
 
         @component('components.servicios.create.datosGenerales',[
             'data' => $data,
@@ -67,8 +82,11 @@
 
         @endif
         
-        
-        {!! Form::submit('Crear orden de sercvicio', array('class'=>'btn btn-primary')) !!}
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                {!! Form::submit('Crear orden de sercvicio', array('class'=>'btn btn-primary btn-lg btn-block')) !!}
+            </div>
+        </div>
     {!! Form::close() !!}
 
 </div>

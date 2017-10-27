@@ -1,13 +1,16 @@
 @extends('layouts.master')
-@section('title','Información de Transportes')
+
+@section('title','Linea de transporte: '.str_limit($transporte->nombre, 24))
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Linea de transporte' => 'transportes',  $transporte->nombre => '' ],
+    ])
+    @endcomponent()
+@endsection
+
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a href="/transportes" title="Todos los Transportes">
-                <i class="material-icons">reply</i>
-                <p class="hidden-lg hidden-md">Regresar</p>
-            </a>
-        </li>
         <li>
             <a href="/transportes/{{ $transporte->id }}/editar" title="Editar">
                 <i class="material-icons">edit</i>
@@ -15,15 +18,21 @@
             </a>
         </li>
         <li>
-            <a href="#" class=" delete-transporte" title="Eliminar">
+            <a href="#" class="delete-transporte" title="Eliminar">
                 <i class="material-icons">delete</i>
                 <p class="hidden-lg hidden-md">Eliminar</p>
             </a>
         </li>
         <li>
-            <a href="/transportes/nuevo" title="Agregar nuevo">
+            <a href="/transportes/nuevo"  title="Agregar nuevo">
                 <i class="material-icons">add</i>
-                <p class="hidden-lg hidden-md">Nuevo</p>
+                <p class="hidden-lg hidden-md">Agregar</p>
+            </a>
+        </li>
+        <li>
+            <a href="/transportes" title="Ir a clientes">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a lineas de transportes</p>
             </a>
         </li>
         <li class="separator hidden-lg hidden-md"></li>

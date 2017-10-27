@@ -1,23 +1,14 @@
 @extends('layouts.master')
 @section('title','Orden de servicio')
 @section('nav-top')
-<form class="navbar-form navbar-right" method="GET" action="/trafico/busqueda/" role="search">
-  <div class="form-group form-search is-empty">
-      <input type="text" class="form-control" name="s" placeholder="Buscar">
-      <span class="material-input"></span>
-  </div>
-  <button type="submit" class="btn btn-white btn-round btn-just-icon">
-      <i class="material-icons">search</i>
-      <div class="ripple-container"></div>
-  </button>
-</form>
+
 @endsection
 @section('content')
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <h2>{{$servicio->tipo}}</h2>
+            <h2 class="text-uppercase">{{$servicio->tipo}}</h2>
         </div>
         <div class="col-md-6">
             <div class="text-right form-group">

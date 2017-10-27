@@ -1,16 +1,33 @@
 
 @extends('layouts.master')
-@section('title','Añadir nueva linea de transporte')
+
+@section('title','Agregar linea de transporte')
+
 @section('nav-top')
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/transportes" title="Ir a lineas de transportes">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a lineas de transportes</p>
+            </a>
+        </li>
+    </ul>  
     @component('components.navbarsearch',[
                 'action'  =>  'LineasTransporteController@search',
             ])
     @endcomponent()
 @endsection
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Lineas de transportes' => 'transportes', 'Agregar linea de transporte' => '' ],
+    ])
+    @endcomponent()
+@endsection
+
 @section('content')
   <div class="row">
     <div class="col-md-12">
-
         <div class="card">
             <form id="createTransporte" method="POST" action="/transportes" class="form-horizontal" autocomplete="off">
                 {{ csrf_field() }}
@@ -21,7 +38,7 @@
                     <h4 class="card-title">Ingrese los datos</h4>
                     <div class="row">
                         <div class="form-group label-floating is-empty">
-                            <label class="col-md-2 label-on-left" for="destino">* Nombre</label>
+                            <label class="col-md-2 label-on-left" for="destino"><span class="text-danger">*</span> Nombre</label>
                             <div class="col-md-10">
                                 <div class="form-group label-floating is-empty">
                                     <label class="control-label"></label>
@@ -34,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Nombre corto</label>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
@@ -46,7 +63,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <label class="col-md-2 label-on-left">RFC</label>
+                                <label class="col-md-2 label-on-left"><span class="text-danger">*</span> RFC</label>
                                 <div class="col-md-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>

@@ -1,16 +1,19 @@
 @extends('layouts.master')
 @section('title','Coordinación')
-@section('nav-top')
 
-
+@section('breadcrump')
+    @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Coordinación' => '' ],
+    ])
+    @endcomponent()
 @endsection
+
+@section('nav-top')
+  
+@endsection
+
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 ">
-            <h2>Coordinación</h2>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -89,38 +92,9 @@
             </div>
         </template>
         </card>
-        <ul class="list-inline">
-            <li>
-                <small>
-                    <span class="label-default" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    PARA ASIGNAR
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-info" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    EN PROCESO
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-warning" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    EN PAUSA
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-success" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    FINALIZADO
-                </small>
-            </li>
-            <li>
-                <small>
-                    <span class="label-danger" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    CANCELADO
-                </small>
-            </li>
-        </ul>
+
+        @include('layouts.partials.servicio-status-help')
+
 </div>
 
 @endsection
@@ -204,13 +178,15 @@
                     }     
                 },
                 {
-                    data : "supervisor.nombre",
+                    data : null,
                     render : function(data, type, row){
-                        if(row.supervisor_id !== "Null"){
-                            return '<p class="lead text-muted">'+data+'</p>';
+                       
+                        if( data.supervisor_id ){
+                            return '<p class="text-center"><b>'+data.supervisor.nombre+'</b></p>';
+                            
                         }
                         else{
-                            return '...';
+                            return '<h6 class="text-center text-danger">No asignado</h6>';
                         }
                     }
                 },
@@ -220,19 +196,19 @@
                         
                         switch (data) {
                             case "PARA ASIGNAR": case "Para asignar": case "para asignar":
-                                return '<span class="label label-default"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-default '+ data.replace(" ", "-") +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
 
                             case "EN PROCESO": case "En proceso": case "en proceso":
-                                return '<span class="label label-info"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-info '+ data.replace(" ", "-") +'"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "EN PAUSA": case "En pausa": case "en pasua":
-                                return '<span class="label label-warning"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-warning '+ data.replace(" ", "-") +'"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "FINALIZADO": case "Finalizado": case "finalizado":
-                                return '<span class="label label-success"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-success '+ data.replace(" ", "-") +'"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "CANCELADO": case "Cancelado": case "cancelado":
-                                return '<span class="label label-danger"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-danger '+ data.replace(" ", "-") +'"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
                                 
                        }
                     }

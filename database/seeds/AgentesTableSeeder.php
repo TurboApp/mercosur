@@ -11,8 +11,21 @@ class AgentesTableSeeder extends Seeder
      */
     public function run()
     {
+        App\Agente::create(
+            [
+                'nombre' => 'SIS AGENCIA ADUANAL S.A. DE C.V.',
+                'nombre_corto' => 'SISAA',
+                'email' => '',
+                'telefono' => '(01) (962) 69 80442',
+                'celular' => '',
+                'direccion' => 'Dirección: 3a Avenida Norte No. 7 Colonia Centro.',
+                'rfc' => '',
+                'ciudad' => 'Ciudad Hidalgo, Chiapas, México',
+                'codigo_postal' => '30840',
+            ]            
+        );
+        /*
         $faker = Faker\Factory::create();
-
             for($i = 0; $i < 10; $i++) {
                 App\Agente::create([
                     'nombre' => $faker->company,
@@ -26,5 +39,6 @@ class AgentesTableSeeder extends Seeder
                     'codigo_postal' => $faker->postcode,
                 ]);
             }
+            */
     }
 }

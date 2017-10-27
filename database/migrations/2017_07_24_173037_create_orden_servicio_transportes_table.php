@@ -29,6 +29,7 @@ class CreateOrdenServicioTransportesTable extends Migration
             $table->string('placas_tractor');
             $table->string('placas_caja');
             $table->string('sellos')->nullable();
+            $table->string('numero_economico')->nullable();
             $table->string('type');
 
             $table->timestamps();

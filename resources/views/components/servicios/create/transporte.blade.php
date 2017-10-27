@@ -1,6 +1,8 @@
-<card type="header-icon" icon="fa-truck">
+<h3 class="title">Transporte ({{$type}})</h3>
+{{--  <card type="header-icon" icon="fa-truck">  --}}
+<card>
     <template>
-        <template slot="title">Transporte ({{$type}})</template>
+        {{--  <template slot="title">Transporte ({{$type}})</template>  --}}
         <div class="row">
             <div class="col-md-12">  
                 <div class="form-group">

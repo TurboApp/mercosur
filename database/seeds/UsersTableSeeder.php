@@ -12,8 +12,25 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        for($i = 0; $i < 60; $i++) {
-            
+        
+        //Admin
+        for($i = 0; $i < 4; $i++) {
+            App\User::create([
+                'nombre' => $faker->name,
+                'apellido' => $faker->lastName,
+                'email' => $faker->email,
+                'direccion' => $faker->address,
+                'telefono' => $faker->tollFreePhoneNumber,
+                'celular' => $faker->e164PhoneNumber,
+                'url_avatar' => '',
+                'user' => 'admin'.$i,
+                'password' => bcrypt('secret'),
+                'perfil_id' => 1
+            ]);
+        }    
+        
+        //Directores
+        for($i = 0; $i < 10; $i++) {
             $user = App\User::create([
                 'nombre' => $faker->name,
                 'apellido' => $faker->lastName,
@@ -22,11 +39,78 @@ class UsersTableSeeder extends Seeder
                 'telefono' => $faker->tollFreePhoneNumber,
                 'celular' => $faker->e164PhoneNumber,
                 'url_avatar' => '',
-                'user' => $faker->userName,
+                'user' => 'directivo'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => $faker->numberBetween(1, 6)
+                'perfil_id' => 2
             ]);
             
         }
+
+        //Gerente operativo
+        for($i = 0; $i < 2; $i++) {
+            $user = App\User::create([
+                'nombre' => $faker->name,
+                'apellido' => $faker->lastName,
+                'email' => $faker->email,
+                'direccion' => $faker->address,
+                'telefono' => $faker->tollFreePhoneNumber,
+                'celular' => $faker->e164PhoneNumber,
+                'url_avatar' => '',
+                'user' => 'gerente'.$i,
+                'password' => bcrypt('secret'),
+                'perfil_id' => 3
+            ]);
+        }
+
+        //Trafico
+        for($i = 0; $i < 2; $i++) {
+            $user = App\User::create([
+                'nombre' => $faker->name,
+                'apellido' => $faker->lastName,
+                'email' => $faker->email,
+                'direccion' => $faker->address,
+                'telefono' => $faker->tollFreePhoneNumber,
+                'celular' => $faker->e164PhoneNumber,
+                'url_avatar' => '',
+                'user' => 'trafico'.$i,
+                'password' => bcrypt('secret'),
+                'perfil_id' => 4
+            ]);
+            
+        }
+
+        //Coordinador
+        for($i = 0; $i < 4; $i++) {
+            $user = App\User::create([
+                'nombre' => $faker->name,
+                'apellido' => $faker->lastName,
+                'email' => $faker->email,
+                'direccion' => $faker->address,
+                'telefono' => $faker->tollFreePhoneNumber,
+                'celular' => $faker->e164PhoneNumber,
+                'url_avatar' => '',
+                'user' => 'coordinador'.$i,
+                'password' => bcrypt('secret'),
+                'perfil_id' => 5
+            ]);
+        }
+
+        //Supervisores
+        for($i = 0; $i < 25; $i++) {
+            $user = App\User::create([
+                'nombre' => $faker->name,
+                'apellido' => $faker->lastName,
+                'email' => $faker->email,
+                'direccion' => $faker->address,
+                'telefono' => $faker->tollFreePhoneNumber,
+                'celular' => $faker->e164PhoneNumber,
+                'url_avatar' => '',
+                'user' => 'supervisor'.$i,
+                'password' => bcrypt('secret'),
+                'perfil_id' => 6
+            ]);
+            
+        }
+
     }
 }

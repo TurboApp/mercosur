@@ -4,40 +4,46 @@ Auth::routes();
 
 Route::group( ['middleware' => 'auth' ], function()
 {
-  Route::get('/', function ()
-  {
-      return view('index');
-  });
+
+  Route::get('/', 'inicioController@inicio')->name('inicio');
 
   // RUTAS MI PERFIL
 
-  Route::get('/perfil/{user}','MiperfilController@index');
-  Route::get('/perfil/{user}/editar','MiperfilController@edit');
-  Route::patch('/perfil/{user}','MiperfilController@update');
+  Route::get('/perfil/{user}','MiperfilController@show')->name('miPerfil');
+  Route::get('/perfil/{user}/editar','MiperfilController@edit')->name('miPerfilEditar');
+  Route::patch('/perfil/{user}','MiperfilController@update')->name('miPerfilGuardarCambios');
 
 
   #RUTAS DE CLIENTES
-  Route::get('/clientes/', 'ClienteController@index');
-  Route::get('/clientes/busqueda/', 'ClienteController@search');
-  Route::get('/clientes/nuevo', 'ClienteController@create');
-  Route::get('/clientes/{cliente}/editar', 'ClienteController@edit');
-  Route::get('/clientes/{cliente}', 'ClienteController@show');
-  Route::post('/clientes', 'ClienteController@store');
-  Route::patch('/clientes/{cliente}', 'ClienteController@update');
-  Route::delete('/clientes/{cliente}/destroy', 'ClienteController@destroy');
+  Route::get('/clientes/', 'ClienteController@index')->name('clientes');
+  Route::get('/clientes/busqueda/', 'ClienteController@search')->name('clienteBusqueda');
+  Route::get('/clientes/nuevo', 'ClienteController@create')->name('clienteNuevo');
+  Route::get('/clientes/{cliente}/editar', 'ClienteController@edit')->name('clienteEditar');
+  Route::get('/clientes/{cliente}', 'ClienteController@show')->name('cliente');
+  Route::post('/clientes', 'ClienteController@store')->name('clienteGuardar');
+  Route::patch('/clientes/{cliente}', 'ClienteController@update')->name('clienteGuardarCambios');
+  Route::delete('/clientes/{cliente}/destroy', 'ClienteController@destroy')->name('clienteEliminar');
 
   #RUTAS DE AGENTES
 
-  Route::get('/agentes/', 'AgenteController@index');
-  // Route::get('/API/agentes', 'AgenteController@APIindex');
-  Route::get('/agentes/busqueda/', 'AgenteController@search');
-  Route::get('/agentes/nuevo', 'AgenteController@create');
-  Route::get('/agentes/{agente}/editar', 'AgenteController@edit');
-  Route::get('/agentes/{agente}', 'AgenteController@show');
-  Route::post('/agentes', 'AgenteController@store');
-  Route::patch('/agentes/{agente}', 'AgenteController@update');
-  Route::delete('/agentes/{agente}/destroy', 'AgenteController@destroy');
+  Route::get('/agentes/', 'AgenteController@index')->name('agentes');
+  Route::get('/agentes/busqueda/', 'AgenteController@search')->name('agenteBusqueda');
+  Route::get('/agentes/nuevo', 'AgenteController@create')->name('agenteNuevo');
+  Route::get('/agentes/{agente}/editar', 'AgenteController@edit')->name('agenteEditar');
+  Route::get('/agentes/{agente}', 'AgenteController@show')->name('agente');
+  Route::post('/agentes', 'AgenteController@store')->name('agenteGuardar');
+  Route::patch('/agentes/{agente}', 'AgenteController@update')->name('agenteGuardarCambios');
+  Route::delete('/agentes/{agente}/destroy', 'AgenteController@destroy')->name('agenteEliminar');
 
+  #RUTAS DE TRANSPORTES
+  Route::get('/transportes/', 'LineasTransporteController@index')->name('transportes');
+  Route::get('/transportes/busqueda/', 'LineasTransporteController@search')->name('transportesBusqueda');
+  Route::get('/transportes/nuevo','LineasTransporteController@create')->name('transporteNuevo');
+  Route::get('/transportes/{transporte}/editar','LineasTransporteController@edit')->name('transporteEditar');
+  Route::get('/transportes/{transporte}','LineasTransporteController@show')->name('transporte');
+  Route::post('/transportes','LineasTransporteController@store')->name('transporteGuardar');
+  Route::patch('/transportes/{transporte}','LineasTransporteController@update')->name('transporteGuardarCambios');
+  Route::delete('/transportes/{transporte}/destroy','LineasTransporteController@destroy')->name('transporteEliminar');
   #RUTAS DE DESTINOS
   // Route::get('/destinos/', 'DestinoController@index');
   // Route::get('/destinos/busqueda/', 'DestinoController@search');
@@ -49,7 +55,7 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::delete('/destinos/{destino}/destroy','DestinoController@destroy');
 
   // RUTAS DE FUERZA DE TAREA
-  Route::get('/fuerzas/','FuerzaTareaController@index');
+  Route::get('/fuerzas/','FuerzaTareaController@index')->name('');
   Route::get('/fuerzas/busqueda/', 'FuerzaTareaController@search');
   Route::get('/fuerzas/nuevo','FuerzaTareaController@create');
   Route::get('/fuerzas/{fuerza}/editar','FuerzaTareaController@edit');
@@ -59,9 +65,9 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/fuerzas/{fuerza}/destroy','FuerzaTareaController@destroy');
 
   #RUTAS DE TRAFICO
-  Route::get('/trafico', 'OrdenServicioController@index');
-  Route::get('/trafico/nuevo', 'OrdenServicioController@createIndex');
-  Route::get('/trafico/nuevo/servicio/{servicio}/{id?}', 'OrdenServicioController@create');
+  Route::get('/trafico', 'OrdenServicioController@index')->name('servicios');
+  Route::get('/trafico/nuevo', 'OrdenServicioController@createIndex')->name('seleccionarNuevoServicio');
+  Route::get('/trafico/nuevo/servicio/{servicio}/{id?}', 'OrdenServicioController@create')->name('servicioNuevo');
   Route::get('/trafico/nuevo/carga/{servicio}', 'OrdenServicioController@createCarga');
   Route::get('/trafico/nuevo/trasbordo', 'OrdenServicioController@createTrasbordo');
 
@@ -69,7 +75,7 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::get('/trafico/servicio/{servicio}', 'OrdenServicioController@show');
   Route::post('/trafico/servicio', 'OrdenServicioController@store');
-  Route::get('/trafico/coordinacion', 'CoordinacionController@index');
+  Route::get('/trafico/coordinacion', 'CoordinacionController@index')->name('coordinacion');
 
   Route::get('/trafico/maniobra/{servicio}/detalles', 'CoordinacionController@maniobraDetalles');
   Route::get('/trafico/maniobra/{servicio}/datos_generales', 'CoordinacionController@maniobraGenerales');
@@ -107,15 +113,7 @@ Route::group( ['middleware' => 'auth' ], function()
 
 
 
-  #RUTAS DE TRANSPORTES
-  Route::get('/transportes/', 'LineasTransporteController@index');
-  Route::get('/transportes/busqueda/', 'LineasTransporteController@search');
-  Route::get('/transportes/nuevo','LineasTransporteController@create');
-  Route::post('/transportes','LineasTransporteController@store');
-  Route::get('/transportes/{transporte}/editar','LineasTransporteController@edit');
-  Route::patch('/transportes/{transporte}','LineasTransporteController@update');
-  Route::get('/transportes/{transporte}','LineasTransporteController@show');
-  Route::delete('/transportes/{transporte}/destroy','LineasTransporteController@destroy');
+  
 
   #RUTAS USUARIOS
   Route::get('/usuarios/','UserController@index');
@@ -132,4 +130,5 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::post('/herramientas','ToolController@store');
   Route::patch('/herramientas/actualizar','ToolController@update');
   Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');
+
 });

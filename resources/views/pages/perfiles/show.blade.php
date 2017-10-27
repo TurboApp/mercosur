@@ -1,9 +1,15 @@
 @extends('layouts.master')
-@section('title','Mi Perfil')
-  @section('nav-top')
 
-  @endsection
-  @section('content')
+@section('title','Mi Perfil')
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Mi Perfil'=>'miPerfil' ],
+    ])
+    @endcomponent()
+@endsection
+
+@section('content')
     <div class="row">
       <div class="col-md-4">
         <div class="card card-profile transparent no-shadow">

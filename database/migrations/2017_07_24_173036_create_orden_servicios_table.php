@@ -18,6 +18,7 @@ class CreateOrdenServiciosTable extends Migration
             $table->string('tipo',15);//Descarga,Carga,Trasbordo,Otros Servicios
             $table->integer('agente_id')->unsigned();
             $table->integer('cliente_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('numero_servicio');
             $table->date('fecha_recepcion');
             $table->time('hora_recepcion');

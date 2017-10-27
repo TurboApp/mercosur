@@ -1,27 +1,37 @@
 @extends('layouts.master')
-@section('title','Editar datos de los Transportes')
-  @section('nav-top')
+
+@section('title','Linea de transporte: '.str_limit($transporte->nombre, 24))
+
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Lineas de transportes' => 'transportes',  $transporte->nombre => '' ],
+    ])
+    @endcomponent()
+@endsection
+
+@section('nav-top')
     <ul class="nav navbar-nav navbar-right">
-   <li>
-       <a href="/transportes/{{$transporte->id}}" rel="tooltip" data-placement="bottom" title="Cancelar">
-           <i class="material-icons">cancel</i>
-           <p class="hidden-lg hidden-md">cancelar</p>
-       </a>
-   </li>
-   <li class="separator hidden-lg hidden-md"></li>
-</ul>
-<form class="navbar-form navbar-right" method="GET" action="/transportes/busqueda/" role="search">
-   <div class="form-group form-search is-empty">
-       <input type="text" class="form-control" name="s" placeholder="Buscar">
-       <span class="material-input"></span>
-   </div>
-   <button type="submit" class="btn btn-white btn-round btn-just-icon">
-       <i class="material-icons">search</i>
-       <div class="ripple-container"></div>
-   </button>
-</form>
-  @endsection
-  @section('content')
+        <li>
+            <a href="/transportes/{{$transporte->id}}" title="Cancelar">
+                <i class="material-icons">cancel</i>
+                <p class="hidden-lg hidden-md">Cancelar</p>
+            </a>
+        </li>
+        <li>
+            <a href="/transportes" title="Ir a clientes">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a clientes</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
+    @component('components.navbarsearch',[
+                'action'  =>  'LineasTransporteController@search',
+            ])
+    @endcomponent()
+@endsection
+
+@section('content')
     <div class="row">
     <div class="col-md-12">
 
@@ -33,10 +43,10 @@
                     <i class="material-icons">edit</i>
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Edite los datos</h4>
+                    <h4 class="card-title">Edición</h4>
                     <div class="row">
                         <div class="form-group label-floating is-empty">
-                            <label class="col-md-2 label-on-left" for="transporte">* Nombre</label>
+                            <label class="col-md-2 label-on-left" for="transporte"><span class="text-danger">*</span> Nombre</label>
                             <div class="col-md-10">
                                 <div class="form-group label-floating is-empty">
                                     <label class="control-label"></label>
@@ -49,7 +59,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <label class="col-md-4 label-on-left">Nombre corto</label>
+                                <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Nombre corto</label>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
@@ -61,7 +71,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="row">
-                                <label class="col-md-2 label-on-left">RFC</label>
+                                <label class="col-md-2 label-on-left"><span class="text-danger">*</span> RFC</label>
                                 <div class="col-md-10">
                                     <div class="form-group label-floating is-empty">
                                         <label class="control-label"></label>
@@ -190,7 +200,7 @@
                             <li>
                                 <button type="submit" class="btn btn-primary btn-round">
                                     <i class="material-icons">save</i>
-                                    Guardar
+                                    Guardar cambios
                                 </button>
                             </li>
                         </ul>

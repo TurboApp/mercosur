@@ -18,8 +18,8 @@
                   <img src="{{asset('img/user-head.png')}}" alt="..." class="img img-responsive">
                 </div>
                 <div class="card-content text-center">
-                  <h4 class="card-title text-truncate-ln2">{{$fuerza->nombre}} {{$fuerza->apellido}}</h4>
-                  <h6 class="category text-muted">{{$fuerza->categoria}}</h6>
+                  <h4 class="card-title text-truncate" title="{{$fuerza->nombre}} {{$fuerza->apellido}}">{{$fuerza->nombre}} {{$fuerza->apellido}}</h4>
+                  <h6 class="category text-muted text-truncate">{{$fuerza->categoria}}</h6>
                   <div class="footer">
                     <a href="/fuerzas/{{$fuerza->id}}"><button type="button" class="btn btn-primary btn-simple btn-just-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
                     <a href="/fuerzas/{{$fuerza->id}}/editar"><button type="button" class="btn btn-success btn-simple btn-just-icon"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
