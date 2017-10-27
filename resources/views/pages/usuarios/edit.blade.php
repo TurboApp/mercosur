@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-md-10 col-sm-12  col-md-offset-1">
       <div class="card">
-        <div class="card-header card-header-icon" data-background-color="blue">
+        <div class="card-header card-header-icon" data-background-color="">
           <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
         </div>
         <div class="card-content">
@@ -23,9 +23,9 @@
                 <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                   <div class="fileinput-new thumbnail img-circle" style="max-width:170px;">
                     @if ($usuario->url_avatar)
-                      <img src="{{Storage::url($usuario->url_avatar)}}" alt="...">
+                      <img class="img img-responsive img-circle z-depth-3"  src="{{Storage::url($usuario->url_avatar)}}" alt=""  onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                     @else
-                      <img src="{{asset('img/user-default.jpg')}}" alt="...">
+                      <img src="{{asset('img/'.str_replace(" ","-",$usuario->perfil->perfil).'.png')}}" alt="..." class="img img-responsive img-circle z-depth-3" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                     @endif
                   </div>
                   <div class="fileinput-preview fileinput-exists thumbnail img-circle" style="max-width:170px;"></div>
@@ -110,7 +110,7 @@
               </div>
             </div>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-round">
+              <button type="submit" class="btn btn-primary">
                 <i class="material-icons">save</i>
                  Guardar
               </button>

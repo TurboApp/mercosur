@@ -173,24 +173,27 @@
                 </ul>
             </div>
         </li>
+      {{-- HERRAMIENTAS  --}}
+      <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
+          <a  href="#menuHerramientas" data-toggle="collapse">
+              <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+              <p>Herramientas
+                  <b class="caret"></b>
+              </p>
+          </a>
+          <div class="collapse {{ Request::is('herramientas*')  ? 'in' : ''}}" id="menuHerramientas">
+              <ul class="nav">
+                  <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
+                  </li>
+                  <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
+                      <a href="/herramientas/nuevo">
+                          Puestos
+                      </a>
+                  </li>
+              </ul>
+          </div>
 
-        {{-- HERRAMIENTAS  --}}
-        <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
-            <a  href="#menuHerramientas" data-toggle="collapse">
-                <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
-                <p>Herramientas <b class="caret"></b></p>
-            </a>
-            <div class="collapse {{ Request::is('herramientas*')  ? 'in' : ''}}" id="menuHerramientas">
-                <ul class="nav">
-                    <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                        <a href="/herramientas/nuevo">
-                            Agregar Herramientas
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
+       
         {{-- NOTIFICACIONES --}}
         <li>
             <a href="../notificaciones.html">

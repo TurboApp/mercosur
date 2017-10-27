@@ -26,11 +26,11 @@
           <div class="col-md-4 col-sm-6">
             <div class="card card-profile card-plain">
               <div class="col-md-5">
-                <div class="card-image">
+                <div class="">
                   @if ($usuario->url_avatar)
-                    <img class="img img-responsive"  src="{{Storage::url($usuario->url_avatar)}}" alt="">
+                    <img class="img img-responsive img-circle z-depth-3"  src="{{Storage::url($usuario->url_avatar)}}" alt=""  onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                   @else
-                    <img src="{{asset('img/user-default.jpg')}}" alt="..." class="img img-responsive">
+                    <img src="{{asset('img/'.str_replace(" ","-",$usuario->perfil->perfil).'.png')}}" alt="..." class="img img-responsive img-circle z-depth-3" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                   @endif
                 </div>
               </div>

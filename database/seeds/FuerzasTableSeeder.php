@@ -19,7 +19,7 @@ class FuerzasTableSeeder extends Seeder
             'direccion' => $faker->address,
             'telefono' => $faker->tollFreePhoneNumber,
             'celular' => $faker->e164PhoneNumber,
-            'categoria' => $faker->randomElement($array = array ('Montacarguista','Montacarga','Auxiliria de Patio')),
+            'categoria' => $faker->randomElement($array = array ('Montacarguista','Montacarga','Auxiliar de Patio')),
           ]);
         }
     }

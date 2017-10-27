@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="card">
-          <div class="card-header card-header-icon" data-background-color="blue">
+          <div class="card-header card-header-icon" data-background-color="">
             <i class="fa fa-user fa-lg" aria-hidden="true"></i>
           </div>
           <div class="card-content">
@@ -19,7 +19,7 @@
               <div class="col-md-4">
                 <div class="card-profile text-center" style="margin-top:100px;">
                   <div class="card-avatar" style="max-width:170px; max-height:170px;">
-                    <img src="{{asset('img/user-head.png')}}" alt="...">
+                    <img src="{{asset('img/fuerza-'.str_replace(" ","-",$fuerza->categoria).'.png')}}" alt="..." class="img img-responsive" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                   </div>
                 </div><br>
                 <div class="row text-center">
@@ -35,7 +35,7 @@
                   <div class="col-md-3">
                     <a href="/fuerzas/{{$fuerza->id}}/editar"><button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon"><i class="fa fa-pencil fa-1x" aria-hidden="true"></i></button></a>
                     <a href="#" class="delete-fuerza">
-                      <button type="button" class="btn btn-danger btn-round btn-just-icon"><i class="fa fa-times fa-1x" aria-hidden="true"></i></button>
+                      <button type="button" class="btn btn-danger btn-round btn-just-icon"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button>
                     </a>
                   </div>
                 </div>

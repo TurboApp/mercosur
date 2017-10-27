@@ -83,7 +83,8 @@
                         @if (auth()->user()->url_avatar)
                           <img src="{{Storage::url(auth()->user()->url_avatar)}}" />
                         @else
-                          <img src="{{asset('img/user-default.jpg')}}" alt="...">
+                          {{-- <img src="{{asset('img/user-default.jpg')}}" alt="..."> --}}
+                          <img src="{{asset('img/'.str_replace(" ","-",auth()->user()->perfil->perfil).'.png')}}" alt="..." class="img img-responsive img-circle z-depth-3" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                         @endif
                     </div>
                     <div class="info">
