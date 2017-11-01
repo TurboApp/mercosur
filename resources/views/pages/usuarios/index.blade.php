@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title','Usuarios')
-  
+
 @section('nav-top')
     @component('components.navbarsearch',[
         'action'    =>  'UserController@search',

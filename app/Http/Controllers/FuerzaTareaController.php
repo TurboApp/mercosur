@@ -7,6 +7,10 @@ Use App\FuerzaTarea;
 
 class FuerzaTareaController extends Controller
 {
+    function __construct(){
+      $this->middleware(['auth','perfils:admin']);
+    }
+
     public function index(){
       $fuerzas=FuerzaTarea::latest()->paginate(16);
       return view('pages.fuerzas.index',compact('fuerzas'));
@@ -33,12 +37,26 @@ class FuerzaTareaController extends Controller
       return redirect('/fuerzas/');
     }
 
-    public function show(FuerzaTarea $fuerza){
-      return view('pages.fuerzas.show',compact('fuerza'));
+    public function show(Request $request, $fuerza){
+      $fuerza=FuerzaTarea::find($fuerza);
+      if ($fuerza===null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/fuerzas/');
+      } else {
+        return view('pages.fuerzas.show',compact('fuerza'));
+      }
+
     }
 
-    public function edit(FuerzaTarea $fuerza){
-      return view('pages.fuerzas.edit',compact('fuerza'));
+    public function edit(Request $request, $fuerza){
+      $fuerza=FuerzaTarea::find($fuerza);
+      if ($fuerza===null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/fuerzas/');
+      }
+      else {
+        return view('pages.fuerzas.edit',compact('fuerza'));
+      }
     }
 
     public function update(Request $request, FuerzaTarea $fuerza){

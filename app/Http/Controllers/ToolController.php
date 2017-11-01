@@ -6,6 +6,10 @@ use DataTables;
 
 class ToolController extends Controller
 {
+      function __construct(){
+        $this->middleware(['auth','perfils:admin']);
+      }
+
     public function create(){
       $puestos=Puesto::all();
       return view('pages.herramientas.create',compact('puestos'));
@@ -23,7 +27,7 @@ class ToolController extends Controller
         $pu=(new Puesto)->fill($request->all());
         $pu->save();
         $request->session()->flash('success', 'El puesto '.$pu->puesto.' se agrego a la base de datos satisfactoriamente');
-        return redirect('/herramientas/nuevo');
+        return redirect('/herramientas/');
     }
 
     public function infopuesto(Puesto $puesto){
@@ -34,6 +38,6 @@ class ToolController extends Controller
       $puesto=Puesto::find($request->id);
       $puesto->update($request->only('puesto','descripcion'));
       $request->session()->flash('success', 'El puesto '.$puesto->puesto.' se actualizo satisfactoriamente');
-      return redirect('/herramientas/nuevo');
+      return redirect('/herramientas/');
     }
 }

@@ -6,6 +6,7 @@ Route::group( ['middleware' => 'auth' ], function()
 {
 
   Route::get('/', 'inicioController@inicio')->name('inicio');
+  Route::get('/error/503','inicioController@error');
 
   // RUTAS MI PERFIL
 
@@ -113,7 +114,7 @@ Route::group( ['middleware' => 'auth' ], function()
 
 
 
-  
+
 
   #RUTAS USUARIOS
   Route::get('/usuarios/','UserController@index');
@@ -126,8 +127,8 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/usuarios/{usuario}/destroy','UserController@destroy');
 
   #RUTAS herramientas
-  Route::get('/herramientas/nuevo','ToolController@create');
-  Route::post('/herramientas','ToolController@store');
+  Route::get('/herramientas','ToolController@create');
+  Route::post('/herramientas/nuevo','ToolController@store');
   Route::get('herramientas/puestos','ToolController@get');
   Route::patch('/herramientas/actualizar','ToolController@update');
   Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');

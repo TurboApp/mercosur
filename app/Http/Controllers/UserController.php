@@ -14,7 +14,7 @@ use App\UserPuesto;
 class UserController extends Controller
 {
     function __construct(){
-      $this->middleware(['auth']);
+      $this->middleware(['auth','perfils:admin']);
     }
 
     public function index(){
@@ -58,22 +58,36 @@ class UserController extends Controller
     //
     // }
 
-    public function show(User $usuario){
-      $perfil=$usuario->perfil;
-      $puesto=$usuario->puestos;
-      return view('pages.usuarios.show',compact('usuario'));
+    public function show(Request $request, $usuario){
+      $usuario=User::find($usuario);
+      if ($usuario==null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/usuarios/');
+      } else {
+        $perfil=$usuario->perfil;
+        $puesto=$usuario->puestos;
+        return view('pages.usuarios.show',compact('usuario'));
+      }
+
     }
 
-    public function edit(User $usuario){
-      $puesto=$usuario->puestos;
-      $perfil=$usuario->perfil;
-      $perfiles=Perfil::pluck('descripcion','id');
-      $perfiles=$perfiles->all();
-      $puestos=Puesto::pluck('puesto','id');
-      $puestos=$puestos->all();
-      // $puestos=$puestos->toArray();
-      // dd($puestos);
-      return view('pages.usuarios.edit',array("id"=>$usuario->id,"usuario"=>$usuario,"perfiles"=>$perfiles,"puestos"=>$puestos));
+    public function edit(Request $request, $usuario){
+      $usuario=User::find($usuario);
+      if ($usuario==null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/usuarios/');
+      } else {
+        $puesto=$usuario->puestos;
+        $perfil=$usuario->perfil;
+        $perfiles=Perfil::pluck('descripcion','id');
+        $perfiles=$perfiles->all();
+        $puestos=Puesto::pluck('puesto','id');
+        $puestos=$puestos->all();
+        // $puestos=$puestos->toArray();
+        // dd($puestos);
+        return view('pages.usuarios.edit',array("id"=>$usuario->id,"usuario"=>$usuario,"perfiles"=>$perfiles,"puestos"=>$puestos));
+      }
+
     }
 
     public function update(Request $request, User $usuario){
@@ -100,12 +114,11 @@ class UserController extends Controller
     }
 
     public function destroy(Request $request, User $usuario){
-      //dd($user->id);
       $del=User::find($usuario->id);
       if (count($del)) {
         $del->delete();
       }
-      $request->session()->flash('success', 'El usuario registro fue elimado');
+      $request->session()->flash('success', 'El registro fue elimado');
     }
 
     public function search(Request $request)
