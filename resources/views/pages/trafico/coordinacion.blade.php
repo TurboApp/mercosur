@@ -196,19 +196,19 @@
                         
                         switch (data) {
                             case "PARA ASIGNAR": case "Para asignar": case "para asignar":
-                                return '<span class="label label-default '+ data.replace(" ", "-") +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-default '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
 
                             case "EN PROCESO": case "En proceso": case "en proceso":
-                                return '<span class="label label-info '+ data.replace(" ", "-") +'"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-info '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "EN PAUSA": case "En pausa": case "en pasua":
-                                return '<span class="label label-warning '+ data.replace(" ", "-") +'"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-warning '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "FINALIZADO": case "Finalizado": case "finalizado":
-                                return '<span class="label label-success '+ data.replace(" ", "-") +'"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-success '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
                                 
                             case "CANCELADO": case "Cancelado": case "cancelado":
-                                return '<span class="label label-danger '+ data.replace(" ", "-") +'"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
+                                return '<span class="label label-danger '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
                                 
                        }
                     }

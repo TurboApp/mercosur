@@ -5154,6 +5154,10 @@ be a descendant of the grid when it is being dragged.
   position: relative;
 }
 
+.wizard-card .wizard-navigation > .nav-pills {
+  margin-top: 0;
+}
+
 .wizard-card .picture {
   width: 106px;
   height: 106px;
@@ -5184,6 +5188,39 @@ be a descendant of the grid when it is being dragged.
   color: #FFFFFF;
   cursor: pointer;
   font-weight: 500;
+}
+
+.wizard-card .moving-tab {
+  background-color: #0277bd;
+  -webkit-box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(2, 119, 189, 0.4);
+          box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(2, 119, 189, 0.4);
+}
+
+.wizard-card .picture:hover {
+  border-color: #0277bd;
+}
+
+.wizard-card .choice:hover .icon,
+.wizard-card .choice.active .icon {
+  border-color: #0277bd;
+  color: #0277bd;
+}
+
+.wizard-card .form-group .form-control {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#0277bd), to(#0277bd)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));
+  background-image: linear-gradient(#0277bd, #0277bd), linear-gradient(#D2D2D2, #D2D2D2);
+}
+
+.wizard-card .checkbox input[type=checkbox]:checked + .checkbox-material .check {
+  background-color: #0277bd;
+}
+
+.wizard-card .radio input[type=radio]:checked ~ .check {
+  background-color: #0277bd;
+}
+
+.wizard-card .radio input[type=radio]:checked ~ .circle {
+  border-color: #0277bd;
 }
 
 .wizard-card[data-color="purple"] .moving-tab {
@@ -10295,7 +10332,7 @@ h2.title {
 }
 
 .main-panel > .content {
-  margin-top: 70px;
+  margin-top: 45px;
   padding: 30px 15px;
   min-height: calc(100vh);
 }
@@ -17282,6 +17319,7 @@ footer .btn {
   border-bottom: 1px solid #e0e0e0;
 }
 
+.card .card,
 .card .card-collapse {
   border: 1px solid #e0e0e0;
   -webkit-box-shadow: 0 0 0 0;

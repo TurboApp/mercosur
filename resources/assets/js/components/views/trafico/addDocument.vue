@@ -1,12 +1,13 @@
 <template>
 <div>
     <div>
-        <card-collapse :title="tituloDocumento(doc.tipo,doc.nombre)" v-for="(doc,index) in documentos" :key="index">
+        <card v-for="(doc,index) in documentos" :key="index">
+            <template slot="title">{{tituloDocumento(doc.tipo,doc.nombre)}}</template>
             <div class="row">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Tipo de documento</label>
+                            <label class="col-md-4 control-label">Tipo de documento <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 <select class="selectpicker" :name="tipoDoc(index)" data-style="select-with-transition" v-model="doc.tipo"  title=" " required>
                                     <option value="FACTURA" >FACTURA</option> 
@@ -20,14 +21,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="form-group">
-                            <label class="col-md-4 control-label">
-                                <template v-if="doc.tipo=='FACTURA' || doc.tipo=='REMISIÓN' || doc.tipo=='PREGUIA' ">
-                                    Numero
-                                </template>
-                                <template v-else>
-                                    Nombre
-                                </template>     
-                            </label>
+                            <label class="col-md-4 control-label">Numero <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 <input type="text" class="form-control" :name="nombreDoc(index)" v-model="doc.nombre" value="" maxlength="191" required>  
                             </div>
@@ -44,15 +38,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 text-right">
-                    <button type="button" class="btn btn-danger btn-sm" @click="deleteForm(index)">
-                        <i class="material-icons">delete</i> Eliminar
+                <div class="col-md-12" v-if="index>0">
+                    <button type="button" class="btn btn-danger btn-sm btn-simple" @click="deleteForm(index)">
+                        <i class="material-icons">delete</i> Eliminar 
                     </button>
                 </div>
             </div>
-        </card-collapse>
+        </card>
         <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 text-right" >
                 <button type="button" class="btn btn-primary btn-simple" @click="addDoc">
                     <i class="material-icons">add_box</i> Agregar Documento
                 </button>
@@ -62,7 +56,7 @@
 </div>
 </template>
 <script>
-import cardCollapse from '../../cards/Collapse.vue';
+import cardCollapse from '../../cards/Card.vue';
 import inputFile from '../../uiComponents/inputFile.vue';
 import EventBus from '../../event-bus.js';
 
@@ -101,7 +95,7 @@ export default {
         },
         deleteForm(index){
             this.documentos.splice( index , 1 )
-            console.log(this.documentos.length);
+            
             if(this.documentos.length<1){
                 this.addDoc();
             }
@@ -121,7 +115,6 @@ export default {
             return 'documento['+(indice)+'][descripcion]';
         },
         
-        
         tituloDocumento(tipo,nombre){
             let titulo;
             titulo = tipo + ' - ' + nombre;
@@ -136,6 +129,7 @@ export default {
     computed:{
     },
     updated() {
+        
         $(this.$el).find('.selectpicker').selectpicker('refresh');
     },
 }

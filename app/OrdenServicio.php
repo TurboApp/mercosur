@@ -56,10 +56,24 @@ class OrdenServicio extends Model
     public function addDocumentos($type, $data)
     {   
         foreach($data as $documento){
+            $date = Date::now();
+            $descarga=[
+                'descarga_id' => $this->id,
+                'fecha_descarga' => $date,
+                'status' => '1'
+            ];
+            $trasbordo=[
+                'descarga_id' => $this->id,
+                'carga_id' => $this->id,
+                'fecha_descarga' => $date,
+                'fecha_carga' => $date,
+                'status' => '1'
+            ];
+            
             if($type==='Descarga'){
-                Documento::create(['descarga_id' => $this->id]+ ['fecha_descarga' => Carbon::now() ] + $documento + ['status' => 1]);
+                Documento::create( $descarga + $documento );
             }elseif($type==='Trasbordo'){
-                Documento::create(['descarga_id' => $this->id] + ['carga_id' => $this->id] + $documento );
+                Documento::create( $trasbordo + $documento );
             }
         }
     }

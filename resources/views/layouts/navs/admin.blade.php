@@ -147,11 +147,11 @@
             </div>
         </li>
 
-        {{-- TRAFICO --}}
+        {{-- SERVICIOS --}}
         <li {{ Request::is('trafico*') ? ' class=active' : ''}}>
             <a  href="#menuTrafico" data-toggle="collapse">
-                <i class="material-icons">traffic</i>
-                <p>Tráfico <b class="caret"></b></p>
+                <i class="material-icons">flag</i>
+                <p>Servicios <b class="caret"></b></p>
             </a>
             <div class="collapse {{ Request::is('trafico*')  ? 'in' : ''}}" id="menuTrafico">
                 <ul class="nav">
@@ -165,16 +165,18 @@
                             Nuevo Servicio
                         </a>
                     </li>
-                    <li {{ Request::is('trafico/coordinacion*') ? ' class=active' : ''}}>
-                        <a href="/trafico/coordinacion">
-                            Coordinación
-                        </a>
-                    </li>
                 </ul>
             </div>
         </li>
-      {{-- HERRAMIENTAS  --}}
-      <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
+        {{--  COORDINACIÓN  --}}
+        <li  {{ Request::is('coordinacion*') ? ' class=active' : ''}}>
+            <a href="/coordinacion">
+                <i class="material-icons">swap_vert</i>
+                <p>Coordinación</p>
+            </a>
+        </li>
+        {{-- HERRAMIENTAS  --}}
+        <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
           <a  href="#menuHerramientas" data-toggle="collapse">
               <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
               <p>Herramientas

@@ -209,7 +209,6 @@ app = {
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('country'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             prefetch: '/data/country.json',
-            
         });
         // Initializing the typeahead with remote dataset without highlighting
         $( item ).typeahead({
@@ -255,6 +254,7 @@ app = {
     },
 
     getTipoVehiculo:function( item ){
+        
         var tipoV = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tipo'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,

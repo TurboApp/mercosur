@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', $data['tipo'])
+@section('title', $data['tipo'].':  Número de servicio '. $data["numero_servicio"])
 
 @section('breadcrump')
    @component('components.breadcrump',[
-        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo servicio' => 'seleccionarNuevoServicio', $data['tipo'] => '' ],
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo servicio' => 'seleccionarNuevoServicio', $data['tipo'].':  Número de servicio '. $data["numero_servicio"] => '' ],
     ])
     @endcomponent()
 @endsection
@@ -30,7 +30,7 @@
 @section('content')
 <div class="container-fluid">
     
-        <p class="lead text-muted pull-right">Número de servicio {{$data["numero_servicio"]}}</p>
+        
     {!! Form::open(array('url' => '/trafico/servicio', 'method'=>'post', 'id'=>'formNuevoServicio', 'class'=>'form-horizontal','files'=>true, 'autocomplete'=>'off')) !!}
         {!! Form::hidden('tipo', $data['tipo']) !!}        
         

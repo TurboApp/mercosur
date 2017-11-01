@@ -32,7 +32,13 @@
 		</template>
 
 		<template v-else>
+
 			<div class="card-content">
+				<template v-if="!type">
+					<h4 class="card-title">
+						<slot name="title"></slot>
+					</h4>
+				</template>
 				<template>
 				<slot></slot>
 				</template>

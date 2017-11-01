@@ -85,7 +85,6 @@ export default {
     },
     methods:{
         remove(i){
-            console.log("Antecito de emit");
             this.$emit('remove',i);
         }
     },

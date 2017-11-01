@@ -33,13 +33,25 @@ Vue.component('app-pagination', require('./components/misselanius/pagination.vue
 
 //trafico
 import Trafico from './components/views/trafico/nuevoTrafico.vue';
+Vue.component('app-trafico', Trafico);
+
 import formTransporte from './components/views/trafico/forms/transporte.vue';
+Vue.component('form-transporte', formTransporte);
+
+import transportesList from './components/views/servicios/transportes.vue';
+Vue.component('transportes-list', transportesList);
+import transporteForm from './components/views/servicios/transporte-form.vue';
+Vue.component('transporte-form', transporteForm);
+
+import transporteSuggest from './components/views/trafico/forms/transporteSuggest.vue';
+Vue.component('transporte-suggest', transporteSuggest);
 //import formDocumento from './components/views/trafico/forms/documentos.vue';
 
+//Servicio
+//import servicioNuevo from './components/views/servicios/create.vue';
+//Vue.component('servicio-nuevo', servicioNuevo);
 
 import addDocument from './components/views/trafico/addDocument.vue';
-Vue.component('app-trafico', Trafico);
-Vue.component('form-transporte', formTransporte);
 
 Vue.component('add-document', addDocument);
 

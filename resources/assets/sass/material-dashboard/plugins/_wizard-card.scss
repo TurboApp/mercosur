@@ -10,6 +10,9 @@
 
     .wizard-navigation{
         position: relative;
+        >.nav-pills{
+            margin-top:0;
+        }
     }
 
     .picture{
@@ -43,7 +46,7 @@
         cursor: pointer;
         font-weight: 500;
     }
-
+    @include set-wizard-color($brand-primary);
     &[data-color="purple"]{
         @include set-wizard-color($brand-primary);
     }

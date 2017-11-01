@@ -64,10 +64,12 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::patch('/fuerzas/{fuerza}','FuerzaTareaController@update');
   Route::delete('/fuerzas/{fuerza}/destroy','FuerzaTareaController@destroy');
 
-  #RUTAS DE TRAFICO
+  #RUTAS DE TRAFICO / SERVICIOS
+  Route::get('/servicio/nuevo/{servicio}/', 'ServicioController@create');
+
   Route::get('/trafico', 'OrdenServicioController@index')->name('servicios');
   Route::get('/trafico/nuevo', 'OrdenServicioController@createIndex')->name('seleccionarNuevoServicio');
-  Route::get('/trafico/nuevo/servicio/{servicio}/{id?}', 'OrdenServicioController@create')->name('servicioNuevo');
+  //Route::get('/trafico/nuevo/servicio/{servicio}/{id?}', 'OrdenServicioController@create')->name('servicioNuevo');
   Route::get('/trafico/nuevo/carga/{servicio}', 'OrdenServicioController@createCarga');
   Route::get('/trafico/nuevo/trasbordo', 'OrdenServicioController@createTrasbordo');
 
@@ -75,7 +77,7 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::get('/trafico/servicio/{servicio}', 'OrdenServicioController@show');
   Route::post('/trafico/servicio', 'OrdenServicioController@store');
-  Route::get('/trafico/coordinacion', 'CoordinacionController@index')->name('coordinacion');
+  Route::get('/coordinacion', 'CoordinacionController@index')->name('coordinacion');
 
   Route::get('/trafico/maniobra/{servicio}/detalles', 'CoordinacionController@maniobraDetalles');
   Route::get('/trafico/maniobra/{servicio}/datos_generales', 'CoordinacionController@maniobraGenerales');

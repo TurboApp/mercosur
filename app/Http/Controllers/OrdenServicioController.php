@@ -55,6 +55,7 @@ class OrdenServicioController extends Controller
         {
             return redirect('/trafico/nuevo');
         }
+        
         $servicio='';
         if($request->id)
         {

@@ -3,7 +3,9 @@
         
         @foreach($navigation as $nav => $link )
             
-            @if($loop->last)
+            @if($loop->first)
+                <li class="breadcrumb-item active text-capitalize" aria-current="page"><a href="{{ route( 'inicio' ) }}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
+            @elseif($loop->last)
                 <li class="breadcrumb-item active text-capitalize" aria-current="page">{{$nav}}</li>
             @else
                 <li class="breadcrumb-item text-capitalize"><a href="{{ route( $link ) }}">{{$nav}}</a></li>

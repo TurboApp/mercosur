@@ -1,6 +1,6 @@
  <h3 class="title">Documentos</h3>
  
-{{--  <card type="header-icon" icon="fa-file-text-o">  --}}
+
 <card>
     <template>
         @if( isset($servicio->id) )

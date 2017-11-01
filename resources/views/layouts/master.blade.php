@@ -116,19 +116,10 @@
         </div><!-- ./sidebar -->
         <!-- SECCION DE CONTENIDO PRINCIPAL -->
         <div class="main-panel">
-            <nav class="nav grey lighten-3">
-                <div class="container-fluid">
-                    <div class="col-sm-6">
-                        @yield('breadcrump')
-                    </div>
-                    <div class="col-sm-6 text-right hidden-xs" style="padding:8px 12px; ">
-                        {{  ucfirst( Date::instance(Carbon\Carbon::now())->format('l j \\d\\e F \\d\\e Y') ) }}
-                    </div>
-                </div>
-            </nav>
-
             <!-- NAVEGACION -->
-            <nav class="navbar navbar-transparent navbar-absolute">
+            
+            {{--  <nav class="navbar navbar-transparent navbar-absolute">  --}}
+            <nav class="navbar grey lighten-3 navbar-absolute ">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
                         <button id="minimizeSidebar" class="btn btn-round btn-white btn-fill btn-just-icon">
@@ -203,6 +194,18 @@
                     </div>
                 </div>
             </nav>
+
+            <nav class="nav grey lighten-3 " style="margin-top:71px;border-top:1px solid #e0e0e0;">
+                <div class="container-fluid">
+                    <div class="col-sm-6">
+                        @yield('breadcrump')
+                    </div>
+                    <div class="col-sm-6 text-right hidden-xs" style="padding:8px 12px; ">
+                        <i class="fa fa-calendar" aria-hidden="true"></i> {{  ucfirst( Date::instance(Carbon\Carbon::now())->format('l j \\d\\e F \\d\\e Y') ) }}
+                    </div>
+                </div>
+            </nav>
+
             
             {{-- CONTENIDO --}}
                         

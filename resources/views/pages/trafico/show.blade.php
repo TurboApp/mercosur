@@ -1,21 +1,35 @@
 @extends('layouts.master')
-@section('title','Orden de servicio')
-@section('nav-top')
 
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  $servicio->tipo . ': Número de servicio '. $servicio->numero_servicio => '' ],
+    ])
+    @endcomponent()
+@endsection
+
+@section('title', $servicio->tipo . ': Número de servicio '. $servicio->numero_servicio)
+
+
+@section('nav-top')
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="/trafico/nuevo"  title="Nuevo servicio">
+                <i class="material-icons">add</i>
+                <p class="hidden-lg hidden-md">Nuevo servicio</p>
+            </a>
+        </li>
+        <li>
+            <a href="/trafico" title="Ir a servicios">
+                <i class="material-icons">arrow_upward</i>
+                <p class="hidden-lg hidden-md">Ir a servicios</p>
+            </a>
+        </li>
+        <li class="separator hidden-lg hidden-md"></li>
+    </ul>
 @endsection
 @section('content')
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <h2 class="text-uppercase">{{$servicio->tipo}}</h2>
-        </div>
-        <div class="col-md-6">
-            <div class="text-right form-group">
-                <p class="lead text-muted">Número de servicio {{$servicio->numero_servicio}}</p>
-            </div>
-        </div>
-    </div>
     <div class="form-horizontal">
     
         @component('components.servicios.show.datosgenerales',[
