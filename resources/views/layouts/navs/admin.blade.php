@@ -1,5 +1,5 @@
 {{--Verifica si el usuario esta autenticado--}}
-@if( auth()->check() && auth()->user()->perfil->perfil == 'admin' ) 
+@if( auth()->check() && auth()->user()->perfil->perfil == 'admin' )
     <ul class="nav">
         {{-- DASHBOARD --}}
         <li  {{ Request::is('/') ? ' class=active' : ''}}>
@@ -8,7 +8,7 @@
                 <p>Inicio</p>
             </a>
         </li>
-        
+
         {{--USUARIOS--}}
         <li {{ Request::is('usuarios*') ? ' class=active' : ''}}>
             <a  href="#menuUsuarios" data-toggle="collapse">
@@ -30,7 +30,7 @@
                 </ul>
             </div>
         </li>
-        
+
         {{-- FUERZA DE TAREA --}}
         <li {{ Request::is('fuerzas*') ? ' class=active' : ''}}>
             <a  href="#menuFuerzas" data-toggle="collapse">
@@ -52,7 +52,7 @@
                 </ul>
             </div>
         </li>
-      
+
         {{-- CLIENTES --}}
         <li {{ Request::is('clientes*') ? ' class=active' : ''}}>
             <a  href="#menuClientes" data-toggle="collapse">
@@ -68,7 +68,7 @@
                     </li>
                     <li {{ Request::is('clientes/nuevo') ? ' class=active' : ''}}>
                         <a href="/clientes/nuevo">
-                            Agregar cliente                            
+                            Agregar cliente
                         </a>
                     </li>
                 </ul>
@@ -124,7 +124,7 @@
 
         </li>
         --}}
-    
+
         {{-- TRASNPORTES --}}
         <li {{ Request::is('transportes*') ? ' class=active' : ''}}>
             <a  href="#menuTransportes" data-toggle="collapse">
@@ -188,14 +188,14 @@
                   <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
                   </li>
                   <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                      <a href="/herramientas/nuevo">
+                      <a href="/herramientas/">
                           Puestos
                       </a>
                   </li>
               </ul>
           </div>
 
-       
+
         {{-- NOTIFICACIONES --}}
         <li>
             <a href="../notificaciones.html">

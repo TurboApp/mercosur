@@ -3,7 +3,7 @@
   @section('content')
     <div class="row">
       <div class="col-md-12">
-        <form id="createPuesto" action="/herramientas" method="POST" autocomplete="off">
+        <form id="createPuesto" action="/herramientas/nuevo" method="POST" autocomplete="off">
           {{ csrf_field() }}
           <card-collapse title="Agregar Puesto">
             <div class="row form-horizontal">

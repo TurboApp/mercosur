@@ -27,7 +27,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        
+
         @component('components.displaydatatable',[
             'datos' =>  $agentes,
             'name'  =>  'Agente',
@@ -35,11 +35,11 @@
             'ajax'  => '/API/agentes/',
             'icon'  =>  'fa-id-card-o',
             'title' =>  'Todos los agentes'
-            
+
         ])
-        @endcomponent()   
-        
-       
+        @endcomponent()
+
+
 
     </div><!-- ./col-md-12 -->
 
@@ -48,5 +48,5 @@
 
 
 @push('scripts')
-    @include('layouts.partials.errors')
+    @include('layouts.partials.notify')
 @endpush

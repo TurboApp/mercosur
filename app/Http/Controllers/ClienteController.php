@@ -7,21 +7,24 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+    function __construct(){
+      $this->middleware(['auth','perfils:admin']);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
         $clientes = Cliente::latest()->paginate(15);
-       
+
         return view('pages.clientes.index', compact('clientes'));
-        
+
     }
 
-   
+
     public function create()
     {
         return view('pages.clientes.create');
@@ -43,9 +46,9 @@ class ClienteController extends Controller
                 'email'  => 'nullable|email'
             ]
         );
-        
+
         $cliente = Cliente::create(request(['nombre','nombre_corto','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
-        
+
         $request->session()->flash('success', 'El cliente se agrego a la base de datos satisfactoriamente');
         return redirect('/clientes/'.$cliente->id);
     }
@@ -56,9 +59,16 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(Request $request, $cliente)
     {
-        return view('pages.clientes.show', compact('cliente'));
+      $cliente=Cliente::find($cliente);
+        if ($cliente===null) {
+          $request->session()->flash('danger', 'No se encontro ningun dato');
+          return redirect('/clientes/');
+        } else {
+          return view('pages.clientes.show', compact('cliente'));
+        }
+
     }
 
     /**
@@ -67,9 +77,16 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(Request $request, $cliente)
     {
-        return view('pages.clientes.edit', compact('cliente'));
+        $cliente=Cliente::find($cliente);
+        if ($cliente===null) {
+          $request->session()->flash('danger', 'No se encontro ningun dato');
+          return redirect('/clientes/');
+        } else {
+          return view('pages.clientes.edit', compact('cliente'));
+        }
+
     }
 
     /**
@@ -90,7 +107,7 @@ class ClienteController extends Controller
                 'email'  => 'nullable|email'
             ]
         );
-        
+
         $update = Cliente::findOrFail($cliente->id);
         //Prepara los nuevos valores de los datos
         $input = $request->all();
@@ -109,28 +126,28 @@ class ClienteController extends Controller
      */
     public function destroy(Request $request, Cliente $cliente)
     {
-        
+
         $del = Cliente::find($cliente->id);
         if(count($del))
         {
             $del->delete();
         }
-        var_dump($user->id);    
+        var_dump($user->id);
         //$request->session()->flash('success', 'El registro fue elimano correctamente');
-        
+
         return redirect('/clientes');
     }
 
 
     public function search(Request $request)
     {
-        
+
         $clientes = Cliente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%')->paginate(15);
         $clientes->appends(['s'=>$request->s]);
         return view('pages.clientes.search', compact('clientes','request'));
     }
 
 
-   
+
 
 }

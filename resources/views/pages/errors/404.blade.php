@@ -13,7 +13,7 @@
     <title>Pagina no Encontrada</title>
 
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/error/404.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/error/error.css') }}">
     <script>
           window.Laravel = {"csrfToken" : "{{csrf_token()}}" }
     </script>
@@ -47,15 +47,10 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Ooops!!</h1>
-            <p class="lead">Lo sentimos, pero la pagina que estas buscando no existe.</p>
+            <h1 class="display-1">Upsss!!!</h1>
+            <p class="display-4">Lo sentimos, pero la pagina que estas buscando no existe.</p>
             <p class="lead">
-
             </p>
-          </div>
-
-          <div class="mastfoot">
-                <img src="{{asset('img/404.gif')}}" alt="...">
           </div>
 
         </div>

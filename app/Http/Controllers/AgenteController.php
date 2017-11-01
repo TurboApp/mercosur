@@ -38,7 +38,7 @@ class AgenteController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validate(request(),
             [
                 'nombre' => 'required',
@@ -47,9 +47,9 @@ class AgenteController extends Controller
                 'email'  => 'nullable|email'
             ]
         );
-        
+
         $agente = Agente::create(request(['nombre','nombre_corto','email','telefono','celular','direccion','rfc','ciudad','codigo_postal']));
-       
+
         $request->session()->flash('success', 'Un nuevo Agente se agrego satisfactoriamente');
         return redirect('/agentes/'.$agente->id);
     }
@@ -60,9 +60,16 @@ class AgenteController extends Controller
      * @param  \App\Agente  $agente
      * @return \Illuminate\Http\Response
      */
-    public function show(Agente $agente)
+    public function show(Request $request, $agente)
     {
-        return view('pages.agentes.show', compact('agente'));
+        $agente=Agente::find($agente);
+        if ($agente===null) {
+          $request->session()->flash('danger', 'No se encontro ningun dato');
+          return redirect('/agentes/');
+        } else {
+          return view('pages.agentes.show', compact('agente'));
+        }
+
     }
 
     /**
@@ -71,9 +78,16 @@ class AgenteController extends Controller
      * @param  \App\Agente  $agente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Agente $agente)
+    public function edit(Request $request, $agente)
     {
-       return view('pages.agentes.edit', compact('agente'));
+      $agente=Agente::find($agente);
+      if ($agente===null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/agentes/');
+      }
+      else {
+        return view('pages.agentes.edit', compact('agente'));
+      }
     }
 
     /**
@@ -124,10 +138,10 @@ class AgenteController extends Controller
 
      public function search(Request $request)
     {
-        
+
         $agentes = Agente::where('nombre', 'LIKE','%'.$request->s.'%')->orWhere('nombre_corto', 'LIKE','%'.$request->s.'%')->paginate(15);
         $agentes->appends( [ 's' => $request->s ] );
-       
+
         return view('pages.agentes.search', compact('agentes','request'));
     }
 

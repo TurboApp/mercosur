@@ -26,7 +26,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        
+
         @component('components.displaydatatable',[
                 'datos' => $clientes,
                 'name'  => 'Cliente',
@@ -37,7 +37,7 @@
 
             ])
         @endcomponent()
-        
+
     </div><!-- ./col-md-12 -->
 
 </div><!-- ./row -->
