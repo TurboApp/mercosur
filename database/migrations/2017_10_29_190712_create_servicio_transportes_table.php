@@ -14,7 +14,7 @@ class CreateServicioTransportesTable extends Migration
     public function up()
     {
         Schema::create('servicio_transportes', function (Blueprint $table) {
-            $table->increments('transporte_id');
+            $table->increments('id');
             $table->integer('servicio_id');
             $table->integer('linea_transporte_id');
             $table->enum('operacion', ['Origen','Destino']);

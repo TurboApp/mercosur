@@ -14,11 +14,11 @@ class CreateServicioArchivosTable extends Migration
     public function up()
     {
         Schema::create('servicio_archivos', function (Blueprint $table) {
-            $table->increments('archivo_id');
+            $table->increments('id');
             $table->integer('servicio_id');
             $table->string('nombre');
             $table->string('url');
-            $table->string('extencion');
+            $table->string('extension');
             $table->string('minetype');
             $table->string('size');
             

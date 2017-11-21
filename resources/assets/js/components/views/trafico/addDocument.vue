@@ -9,7 +9,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Tipo de documento <span class="text-danger">*</span></label>
                             <div class="col-md-8">
-                                <select class="selectpicker" :name="tipoDoc(index)" data-style="select-with-transition" v-model="doc.tipo"  title=" " required>
+                                <select class="selectpicker" :name="tipoDoc(index)" data-style="select-with-transition" v-model="doc.tipo" @change="change" title=" " required>
                                     <option value="FACTURA" >FACTURA</option> 
                                     <option value="REMISIÓN">REMISIÓN</option> 
                                     <option value="PREGUIA">PREGUIA</option> 
@@ -103,16 +103,24 @@ export default {
         getFile(e){
             this.newFile=e;
         },
-
+        change(e){
+            console.log('Entra');
+        
+            $(this).valid();
+            $(this).siblings( ".btn" ).removeClass('btn-danger');
+            $(this).siblings( ".select-with-transition" ).removeClass('error_selectpicker');
+            $(this).closest( ".form-group" ).removeClass('has-error');
+        
+        },    
        
         tipoDoc(indice){
             return 'documento['+(indice)+'][tipo_documento]';
         },
         nombreDoc(indice){
-            return 'documento['+(indice)+'][documento]';
+            return 'documento['+(indice)+'][num_documento]';
         },
         descDoc(indice){
-            return 'documento['+(indice)+'][descripcion]';
+            return 'documento['+(indice)+'][mercancia_descripcion]';
         },
         
         tituloDocumento(tipo,nombre){

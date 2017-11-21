@@ -21,38 +21,46 @@
     <style>
     {{-- #Color tipo de servicio --}}
     .Descarga, .descarga{
-        background:#f44336 !important;
+        background:#c2185b  !important;
         color:#fff !important;
     }
     .Carga, .carga{
-        background:#e91e63 !important;
+        background:#7b1fa2 !important;
         color:#fff !important;
     }
     .Trasbordo, .trasbordo{
-        background:#9c27b0  !important;
+        background:#512da8  !important;
+        color:#fff !important;
+    }
+    .Otros-servicios, .otros-servicios{
+        background:#303f9f   !important;
         color:#fff !important;
     }
 
     {{-- #Color status maniobra  --}}
     .para-asignar, .PARA-ASIGNAR{
-        background:#9e9e9e  !important;
-        color:#fff !important;
+        background: #9e9e9e  !important;
+        color: #fff !important;
+    }
+    .asignado, .ASIGNADO{
+        background: #009688  !important;
+        color: #fff !important;
     }
     .en-proceso, .EN-PROSESO{
-        background:#ffeb3b !important;
-        color:#fff !important;
+        background: #ff8f00  !important;
+        color: #fff !important;
     }
     .en-pausa, .EN-PAUSA{
-        background:#ffa726 !important;
-        color:#fff !important;
+        background: #8d6e63 !important;
+        color: #fff !important;
     }
     .finalizado, .FINALIZADO{
-        background:#43a047 !important;
-        color:#fff !important;
+        background: #64dd17 !important;
+        color: #fff !important;
     }
     .cancelado, .CANCELADO{
-        background:#f44336 !important;
-        color:#fff !important;
+        background: #f44336 !important;
+        color: #fff !important;
     }
 
     </style>

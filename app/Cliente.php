@@ -19,6 +19,6 @@ class Cliente extends Model
 
     public function servicio()
     {
-        return $this->hasMany('App\OrdenServicio','cliente_id','id');
+        return $this->hasMany('App\Servicio','cliente_id','id');
     }
 }

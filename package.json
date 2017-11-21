@@ -24,6 +24,7 @@
     "sweetalert": "^1.1.3",
     "typeahead.js": "^0.11.1",
     "vue": "^2.1.10",
+    "vue-router": "^3.0.1",
     "vue2-typeahead": "^1.0.14"
   },
   "dependencies": {
@@ -37,6 +38,5 @@
     "vue-typeahead": "^2.3.2",
     "vue-upload-component": "^2.4.0-beta.11",
     "vue2-animate": "^1.0.4"
-    
   }
 }

@@ -1,8 +1,5 @@
-{{--  <card type="header-icon" icon="fa-folder-open-o">  --}}
-        <h3 class="title">Archivos</h3>  
 <card>
     <template>
-        {{--  <template slot="title">Archivos</template>  --}}
         <ul class="files-list">
             @foreach($data as $index => $archivo)
                 <li class="file-item">

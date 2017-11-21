@@ -9,6 +9,12 @@
             </li>
             <li>
                 <small>
+                    <span class="label-default asignado" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
+                    ASIGNADO
+                </small>
+            </li>
+            <li>
+                <small>
                     <span class="label-info en-proceso" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
                     EN PROCESO
                 </small>

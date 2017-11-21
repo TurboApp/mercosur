@@ -2,7 +2,7 @@
     <div class="col-md-12 text-right">
         <ul class="nav nav-pills pull-right"> 
             <li {{ Request::is('trafico/maniobra/*/detalles') ? ' class=active' : '' }} >
-                <a href="/trafico/maniobra/{{$id}}/detalles">Detalles</a>
+                <a href="/coordinacion/servicio/{{$id}}/detalles">Detalles</a>
             </li>
             <li {{ Request::is('trafico/maniobra/*/datos_generales') ? ' class=active' : '' }} >
                 <a href="/trafico/maniobra/{{$id}}/datos_generales">Datos generales</a>

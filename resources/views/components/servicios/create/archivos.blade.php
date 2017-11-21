@@ -1,8 +1,5 @@
-<h3 class="title">Archivos</h3>
-{{--  <card type="header-icon" icon="fa-paperclip">  --}}
 <card>
     <template>
-        {{--  <template slot="title">Archivos</template>  --}}
         <a class="file_input btn-simple btn btn-primary btn-block" data-jfiler-name="files" data-jfiler-extensions="jpg, jpeg, png, gif, pdf, xls, xlsx, ppt, pptx, doc, docx">
             <i class="material-icons">attach_file</i>
             Adjuntar archivos

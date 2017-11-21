@@ -14,7 +14,7 @@ class CreateServicioMercanciaDocumentosTable extends Migration
     public function up()
     {
         Schema::create('servicio_mercancia_documentos', function (Blueprint $table) {
-            $table->increments('documento_id');
+            $table->increments('id');
             $table->integer('servicio_id');
             $table->integer('documento_padre')->nullable();
             $table->string('tipo_documento');

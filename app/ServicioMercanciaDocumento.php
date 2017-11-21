@@ -2,9 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+
 
 class ServicioMercanciaDocumento extends Model
 {
-    //
+    public function servicio()
+    {
+        return $this->belongsTo('App\Servicio','servicio_id','documento_id');
+    }
 }

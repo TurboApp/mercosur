@@ -5150,6 +5150,72 @@ be a descendant of the grid when it is being dragged.
   text-align: center;
 }
 
+.wizard-card .icon-circle {
+  font-size: 20px;
+  border: 3px solid #F3F2EE;
+  text-align: center;
+  border-radius: 50%;
+  color: rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  width: 70px;
+  height: 70px;
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  position: relative;
+  top: -2px;
+}
+
+.wizard-card .icon-circle [class*="ti-"] {
+  position: absolute;
+  z-index: 1;
+  left: 1px;
+  right: 0px;
+  top: 23px;
+}
+
+.wizard-card .icon-circle.square_shape {
+  border-radius: 0;
+}
+
+.wizard-card .icon-circle.tab_shape {
+  width: 100%;
+  min-width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #F3F2EE;
+  border-radius: 0;
+}
+
+.wizard-card .icon-circle .wizard-icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-radius: 40%;
+}
+
+.wizard-card .icon-circle .wizard-icon-container.square_shape,
+.wizard-card .icon-circle .wizard-icon-container.tab_shape {
+  border-radius: 0;
+}
+
+.wizard-card .icon-circle .wizard-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .wizard-card .wizard-navigation {
   position: relative;
 }
@@ -5173,6 +5239,10 @@ be a descendant of the grid when it is being dragged.
 
 .wizard-card .picture:hover {
   border-color: #2ca8ff;
+}
+
+.wizard-card .picture-src {
+  width: 100%;
 }
 
 .wizard-card .moving-tab {
@@ -5449,7 +5519,7 @@ be a descendant of the grid when it is being dragged.
   margin-top: 16px;
 }
 
-.wizard-card .disabled {
+.wizard-card .wizard-footer .disabled {
   display: none;
 }
 
@@ -5559,6 +5629,72 @@ be a descendant of the grid when it is being dragged.
   display: block;
   font-size: 30px;
   padding: 15px 0;
+}
+
+.wizard-card .wizard-navigation {
+  position: relative;
+}
+
+.wizard-card .wizard-navigation .progress-with-circle {
+  position: relative;
+  top: 40px;
+  z-index: 50;
+  height: 4px;
+}
+
+.wizard-card .wizard-navigation .progress-with-circle .progress-bar {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: width .3s ease;
+  transition: width .3s ease;
+}
+
+.wizard-card .info-text {
+  text-align: center;
+  padding-bottom: 18px;
+  padding-top: 12px;
+}
+
+.wizard-card .choice {
+  text-align: center;
+  cursor: pointer;
+  margin-top: 38px;
+}
+
+.wizard-card .choice .icon {
+  text-align: center;
+  vertical-align: middle;
+  height: 116px;
+  width: 116px;
+  border-radius: 50%;
+  background-color: #999999;
+  color: #FFFFFF;
+  margin: 0 auto 20px;
+  border: 4px solid #CCCCCC;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+.wizard-card .choice i {
+  font-size: 32px;
+  line-height: 55px;
+}
+
+.wizard-card .choice:hover .icon,
+.wizard-card .choice.active .icon {
+  border-color: #2ca8ff;
+}
+
+.wizard-card .choice input[type="radio"],
+.wizard-card .choice input[type="checkbox"] {
+  position: absolute;
+  left: -10000px;
+  z-index: -1;
+}
+
+.wizard-card .description {
+  color: #999999;
+  font-size: 14px;
 }
 
 .ct-label {
@@ -9803,6 +9939,276 @@ table.dataTable > tbody > tr.parent td {
 
 table.dataTable > tbody > tr.child td {
   border-top: none;
+}
+
+.vue-form-wizard {
+  padding-bottom: 20px;
+}
+
+.vue-form-wizard .is_error {
+  border-color: #FF4136 !important;
+}
+
+.vue-form-wizard .is_error .icon-container {
+  background: #FF4136 !important;
+}
+
+.vue-form-wizard.xs .wizard-icon-circle {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.vue-form-wizard.xs .wizard-icon-circle.tab_shape {
+  height: 25px;
+}
+
+.vue-form-wizard.xs .wizard-nav-pills > li.active > a .wizard-icon {
+  font-size: 16px;
+}
+
+.vue-form-wizard.xs .wizard-navigation .wizard-progress-with-circle {
+  position: relative;
+  top: 25px;
+  height: 4px;
+}
+
+.vue-form-wizard.sm .wizard-icon-circle {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.vue-form-wizard.sm .wizard-icon-circle.tab_shape {
+  height: 30px;
+}
+
+.vue-form-wizard.sm .wizard-nav-pills > li.active > a .wizard-icon {
+  font-size: 20px;
+}
+
+.vue-form-wizard.sm .wizard-navigation .wizard-progress-with-circle {
+  position: relative;
+  top: 30px;
+  height: 4px;
+}
+
+.vue-form-wizard.md .wizard-icon-circle {
+  width: 70px;
+  height: 70px;
+  font-size: 24px;
+}
+
+.vue-form-wizard.md .wizard-icon-circle.tab_shape {
+  height: 40px;
+}
+
+.vue-form-wizard.md .wizard-nav-pills > li.active > a .wizard-icon {
+  font-size: 24px;
+}
+
+.vue-form-wizard.md .wizard-navigation .wizard-progress-with-circle {
+  position: relative;
+  top: 40px;
+  height: 4px;
+}
+
+.vue-form-wizard.lg .wizard-icon-circle {
+  width: 90px;
+  height: 90px;
+  font-size: 28px;
+}
+
+.vue-form-wizard.lg .wizard-icon-circle.tab_shape {
+  height: 50px;
+}
+
+.vue-form-wizard.lg .wizard-nav-pills > li.active > a .wizard-icon {
+  font-size: 28px;
+}
+
+.vue-form-wizard.lg .wizard-navigation .wizard-progress-with-circle {
+  position: relative;
+  top: 50px;
+  height: 4px;
+}
+
+.vue-form-wizard .wizard-icon-circle {
+  font-size: 18px;
+  border: 3px solid #F3F2EE;
+  border-radius: 50%;
+  font-weight: 500;
+  width: 70px;
+  height: 70px;
+  background-color: #FFFFFF;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.vue-form-wizard .wizard-icon-circle.square_shape {
+  border-radius: 0;
+}
+
+.vue-form-wizard .wizard-icon-circle.tab_shape {
+  width: 100%;
+  min-width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #F3F2EE;
+  border-radius: 0;
+}
+
+.vue-form-wizard .wizard-icon-circle .wizard-icon-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-radius: 40%;
+}
+
+.vue-form-wizard .wizard-icon-circle .wizard-icon-container.square_shape,
+.vue-form-wizard .wizard-icon-circle .wizard-icon-container.tab_shape {
+  border-radius: 0;
+}
+
+.vue-form-wizard .wizard-icon-circle .wizard-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.vue-form-wizard .wizard-tab-content {
+  min-height: 100px;
+  padding: 30px 20px 10px;
+}
+
+.vue-form-wizard .wizard-header {
+  padding: 15px 15px 15px 15px;
+  position: relative;
+  border-radius: 3px 3px 0 0;
+  text-align: center;
+}
+
+.vue-form-wizard .wizard-title {
+  color: #252422;
+  font-weight: 300;
+  margin: 0;
+  text-align: center;
+}
+
+.vue-form-wizard .category {
+  font-size: 14px;
+  font-weight: 400;
+  color: #9A9A9A;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.vue-form-wizard .wizard-navigation .wizard-progress-with-circle {
+  position: relative;
+  top: 40px;
+  height: 4px;
+}
+
+.vue-form-wizard .wizard-navigation .wizard-progress-with-circle .wizard-progress-bar {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: width .3s ease;
+  transition: width .3s ease;
+}
+
+.vue-form-wizard .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.vue-form-wizard .wizard-card-footer {
+  padding: 0 20px;
+}
+
+.vue-form-wizard .wizard-card-footer .wizard-footer-left {
+  float: left;
+}
+
+.vue-form-wizard .wizard-card-footer .wizard-footer-right {
+  float: right;
+}
+
+@media screen and (max-width: 350px) {
+  .vue-form-wizard .wizard-card-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  .vue-form-wizard .wizard-card-footer .wizard-footer-left,
+  .vue-form-wizard .wizard-card-footer .wizard-footer-right {
+    float: none;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+
+  .vue-form-wizard .wizard-card-footer .wizard-footer-right button {
+    margin-top: 10px;
+  }
+}
+
+.vue-form-wizard.vertical .wizard-card-footer {
+  display: block;
+}
+
+.vue-form-wizard.vertical .wizard-nav-pills {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.vue-form-wizard.vertical .wizard-navigation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.vue-form-wizard.vertical .wizard-card-footer {
+  padding-top: 30px;
 }
 
 html * {

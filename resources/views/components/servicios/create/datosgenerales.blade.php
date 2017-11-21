@@ -4,15 +4,22 @@
                 <div class="row">
                     <div class="form-group">                       
                         <div class="col-md-7">
-                            <select id="agente_id" class="selectpicker" name="datos_generales[agente_id]" data-size="5" data-style="btn btn-primary btn-round" title="<span class='text-danger'>*</span> seleccione un agente " required>
-                                @foreach($data['agentes'] as $agente)
-                                    @if (old('datos_generales.agente_id') == $agente->id)
-                                        <option value="{{$agente->id}}" selected>{{$agente->nombre_corto}}</option>
-                                    @else
-                                        <option value="{{$agente->id}}">{{$agente->nombre_corto}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            @if(isset($servicio->agente_id))
+                                <select class="selectpicker"  data-style="btn btn-primary btn-round" disabled>
+                                    <option  selected> {{$servicio->agente->nombre_corto}} </option>
+                                </select>
+                                <input type="hidden" name="datos_generales[agente_id]" value="{{$servicio->agente->id}}" />
+                            @else
+                                <select id="agente_id" class="selectpicker" name="datos_generales[agente_id]" data-size="5" data-style="btn btn-primary btn-round" title="<span class='text-danger'>*</span> seleccione un agente " required>
+                                    @foreach($data['agentes'] as $agente)
+                                        @if (old('datos_generales.agente_id') == $agente->id)
+                                            <option value="{{$agente->id}}" selected>{{$agente->nombre_corto}}</option>
+                                        @else
+                                            <option value="{{$agente->id}}">{{$agente->nombre_corto}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -48,11 +55,16 @@
                 <div class="form-group">
                     <label for="cliente" class="col-md-2 control-label"><span class="text-danger">*</span>Cliente </label>
                     <div class="col-md-10">
-                        <span class="twitter-typeahead">
-                            <input id="busqueda_cliente" type="text" class="form-control search_cliente" value="{{ old('cliente') }}" name="cliente" required>
-                            <input type="hidden" id="idcliente" name="datos_generales[cliente_id]" value="{{old('datos_generales.cliente_id')}}" required>
-                            <span class="material-input"></span>
-                        </span> 
+                        @if(isset($servicio->cliente_id))
+                            <input type="text" class="form-control search_cliente" value="({{$servicio->cliente->nombre_corto}}) {{$servicio->cliente->nombre}} " name="cliente" disabled>
+                            <input type="hidden" id="idcliente" name="datos_generales[cliente_id]" value="{{$servicio->cliente_id}}" >
+                        @else
+                            <span class="twitter-typeahead">
+                                <input id="busqueda_cliente" type="text" class="form-control search_cliente" value="{{ old('cliente') }}" name="cliente" required>
+                                <input type="hidden" id="idcliente" name="datos_generales[cliente_id]" value="{{old('datos_generales.cliente_id')}}" required>
+                                <span class="material-input"></span>
+                            </span> 
+                        @endif
                     </div>
                 </div>
             </div>
@@ -62,7 +74,11 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label"><span class="text-danger">*</span>RFC</label>
                     <div class="col-md-10">
-                        <input id="rfc_cliente" type="text" class="form-control" name="rfc_cliente" value="{{ old('rfc_cliente') }}" readonly required>
+                        @if(isset($servicio->cliente_id))
+                            <input id="rfc_cliente" type="text" class="form-control" name="rfc_cliente" value="{{ $servicio->cliente->rfc }}" readonly required>
+                        @else
+                            <input id="rfc_cliente" type="text" class="form-control" name="rfc_cliente" value="{{ old('rfc_cliente') }}" readonly required>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -74,10 +90,14 @@
         <div class="col-md-8 col-sm-12">
             <div class="row">
                 <div class="form-group">
-                    <label for="destiinatario" class="col-md-2 control-label"><span class="text-danger">*</span>Destinatario</label>
+                    <label for="destinatario" class="col-md-2 control-label"><span class="text-danger">*</span>Destinatario</label>
                     <div class="col-md-10">
                         <span class="twitter-typeahead">
-                            <input type="text" class="form-control search_destinatario" name="datos_generales[destino]" value="{{ old('datos_generales.destino') }}" maxlength="191"  required>
+                            @if(isset($servicio->destino))
+                                <input type="text" class="form-control search_destinatario" name="datos_generales[destino]" value="{{ $servicio->destino }}" maxlength="191"  required>
+                            @else
+                                <input type="text" class="form-control search_destinatario" name="datos_generales[destino]" value="{{ old('datos_generales.destino') }}" maxlength="191"  required>
+                            @endif
                             <span class="material-input"></span>
                         </span>
                     </div>
@@ -90,7 +110,11 @@
                     <label class="col-md-2 control-label"><span class="text-danger">*</span>País</label>
                     <div class="col-md-10">
                         <span class="twitter-typeahead">
-                            <input type="text" class="form-control paises" name="datos_generales[destino_pais]" value="{{old('datos_generales.destino_pais')}}" maxlength="60" required>
+                            @if(isset($servicio->destino_pais))
+                                <input type="text" class="form-control paises" name="datos_generales[destino_pais]" value="{{ $servicio->destino_pais }}" maxlength="60" required>
+                            @else
+                                <input type="text" class="form-control paises" name="datos_generales[destino_pais]" value="{{old('datos_generales.destino_pais')}}" maxlength="60" required>
+                            @endif
                             <span class="material-input"></span>
                         </span>
                     </div>
@@ -197,6 +221,7 @@
         });
         
         //TYPEAHEAD DESTINO
+        
         let busquedaDestino=$('.search_destinatario');
         let getDataDestino = new Bloodhound({
             remote: {

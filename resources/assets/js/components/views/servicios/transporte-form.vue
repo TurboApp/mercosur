@@ -5,8 +5,8 @@
                 <div class="form-group">
                     <span class="twitter-typeahead">
                         <label for="lineaTransporte" class="control-label">Linea de transporte <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" :id="idlt" v-model="transporte.lineaTranporte"  required>
-                        <input type="hidden" class="transporte-id" :name="name_id_linea_transporte(index)" :value="transporte.id_linea_transporte" v-model="transporte.id_linea_transporte" >
+                        <input type="text" class="form-control" :id="idlt" :name="name_linea_transporte(index)" v-model="transporte.lineaTranporte" required />
+                        <input type="hidden" :name="name_id_linea_transporte(index)" v-model="transporte.id_linea_transporte" >
                     </span>
                 </div>
             </div>
@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="col-md-12" v-if="index>0">
                     <button type="button" class="btn btn-danger btn-sm btn-simple " @click="remove">
-                        <i class="material-icons">delete</i> Eliminar formulario 
+                        <i class="material-icons">delete</i> Eliminar 
                     </button>
                 </div>
             </div>
@@ -139,8 +139,11 @@ export default {
             this.$emit('remove','this.index');
         },
         //nombres de campos     
+        name_linea_transporte(indice){
+            return '[linea_transporte]['+ indice +']';
+        },
         name_id_linea_transporte(indice){
-            return 'transporte['+ (indice) +']['+ this.tipo +'][id_linea_transporte]';
+            return 'transporte['+ (indice) +']['+ this.tipo +'][linea_transporte_id]';
             
         }, 
         name_nombre_operador(indice){
@@ -190,7 +193,6 @@ export default {
             getDataTransportes.initialize();
 
             $(document).find('#'+self.idlt).typeahead({
-            
                 hint: true,
                 highlight: true,
                 limit:8,
@@ -207,24 +209,20 @@ export default {
                     }
                 }
             });
-            let ltransporteSelected='';
+            
             let ltransporte=function(eventObject, suggestionObject, suggestionDataset){
-                ltransporteSelected=suggestionObject.nombre;
                 self.transporte.lineaTranporte=suggestionObject.nombre;
                 self.transporte.id_linea_transporte=suggestionObject.id;
-                //$('#'+self.idlt).parent().next('.transporte-id').val(suggestionObject.id);
-                $('#'+self.idlt).closest('div.form-group').removeClass('has-error');
-                $(document).find('.btn-next').prop('disabled',false);
+                //$('#'+self.idlt).closest('div.form-group').removeClass('has-error');
+                //$(document).find('.btn-next').prop('disabled',false);
                 
             };
                 $('#'+self.idlt).on('typeahead:selected', ltransporte);
                 $('#'+self.idlt).on('typeahead:autocompleted', ltransporte);
                 $('#'+self.idlt).on('typeahead:change', function($e,data){
-                if(data !== ltransporteSelected){
+                if(data !== self.transporte.lineaTranporte){
                     self.transporte.id_linea_transporte='';
-                    //$('#'+self.idlt).parent().next('.transporte-id').val('');
                     $('#'+self.idlt).closest('div.form-group').addClass('has-error');
-                    $('#'+self.idtl).closest('div.form-group').addClass('has-error');
                     $(document).find('.btn-next').prop('disabled',true);
                 }
             });

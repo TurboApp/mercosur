@@ -10,6 +10,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 require('vue2-animate/dist/vue2-animate.min.css');
 
 
@@ -19,62 +22,60 @@ require('vue2-animate/dist/vue2-animate.min.css');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-import Card from './components/cards/Card.vue';
-Vue.component('card', Card);
-Vue.component('card-tabs', require('./components/cards/cardsTabs.vue'));
-Vue.component('card-tab', require('./components/cards/cardTab.vue'));
-Vue.component('card-collapse', require('./components/cards/Collapse.vue'))
 
-Vue.component('fg-input', require('./components/form/formGroupInput.vue'));
-Vue.component('tab', require('./components/uiComponents/tabs.vue'));
-Vue.component('input-file', require('./components/uiComponents/inputFile.vue'));
-Vue.component('todo-list', require('./components/misselanius/todolist.vue'));
-Vue.component('app-pagination', require('./components/misselanius/pagination.vue'));
+Vue.component('card', require('./components/cards/Card.vue'));
+
+// Vue.component('card-collapse', require('./components/cards/Collapse.vue'))
+
+// Vue.component('card-tabs', require('./components/cards/cardsTabs.vue'));
+// Vue.component('card-tab', require('./components/cards/cardTab.vue'));
+
+// Vue.component('fg-input', require('./components/form/formGroupInput.vue'));
+ //Vue.component('tabs', require('./components/uiComponents/tabs.vue'));
+ //Vue.component('tab', require('./components/uiComponents/tab.vue'));
+// Vue.component('input-file', require('./components/uiComponents/inputFile.vue'));
+// Vue.component('todo-list', require('./components/misselanius/todolist.vue'));
+// Vue.component('app-pagination', require('./components/misselanius/pagination.vue'));
 
 //trafico
-import Trafico from './components/views/trafico/nuevoTrafico.vue';
-Vue.component('app-trafico', Trafico);
+// import Trafico from './components/views/trafico/nuevoTrafico.vue';
+// Vue.component('app-trafico', Trafico);
 
-import formTransporte from './components/views/trafico/forms/transporte.vue';
-Vue.component('form-transporte', formTransporte);
+// import formTransporte from './components/views/trafico/forms/transporte.vue';
+// Vue.component('form-transporte', formTransporte);
 
+//Transportes
 import transportesList from './components/views/servicios/transportes.vue';
 Vue.component('transportes-list', transportesList);
 import transporteForm from './components/views/servicios/transporte-form.vue';
 Vue.component('transporte-form', transporteForm);
 
-import transporteSuggest from './components/views/trafico/forms/transporteSuggest.vue';
-Vue.component('transporte-suggest', transporteSuggest);
+// import transporteSuggest from './components/views/trafico/forms/transporteSuggest.vue';
+// Vue.component('transporte-suggest', transporteSuggest);
 //import formDocumento from './components/views/trafico/forms/documentos.vue';
 
 //Servicio
 //import servicioNuevo from './components/views/servicios/create.vue';
 //Vue.component('servicio-nuevo', servicioNuevo);
 
+//Documentos
 import addDocument from './components/views/trafico/addDocument.vue';
-
 Vue.component('add-document', addDocument);
-
+import selectDocument from './components/views/trafico/selectDocument.vue';
+Vue.component('select-document', selectDocument);
 Vue.component('form-documento', require('./components/views/trafico/forms/documento.vue'));
 
 
-Vue.filter('formatSize', function(size) {
-    if (size > 1024 * 1024 * 1024 * 1024) {
-      return (size / 1024 / 1024 / 1024 / 1024).toFixed(2) + ' TB';
-    } else if (size > 1024 * 1024 * 1024) {
-      return (size / 1024 / 1024 / 1024).toFixed(2) + ' GB';
-    } else if (size > 1024 * 1024) {
-      return (size / 1024 / 1024).toFixed(2) + ' MB';
-    } else if (size > 1024) {
-      return (size / 1024).toFixed(2) + ' KB';
-    }
-    return size.toString() + ' B';
-  });
 
-  Vue.prototype.$http = require('axios');
- var vm = new Vue({
-     el: '#app',
-    
- });
+Vue.component('panel-coordinacion', require('./components/views/coordinacion/master.vue'));
+Vue.component('maniobra-tareas', require('./components/views/maniobras/master.vue'));
+
+
+Vue.prototype.$http = require('axios');
+
+var vm = new Vue({
+    el: '#app',
+});
+
 
 

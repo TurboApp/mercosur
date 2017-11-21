@@ -1,85 +1,76 @@
-<h3 class="title">Transporte ({{ $data->type }})</h3>
-{{--  <card type="header-icon" icon="fa-truck">  --}}
 <card>
     <template>
-        {{--  <template slot="title">Transporte ({{ $data->type }})</template>  --}}
-        <div class="row">
-            <div class="col-md-12">  
-                <div class="form-group">
-                    <span class="twitter-typeahead">
-                        <label class="control-label">Linea de transporte</label>
-                        <input type="text" class="form-control" value="{{ $data->transporte->nombre }}" disabled>  
-                    </span>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2 control-label">Linea de transporte</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" value="{{ $data->transporte->nombre }}" disabled>  
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">  
-                <div class="form-group">
-                    <label for="operadorUnidad" class="control-label">Nombre del operador</label>
+        
+            <div class="form-group">
+                <label class="col-md-2 control-label">Nombre del operador</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control"  value="{{ $data->nombre_operador }}" disabled>   
                 </div>
             </div>
-            <div class="col-md-4">  
-                <div class="form-group">
-                    <label for="n_talon" class="control-label">No. de talon</label>
+        
+            <div class="form-group">
+                <label class="col-md-2 control-label">No. de talon</label>
+                <div class="col-md-4">
                     <input type="text" class="form-control" value="{{ $data->talon_embarque }}" disabled>   
                 </div>
+                    
+                <label class="col-md-2 control-label">Operación</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" value="{{ $data->operacion }}" disabled>   
+                </div>
+            
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group ">
-                    <label for="marcaVehiculo" class="control-label">Marca del Vehiculo</label>
+                
+            <div class="form-group">
+                <label class="col-md-2 control-label">Marca del Vehiculo</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control" value="{{ $data->marca_vehiculo }}" disabled>
-                    <span class="material-input"></span>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group ">
-                    <label for="placasTractor" class="control-label">Placas del tractor</label>
+                
+            <div class="form-group">
+                <label class="col-md-2 control-label">Placas del tractor</label>
+                <div class="col-md-4">
                     <input type="text" class="form-control" value="{{ $data->placas_tractor }}" disabled>
-                    <span class="material-input"></span>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group ">
-                    <label for="placasCaja" class="control-label">Placas de la caja</label>
+           
+                <label class="col-md-2 control-label">Placas de caja</label>
+                <div class="col-md-4">
                     <input type="text" class="form-control" value="{{ $data->placas_caja }}" disabled>
-                    <span class="material-input"></span>
                 </div>
+                
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group ">
-                    <label  for="tipoUnidad" class="control-label">Tipo de unidad</label>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">Tipo de unidad</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control" value="{{ $data->tipo_unidad }}" disabled>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label class="control-label">Medida</label>
-                    <select class="selectpicker" data-style="select-with-transition" disabled>
-                        <option selected>{{ $data->medida_unidad }}</option> 
-                    </select>
-                    <span class="material-input"></span>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="ejes" class="control-label">No. Ejes</label>
-                    <input type="number" class="form-control" value="{{ $data->ejes }}" disabled>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="cantidad" class="control-label">Cantidad</label>
-                    <input type="number" class="form-control" value="{{ $data->cantidad }}" disabled>
+
+            <div class="form-group">
+                    <label class="col-md-2 control-label">Medida</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" value="{{ $data->medida_unidad }}" /> 
+                    </div>
+                 
+                    <label class="col-md-1 control-label">No. Ejes</label>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" value="{{ $data->ejes }}" disabled>
+                    </div>
+
+                    <label class="col-md-1 control-label">Cantidad</label>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" value="{{ $data->cantidad }}" disabled>
+                    </div>
                 </div>
             </div>  
-        </div>
     </template>
 </card>

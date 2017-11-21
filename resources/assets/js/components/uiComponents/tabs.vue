@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="nav-center">
+    <div>
         <ul :class="addClass" role="tablist">
             <li v-for="tab in tabs" :class="{'active':tab.isActive}">
                 <a :href="tab.href" @click="activeTab(tab)">
@@ -47,6 +47,7 @@ export default {
   },
   created(){
       this.tabs=this.$children;
+      
   },
   
   methods:{

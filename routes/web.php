@@ -66,28 +66,32 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/fuerzas/{fuerza}/destroy','FuerzaTareaController@destroy');
 
   #RUTAS DE TRAFICO / SERVICIOS
-  Route::get('/servicio/nuevo/{servicio}/', 'ServicioController@create');
+  Route::get('/servicios', 'ServicioController@index')->name('servicios');
+  Route::get('/servicios/nuevo', 'ServicioController@new')->name('servicioNuevo');
+  Route::get('/servicios/nuevo/{servicio}/{id?}', 'ServicioController@create')->name('servicioCrear');
+  Route::post('/servicios', 'ServicioController@store')->name('servicioGuardar');
+  Route::get('/servicios/{servicio}', 'ServicioController@show');
 
-  Route::get('/trafico', 'OrdenServicioController@index')->name('servicios');
-  Route::get('/trafico/nuevo', 'OrdenServicioController@createIndex')->name('seleccionarNuevoServicio');
-  //Route::get('/trafico/nuevo/servicio/{servicio}/{id?}', 'OrdenServicioController@create')->name('servicioNuevo');
-  Route::get('/trafico/nuevo/carga/{servicio}', 'OrdenServicioController@createCarga');
-  Route::get('/trafico/nuevo/trasbordo', 'OrdenServicioController@createTrasbordo');
+  Route::get('/almacen', 'ServicioController@almacen');
 
-  Route::get('/trafico/almacen/', 'OrdenServicioController@indexAlmacen');
-
-  Route::get('/trafico/servicio/{servicio}', 'OrdenServicioController@show');
-  Route::post('/trafico/servicio', 'OrdenServicioController@store');
   Route::get('/coordinacion', 'CoordinacionController@index')->name('coordinacion');
+  Route::get('/coordinacion/servicio/{servicio}/', 'CoordinacionController@maniobra');
+  
+  Route::get('/maniobras/', 'CoordinacionController@indexManiobra')->name('maniobras');
+  Route::get('/maniobras/{coordinacion}/', 'CoordinacionController@maniobraTareas');
 
-  Route::get('/trafico/maniobra/{servicio}/detalles', 'CoordinacionController@maniobraDetalles');
-  Route::get('/trafico/maniobra/{servicio}/datos_generales', 'CoordinacionController@maniobraGenerales');
-  Route::get('/trafico/maniobra/{servicio}/transportes', 'CoordinacionController@maniobraTransportes');
-  Route::get('/trafico/maniobra/{servicio}/documentos', 'CoordinacionController@maniobraDocumentos');
-  Route::get('/trafico/maniobra/{servicio}/archivos', 'CoordinacionController@maniobraArchivos');
-  Route::get('/trafico/maniobra/agregar_supervisor/{coordinacion}/{supervisor}', 'CoordinacionController@agregarSupervisor');
+  Route::get('/documentos/{id}/{archivo}', 'ServicioController@getArchivo');
 
-  Route::get('/documentos/{id}/{archivo}', 'OrdenServicioController@getArchivo');
+  // Route::get('/trafico', 'OrdenServicioController@index')->name('servicioTrafico');
+  // Route::get('/trafico/nuevo', 'OrdenServicioController@createIndex')->name('seleccionarNuevoServicio');
+  // Route::get('/trafico/nuevo/carga/{servicio}', 'OrdenServicioController@createCarga');
+  // Route::get('/trafico/nuevo/trasbordo', 'OrdenServicioController@createTrasbordo');
+  // Route::get('/trafico/almacen/', 'OrdenServicioController@indexAlmacen');
+  // Route::get('/trafico/servicio/{servicio}', 'OrdenServicioController@show');
+  // Route::post('/trafico/servicio', 'OrdenServicioController@store');
+
+  
+  //Route::get('/documentos/{id}/{archivo}', 'OrdenServicioController@getArchivo');
   // Route::get('/API/servicios/{date?}','OrdenServicioController@indexServicios');
   // Route::get('/API/coordinacion/{date?}','CoordinacionController@indexDatatable');
   // Route::get('/API/almacen/item/{servicio}','OrdenServicioController@almacenItem');
@@ -102,11 +106,18 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::get('/API/servicios/{date?}','APIController@servicios');
   Route::get('/API/coordinacion/{date?}','APIController@coordinacion');
+  
+  Route::get('/API/maniobra-supervisor/{date?}','APIController@maniobrasSupervisor');
+
+  Route::get('/API/coordinacion/servicio/{id}','APIController@coordinacionServicio');
+  Route::get('/API/coordinacion/servicio/agregar_supervisor/{coordinacion}/{supervisor}','APIController@agregarSupervisor');
   Route::get('/API/almacen/item/{servicio}','APIController@almacenItem');
   Route::get('/API/almacen/{date?}','APIController@almacen');
   Route::get('/API/supervisores/{s?}','APIController@supervisores');
   Route::get('/API/info-user/{user}','APIController@infoUser');
 
+  Route::get('/API/supervision/getTareas/{id}', 'APIController@getTareas');
+  Route::get('/API/supervision/getSubTareas/{id}', 'APIController@getSubTareas');
 
   #Busqueda con sugerencia typeahead
 

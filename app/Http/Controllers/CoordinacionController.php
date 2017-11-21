@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Coordinacion;
+use App\supervisor_activo;
 
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use DataTables;
+
 
 class CoordinacionController extends Controller
 {
     public function index()
     {
         $data = Date::instance(Carbon::now());
-        return view('pages.trafico.coordinacion', compact('data'));
+        return view('pages.coordinacion.index', compact('data'));
     }
 
     public function indexDatatable(Request $request)
@@ -47,36 +49,33 @@ class CoordinacionController extends Controller
         return DataTables::of($data)->toJson();
     }
 
-    #### DETALLES ####
+    ## COORDINACION ##
 
-    public function maniobraDetalles(Coordinacion $servicio)
+    public function maniobra(Request $request, $servicio)
     {
-        return view('pages.maniobra.detalles', compact('servicio'));
+        
+        $servicio = Coordinacion::find($servicio);
+        if($servicio===null){
+            $request->session()->flash('danger', 'No se encontro ningun dato');
+            return redirect('/coordinacion');
+        }else{
+            return view('pages.coordinacion.master', compact('servicio'));
+        }
     }
-    public function maniobraGenerales(Coordinacion $servicio)
-    {
-        return view('pages.maniobra.generales', compact('servicio'));
-    }
-    public function maniobraTransportes(Coordinacion $servicio)
-    {
-        return view('pages.maniobra.transportes', compact('servicio'));
-    }
-    public function maniobraDocumentos(Coordinacion $servicio)
-    {
-        return view('pages.maniobra.documentos', compact('servicio'));
-    }
-    public function maniobraArchivos(Coordinacion $servicio)
-    {
-        return view('pages.maniobra.archivos', compact('servicio'));
-    }
-    public function agregarSupervisor(Request $request, Coordinacion $coordinacion)
-    {
-               
-        //Falta agregar el id del coordinador 
-        $coordinacion->supervisor_id = $request->supervisor;
-        $coordinacion->coordinador_id = auth()->user()->id;
-        $coordinacion->save();
 
-        return redirect()->back();
+    public function indexManiobra()
+    {
+        $data = Date::instance(Carbon::now());
+        return view('pages.maniobras.index', compact('data'));
     }
+
+
+    public function maniobraTareas(Coordinacion $coordinacion)
+    {
+        return view('pages.maniobras.tareas', compact('coordinacion'));
+    }
+
+
+    
+    
 }

@@ -14,11 +14,12 @@ class CreateServiciosTable extends Migration
     public function up()
     {
         Schema::create('servicios', function (Blueprint $table) {
-            $table->increments('servicio_id');
+            $table->increments('id');
             $table->integer('user_id');
             $table->integer('agente_id');
             $table->integer('cliente_id');
-            $table->integer('servicio_padre');
+            $table->integer('coordinacion_id')->nullable();
+            $table->integer('servicio_padre')->nullable();
             $table->enum('tipo', ['Descarga','Carga','Trasbordo','Otros servicios']);
             $table->integer('numero_servicio');
             $table->date('fecha_recepcion');

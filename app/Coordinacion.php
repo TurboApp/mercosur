@@ -11,7 +11,7 @@ class Coordinacion extends Model
 
     public function servicio()
     {
-        return $this->hasOne('App\OrdenServicio','id','id_orden_servicio');
+        return $this->belongsTo('App\Servicio','servicio_id', 'id');
     }
 
     public function coordinador()
@@ -23,4 +23,10 @@ class Coordinacion extends Model
     {
         return $this->hasOne('App\User','id', 'supervisor_id');
     }
+
+    public function supervisorActivo()
+    {
+        return $this->hasOne('App\supervisor_activo', 'coordinacion_id','id');
+    }
+
 }

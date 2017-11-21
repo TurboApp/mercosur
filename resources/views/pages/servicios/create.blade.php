@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Descarga Nuevo servicio' )
+@section('title', $data['tipo'] )
 
 @section('breadcrump')
    @component('components.breadcrump',[
-        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo servicio' => 'seleccionarNuevoServicio', ':  Número de servicio ' => '' ],
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo' => 'servicioNuevo', $data['tipo'] => '' ],
     ])
     @endcomponent()
 @endsection
@@ -12,13 +12,13 @@
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a href="/trafico/nuevo"  title="Nuevo servicio">
+            <a href="/servicios/nuevo"  title="Nuevo servicio">
                 <i class="material-icons">add</i>
                 <p class="hidden-lg hidden-md">Nuevo servicio</p>
             </a>
         </li>
         <li>
-            <a href="/trafico/nuevo" title="Ir a nuevo servicio">
+            <a href="/servicios/nuevo" title="Ir a nuevo servicio">
                 <i class="material-icons">arrow_upward</i>
                 <p class="hidden-lg hidden-md">Ir a nuevo servicio</p>
             </a>
@@ -29,80 +29,91 @@
 
 @section('content')
 
-<div class="col-sm-12">
-    <!--      Wizard container        -->
-    <div class="wizard-container">
-        <div id="nuevoServicio" class="card wizard-card"  >
-            {!! Form::open(array('url' => '/servicio/store', 'method'=>'post', 'id'=>'formServicioNuevo', 'class'=>'form-horizontal','files'=>true, 'autocomplete'=>'off')) !!}
-                {!! Form::hidden('tipo', $data['tipo']) !!}    
-                <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
-                <div class="wizard-header grey lighten-3 ">
-                    <h3 class="wizard-title">
-                        Nuevo servicio Descarga
-                    </h3>
-                    <h5>Completa la siguiente información para crear el nuevo servicio.</h5>
-                </div>
-                <div class="wizard-navigation">
-                    <ul>
-                        <li>
-                            <a href="#generales" data-toggle="tab">Datos Generales</a>
-                        </li>
-                        <li>
-                            <a href="#transportes" data-toggle="tab">Transportes</a>
-                        </li>
-                        <li>
-                            <a href="#documentos" data-toggle="tab">Documentos</a>
-                        </li>
-                        <li>
-                            <a href="#archivos" data-toggle="tab">Archivos</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane" id="generales">
-                        <div class="row">
-                            @component('components.servicios.create.datosGenerales',[
-                                'data' => $data
-                            ])
+<div class="row">
+    <div class="col-sm-12">
+        <!--      Wizard container        -->
+        <div class="wizard-container">
+            <div id="nuevoServicio" class="card wizard-card"  >
+                {!! Form::open(array('url' => '/servicios', 'method'=>'post', 'id'=>'formServicioNuevo', 'class'=>'form-horizontal','files'=>true, 'autocomplete'=>'off')) !!}
+                    {!! Form::hidden('tipo', $data['tipo']) !!}    
+                    @if( isset( $servicio->id ) )
+                     {!! Form::hidden('datos_generales[servicio_padre]', $servicio->id) !!}    
+                    @endif
+                    <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                    <div class="wizard-header {{$data['tipo']}} text-uppercase">
+                        <h3 class="title wizard-title white-text">
+                            Nuevo servicio - {{ $data['tipo'] }}
+                        </h3>
+
+                        <h5 >Servicio Numero {{ $data['numero_servicio'] }}</h5>  
+
+                    </div>
+                    <div class="wizard-navigation">
+                        <ul>
+                            <li>
+                                <a href="#generales" data-toggle="tab">Datos Generales</a>
+                            </li>
+                            <li>
+                                <a href="#documentos" data-toggle="tab">Documentos</a>
+                            </li>
+                            <li>
+                                <a href="#archivos" data-toggle="tab">Archivos</a>
+                            </li>
+                            <li>
+                                <a href="#transportes" data-toggle="tab">Transportes</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="generales">
+                            <div class="row">
+                                @component('components.servicios.create.datosGenerales',[
+                                    'data' => $data,
+                                    'servicio' => $servicio
+                                ])
+                                @endcomponent()
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane" id="documentos">
+                           
+                                @component('components.servicios.create.documentos',[
+                                    'data' => $data,
+                                    'servicio' => $servicio
+                                ])
+                                @endcomponent()
+                           
+                            {{--  <add-document ></add-document>  --}}
+
+                        </div>
+                        <div class="tab-pane" id="archivos">
+                            @component('components.servicios.create.archivos')
                             @endcomponent()
                         </div>
+                        <div class="tab-pane" id="transportes">
+                                
+                                @component('components.servicios.create.transporte', [
+                                    'tipo' => $data['tipo']
+                                ])
+                                @endcomponent
+                            
+                        </div>
                     </div>
-                    <div class="tab-pane" id="transportes">
-                            {{--  <h4 class="info-text">Introdusca los datos del transporte (with validation)</h4>      --}}
-                            @component('components.servicios.create.transporte', [
-                                'tipo' => 'destino'
-                            ])
-                            @endcomponent
-                        
-                        
-                        {{--  <div class="row">
-                            @component('components.servicios.create.transporte',[
-                                'type' => 'Descarga'
-                            ])
-                            @endcomponent
-                        </div>  --}}
+                    <div class="wizard-footer grey lighten-4">
+                        <div class="pull-right">
+                            <button type='button' class='btn btn-next btn-fill btn-primary btn-wd' title="Siguiente" name='next' />Siguiente <i class="material-icons">keyboard_arrow_right</i></button>
+                            <button type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' title="Finalizar" /><i class="material-icons">check</i> Finalizar</button>
+                        </div>
+                        <div class="pull-left">
+                            <button type='button' class='btn btn-previous btn-fill btn-primary btn-wd' title="Anterior" name='previous'/><i class="material-icons">keyboard_arrow_left</i> Anterior</button>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="tab-pane" id="documentos">
-                         <add-document ></add-document>
-                    </div>
-                    <div class="tab-pane" id="archivos">
-                        Archivos
-                    </div>
-                </div>
-                <div class="wizard-footer">
-                    <div class="pull-right">
-                        <button type='button' class='btn btn-next btn-fill btn-primary btn-just-icon btn-round btn-wd' title="Siguiente" name='next' /><i class="material-icons">keyboard_arrow_right</i></button>
-                        <button type='button' class='btn btn-finish btn-fill btn-success btn-just-icon btn-round btn-wd' name='finish' title="Finalizar" /><i class="material-icons">check</i></button>
-                    </div>
-                    <div class="pull-left">
-                        <button type='button' class='btn btn-previous btn-fill btn-primary btn-just-icon btn-round btn-wd' title="Anterior" name='previous'/><i class="material-icons">keyboard_arrow_left</i></button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            {!! Form::close() !!}
+                {!! Form::close() !!}
+            </div>
         </div>
+        <!-- wizard container -->
     </div>
-    <!-- wizard container -->
 </div>
 
 
@@ -112,11 +123,7 @@
     @include('layouts.partials.errors')
     
     <script type="text/javascript">
-    //$(document).ready(function(){
-        //app.getMarcaVehiculo('.get-marca-vehiculo'); //sujerencia marca de vehiculo
-        //app.getTipoVehiculo('.siggest-tipo-vehiculo');
-
-    //}); 
+    
     $(function() {
         
         
@@ -129,8 +136,7 @@
         });
         // Code for the Validator
         var $validator = $('.wizard-card form').validate({
-    		  
-
+            
             errorPlacement: function(error, element) {
                 $(element).closest('div.form-group').addClass('has-error');
                 $(element).siblings( ".btn" ).addClass('btn-danger');
