@@ -10,11 +10,11 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
+// import VueRouter from 'vue-router';
+// Vue.use(VueRouter);
+
 
 require('vue2-animate/dist/vue2-animate.min.css');
-
 
 
 /**
@@ -65,10 +65,11 @@ import selectDocument from './components/views/trafico/selectDocument.vue';
 Vue.component('select-document', selectDocument);
 Vue.component('form-documento', require('./components/views/trafico/forms/documento.vue'));
 
-
+import VueWebcam from 'vue-webcam';
+Vue.component('vue-webcam', VueWebcam);
 
 Vue.component('panel-coordinacion', require('./components/views/coordinacion/master.vue'));
-Vue.component('maniobra-tareas', require('./components/views/maniobras/master.vue'));
+Vue.component('maniobra-descarga', require('./components/views/maniobras/descarga/master.vue'));
 
 
 Vue.prototype.$http = require('axios');

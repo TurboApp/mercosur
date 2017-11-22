@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-    <maniobra-tareas :maniobra-id="{{$coordinacion->id}}"></maniobra-tareas>
+    <maniobra-descarga :maniobra-id="{{$coordinacion->id}}"></maniobra-descarga>
 @endsection
 @push('scripts')
 @include('layouts.partials.notify')

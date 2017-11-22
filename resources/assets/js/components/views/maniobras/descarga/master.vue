@@ -18,8 +18,8 @@
     </div>
 </template>
 <script>
-import FormWizard from './components/FormWizard.vue';
-import TabContent from './components/TabContent.vue';
+import FormWizard from '../components/FormWizard.vue';
+import TabContent from '../components/TabContent.vue';
 import subTareas from './subTareas.vue';
 export default {
     components: {
