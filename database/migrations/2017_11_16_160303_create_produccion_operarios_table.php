@@ -17,8 +17,8 @@ class CreateProduccionOperariosTable extends Migration
             $table->increments('id');
             $table->integer('coordinacion_id');
             $table->integer('fuerza_tarea_id');
-            $table->dateTime('inicio');
-            $table->dateTime('final');
+            $table->dateTime('inicio')->nullable();
+            $table->dateTime('final')->nullable();
             $table->timestamps();
         });
     }

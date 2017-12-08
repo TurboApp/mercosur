@@ -24,6 +24,7 @@ class CreateCoordinacionsTable extends Migration
             $table->datetime('inicio_maniobra')->nullable();
             $table->datetime('termino_maniobra')->nullable();
             $table->smallInteger('avance_total')->default(0);
+            $table->smallInteger('indice_activo')->default(0);
             $table->timestamps();
         });
     }

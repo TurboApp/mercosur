@@ -69,13 +69,34 @@ class CoordinacionController extends Controller
         return view('pages.maniobras.index', compact('data'));
     }
 
-
     public function maniobraTareas(Coordinacion $coordinacion)
     {
+        $coordinacion->servicio->cliente;
+        $coordinacion->servicio->agente;
+        $coordinacion->servicio->archivos;
+        $coordinacion->servicio->documentos;
+        $coordinacion->servicio->transportes;
         return view('pages.maniobras.tareas', compact('coordinacion'));
     }
 
-
+    public function maniobraInicio(Request $request)
+    {
+        //dd($request->servicio);
+        $maniobra = Coordinacion::where('servicio_id',$request->servicio)->first();
+        //dd($maniobra);
+        if (!$maniobra->inicio_maniobra) {
+            $now = Carbon::now();
+            $maniobra->inicio_maniobra = $now; 
+            $maniobra->status='En proceso';
+            $maniobra->save();
+        }
+        $maniobra->servicio->cliente;
+        $maniobra->servicio->agente; 
+        $maniobra->servicio->archivos;
+        $maniobra->servicio->documentos;
+        $maniobra->servicio->transportes;
+        return $maniobra->toJson();
+    }
     
     
 }

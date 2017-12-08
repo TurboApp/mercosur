@@ -24,7 +24,10 @@ let mix = require('laravel-mix');
 // 	'node_modules/datatables.net/js/jquery.dataTables.js',
 		
 // 	'resources/assets/js/vendor/dataTables.responsive.min.js',
-// 	'resources/assets/js/vendor/responsive.bootstrap.min.js',
+//   'resources/assets/js/vendor/responsive.bootstrap.min.js',
+  
+// 	'resources/assets/js/vendor/lightbox.js',
+	
 
 // 	'resources/assets/js/vendor/webcam.js',
 // 	'resources/assets/js/vendor/sweetalert2.js',
@@ -39,13 +42,14 @@ let mix = require('laravel-mix');
 // 	'resources/assets/js/vendor/jquery.tagsinput.js',
 //  	'resources/assets/js/vendor/jquery.validate.js',
 //  	'resources/assets/js/vendor/nouislider.min.js',
+//    'resources/assets/js/vendor/signature_pad.js',
 //  	'resources/assets/js/vendor/material-dashboard.js',
-//  	'resources/assets/js/vendor/mercosur.js'
+//    'resources/assets/js/vendor/mercosur.js',
 //  ], 'public/js/scripts.js');
 
-  mix.js('resources/assets/js/app.js', 'public/js');
+   mix.js('resources/assets/js/app.js', 'public/js');
    
 // mix.sass('resources/assets/sass/common.scss', 'public/css');
-//  mix.sass('resources/assets/sass/dashboard.scss', 'public/css');
+// mix.sass('resources/assets/sass/dashboard.scss', 'public/css');
 // mix.sass('resources/assets/sass/mercosur.scss', 'public/css');
 

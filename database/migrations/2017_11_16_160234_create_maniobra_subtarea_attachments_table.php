@@ -16,8 +16,7 @@ class CreateManiobraSubtareaAttachmentsTable extends Migration
         Schema::create('maniobra_subtarea_attachments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('subtarea_id');
-            $table->string('nombre');
-            $table->string('url');
+            $table->text('url');
             $table->string('extension');
             $table->string('size');
             $table->string('minetype');

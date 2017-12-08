@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title','Maniobra')
+@section('title', $coordinacion->servicio->tipo . '. Servicio No.' . $coordinacion->servicio->numero_servicio)
 
 @section('breadcrump')
     @component('components.breadcrump',[
-        'navigation'    =>  [ 'Inicio' => 'inicio', 'Maniobras' => 'maniobras', 'Maniobra x'=>'' ],
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Maniobras' => 'maniobras', $coordinacion->servicio->tipo . '. Servicio No.' . $coordinacion->servicio->numero_servicio=>'' ],
     ])
     @endcomponent()
 @endsection
@@ -14,7 +14,10 @@
 @endsection
 
 @section('content')
-    <maniobra-descarga :maniobra-id="{{$coordinacion->id}}"></maniobra-descarga>
+   
+    <maniobra-tareas :datos="{{$coordinacion}}">
+    </maniobra-tareas>
+   
 @endsection
 @push('scripts')
 @include('layouts.partials.notify')

@@ -57,7 +57,7 @@
 </template>
 <script>
 import cardCollapse from '../../cards/Card.vue';
-import inputFile from '../../uiComponents/inputFile.vue';
+import inputFile from '../../ui/inputFile.vue';
 import EventBus from '../../event-bus.js';
 
 export default {

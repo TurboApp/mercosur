@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class ServicioController extends Controller
 {
     function __construct(){
-        $this->middleware(['auth','perfils:trafico,admin']);
+        $this->middleware(['auth','perfils:trafico,admin,supervisor,coordinador']);
     }
 
     public function index()

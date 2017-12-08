@@ -5,7 +5,7 @@
 			<div class="nav-tabs-wrapper">
 				<span class="nav-tabs-title">{{title}}</span>
 				<ul class="nav nav-tabs">
-					<li v-for="cardtab in cardstabs" :class="{'active':cardtab.isActive}">
+					<li v-for="(cardtab, index) in cardstabs" :class="{'active':cardtab.isActive}" :key="index">
 						<a :href="cardtab.href" @click="activeCardTab(cardtab)">
 							<template v-if="cardtab.icon">
 							<i class="material-icons" v-text="cardtab.icon"></i>

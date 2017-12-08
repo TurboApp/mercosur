@@ -43,7 +43,7 @@ class UserController extends Controller
       ]);
 
       $user=(new User)->fill($request->all());
-      // dd($user);
+      
       if($request->hasFile('url_avatar')){
         $user->url_avatar=$request->file('url_avatar')->store('public');
       }

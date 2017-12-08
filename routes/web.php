@@ -76,10 +76,31 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::get('/coordinacion', 'CoordinacionController@index')->name('coordinacion');
   Route::get('/coordinacion/servicio/{servicio}/', 'CoordinacionController@maniobra');
+  Route::post('/coordinacion/maniobra/inicio/{servicio}/', 'CoordinacionController@maniobraInicio');
   
   Route::get('/maniobras/', 'CoordinacionController@indexManiobra')->name('maniobras');
   Route::get('/maniobras/{coordinacion}/', 'CoordinacionController@maniobraTareas');
 
+
+  Route::post('/maniobra/subtarea/{id}','TareaController@storeSubtarea');
+  Route::get('/maniobra/subtarea/firma/{tarea_id}/{subtarea}','TareaController@getSignature');
+  Route::get('/signatures/{signature}','TareaController@getFileSignature');
+  
+  
+  Route::get('/maniobra/subtarea/photos/{photo}','TareaController@getPhotos');
+  
+  Route::get('/maniobra/operarios/{s?}','TareaController@getOperarios');
+  Route::get('/maniobra/operariosActivos/{coordinacionid}','TareaController@getOperariosActivos');
+  Route::get('/maniobras_attachment/{a}/{m}/{d}/{photo}', 'TareaController@getFilePhoto');
+  
+  
+  Route::delete('/maniobras/subtarea/{id}/destroy','TareaController@destroySubtarea');
+  Route::patch('/maniobras/fuerza-tarea/status/{id}/{coordinacion}','TareaController@updateFuerzaTarea');
+  Route::post('/maniobras/produccion/{coordinacion}/{operario}','TareaController@updateProduccionFuerzaTarea');
+  
+  Route::post('/maniobra/avance/update/{tarea}', 'TareaController@updateAvanceManiobra');
+
+  
   Route::get('/documentos/{id}/{archivo}', 'ServicioController@getArchivo');
 
   // Route::get('/trafico', 'OrdenServicioController@index')->name('servicioTrafico');

@@ -23,6 +23,7 @@ class CreateManiobraTareasTable extends Migration
             $table->dateTime('inicio')->nullable();
             $table->dateTime('final')->nullable();
             $table->string('icono',20)->nullable();
+            $table->enum('activo',[0,1])->default(0);
             $table->string('status',10)->nullable();
             $table->timestamps();
         });

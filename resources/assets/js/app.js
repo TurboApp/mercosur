@@ -59,17 +59,15 @@ Vue.component('transporte-form', transporteForm);
 //Vue.component('servicio-nuevo', servicioNuevo);
 
 //Documentos
-import addDocument from './components/views/trafico/addDocument.vue';
-Vue.component('add-document', addDocument);
-import selectDocument from './components/views/trafico/selectDocument.vue';
-Vue.component('select-document', selectDocument);
+
+Vue.component('add-document', require('./components/views/trafico/addDocument.vue'));
+
+Vue.component('select-document', require('./components/views/trafico/selectDocument.vue'));
 Vue.component('form-documento', require('./components/views/trafico/forms/documento.vue'));
 
-import VueWebcam from 'vue-webcam';
-Vue.component('vue-webcam', VueWebcam);
 
 Vue.component('panel-coordinacion', require('./components/views/coordinacion/master.vue'));
-Vue.component('maniobra-descarga', require('./components/views/maniobras/descarga/master.vue'));
+Vue.component('maniobra-tareas', require('./components/views/maniobras/master.vue'));
 
 
 Vue.prototype.$http = require('axios');
