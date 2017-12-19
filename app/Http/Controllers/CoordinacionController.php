@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Coordinacion;
 use App\supervisor_activo;
+use App\LineasTransporte as Transporte;
 
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
@@ -54,12 +55,21 @@ class CoordinacionController extends Controller
     public function maniobra(Request $request, $servicio)
     {
         
-        $servicio = Coordinacion::find($servicio);
+        $coordinacion = Coordinacion::find($servicio);
+        $coordinacion->servicio->cliente;
+        $coordinacion->servicio->agente;
+        $coordinacion->servicio->archivos;
+        $coordinacion->servicio->documentos;
+        $coordinacion->servicio->transportes;
+        foreach ($coordinacion->servicio->transportes as $transporte) {
+            $lineaTransporte=Transporte::find($transporte->linea_transporte_id);
+            $transporte['lineaTransporte'] = $lineaTransporte->nombre;
+        }
         if($servicio===null){
             $request->session()->flash('danger', 'No se encontro ningun dato');
             return redirect('/coordinacion');
         }else{
-            return view('pages.coordinacion.master', compact('servicio'));
+            return view('pages.coordinacion.master', compact('coordinacion'));
         }
     }
 
@@ -76,27 +86,51 @@ class CoordinacionController extends Controller
         $coordinacion->servicio->archivos;
         $coordinacion->servicio->documentos;
         $coordinacion->servicio->transportes;
+        foreach ($coordinacion->servicio->transportes as $transporte) {
+            $lineaTransporte=Transporte::find($transporte->linea_transporte_id);
+            $transporte['lineaTransporte'] = $lineaTransporte->nombre;
+        }
         return view('pages.maniobras.tareas', compact('coordinacion'));
     }
 
     public function maniobraInicio(Request $request)
     {
-        //dd($request->servicio);
         $maniobra = Coordinacion::where('servicio_id',$request->servicio)->first();
-        //dd($maniobra);
         if (!$maniobra->inicio_maniobra) {
             $now = Carbon::now();
             $maniobra->inicio_maniobra = $now; 
             $maniobra->status='En proceso';
             $maniobra->save();
         }
-        $maniobra->servicio->cliente;
-        $maniobra->servicio->agente; 
-        $maniobra->servicio->archivos;
-        $maniobra->servicio->documentos;
-        $maniobra->servicio->transportes;
+        
+        
         return $maniobra->toJson();
     }
-    
+    public function maniobraFin(Request $request)
+    {
+        $maniobra = Coordinacion::where('servicio_id',$request->servicio)->first();
+        if (!$maniobra->termino_maniobra) {
+            $now = Carbon::now();
+            $maniobra->termino_maniobra = $now; 
+            $maniobra->status='Finalizado';
+            $maniobra->save();
+            $supervisor = Supervisor_activo::where([
+                ['supervisor_id' , $maniobra->supervisor_id],
+                ['coordinacion_id' , $maniobra->id]
+            ])->first();
+            $supervisor->delete();
+        }
+        
+        return $maniobra->toJson();
+    }
+
+    public function updateAvanceManiobra(Request $request)
+    {
+        $coordinacion = Coordinacion::find($request->maniobra);    
+        $coordinacion->avance_total =  $request->avance; 
+        $coordinacion->indice_activo = $request->activeIndex;
+        $coordinacion->save();
+        return $coordinacion->toJson();
+    }
     
 }

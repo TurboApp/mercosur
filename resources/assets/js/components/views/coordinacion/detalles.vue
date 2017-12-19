@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-if="datos.supervisor_id">
-          <resume-maniobra></resume-maniobra>
+          <resume-maniobra :supervisor-id="datos.supervisor_id" :servicio-id="datos.servicio_id"></resume-maniobra>
       </div>
       <div v-else>
           <select-supervisor :id="id" ></select-supervisor>
@@ -20,14 +20,21 @@ export default {
       datos:{
         type: [Array, Object],
         required:true
-      }
+      },
+  },
+  data(){
+    return {
+     
+    }
   },
   computed:{
     id(){
       return this.datos.id;
     }
+  },
+  mounted(){
+    
   }
-
 }
 </script>
 

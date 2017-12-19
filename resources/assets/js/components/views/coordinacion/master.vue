@@ -5,28 +5,41 @@
         <template>
                 <div class="row">
                     <div class="col-md-8">
-                            <h6>Numero de servicio <span v-text="datos.servicio.numero_servicio"></span></h6>
-                            <h1 class="title white-text" v-text="datos.servicio.tipo"></h1>
-                            <h6 v-html="showEstatus()"></h6>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row" v-if="datos.inicio_maniobra">
-                                <div class="col-xs-12">
-                                    <h6><span class="white-text">INICIO </span>  <i class="fa fa-clock-o" aria-hidden="true"></i> <span v-text="datos.inicio_maniobra"></span> </h6>
-                                </div>
-                                <div class="col-xs-12 text-center">
-                                    <h1 style="margin:0;">00:00:00</h1>
-                                    <small class="">Tiempo transcurrido</small>
+                        <h6>Numero de servicio <span v-text="datos.servicio.numero_servicio"></span></h6>
+                        <h1 class="title white-text" v-text="datos.servicio.tipo"></h1>
+                        <h6 v-html="showEstatus()"></h6>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row" v-if="datos.inicio_maniobra">
+                            <div class="col-xs-12">
+                                <h6 style="margin:0;">
+                                    <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                                    <span v-text="datos.inicio_maniobra"></span> 
+                                </h6>
+                            </div>
+                            <div class="col-xs-12 text-center" v-if="!datos.termino_maniobra">
+                                <h1 style="margin:0;" v-text="generalTimer"></h1>
+                                <small class="">Tiempo transcurrido</small>
+                            </div>
+                            <div class="col-xs-12" v-else>
+                                 <h6 style="margin:0;">
+                                    <i class="fa fa-hourglass-end" aria-hidden="true"></i>
+                                    <span v-text="datos.termino_maniobra"></span> 
+                                </h6>
+                                <div class="text-center">
+                                    <h1 style="margin:0;" v-text="generalTimer"></h1>
+                                    <small class=""><i class="fa fa-clock-o" aria-hidden="true"></i> Duración</small>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <div class="progress progress-line-success" data-toggle="tooltip" data-placement="top" :title="datos.avance_total+'%'" style="margin-bottom:0;margin-top:15px;">
                     <div class="progress-bar progress-bar-success" role="progressbar" :aria-valuenow="datos.avance_total" aria-valuemin="0" aria-valuemax="100" :style="'width: '+datos.avance_total+'%;'">
                         <span class="sr-only" v-text="datos.avance_total+'% Complete'"></span>
                     </div>
                 </div>
-                <div v-if="datos.avance_total > 0" class="text-center white-text"><small v-text="avancePorcentage"></small></div>
+                <div v-if="datos.avance_total > 0" class="text-center white-text"><small v-text="datos.avance_total+'%'"></small></div>
         </template>
         </card>
 
@@ -85,30 +98,19 @@ export default {
         'coordinacion-archivos': coordinacionArchivos,
         'coordinacion-transportes': coordinacionTransportes,
     },
-    props:['id'],
+    props:{
+        datos:{
+            type:[Object, Array],
+            required:true,
+        },
+    },
     data(){
         return{
-            datos:{
-                servicio:{
-                    cliente:{
-                        nombre_corto:'',
-                        nombre:'',
-                    },
-                    agente:{
-                        nombre_corto:'',
-                        nombre:'',
-                    }
-                } ,
-                status:''
-            }
+            generalTimer:'',
         }
     },
     mounted(){
-        let self = this;
-        axios.get('/API/coordinacion/servicio/'+this.id)
-            .then(function (response) {
-                self.datos = response.data;
-        });
+       this.maniobra();
     },
     created(){
         EventBus.$on('actialuzarDatos', (data)=>{
@@ -131,6 +133,43 @@ export default {
         }
     },
     methods:{
+        maniobra(){
+            let self = this;
+            if(this.datos.inicio_maniobra){
+            let inicio_maniobra = this.datos.inicio_maniobra;
+            this.datos.inicio_maniobra = moment(this.datos.inicio_maniobra).format('D/MM/YY, HH:mm:ss');
+            if(!this.datos.termino_maniobra)
+            {
+                let eventTime = moment(inicio_maniobra);
+                let currentTime = moment();
+                let diffTime = currentTime.diff(eventTime);
+                let duration = moment.duration(diffTime, 'milliseconds');
+                let interval = 1000;
+                setInterval(function(){
+                    duration = moment.duration(duration + interval, 'milliseconds');
+                    if(duration.days()){
+                        self.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                    }else{
+                        self.generalTimer = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                    }
+                }, interval);
+            }else{
+                let hora_inicio = moment(inicio_maniobra);
+                let hora_termino = moment(self.datos.termino_maniobra);
+                let diff = hora_termino.diff(hora_inicio); 
+                let duration = moment.duration(diff, 'milliseconds');
+                if(duration.days()){
+                    self.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                }else{
+                    self.generalTimer = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                }
+                self.datos.termino_maniobra = moment(self.datos.termino_maniobra).format('D/MM/YY, HH:mm:ss');
+            }
+
+        }
+            
+
+        },
         datosGenerales(){
             return {
                datos : {
@@ -147,7 +186,6 @@ export default {
             let estatus=this.datos.status;
             let clase = this.datos.status.replace(" ", "-").toLowerCase();
             switch (estatus) {
-                
                 case "PARA ASIGNAR": case "Para Asignar": case "para asignar":
                     return '<span style="padding:5px;" class=" '+ clase +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+estatus+'</span>'    
                 

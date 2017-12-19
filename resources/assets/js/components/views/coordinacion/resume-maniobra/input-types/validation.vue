@@ -38,8 +38,8 @@
     </div>
 </template>
 <script>
-import card from "./../../cards/Card.vue";
-import EventBus from './../../event-bus.js';
+import card from "./../../../../cards/Card.vue";
+import EventBus from './../../../../event-bus.js';
 export default {
     components:{
         'card':card,

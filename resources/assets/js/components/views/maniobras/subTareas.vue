@@ -41,6 +41,7 @@ export default {
             type: String,
             required: true
         },
+       
     },
     data(){
         return {
@@ -48,7 +49,6 @@ export default {
         }
     },
     mounted(){
-       
         let self = this;
         axios.get('/API/supervision/getSubTareas/'+this.tareaId)
             .then(function (response) {

@@ -77,11 +77,16 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/coordinacion', 'CoordinacionController@index')->name('coordinacion');
   Route::get('/coordinacion/servicio/{servicio}/', 'CoordinacionController@maniobra');
   Route::post('/coordinacion/maniobra/inicio/{servicio}/', 'CoordinacionController@maniobraInicio');
+  Route::post('/coordinacion/maniobra/fin/{servicio}/', 'CoordinacionController@maniobraFin');
   
   Route::get('/maniobras/', 'CoordinacionController@indexManiobra')->name('maniobras');
   Route::get('/maniobras/{coordinacion}/', 'CoordinacionController@maniobraTareas');
 
 
+  Route::get('/maniobra/tarea/{id}','TareaController@getTarea');
+  
+
+  Route::post('/maniobra/tarea/{option}/{tareaId}', 'TareaController@tareaTimer');
   Route::post('/maniobra/subtarea/{id}','TareaController@storeSubtarea');
   Route::get('/maniobra/subtarea/firma/{tarea_id}/{subtarea}','TareaController@getSignature');
   Route::get('/signatures/{signature}','TareaController@getFileSignature');
@@ -98,8 +103,9 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::patch('/maniobras/fuerza-tarea/status/{id}/{coordinacion}','TareaController@updateFuerzaTarea');
   Route::post('/maniobras/produccion/{coordinacion}/{operario}','TareaController@updateProduccionFuerzaTarea');
   
-  Route::post('/maniobra/avance/update/{tarea}', 'TareaController@updateAvanceManiobra');
+  Route::post('/maniobra/avance/update/{maniobra}/{avance}/{activeIndex}', 'CoordinacionController@updateAvanceManiobra');
 
+  //Route::post('/maniobra/tarea/inicio/','');
   
   Route::get('/documentos/{id}/{archivo}', 'ServicioController@getArchivo');
 
@@ -135,6 +141,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/API/almacen/item/{servicio}','APIController@almacenItem');
   Route::get('/API/almacen/{date?}','APIController@almacen');
   Route::get('/API/supervisores/{s?}','APIController@supervisores');
+  Route::get('/API/supervisor/{id}', 'APIController@supervisor');
   Route::get('/API/info-user/{user}','APIController@infoUser');
 
   Route::get('/API/supervision/getTareas/{id}', 'APIController@getTareas');

@@ -1,8 +1,8 @@
 @extends('layouts.master')
-@section('title', $servicio->servicio->tipo .'. Servicio No. '. $servicio->servicio->numero_servicio )
+@section('title', $coordinacion->servicio->tipo .'. Servicio No. '. $coordinacion->servicio->numero_servicio )
 @section('breadcrump')
     @component('components.breadcrump',[
-        'navigation'    =>  [ 'Inicio' => 'inicio', 'Coordinación' => 'coordinacion', $servicio->servicio->tipo .'. Servicio No. '. $servicio->servicio->numero_servicio => '' ],
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Coordinación' => 'coordinacion', $coordinacion->servicio->tipo .'. Servicio No. '. $coordinacion->servicio->numero_servicio => '' ],
     ])
     @endcomponent()
 @endsection
@@ -10,9 +10,8 @@
 
 @endsection
 @section('content')
-    
     <template>
-        <panel-coordinacion :id="{{$servicio->id}}" ></panel-coordinacion>
+        <panel-coordinacion :datos="{{$coordinacion}}" ></panel-coordinacion>
     </template>
         
 @endsection

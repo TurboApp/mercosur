@@ -9,22 +9,22 @@
             </a>
         </li>
 
-        {{-- Trafico --}}
-        <li {{ Request::is('trafico*') ? ' class=active' : ''}}>
-            <a data-toggle="collapse" href="#menuTrafico">
-                <i class="material-icons">traffic</i>
-                <p>Tráfico <b class="caret"></b></p>
+        {{-- Servicios --}}
+        <li {{ Request::is('servicio*') || Request::is('servicios*') ? ' class=active' : ''}}>
+            <a  href="#nuevoServicio" data-toggle="collapse">
+                <i class="material-icons">flag</i>
+                <p>Servicios <b class="caret"></b></p>
             </a>
-            <div class="collapse {{ Request::is('trafico*')  ? 'in' : ''}}"  id="menuTrafico">
+            <div class="collapse {{ Request::is('servicio*')  ? 'in' : ''}}" id="nuevoServicio">
                 <ul class="nav">
-                    <li {{ Request::is('trafico*') && !Request::is('trafico/nuevo*') && !Request::is('trafico/coordinacion*') ? ' class=active' : ''}}>
-                        <a href="/trafico/">
-                            Servicios
+                    <li {{ Request::is('servicios*') && !Request::is('servicios/nuevo*')  ? ' class=active' : ''}}>
+                        <a href="/servicios/">
+                            Todos los servicios
                         </a>
                     </li>
-                    <li {{ Request::is('trafico/nuevo*') ? ' class=active' : ''}}>
-                        <a href="/trafico/nuevo">
-                            Nuevo
+                    <li {{ Request::is('servicios/nuevo*') ? ' class=active' : ''}}>
+                        <a href="/servicios/nuevo">
+                            Nuevo Servicio
                         </a>
                     </li>
                 </ul>

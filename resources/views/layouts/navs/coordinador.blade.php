@@ -9,23 +9,14 @@
             </a>
         </li>
 
-        {{-- Trafico --}}
-        <li {{ Request::is('trafico*') ? ' class=active' : ''}}>
-            <a data-toggle="collapse" href="#menuTrafico">
-                <i class="material-icons">traffic</i>
-                <p>Tráfico <b class="caret"></b></p>
+        {{--  COORDINACIÓN  --}}
+        <li  {{ Request::is('coordinacion*') ? ' class=active' : ''}}>
+            <a href="/coordinacion">
+                <i class="material-icons">swap_vert</i>
+                <p>Coordinación</p>
             </a>
-            <div class="collapse {{ Request::is('trafico*')  ? 'in' : ''}}"  id="menuTrafico">
-                <ul class="nav">
-                    <li {{ Request::is('trafico/coordinacion*') ? ' class=active' : ''}}>
-                        <a href="/trafico/coordinacion">
-                            Coordinación
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
         </li>
+        
 
         {{-- Notificaciones --}}
         <li>

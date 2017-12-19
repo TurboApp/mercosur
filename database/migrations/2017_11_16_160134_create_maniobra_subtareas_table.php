@@ -20,7 +20,7 @@ class CreateManiobraSubtareasTable extends Migration
             $table->string('texto_ayuda')->nullable();
             $table->string('value')->nullable();
             $table->string('inputType',30)->nullable();
-            $table->number('limit',2)->default(1);
+            $table->integer('limit')->length(2)->default(1);
             $table->integer('required')->length(1)->default(1);
             $table->timestamps();
         });

@@ -8,10 +8,13 @@ use File;
 
 use Response;
 
+use App\Coordinacion;
+use App\ManiobraTarea  as Tareas;
 use App\ManiobraSubtarea as Subtarea;
 use App\ManiobraSubtareaAttachment as Attach;
 use App\FuerzaTarea;
 use App\ProduccionOperarios;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -28,11 +31,12 @@ class TareaController extends Controller
     {
         //
     }
-    // public function getPhoto(Request $request)
-    // {
-    //     $photo = Attach::where('subtarea_id', $request->photo)->first();
-    //     return $photo->toJson();
-    // }
+    public function getTarea(Request $request)
+    {
+        $tarea = Tareas::find($request->id);
+        return $tarea->toJson();
+    }
+    
     public function getPhotos(Request $request)
     {
         $photo = Attach::where('subtarea_id', $request->photo)->get();
@@ -294,10 +298,26 @@ class TareaController extends Controller
         return $operario->toJson();
     }
 
-    public function updateAvanceTarea(Request $request)
+    public function tareaTimer(Request $request)
     {
-        
+        $tarea = Tareas::find($request->tareaId);
+        $now = Carbon::now();
+        if($request->option === 'inicio'){
+            if(!$tarea->inicio){
+                $tarea->inicio = $now; 
+                $tarea->status ='en proceso';
+                $tarea->save();
+            }
+        }elseif($request->option === 'fin'){
+            if(!$tarea->final){
+                $tarea->final = $now; 
+                $tarea->status ='finalizado';
+                $tarea->save();
+            }
+        }
+        return $tarea->toJson();
     }
+    
     /**
      * Show the form for editing the specified resource.
      *

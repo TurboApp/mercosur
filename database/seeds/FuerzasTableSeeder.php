@@ -15,10 +15,6 @@ class FuerzasTableSeeder extends Seeder
         for ($i=0; $i < 60 ; $i++) {
           $fuerza=App\FuerzaTarea::create([
             'nombre' => $faker->name,
-            'apellido' => $faker->lastName,
-            'direccion' => $faker->address,
-            'telefono' => $faker->tollFreePhoneNumber,
-            'celular' => $faker->e164PhoneNumber,
             'categoria' => $faker->randomElement($array = array ('Montacarguista','Montacarga','Auxiliar de Patio')),
           ]);
         }

@@ -16,12 +16,11 @@ class CreateFuerzaTareasTable extends Migration
         Schema::create('fuerza_tareas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('direccion')->nullable();
-            $table->string('telefono',50)->nullable();
-            $table->string('celular',50)->nullable();
+            $table->string('contacto')->nullable();
+            $table->string('descripcion')->nullable();
             $table->string('categoria',50);
             $table->enum('status',[0,1])->default(0);
-            $table->number('coordinacion_id');
+            $table->integer('coordinacion_id')->nullable();
             $table->timestamps();
         });
     }

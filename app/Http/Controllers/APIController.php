@@ -236,6 +236,12 @@ class APIController extends Controller
         return DataTables::of($transportes)->toJson();
     }
 
+    public function supervisor(Request $request)
+    {
+        $supervisor = User::find($request->id); 
+        return $supervisor->toJson();
+    }
+
     public function supervisores(Request $request)
     {
         if($request->s)
@@ -280,10 +286,10 @@ class APIController extends Controller
             'coordinacion_id' => $coordinacion->id,
             'is_active'      => '1'
         ]);
-
         
         return $coordinacion->toJson();
     }
+    
 
 
     public function infoUser(User $user)
