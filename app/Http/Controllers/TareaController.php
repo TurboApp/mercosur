@@ -16,6 +16,9 @@ use App\FuerzaTarea;
 use App\ProduccionOperarios;
 use Carbon\Carbon;
 
+
+use App\Events\ManiobraTareaValidacion;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
@@ -246,6 +249,13 @@ class TareaController extends Controller
                 $subtarea->value = $path; 
                 $subtarea->save();
             }
+        }
+        elseif($request->inputType == 'validation')
+        {
+            $subtarea = Subtarea::find($request->id);
+            $subtarea->value = $request->value; 
+            $subtarea->save();
+            event(new ManiobraTareaValidacion($subtarea));
         }
         else{
             $subtarea = Subtarea::find($request->id);

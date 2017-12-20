@@ -168,11 +168,6 @@ class APIController extends Controller
         return $data->toJson();
     }
 
-
-   
-
-
-
     public function servicios(Request $request)
     {
         $fecha=Carbon::today()->format('Y-m-d');

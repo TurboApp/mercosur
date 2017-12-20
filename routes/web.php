@@ -85,12 +85,10 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::get('/maniobra/tarea/{id}','TareaController@getTarea');
   
-
   Route::post('/maniobra/tarea/{option}/{tareaId}', 'TareaController@tareaTimer');
   Route::post('/maniobra/subtarea/{id}','TareaController@storeSubtarea');
   Route::get('/maniobra/subtarea/firma/{tarea_id}/{subtarea}','TareaController@getSignature');
   Route::get('/signatures/{signature}','TareaController@getFileSignature');
-  
   
   Route::get('/maniobra/subtarea/photos/{photo}','TareaController@getPhotos');
   

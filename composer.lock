@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "99b3b5ab3a744bfed7fe961590ea7a14",
+    "content-hash": "c1f9b92439805fcf7ed3b1d1e649b6d0",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -998,6 +998,56 @@
                 "random"
             ],
             "time": "2017-09-27T21:40:39+00:00"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete Redis client for PHP and HHVM",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/log",
@@ -2050,67 +2100,6 @@
             "time": "2016-09-20T12:50:39+00:00"
         },
         {
-            "name": "uxweb/sweet-alert",
-            "version": "1.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/uxweb/sweet-alert.git",
-                "reference": "92519b916755d673f92343767edd06110b167d05"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/uxweb/sweet-alert/zipball/92519b916755d673f92343767edd06110b167d05",
-                "reference": "92519b916755d673f92343767edd06110b167d05",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/session": "~5.0",
-                "illuminate/support": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9.5",
-                "phpunit/phpunit": "^5.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "UxWeb\\SweetAlert\\SweetAlertServiceProvider"
-                    ],
-                    "aliases": {
-                        "Alert": "UxWeb\\SweetAlert\\SweetAlert"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "UxWeb\\SweetAlert\\": "src/SweetAlert/"
-                },
-                "files": [
-                    "src/SweetAlert/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Uziel Bueno",
-                    "email": "ux.webs@gmail.com"
-                }
-            ],
-            "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
-            "keywords": [
-                "alert",
-                "laravel",
-                "notifier",
-                "sweet"
-            ],
-            "time": "2017-09-10T17:14:08+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v2.4.0",
             "source": {
@@ -2159,46 +2148,6 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
-        },
-        {
-            "name": "white-frame/dynatable",
-            "version": "v2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/white-frame/dynatable.git",
-                "reference": "ec9782869c33ad278ddb828d76dad2073d16cdb7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/white-frame/dynatable/zipball/ec9782869c33ad278ddb828d76dad2073d16cdb7",
-                "reference": "ec9782869c33ad278ddb828d76dad2073d16cdb7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ifnot\\Dynatable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "WTFPL"
-            ],
-            "authors": [
-                {
-                    "name": "Anael Favre",
-                    "email": "anael.favre@gmail.com"
-                }
-            ],
-            "description": "Very simple server-side Dynatable handler for Laravel 5",
-            "keywords": [
-                "Dynatable",
-                "laravel"
-            ],
-            "time": "2015-09-25T16:35:09+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",
@@ -3950,6 +3899,67 @@
             "time": "2017-10-05T14:43:42+00:00"
         },
         {
+            "name": "uxweb/sweet-alert",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uxweb/sweet-alert.git",
+                "reference": "92519b916755d673f92343767edd06110b167d05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uxweb/sweet-alert/zipball/92519b916755d673f92343767edd06110b167d05",
+                "reference": "92519b916755d673f92343767edd06110b167d05",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "UxWeb\\SweetAlert\\SweetAlertServiceProvider"
+                    ],
+                    "aliases": {
+                        "Alert": "UxWeb\\SweetAlert\\SweetAlert"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "UxWeb\\SweetAlert\\": "src/SweetAlert/"
+                },
+                "files": [
+                    "src/SweetAlert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uziel Bueno",
+                    "email": "ux.webs@gmail.com"
+                }
+            ],
+            "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
+            "keywords": [
+                "alert",
+                "laravel",
+                "notifier",
+                "sweet"
+            ],
+            "time": "2017-09-10T17:14:08+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.2.0",
             "source": {
@@ -3998,6 +4008,46 @@
                 "validate"
             ],
             "time": "2016-11-23T20:04:58+00:00"
+        },
+        {
+            "name": "white-frame/dynatable",
+            "version": "v2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/white-frame/dynatable.git",
+                "reference": "ec9782869c33ad278ddb828d76dad2073d16cdb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/white-frame/dynatable/zipball/ec9782869c33ad278ddb828d76dad2073d16cdb7",
+                "reference": "ec9782869c33ad278ddb828d76dad2073d16cdb7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ifnot\\Dynatable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Anael Favre",
+                    "email": "anael.favre@gmail.com"
+                }
+            ],
+            "description": "Very simple server-side Dynatable handler for Laravel 5",
+            "keywords": [
+                "Dynatable",
+                "laravel"
+            ],
+            "time": "2015-09-25T16:35:09+00:00"
         }
     ],
     "aliases": [],

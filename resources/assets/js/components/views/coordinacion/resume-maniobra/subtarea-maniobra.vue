@@ -52,7 +52,6 @@ export default {
             let self = this;
             axios.get('/API/supervision/getSubTareas/'+this.tareaId)
                 .then(function (response) {
-                    console.log(response.data);
                     self.subTareas = response.data;
             });    
         }

@@ -77,6 +77,11 @@ export default {
     mounted(){
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.init();
+        Echo.channel('maniobra-channel')
+            .listen('ManiobraTareaValidacion', (data) => {
+                console.log('Se esta ecuchando');
+                console.log(data);
+            });
     },
     methods:{
         init()

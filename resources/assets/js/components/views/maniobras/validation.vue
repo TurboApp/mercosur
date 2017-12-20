@@ -109,7 +109,7 @@ export default {
         {
             let self = this;
             axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'text',
+                    inputType: 'vlidation',
                     value:'onValidation',
                     _token: this.token 
             }).then(function(response){
@@ -120,7 +120,7 @@ export default {
         validado(){
             let self = this;
             axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'text',
+                    inputType: 'validation',
                     value:'okValidation',
                     _token: this.token 
             }).then(function(response){
@@ -130,7 +130,7 @@ export default {
         error(){
             let self = this;
             axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'text',
+                    inputType: 'validation',
                     value:'errorValidation',
                     _token: this.token 
             }).then(function(response){

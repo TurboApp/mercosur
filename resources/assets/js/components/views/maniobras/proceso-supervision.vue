@@ -8,7 +8,7 @@
             @on-change="onChange"
             v-if="avance < 100"
             >
-            <template slot="step" scope="props">
+            <template slot="step" slot-scope="props">
                 <wizard-step :tab="props.tab"
                 :transition="props.transition"
                 :key="props.tab.title"
@@ -60,7 +60,7 @@
                 <sub-tareas  :tarea-id="tareas[6].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
 
-            <template slot="footer" scope="props">
+            <template slot="footer" slot-scope="props">
                 <div class="wizard-footer-left" v-if="btnPrev">
                     <wizard-button class="text-uppercase"  v-if=" props.activeTabIndex > 0 && !props.isLastStep " @click.native="props.prevTab()" :style="props.fillButtonStyle">
                         Anterior
@@ -103,7 +103,6 @@ export default {
         'sub-tareas' : subTareas,
     },
     props:{
-        
         maniobraId:{
             type: [Number, String],
             required: true, 
@@ -112,7 +111,6 @@ export default {
             type: String,
             required: true, 
         },
-        
         activeIndex:{
             type:Number,
             default: 0,
@@ -140,8 +138,8 @@ export default {
             .then(function (response) {
                 self.tareas = response.data;
                 self.tareaInicio(self.tareas[0].id);
+                self.indiceActivo(self.activeIndex);
         });
-        this.indiceActivo(this.activeIndex);
         this.avance = this.avanceTotal; 
     },
     created(){
@@ -222,7 +220,6 @@ export default {
                                 this.tiempoManiobra(this.tareas[4].id);
                                 EventBus.$emit('iniciarProduccionOperarios');
                             }
-                            
                             this.btnPrev = true; 
                             this.btnNext = true; 
                     break;
@@ -277,10 +274,19 @@ export default {
                         this.btnPrev = true;    
                     break;
                 case 2: // Tarea 3: Validacion
-                        if(!this.tareas[2].status === "okValidation" ){
-                            this.btnPrev = false;
-                        }
-                        this.btnNext = false;
+                        axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
+                            .then(function (response) {
+                                if( response.data === "onValidation" ){
+                                    this.btnPrev = false;
+                                    this.btnNext = false;
+                                }else if(response.data === "okValidation"){
+                                    this.btnPrev = false;
+                                    this.btnNext = true;
+                                }else if(response.data === "errorValidation"){
+                                    this.btnPrev = true;
+                                    this.btnNext = false;
+                                }
+                        });   
                     break;
                 case 3: // Tarea 4: Fuerza de tarea 
                         this.btnPrev = false; 
