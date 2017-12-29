@@ -13,20 +13,12 @@
                         >
                     </button>  
                 </p>
-                <p>    
-                    <button type="button" v-if="disabled" class="btn btn-success btn-lg" 
-                        @click="validado"
-                        >
-                        Validado
-                    </button>          
-                </p>
-                <p>    
-                    <button type="button" v-if="disabled" class="btn btn-danger btn-lg" 
-                        @click="error"
-                        >
-                        Validado
-                    </button>          
-                </p>
+                <div v-if="disabled">
+                    <p class="lead text-muted">
+                        En espera de ser validado
+                    </p>
+                </div>
+              
             </card>
         </div>
         <div v-else>
@@ -38,8 +30,8 @@
     </div>
 </template>
 <script>
-import card from "./../../cards/Card.vue";
-import EventBus from './../../event-bus.js';
+import card from "./../../../../cards/Card.vue";
+import EventBus from './../../../../event-bus';
 export default {
     components:{
         'card':card,
@@ -74,6 +66,9 @@ export default {
             token:'',
         }
     },
+    created(){
+        this.EventBus();
+    },
     mounted(){
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.init();
@@ -101,6 +96,7 @@ export default {
                     break;
             
                 default:
+                        this.disabled = false;
                         this.load = true;
                     break;
             }
@@ -109,35 +105,49 @@ export default {
         {
             let self = this;
             axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'vlidation',
+                    inputType: 'validation',
                     value:'onValidation',
+                    
                     _token: this.token 
             }).then(function(response){
                 EventBus.$emit('onValidation');
                 self.disabled=true;
             });
         },
-        validado(){
+        EventBus(){
             let self = this;
-            axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'validation',
-                    value:'okValidation',
-                    _token: this.token 
-            }).then(function(response){
-                EventBus.$emit('okValidation');
-            });
-        },
-        error(){
-            let self = this;
-            axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'validation',
-                    value:'errorValidation',
-                    _token: this.token 
-            }).then(function(response){
-                EventBus.$emit('errorValidation');
-                self.disabled=false;
-            });
-        },
+            EventBus.$on('validationEvent', (data)=>{
+                if(data.validation.id == self.id){
+                    switch (data.validation.value) {
+                        case 'onValidation':
+                                this.disabled = true;
+                                EventBus.$emit('onValidation');
+                                this.load = true;
+                            break;
+            
+                        case 'okValidation':
+                                this.disabled = true;
+                                EventBus.$emit('okValidation');
+                                this.load = true;
+                               
+                            break;
+                    
+                        case 'errorValidation': 
+                                this.disabled=false;
+                                EventBus.$emit('errorValidation');
+                                this.load = true;
+                               
+                            break;
+                    
+                        default:
+                                this.load = true;
+                            break;
+                    }
+                    
+                }
+            })
+        }
+       
     }
 }
 </script>

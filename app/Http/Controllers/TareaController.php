@@ -13,11 +13,15 @@ use App\ManiobraTarea  as Tareas;
 use App\ManiobraSubtarea as Subtarea;
 use App\ManiobraSubtareaAttachment as Attach;
 use App\FuerzaTarea;
+use App\Notification;
 use App\ProduccionOperarios;
 use Carbon\Carbon;
 
 
 use App\Events\ManiobraTareaValidacion;
+use App\Events\SubtareaUpdate;
+use App\Events\ManiobraRemovePhoto;
+use App\Events\notificaciones;
 
 use Illuminate\Http\Request;
 
@@ -255,24 +259,63 @@ class TareaController extends Controller
             $subtarea = Subtarea::find($request->id);
             $subtarea->value = $request->value; 
             $subtarea->save();
+            $coordinacion = $subtarea->tarea->coordinacion;
+            
+            if($coordinacion->coordinador_id == auth()->user()->id ){
+                $receptor = $coordinacion->supervisor_id;
+                $emisor = auth()->user()->id;
+            }elseif($coordinacion->supervisor_id == auth()->user()->id){
+                $receptor = $coordinacion->coordinador_id;
+                $emisor = auth()->user()->id;
+            }
+            switch($request->value){
+                case 'onValidation':
+                        $titulo = 'Necesita Validar una maniobra';
+                        $mensaje = 'Usted debe de validar una maniobra para proceder con la supervisión';
+                    break;
+                    
+                case 'okValidation':
+                        $titulo = 'La validación se realizo exitosamente';
+                        $mensaje = 'Usted puede proeguir con la supervisión de la maniobra';
+                    break;
+                    
+                case 'errorValidation': 
+                        $titulo = 'Upss Necesita revisar una maniobra';
+                        $mensaje = 'La validación no se realizo, la maniobra requiere de su atención';
+                    break;
+            }
+
+            $notifi = Notification::create([
+                'emisor_id' => $emisor, 
+                'receptor_id' => $receptor,
+                'titulo' => $titulo,
+                'mensaje' => $mensaje,
+                'url_icon' => '/img/pushIcon/round.png',
+                'url' => '/maniobras/'.$coordinacion->servicio_id
+            ]);
+
             event(new ManiobraTareaValidacion($subtarea));
+            event(new notificaciones($notifi));
         }
         else{
             $subtarea = Subtarea::find($request->id);
             $subtarea->value = $request->value; 
             $subtarea->save();
         }
-
+        
+        event(new SubtareaUpdate($subtarea));
         return $subtarea->toJson();
     }
 
     public function destroySubtarea(Request $request){
+        
         if( $request->inputType === 'photo' )
         {
             $del = Attach::find($request->id);
-           
             if (count($del)) {
                 storage::delete($del->url);
+                //$data = subtarea::find($del->subtarea_id);
+                event(new ManiobraRemovePhoto($del));
                 $del->delete();
             }
         }
@@ -283,9 +326,10 @@ class TareaController extends Controller
                 storage::delete($signature->value);
                 $signature->value = ''; 
                 $signature->save();
+                $data = subtarea::find($request->id);
+                event(new SubtareaUpdate($data));
             }
         }    
-    
     }
     /**
      * Display the specified resource.

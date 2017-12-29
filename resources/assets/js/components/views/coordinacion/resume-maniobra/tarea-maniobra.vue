@@ -29,6 +29,7 @@
 <script>
 import card from './../../../cards/Card.vue';
 import subtareas from './subtarea-maniobra.vue';
+import EventBus from './../../../event-bus.js';
 export default {
     components:{
         'card':card,
@@ -38,16 +39,35 @@ export default {
         datos:{
             type: Object,
             required: true,            
+        },
+        maniobraId:{
+            type:Number,
+            reruired:true,
         }
     },
     data(){
         return{
             show:false, 
-            maniobraId:''
+            
         }
     },
+    created(){
+        EventBus.$on('onValidation', ()=>{
+                $.notify({
+                    icon: "add_alert",
+                    message: "La maniobra require de su validación"
+                },{
+                    type: 'warning',
+                    timer: 4000,
+                    placement: {
+                        from: 'top',
+                        align: 'right'
+                    }
+                });
+        });
+    },
     mounted(){
-        this.maniobraId = this.$parent.$parent.$options.propsData.datos.servicio_id;
+        //this.maniobraId = this.$parent.$parent.$options.propsData.datos.servicio_id;
     },
     computed:{
         statusIcon(){

@@ -27,8 +27,8 @@
     </div>
 </template>
 <script>
-import card from "./../../cards/Card.vue";
-import vueSignature from "./components/vue-signature.vue";
+import card from "./../../../../cards/Card.vue";
+import vueSignature from "./../../../../ui/vue-signature.vue";
 export default {
     components:{
         'card':card,

@@ -80,17 +80,23 @@
             </template>
         </form-wizard>
         <div v-else>
-            El servicio ha sido completado
+            <h3>Resumen de la maniobra</h3>
+            <detalles-tarea v-for="(tarea, index) in tareas" 
+                :datos="tarea"
+                :maniobra-id="maniobraId"
+                :key="index" />
         </div>    
     </div>
 </template>
 <script>
-import FormWizard from './components/FormWizard.vue';
-import WizardButton from './components/WizardButton.vue';
-import WizardStep from './components/WizardStep.vue';
-import TabContent from './components/TabContent.vue';
-import subTareas from './subTareas.vue';
-import EventBus from './../../event-bus.js';
+import FormWizard from './../../ui/FormWizard.vue';
+import WizardButton from './../../ui/WizardButton.vue';
+import WizardStep from './../../ui/WizardStep.vue';
+import TabContent from './../../ui/TabContent.vue';
+import subTareas from './supervision/subTareas.vue';
+import EventBus from './../../event-bus';
+
+import detallesTarea from './../coordinacion/resume-maniobra/tarea-maniobra.vue';
 
 var moment = require('moment');
 
@@ -101,6 +107,7 @@ export default {
         'wizard-button':WizardButton,
         'tab-content':TabContent,
         'sub-tareas' : subTareas,
+        'detalles-tarea':detallesTarea,
     },
     props:{
         maniobraId:{
@@ -149,11 +156,33 @@ export default {
         EventBus.$on('okValidation', ()=>{
             this.validation=true;
             this.btnNext=true;
+            $.notify({
+                icon: "add_alert",
+                message: "La maniobra ha sido validada"
+            },{
+                type: 'info',
+                timer: 4000,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                }
+            });
         });
         EventBus.$on('errorValidation', ()=>{
             this.validation=false;
             this.btnNext=false;
             this.btnPrev=true;
+            $.notify({
+                icon: "add_alert",
+                message: "La maniobra require de su atención"
+            },{
+                type: 'warning',
+                timer: 4000,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                }
+            });
         });
         $(window).on("load",function() {
             $(".loader").fadeOut("slow");
@@ -175,7 +204,6 @@ export default {
             this.avanceUpdate(0,100);
             this.tareaFin(this.tareas[6].id);
             this.terminoManiobra();
-            alert('completado');
         },
         onChange(prevIndex, nextIndex){
             switch (nextIndex) {
@@ -245,7 +273,6 @@ export default {
             let self = this;
             axios.post('/maniobra/avance/update/'+this.maniobraId+'/'+avance+'/'+index)
                 .then(function (response) {
-                    EventBus.$emit('avaceTotalManiobra', response.data.avance_total);
                     self.avance = response.data.avance_total;
             });
         },

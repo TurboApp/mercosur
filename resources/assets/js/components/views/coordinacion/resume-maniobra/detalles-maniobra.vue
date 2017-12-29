@@ -28,6 +28,7 @@
                         <div class="col-xs-12">
                             <tarea-maniobra v-for="(tarea, index) in tareas" 
                                 :datos="tarea"
+                                :maniobraId="servicioId"
                                 :key="index" />
                         </div>
                     </div>
@@ -89,6 +90,9 @@ export default {
              tareas:{},
         }
     },
+    created(){
+        this.listenEvent();
+    },
     mounted(){
         this.getSupervisor();
         this.getTarea();
@@ -98,7 +102,6 @@ export default {
             let self = this;
             axios.get('/API/supervisor/' + this.supervisorId).then(function(response){
                 self.supervisor = response.data;
-                console.log(Object.keys(response.data).length);
             });
         },
         getTarea(){
@@ -107,6 +110,21 @@ export default {
                 .then(function (response) {
                     self.tareas = response.data;
             });
+        },
+        listenEvent(){
+            let self = this;
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraUpdate', (data) => {
+                    if(self.servicioId == data.maniobra.servicio_id){
+                        self.getTarea();
+                    }
+                });   
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraInicio', (data) => {
+                    if(self.servicioId == data.maniobra.servicio_id){
+                        self.getTarea();
+                    }
+                });   
         }
     }
 }

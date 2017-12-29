@@ -48,6 +48,9 @@ export default {
             token:'',
         }
     },
+    created(){
+        this.listenEvent();
+    },
     mounted(){
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         let self = this;
@@ -57,7 +60,6 @@ export default {
         });
     },
     computed:{
-       
         colum(){
             switch(this.limit){
                 case 1:
@@ -85,8 +87,27 @@ export default {
         }
     },
     methods:{
-       
-       
+        listenEvent()
+        {
+            let self = this;
+            Echo.channel('maniobra-channel')
+                .listen('SubtareaUpdate', (data) => {
+                    if(self.id == data.subtarea.subtarea_id)
+                    {
+                        self.images.push(data.subtarea);
+                    }
+                }); 
+             Echo.channel('maniobra-channel')
+                .listen('ManiobraRemovePhoto', (data) => {
+                    if(self.id == data.photo.subtarea_id)
+                    {
+                        axios.get('/maniobra/subtarea/photos/'+self.id)
+                            .then(function (response) {
+                                    self.images = response.data;
+                        });
+                    }
+                }); 
+        }
     }
 }
 </script>

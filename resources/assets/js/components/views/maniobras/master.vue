@@ -1,28 +1,28 @@
 <template>
     <div>
-        <card :class="datos.servicio.tipo" style="padding-bottom:0;">
+        <card :class="datosM.servicio.tipo" style="padding-bottom:0;">
             <template>
                 <div class="row">
                     <div class="col-md-8">
-                            <h6>Numero de servicio <span v-text="datos.servicio.numero_servicio"></span></h6>
-                            <h1 class="title white-text" v-text="datos.servicio.tipo"></h1>
+                        <h6>Numero de servicio <span v-text="datos.servicio.numero_servicio"></span></h6>
+                        <h1 class="title white-text" v-text="datos.servicio.tipo"></h1>
                     </div>
                     <div class="col-md-4">
-                        <div class="row" v-if="datos.inicio_maniobra">
+                        <div class="row" v-if="datosM.inicio_maniobra">
                             <div class="col-xs-12">
                                 <h6 style="margin:0;">
                                     <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-                                    <span v-text="datos.inicio_maniobra"></span> 
+                                    <span v-text="datosM.inicio_maniobra"></span> 
                                 </h6>
                             </div>
-                            <div class="col-xs-12 text-center" v-if="!datos.termino_maniobra">
+                            <div class="col-xs-12 text-center" v-if="!datosM.termino_maniobra">
                                 <h1 style="margin:0;" v-text="generalTimer"></h1>
                                 <small class="">Tiempo transcurrido</small>
                             </div>
                             <div class="col-xs-12" v-else>
                                 <h6 style="margin:0;">
                                     <i class="fa fa-hourglass-end" aria-hidden="true"></i>
-                                    <span v-text="datos.termino_maniobra"></span> 
+                                    <span v-text="datosM.termino_maniobra"></span> 
                                 </h6>
                                 <div class="text-center">
                                     <h1 style="margin:0;" v-text="generalTimer"></h1>
@@ -43,7 +43,7 @@
 
         <tabs >
              <tab name="Supervisión" >
-                <proceso-supervision :maniobra-id="datos.servicio_id" :active-index="datos.indice_activo" :avance-total="datos.avance_total" :maniobra-tipo = "datos.servicio.tipo"></proceso-supervision>
+                <proceso-supervision :maniobra-id="datos.servicio_id" :active-index="datos.indice_activo" :avance-total="avanceTotal" :maniobra-tipo = "datos.servicio.tipo"></proceso-supervision>
             </tab>
             <tab name="Datos generales">
                 <coordinacion-datosgenerales :datosGenerales="datosGenerales()"></coordinacion-datosgenerales>
@@ -73,7 +73,6 @@ import coordinacionDocumentos from './../servicios/show-documentos.vue';
 import coordinacionArchivos from './../servicios/show-archivos.vue';
 
 var moment = require('moment');
-//import moment from'vue-momnt';
 
 export default {
     components: {
@@ -97,41 +96,44 @@ export default {
         return {
             generalTimer:'',
             token:'',
-            avanceTotal:0,
             intervalTimer:'',
+            datosM:{},
+            avanceTotal:0,
         }
     },
     created(){
-        let self = this;
-        EventBus.$on('avaceTotalManiobra', (avance)=>{
-            this.$set(this.datos, 'avance_total', parseInt(avance));
-            this.avanceTotal = parseInt(avance);
-        });
-        EventBus.$on('termino-maniobra', (data) => {
-            this.$set(this.datos, 'termino_maniobra', moment(data.termino_maniobra).format('D/MM/YY, HH:mm:ss'));
-            this.$set(this.datos, 'inicio_maniobra', moment(data.inicio_maniobra).format('D/MM/YY, HH:mm:ss'));
-            let hora_inicio = moment(data.inicio_maniobra);
-            let hora_termino = moment(data.termino_maniobra);
-            let diff = hora_termino.diff(hora_inicio); 
-            let duration = moment.duration(diff, 'milliseconds');
-            if(duration.days()){
-                this.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-            }else{
-                this.generalTimer = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-            }
-            clearInterval(this.intervalTimer);
-        });
-
+        this.datosM = this.datos;
+        this.EventBus();
     },
     mounted(){
-        let self = this;
-        let token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        axios.post('/coordinacion/maniobra/inicio/'+this.datos.servicio_id,{
-            _token: token 
-        }).then(function (response) {
+        this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        this.avanceTotal = this.datos.avance_total;
+        this.inicioManiobra();
+        
+    },
+    methods:{
+        datosGenerales(){
+            return {
+               datos : {
+                    fecha : moment(this.datos.servicio.fecha_recepcion).format('DD/MM/YYYY') + ' - ' + this.datos.servicio.hora_recepcion,
+                    cliente: this.datos.servicio.cliente.nombre_corto + ' - ' + this.datos.servicio.cliente.nombre,
+                    agente: this.datos.servicio.agente.nombre_corto + ' - ' + this.datos.servicio.agente.nombre,
+                    destino: this.datos.servicio.destino,
+                    observaciones: this.datos.servicio.observaciones
+               } 
+            }
+        },
+        inicioManiobra(){
+            let self = this;
+            axios.post('/coordinacion/maniobra/inicio/'+this.datos.servicio_id,{
+                _token: self.token 
+            }).then(function (response) {
                 let inicio_maniobra = response.data.inicio_maniobra;
-                self.datos.inicio_maniobra = moment(self.datos.inicio_maniobra).format('D/MM/YY, HH:mm:ss');
-                if(!self.datos.termino_maniobra){
+                if(typeof response.data.inicio_maniobra == 'object' ){
+                    inicio_maniobra = response.data.inicio_maniobra.date;
+                }
+                self.datosM.inicio_maniobra = moment(inicio_maniobra).format('D/MM/YY, HH:mm:ss');
+                if(!self.datosM.termino_maniobra){
                     let eventTime = moment(inicio_maniobra);
                     let currentTime = moment();
                     let diffTime = currentTime.diff(eventTime);
@@ -147,31 +149,36 @@ export default {
                     }, interval);
                 }else{
                     let hora_inicio = moment(inicio_maniobra);
-                    let hora_termino = moment(self.datos.termino_maniobra);
-                    let diff = hora_termino.diff(hora_inicio); 
+                    let hora_termino = moment(self.datosM.termino_maniobra);
+                    let diff = hora_termino.diff(inicio_maniobra); 
                     let duration = moment.duration(diff, 'milliseconds');
                     if(duration.days()){
                         self.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
                     }else{
                         self.generalTimer = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
                     }
-                    self.datos.termino_maniobra = moment(self.datos.termino_maniobra).format('D/MM/YY, HH:mm:ss');
+                    self.datosM.termino_maniobra = moment(self.datosM.termino_maniobra).format('D/MM/YY, HH:mm:ss');
                 }
-        });
-        this.avanceTotal = this.datos.avance_total;
-    },
-    methods:{
-        datosGenerales(){
-            return {
-               datos : {
-                    fecha : moment(this.datos.servicio.fecha_recepcion).format('DD/MM/YYYY') + ' - ' + this.datos.servicio.hora_recepcion,
-                    cliente: this.datos.servicio.cliente.nombre_corto + ' - ' + this.datos.servicio.cliente.nombre,
-                    agente: this.datos.servicio.agente.nombre_corto + ' - ' + this.datos.servicio.agente.nombre,
-                    destino: this.datos.servicio.destino,
-                    observaciones: this.datos.servicio.observaciones
-               } 
-            }
+            });
         },
+        EventBus(){
+            let self = this;
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraUpdate', (data) => {
+                    if(self.datos.id == data.maniobra.id)
+                    {
+                        self.avanceTotal = parseInt(data.maniobra.avance_total);
+                    }
+                });   
+            EventBus.$on('termino-maniobra', (data) => {
+                    if(self.datos.id == data.maniobra.id)
+                    {
+                        self.$set(self.datosM, 'termino_maniobra', moment(data.termino_maniobra.date).format('D/MM/YY, HH:mm:ss'));
+                        clearInterval(self.intervalTimer);
+                    }
+            });
+        },
+        
     }
 }
 </script>

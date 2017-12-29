@@ -85,12 +85,13 @@
     </div> 
 </template>
 <script>
-import Card from './../../../cards/Card.vue';
-import CardTab from './../../../cards/cardsTabs.vue';
+
+import Card from './../../../../cards/Card.vue';
+import CardTab from './../../../../cards/cardsTabs.vue';
 import cardOperario from './card-operario.vue';
 import cardOperarioActivo from './card-operario-activo.vue';
 import operarioActivo from './operarioActivo.vue';
-import EventBus from './../../../event-bus.js';
+import EventBus from './../../../../event-bus';
 export default {
     props:{
         title:{

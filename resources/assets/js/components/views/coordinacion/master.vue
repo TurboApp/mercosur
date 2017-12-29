@@ -10,21 +10,21 @@
                         <h6 v-html="showEstatus()"></h6>
                     </div>
                     <div class="col-md-4">
-                        <div class="row" v-if="datos.inicio_maniobra">
+                        <div class="row" v-if="datosM.inicio_maniobra">
                             <div class="col-xs-12">
                                 <h6 style="margin:0;">
                                     <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-                                    <span v-text="datos.inicio_maniobra"></span> 
+                                    <span v-text="datosM.inicio_maniobra"></span> 
                                 </h6>
                             </div>
-                            <div class="col-xs-12 text-center" v-if="!datos.termino_maniobra">
+                            <div class="col-xs-12 text-center" v-if="!datosM.termino_maniobra">
                                 <h1 style="margin:0;" v-text="generalTimer"></h1>
                                 <small class="">Tiempo transcurrido</small>
                             </div>
                             <div class="col-xs-12" v-else>
                                  <h6 style="margin:0;">
                                     <i class="fa fa-hourglass-end" aria-hidden="true"></i>
-                                    <span v-text="datos.termino_maniobra"></span> 
+                                    <span v-text="datosM.termino_maniobra"></span> 
                                 </h6>
                                 <div class="text-center">
                                     <h1 style="margin:0;" v-text="generalTimer"></h1>
@@ -34,16 +34,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="progress progress-line-success" data-toggle="tooltip" data-placement="top" :title="datos.avance_total+'%'" style="margin-bottom:0;margin-top:15px;">
-                    <div class="progress-bar progress-bar-success" role="progressbar" :aria-valuenow="datos.avance_total" aria-valuemin="0" aria-valuemax="100" :style="'width: '+datos.avance_total+'%;'">
-                        <span class="sr-only" v-text="datos.avance_total+'% Complete'"></span>
+                <div class="progress progress-line-success" data-toggle="tooltip" data-placement="top" :title="datosM.avance_total+'%'" style="margin-bottom:0;margin-top:15px;">
+                    <div class="progress-bar progress-bar-success" role="progressbar" :aria-valuenow="datosM.avance_total" aria-valuemin="0" aria-valuemax="100" :style="'width: '+datosM.avance_total+'%;'">
+                        <span class="sr-only" v-text="datosM.avance_total+'% Complete'"></span>
                     </div>
                 </div>
-                <div v-if="datos.avance_total > 0" class="text-center white-text"><small v-text="datos.avance_total+'%'"></small></div>
+                <div v-if="datosM.avance_total > 0" class="text-center white-text"><small v-text="datosM.avance_total+'%'"></small></div>
         </template>
         </card>
-
-
         <tabs >
             <tab name="Detalles" :active="true">
                 <coordinacion-detalles :datos="datos"></coordinacion-detalles>
@@ -68,7 +66,6 @@
             <span class="sr-only">Loading...</span>
             <div class="text-center">Cargando...</div>
         </p>
-
     </div>
 </div>
 </template>
@@ -107,27 +104,27 @@ export default {
     data(){
         return{
             generalTimer:'',
+            datosM:[],
+            tempo:'',
         }
     },
     mounted(){
-       this.maniobra();
+        this.maniobra();
     },
     created(){
-        EventBus.$on('actialuzarDatos', (data)=>{
-            this.datos.coordinador_id=data.coordinador_id; 
-            this.datos.supervisor_id=data.supervisor_id; 
-            this.datos.status=data.status;
-        });
+        this.datosM = this.datos;
+        this.listenEvent();
+        this.EventBus();
     },
+   
     computed:{
         avancePorcentage(){
-            return this.datos.avanace_total + '%';
+            return this.datosM.avanace_total + '%';
         },
         isLoad(){
             let i=0;
             for(var key in this.datos){
                 i++;
-
             }
             return i;
         }
@@ -135,17 +132,17 @@ export default {
     methods:{
         maniobra(){
             let self = this;
-            if(this.datos.inicio_maniobra){
-            let inicio_maniobra = this.datos.inicio_maniobra;
-            this.datos.inicio_maniobra = moment(this.datos.inicio_maniobra).format('D/MM/YY, HH:mm:ss');
-            if(!this.datos.termino_maniobra)
+            if(this.datosM.inicio_maniobra){
+            let inicio_maniobra = this.datosM.inicio_maniobra;
+            this.datosM.inicio_maniobra = moment(this.datosM.inicio_maniobra).format('D/MM/YY, HH:mm:ss');
+            if(!this.datosM.termino_maniobra)
             {
                 let eventTime = moment(inicio_maniobra);
                 let currentTime = moment();
                 let diffTime = currentTime.diff(eventTime);
                 let duration = moment.duration(diffTime, 'milliseconds');
                 let interval = 1000;
-                setInterval(function(){
+                this.tempo = setInterval(function(){
                     duration = moment.duration(duration + interval, 'milliseconds');
                     if(duration.days()){
                         self.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
@@ -165,10 +162,7 @@ export default {
                 }
                 self.datos.termino_maniobra = moment(self.datos.termino_maniobra).format('D/MM/YY, HH:mm:ss');
             }
-
         }
-            
-
         },
         datosGenerales(){
             return {
@@ -181,10 +175,9 @@ export default {
                } 
             }
         },
-        
         showEstatus(){
-            let estatus=this.datos.status;
-            let clase = this.datos.status.replace(" ", "-").toLowerCase();
+            let estatus = this.datosM.status;
+            let clase = this.datosM.status.replace(" ", "-").toLowerCase();
             switch (estatus) {
                 case "PARA ASIGNAR": case "Para Asignar": case "para asignar":
                     return '<span style="padding:5px;" class=" '+ clase +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+estatus+'</span>'    
@@ -206,6 +199,48 @@ export default {
                     
             }
 
+        },
+        listenEvent(){
+            let self = this;
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraUpdate', (data) => {
+                    if(self.datos.id==data.maniobra.id)
+                    {
+                        self.datosM.avance_total = parseInt(data.maniobra.avance_total);
+                    }
+                });
+                
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraInicio', (data) => {
+                    if(self.datos.id == data.maniobra.id)
+                    {
+                        self.$set(self.datosM, 'status', data.maniobra.status)
+                        self.showEstatus();
+                        
+                        let inicio_maniobra = data.maniobra.inicio_maniobra;
+                        self.datosM.inicio_maniobra = moment(data.maniobra.inicio_maniobra).format('D/MM/YY, HH:mm:ss');
+                        let eventTime = moment(inicio_maniobra);
+                        let currentTime = moment();
+                        let diffTime = currentTime.diff(eventTime);
+                        let duration = moment.duration(diffTime, 'milliseconds');
+                        let interval = 1000;
+                        self.tempo = setInterval(function(){
+                            duration = moment.duration(duration + interval, 'milliseconds');
+                            if(duration.days()){
+                                self.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                            }else{
+                                self.generalTimer = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                            }
+                        }, interval);
+                    }
+                });
+            
+        },
+        EventBus(){
+            let self = this;
+            EventBus.$on('supervisorSeleccionado', (data)=>{
+                this.$set(self.datosM, 'status', data.status);
+            });
         }
     }
 }

@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-import ToggleButton from './components/toogleButton.vue';
+import ToggleButton from './../../../../ui/toogleButton.vue';
 export default {
     components:{
         'toggle-button':ToggleButton,

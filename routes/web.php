@@ -122,8 +122,12 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::get('/API/almacen/item/{servicio}','OrdenServicioController@almacenItem');
   // Route::get('/API/almacen/{date?}','OrdenServicioController@almacen');
 
+  Route::get('/notificaciones/', 'NotificationController@index');
+  
+  
   #API
 
+  Route::get('/API/auth/', 'APIController@auth');
 
   Route::get('/API/agentes/{s?}', 'APIController@agentes');
   Route::get('/API/clientes/{s?}', 'APIController@clientes');

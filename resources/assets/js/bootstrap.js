@@ -51,6 +51,8 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+window.Push = require('push.js');
+
 window.axios  = require('axios');
 
 

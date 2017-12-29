@@ -7,6 +7,9 @@ use App\Coordinacion;
 use App\supervisor_activo;
 use App\LineasTransporte as Transporte;
 
+use App\Events\ManiobraUpdate;
+use App\Events\ManiobraInicio;
+
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use DataTables;
@@ -14,6 +17,10 @@ use DataTables;
 
 class CoordinacionController extends Controller
 {
+    function __construct(){
+        $this->middleware(['auth','perfils:admin,trafico,supervisor,coordinador']);
+    }
+
     public function index()
     {
         $data = Date::instance(Carbon::now());
@@ -54,7 +61,6 @@ class CoordinacionController extends Controller
 
     public function maniobra(Request $request, $servicio)
     {
-        
         $coordinacion = Coordinacion::find($servicio);
         $coordinacion->servicio->cliente;
         $coordinacion->servicio->agente;
@@ -79,8 +85,13 @@ class CoordinacionController extends Controller
         return view('pages.maniobras.index', compact('data'));
     }
 
-    public function maniobraTareas(Coordinacion $coordinacion)
+    public function maniobraTareas(Coordinacion $coordinacion, Request $request)
     {
+        if( auth()->user()->id !== $coordinacion->coordinador_id && auth()->user()->id !== $coordinacion->supervisor_id )
+        {
+            $request->session()->flash('warning', 'Acceso denegado');
+            return redirect('/');
+        }
         $coordinacion->servicio->cliente;
         $coordinacion->servicio->agente;
         $coordinacion->servicio->archivos;
@@ -101,8 +112,8 @@ class CoordinacionController extends Controller
             $maniobra->inicio_maniobra = $now; 
             $maniobra->status='En proceso';
             $maniobra->save();
-        }
-        
+            event(new ManiobraInicio($maniobra));
+        }       
         
         return $maniobra->toJson();
     }
@@ -118,7 +129,9 @@ class CoordinacionController extends Controller
                 ['supervisor_id' , $maniobra->supervisor_id],
                 ['coordinacion_id' , $maniobra->id]
             ])->first();
-            $supervisor->delete();
+            
+            //$supervisor->delete();
+            
         }
         
         return $maniobra->toJson();
@@ -130,6 +143,7 @@ class CoordinacionController extends Controller
         $coordinacion->avance_total =  $request->avance; 
         $coordinacion->indice_activo = $request->activeIndex;
         $coordinacion->save();
+        event(new ManiobraUpdate($coordinacion));
         return $coordinacion->toJson();
     }
     

@@ -34,7 +34,12 @@
             <div class="row">
                 <div v-if="supervisores.length > 0">
                     <transition-group name="fade">
-                        <card-supervisor v-for="(supervisor, index) in supervisores" :key="index" :supervisor="supervisor" :index="index" @select-supervisor="addSupervisor(supervisor)"></card-supervisor>
+                        <card-supervisor 
+                            v-for="(supervisor, index) in supervisores" 
+                            :key="index" 
+                            :supervisor="supervisor" 
+                            :index="index" 
+                            @select-supervisor="addSupervisor(supervisor)"></card-supervisor>
                     </transition-group>
                 </div>
                 <div v-else class="text-center">
@@ -101,9 +106,8 @@ export default {
                 .then(function () {
                    axios.get('/API/coordinacion/servicio/agregar_supervisor/'+ self.id +'/'+ data.id)
                         .then(function (response) {
-                            EventBus.$emit('actialuzarDatos',response.data);
+                            EventBus.$emit('supervisorSeleccionado',response.data);
                     });
-                   
             }).catch(swal.noop);//End swal
    
         }

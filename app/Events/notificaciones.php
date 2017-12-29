@@ -10,19 +10,18 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ManiobraTareaValidacion implements ShouldBroadcast
+class notificaciones implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $validation;
+    public $notify;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($validation)
+    public function __construct($message)
     {
-        $this->validation = $validation;
+        $this->notify = $message;
     }
 
     /**
@@ -32,7 +31,6 @@ class ManiobraTareaValidacion implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('maniobra-channel');
-        // return new PrivateChannel('channel-name');
+        return new Channel('notification-channel');
     }
 }

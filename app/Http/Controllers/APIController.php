@@ -23,6 +23,11 @@ use DataTables;
 
 class APIController extends Controller
 {
+    public function auth()
+    {
+        $usuario =User::find(auth()->user()->id);
+        return $usuario->toJson();
+    }
     public function coordinacion(Request $request)
     {
         $fecha = Carbon::today()->format('Y-m-d');
@@ -146,7 +151,7 @@ class APIController extends Controller
 
     public function almacenItem(Request $request )
     {
-        $servicio=Servicio::find($request->servicio);
+        $servicio = Servicio::find($request->servicio);
         $servicio->cliente;
         $servicio->agente;
         $servicio->documentos;

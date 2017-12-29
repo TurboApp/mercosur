@@ -29,8 +29,8 @@
     </div>
 </template>
 <script>
-import card from "./../../cards/Card.vue";
-import upload from "./components/file-upload.vue";
+import card from "./../../../../cards/Card.vue";
+import upload from "./../../../../ui/file-upload.vue";
 export default {
     components:{
         'card':card,

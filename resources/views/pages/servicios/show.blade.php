@@ -159,5 +159,8 @@
 
 @endsection
 @push('scripts')
+
+    @include('layouts.partials.notify')
+
     @include('layouts.partials.errors')
 @endpush

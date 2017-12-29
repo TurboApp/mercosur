@@ -25,17 +25,6 @@ require('vue2-animate/dist/vue2-animate.min.css');
 
 Vue.component('card', require('./components/cards/Card.vue'));
 
-// Vue.component('card-collapse', require('./components/cards/Collapse.vue'))
-
-// Vue.component('card-tabs', require('./components/cards/cardsTabs.vue'));
-// Vue.component('card-tab', require('./components/cards/cardTab.vue'));
-
-// Vue.component('fg-input', require('./components/form/formGroupInput.vue'));
- //Vue.component('tabs', require('./components/uiComponents/tabs.vue'));
- //Vue.component('tab', require('./components/uiComponents/tab.vue'));
-// Vue.component('input-file', require('./components/uiComponents/inputFile.vue'));
-// Vue.component('todo-list', require('./components/misselanius/todolist.vue'));
-// Vue.component('app-pagination', require('./components/misselanius/pagination.vue'));
 
 //trafico
 // import Trafico from './components/views/trafico/nuevoTrafico.vue';
@@ -72,8 +61,56 @@ Vue.component('maniobra-tareas', require('./components/views/maniobras/master.vu
 
 Vue.prototype.$http = require('axios');
 
+import EventBus from './components/event-bus';
+
 var vm = new Vue({
     el: '#app',
+    data(){
+        return {
+            auth:{}
+        }
+    },
+    created(){
+       this.loadDatos();
+       
+    },
+    mounted(){
+        this.notificaciones();
+        this.eventValidation();
+    },
+    methods:{
+        loadDatos(){
+            let self = this;
+            axios.get('/API/auth').then(function (response) {
+               self.auth = response.data;
+            });
+        },
+        eventValidation(){
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraTareaValidacion', (data) => {
+                    EventBus.$emit('validationEvent', data );
+                });   
+        },
+        notificaciones(){
+            let self = this;
+            Echo.channel('notification-channel')
+                .listen('notificaciones', (data) => {
+                    if(self.auth.id == data.notify.receptor_id){
+                        Push.create(data.notify.titulo, {
+                            body: data.notify.mensaje,
+                            icon: data.notify.url_icon,
+                            link: data.notify.url,
+                            timeout: 8000,
+                            onClick: function () {
+                                window.focus();
+                                this.close();
+                            }
+                        });
+
+                    }
+                });   
+        }
+    }
 });
 
 

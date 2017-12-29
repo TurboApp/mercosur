@@ -29,4 +29,8 @@ class Coordinacion extends Model
         return $this->hasOne('App\supervisor_activo', 'coordinacion_id','id');
     }
 
+    public function tareas(){
+        return $this->belongsTo('App\ManiobraTarea','coordinacion_id','id');
+    }
+
 }

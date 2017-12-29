@@ -93,11 +93,5 @@ export default {
             return this.$parent.$options.propsData.tareaId;
         }
     },
-    methods:{
-       
-                
-    },
-  
-  
 }
 </script>

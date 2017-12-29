@@ -54,7 +54,7 @@ export default {
                 .then(function (response) {
                     self.subTareas = response.data;
             });    
-        }
+        },
     }
 }
 </script>

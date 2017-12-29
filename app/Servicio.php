@@ -224,13 +224,13 @@ class Servicio extends Model
             [
                 "tarea" => [
                     "coordinacion_id" => $coordinacion_id,
-                    "titulo_corto" => "Validación",
+                    "titulo_corto" => "Validación Previa",
                     "titulo_largo" => "Previa validación de la descarga",
                     "avance" => 5,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
-                    ["subtarea" => "Enviar a validación", "texto_ayuda" => "De click al botón para enviarlo a validción",  "inputType" => "button-validation"],
+                    ["subtarea" => "Validar", "texto_ayuda" => "De click al botón para enviarlo a validación",  "inputType" => "button-validation"],
                 ]
             ],
             [

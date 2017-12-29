@@ -16,7 +16,6 @@
                         <button type="button" @click="$emit('select-supervisor')" class="btn btn-primary btn-just-icon btn-round">
                             <i class="material-icons">add</i>
                         </button>
-                        
                     </div>
                 </div>
             </div>

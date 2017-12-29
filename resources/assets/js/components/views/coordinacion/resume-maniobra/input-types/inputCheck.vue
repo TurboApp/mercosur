@@ -4,7 +4,7 @@
             <h4 v-text="title"></h4>    
         </div>
         <div class="col-xs-4 text-right">
-            <div v-if="value == 1">
+            <div v-if="val == 1">
                 <i class="material-icons md-24 text-success">check_circle</i>
             </div>
             <div v-else>
@@ -38,25 +38,28 @@ export default {
         return{
             input:false,
             token:'',
+            val:''
         }
+    },
+    created(){
+        this.val = this.value;
+        this.listenEvent();
     },
     mounted(){
         this.input = Boolean( Number( this.value ) );
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     },
     methods:{
-        isCheck(e){
+        listenEvent()
+        {
             let self = this;
-            axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'check',
-                    value:e.value,
-                    _token: self.token 
-                
-            }).then(function(response){
-               
-            }).catch(function(error){
-               
-            });
+            Echo.channel('maniobra-channel')
+                .listen('SubtareaUpdate', (data) => {
+                    if(self.id == data.subtarea.id)
+                    {
+                        self.val = data.subtarea.value;
+                    }
+                }); 
         }
     }
 }

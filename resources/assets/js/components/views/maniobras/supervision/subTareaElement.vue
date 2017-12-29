@@ -28,14 +28,14 @@
 </template>
 <script>
 
-import inputPhoto from './inputPhoto.vue';
-import inputSignature from './inputSignature.vue';
-import inputCheck from './inputCheck.vue';
-import inputText from './inputText.vue';
-import inputNumber from './inputNumber.vue';
-import inputTextArea from './inputTextarea.vue';
+import inputPhoto from './inputs/inputPhoto.vue';
+import inputSignature from './inputs/inputSignature.vue';
+import inputCheck from './inputs/inputCheck.vue';
+import inputText from './inputs/inputText.vue';
+import inputNumber from './inputs/inputNumber.vue';
+import inputTextArea from './inputs/inputTextarea.vue';
 import fuerzaTarea from './select-fuerza-tarea/select-operarios.vue';
-import validacion from './validation.vue';
+import validacion from './inputs/validation.vue';
 
 export default {
     components:{

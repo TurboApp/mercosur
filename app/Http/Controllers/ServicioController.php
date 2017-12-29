@@ -94,7 +94,7 @@ class ServicioController extends Controller
         $servicio->prepararTareas($coordinacion_id);
         
 
-
+        $request->session()->flash('success', 'El servicio se creo satisfactoriamente');
 
         return redirect("/servicios/".$servicio->id); 
     }

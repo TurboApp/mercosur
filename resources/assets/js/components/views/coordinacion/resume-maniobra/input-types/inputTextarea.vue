@@ -5,7 +5,7 @@
         </div>
         <div class="col-xs-12">
             <p>
-                <textarea  class="form-control input-lg" disabled v-text="value"></textarea>
+                <textarea  class="form-control input-lg" disabled v-text="val"></textarea>
             </p>
         </div>
     </div>
@@ -30,14 +30,28 @@ export default {
     },
     data(){
         return{
-            
+            val:''
         }
+    },
+    created(){
+        this.val = this.value;
+        this.listenEvent();
     },
     mounted(){
         
     },
     methods:{
-        
+        listenEvent()
+        {
+            let self = this;
+            Echo.channel('maniobra-channel')
+                .listen('SubtareaUpdate', (data) => {
+                    if(self.id == data.subtarea.id)
+                    {
+                        self.val = data.subtarea.value;
+                    }
+                }); 
+        }
     }
 }
 </script>
