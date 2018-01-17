@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=7.0.10",
+        "barryvdh/laravel-dompdf": "^0.8.1",
+        "codedge/laravel-fpdf": "^1.2",
         "fzaninotto/faker": "^1.7",
         "jenssegers/date": "^3.2",
         "laravel/framework": "5.4.*",
@@ -13,6 +15,7 @@
         "laravelcollective/html": "^5.4.0",
         "nicolaslopezj/searchable": "1.*",
         "predis/predis": "^1.1",
+        "spipu/html2pdf": "^5.0",
         "yajra/laravel-datatables-oracle": "^8.0"
     },
     "require-dev": {

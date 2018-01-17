@@ -163,7 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        
+
         /*
          * Package Service Providers...
          */
@@ -192,6 +192,10 @@ return [
 
         //Data tables
         Yajra\DataTables\DataTablesServiceProvider::class,
+
+        //PDF
+        // Codedge\Fpdf\FpdfServiceProvider::class,
+        // Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -242,7 +246,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        
+
         //sweet Alert 2
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         //fechas español
@@ -253,8 +257,12 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
 
-        'DataTables' => Yajra\DataTables\Facades\DataTables::class,  
-        
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
+        //Creacion de PDF
+        // 'fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
+        // 'PDF' => Barryvdh\DomPDF\Facade::class,
+
     ],
 
 ];
