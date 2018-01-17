@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Hash;
 
 use App\User;
+use App\Equipo;
 use App\Perfil;
 use App\Puesto;
 use App\Login;
@@ -23,12 +24,14 @@ class UserController extends Controller
     }
 
     public function create(){
-       $perfiles=Perfil::all();
-       $puestos=Puesto::all();
-       return view('pages.usuarios.create',compact('puestos','perfiles'));
+        $perfiles=Perfil::all();
+        $puestos=Puesto::all();
+        $equipos=Equipo::all();
+      return view('pages.usuarios.create',compact('puestos', 'perfiles', 'equipos'));
     }
 
     public function store(Request $request){
+     //dd($request->all());
       $this->validate($request,[
           'nombre' => 'required',
           'apellido' => 'required',
@@ -36,6 +39,7 @@ class UserController extends Controller
           'celular' => 'required',
           'id_puesto' => 'required',
           'perfil_id' => 'required',
+          'equipo_id' => 'required',
           'user' => 'required|unique:users,user',
           'password' =>'required|min:6',
           'email' => 'nullable|email|unique:users,email',
@@ -78,14 +82,19 @@ class UserController extends Controller
         return redirect('/usuarios/');
       } else {
         $puesto=$usuario->puestos;
+        $puestos=Puesto::pluck('puesto','id');
+        $puestos=$puestos->all();
+
         $perfil=$usuario->perfil;
         $perfiles=Perfil::pluck('descripcion','id');
         $perfiles=$perfiles->all();
-        $puestos=Puesto::pluck('puesto','id');
-        $puestos=$puestos->all();
+
+        $equipo=$usuario->equipo;
+        $equipos=Equipo::pluck('nombre','id');
+        $equipos=$equipos->all();
         // $puestos=$puestos->toArray();
         // dd($puestos);
-        return view('pages.usuarios.edit',array("id"=>$usuario->id,"usuario"=>$usuario,"perfiles"=>$perfiles,"puestos"=>$puestos));
+        return view('pages.usuarios.edit',array("id"=>$usuario->id,"usuario"=>$usuario,"perfiles"=>$perfiles,"puestos"=>$puestos,"equipos"=>$equipos));
       }
 
     }
@@ -98,19 +107,28 @@ class UserController extends Controller
           'celular' => 'required',
           'id_puesto' => 'required',
           'id_perfil' => 'required',
+          'equipo_id' => 'required',
           'user' => ['required',Rule::unique('users')->ignore($usuario->id)],
           'email' => ['nullable','email',Rule::unique('users')->ignore($usuario->id)],
           'url_avatar' => 'image',
+          'password' => 'nullable|min:6' 
       ]);
 
-        $usuario=User::findOrFail($usuario->id);
-        if($request->hasFile('url_avatar')){
-          $usuario->url_avatar=$request->file('url_avatar')->store('public');
-        }
-        $usuario->update($request->only('nombre','apellido','email','direccion','telefono','celular','user','id_perfil'));
-        $usuario->puestos()->sync($request->id_puesto);
-        $request->session()->flash('success', 'El usuario '.$usuario->nombre.' se ha actualizado satisfactoriamente');
-        return redirect('/usuarios/'.$usuario->id);
+      $usuario=User::findOrFail($usuario->id);
+      if($request->hasFile('url_avatar')){
+        $usuario->url_avatar=$request->file('url_avatar')->store('public');
+      }
+
+      $usuario->update($request->only('nombre','apellido','email','direccion','telefono','celular','user','id_perfil','equipo_id'));
+      
+      if( $request->password ){
+          $usuario->password = Hash::make($request->password) ;
+          $usuario->save();
+      }
+
+      $usuario->puestos()->sync($request->id_puesto);
+      $request->session()->flash('success', 'El usuario '.$usuario->nombre.' se ha actualizado satisfactoriamente');
+      return redirect('/usuarios/'.$usuario->id);
     }
 
     public function destroy(Request $request, User $usuario){

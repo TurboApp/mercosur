@@ -87,7 +87,8 @@ class CoordinacionController extends Controller
 
     public function maniobraTareas(Coordinacion $coordinacion, Request $request)
     {
-        if( auth()->user()->id !== $coordinacion->coordinador_id && auth()->user()->id !== $coordinacion->supervisor_id )
+        //if( auth()->user()->id !== $coordinacion->coordinador_id && auth()->user()->id !== $coordinacion->supervisor_id )
+        if( auth()->user()->id !== $coordinacion->supervisor_id )
         {
             $request->session()->flash('warning', 'Acceso denegado');
             return redirect('/');
@@ -130,7 +131,7 @@ class CoordinacionController extends Controller
                 ['coordinacion_id' , $maniobra->id]
             ])->first();
             
-            //$supervisor->delete();
+            $supervisor->delete();
             
         }
         

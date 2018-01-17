@@ -154,9 +154,9 @@
                                 <label class="col-md-4 label-on-left">Tipo</label>
                                 <div class="col-md-8">
                                     <div class="form-group label-floating is-empty">
-                                        <select class="selectpicker" name="tipo" value="{{ $transporte->tipo }}" data-style="select-with-transition" title="{{ $transporte->tipo }}"  data-size="7" tabindex="-98">
-                                            <option value="Nacional">Nacional</option>
-                                            <option value="Extranjero">Extranjero</option>
+                                        <select class="selectpicker" name="tipo" data-style="select-with-transition"  data-size="7">
+                                            <option value="Nacional" @if( $transporte->tipo == "Nacional" ) selected @endif >Nacional</option>
+                                            <option value="Extranjero" @if( $transporte->tipo == "Extranjero" ) selected @endif >Extranjero</option>
                                         </select>
                                     </div>
                                 </div>

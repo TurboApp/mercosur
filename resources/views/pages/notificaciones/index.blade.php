@@ -15,13 +15,8 @@
 
 <div class="row">
     <div class="col-md-12">
-
-       
-        @foreach($notificaciones as $notificacion)
-            {{ $notificacion }}
-        @endforeach
-
-
+        {{--  {{$notificaciones}}  --}}
+        <notificaciones-app></notificaciones-app>
     </div><!-- ./col-md-12 -->
 
 </div><!-- ./row -->

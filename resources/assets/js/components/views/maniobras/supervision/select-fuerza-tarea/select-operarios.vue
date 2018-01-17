@@ -5,7 +5,6 @@
                 <div class="col-xs-12 text-center">
                     <h3 class="text-uppercase" v-text="title"></h3>
                     <span v-text="text"></span>
-                    
                 </div>
             </div>
             <div class="row">
@@ -15,7 +14,7 @@
                         <i class="material-icons" v-else>remove</i>
                     </button>
                 </div> 
-                <transition name="fade">
+                <!-- <transition name="fade"> -->
                     <div :class="hideCol">
                         <card style="height:835px;" >
                             <template slot="title">Inactivos </template>
@@ -32,20 +31,20 @@
                                                 <i class="fa fa-circle-o-notch fa-spin fa-lg fa-fw"></i>
                                             </span>
                                         </label>
-                                        <input class="search-sup-input" v-model="operario" @keyup="searchOperario" type="text" placeholder="Operario...">   
+                                        <input class="search-sup-input" v-model="operario" @keyup="searchOperario" type="text" placeholder="Operario..." autofocus>   
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row" style="position:relative;">
                                 <div v-if="operarios.length > 0"  style="height:670px; overflow-y:scroll; ">
-                                    <transition-group name="fade">
+                                    <!-- <transition-group name="fade"> -->
                                         <card-operario v-for="(operario, index) in operarios" :key="index" 
                                             :operario="operario" :index="index" 
                                             @select-operario="addOperario"
                                             @remove-select-operario="rmselectOperario">
                                         </card-operario>
-                                    </transition-group>
+                                    <!-- </transition-group> -->
                                 </div>
                                 <div v-else class="text-center">
                                     <h3>No hay datos que mostrar</h3>
@@ -54,8 +53,8 @@
 
                         </card>
                     </div>
-                </transition>
-                <transition  name="fade">
+                <!-- </transition> -->
+                <!-- <transition  name="fade"> -->
                     <div :class="resizeCol">
                         <card style="height:835px;">
                             <template slot="title">Activos</template>
@@ -78,7 +77,7 @@
                         
                         </card>
                     </div>
-                </transition>
+                <!-- </transition> -->
             </div>
         </template>       
         
@@ -185,6 +184,7 @@ export default {
         addOperario(operario){
             let self= this;
             //Cambia el status a la fuerza de tarea
+            self.operarios.splice(operario, 1);
             axios.patch('/maniobras/fuerza-tarea/status/'+operario.id+'/'+this.maniobraId,{
                     status: "1",
                     _token:this.token
@@ -222,7 +222,6 @@ export default {
             });
         },
        
-        
         showActivos(){
             this.showList=!this.showList;
             if(this.showList){

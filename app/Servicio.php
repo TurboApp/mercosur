@@ -112,8 +112,6 @@ class Servicio extends Model
             'fecha_servicio'    => $date
         ]);
         
-        
-
         return $coordinacion->id;
     }
 

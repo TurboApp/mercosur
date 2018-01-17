@@ -5,7 +5,7 @@
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <a href="/agentes" title="Ir a clientes">
+            <a href="/agentes" title="Ir a agentes">
                 <i class="material-icons">arrow_upward</i>
                 <p class="hidden-lg hidden-md">Ir a clientes</p>
             </a>

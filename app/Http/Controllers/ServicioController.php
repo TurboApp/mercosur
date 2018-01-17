@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Servicio;
 use App\Agente;
 use App\Coordinacion;
+use App\User;
+use App\Notification;
 use App\Http\Requests\RequestServicio;
 
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use File;
 use Response;
+
+use App\Events\notificaciones;
+use App\Events\ManiobraInicio;
 
 use Illuminate\Http\Request;
 
@@ -92,9 +97,25 @@ class ServicioController extends Controller
 
         // Tareas de Maniobra
         $servicio->prepararTareas($coordinacion_id);
-        
+
+        $coordinadores = User::where([ ['perfil_id',5],['equipo_id', auth()->user()->equipo_id]])->get();
+        $emisor = auth()->user()->id;
+        foreach($coordinadores as $coordinador)
+        {
+            $notifi = Notification::create([
+                'emisor_id' => $emisor, 
+                'receptor_id' => $coordinador->id,
+                'titulo' => 'Un nuevo servicio se creo recientemente',
+                'mensaje' => 'Servicio '.  $servicio->tipo . '. Num. ' . $servicio->numero_servicio,
+                'url_icon' => '/img/pushIcon/round.png',
+                'url' => '/coordinacion/'
+            ]);
+            event(new notificaciones($notifi));
+            event(new ManiobraInicio($notifi));
+        }
 
         $request->session()->flash('success', 'El servicio se creo satisfactoriamente');
+
 
         return redirect("/servicios/".$servicio->id); 
     }

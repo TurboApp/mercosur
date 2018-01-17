@@ -25,7 +25,8 @@ class UsersTableSeeder extends Seeder
                 'url_avatar' => '',
                 'user' => 'admin'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => 1
+                'perfil_id' => 1,
+                'equipo_id' =>$faker->numberBetween(1, 2)
             ]);
         }    
         
@@ -41,7 +42,8 @@ class UsersTableSeeder extends Seeder
                 'url_avatar' => '',
                 'user' => 'directivo'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => 2
+                'perfil_id' => 2,
+                'equipo_id' =>$faker->numberBetween(1, 2)
             ]);
             
         }
@@ -58,7 +60,8 @@ class UsersTableSeeder extends Seeder
                 'url_avatar' => '',
                 'user' => 'gerente'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => 3
+                'perfil_id' => 3,
+                'equipo_id' =>$faker->numberBetween(1, 2)
             ]);
         }
 
@@ -74,7 +77,8 @@ class UsersTableSeeder extends Seeder
                 'url_avatar' => '',
                 'user' => 'trafico'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => 4
+                'perfil_id' => 4,
+                'equipo_id' =>$faker->numberBetween(1, 2)
             ]);
             
         }
@@ -91,7 +95,8 @@ class UsersTableSeeder extends Seeder
                 'url_avatar' => '',
                 'user' => 'coordinador'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => 5
+                'perfil_id' => 5,
+                'equipo_id' =>$faker->numberBetween(1, 2)
             ]);
         }
 
@@ -107,7 +112,8 @@ class UsersTableSeeder extends Seeder
                 'url_avatar' => '',
                 'user' => 'supervisor'.$i,
                 'password' => bcrypt('secret'),
-                'perfil_id' => 6
+                'perfil_id' => 6,
+                'equipo_id' =>$faker->numberBetween(1, 2)
             ]);
             
         }

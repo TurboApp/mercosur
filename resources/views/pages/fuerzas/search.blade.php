@@ -1,15 +1,24 @@
 @extends('layouts.master')
-@section('title','Busqueda de Usuarios')
+@section('title','Fuerza de tarea')
   @section('nav-top')
     @component('components.navbarsearch',[
         'action'    =>  'FuerzaTareaController@search',
         'value'     =>  $request->s
     ])
     @endcomponent()
-  @endsection
-  @section('content')
+@endsection
+@section('breadcrump')
+  @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Fuerza de tarea' => 'fuerza-tarea', 'Resultados de la Busqueda' => '' ],
+    ])
+  @endcomponent()
+@endsection
+
+@section('content')
     <div class="row">
-         <p class="lead text-muted"><i class="fa fa-search" aria-hidden="true"></i> Resultados de la busqueda. ({{$request->s}})</p>
+        <div class="col-md-12">
+          <p class="lead text-muted"><i class="fa fa-search" aria-hidden="true"></i> Resultados de la busqueda. ({{$request->s}})</p>
+        </div>
     </div>
     @if (!count($fuerzas))
       <h2 class="text-center text-muted">No hay datos que mostrar</h2>
@@ -22,7 +31,7 @@
                 <img src="{{asset('img/fuerza-'.str_replace(" ","-",$fuerza->categoria).'.png')}}" alt="..." class="img img-responsive" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
               </div>
               <div class="card-content text-center">
-                <h4 class="card-title text-truncate-ln2">{{$fuerza->nombre}} {{$fuerza->apellido}}</h4>
+                <h4 class="card-title text-truncate">{{$fuerza->nombre}} </h4>
                 <h6 class="category text-muted">{{$fuerza->categoria}}</h6>
                 <div class="footer">
                   <a href="/fuerzas/{{$fuerza->id}}"><button type="button" class="btn btn-primary btn-simple btn-just-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>

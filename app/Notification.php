@@ -8,11 +8,11 @@ class Notification extends Model
 {
     public function receptor()
     {
-        return $this->hasOne('App\User','id','user_id');
+        return $this->hasOne('App\User','id','receptor_id');
     }
 
     public function emisor()
     {
-        return $this->hasOne('App\User','id','user_id');
+        return $this->hasOne('App\User','id','emisor_id');
     }
 }

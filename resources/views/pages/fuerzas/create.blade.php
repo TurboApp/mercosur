@@ -1,10 +1,26 @@
 @extends('layouts.master')
-@section('title','')
+
+@section('title','Agregar operario')
+
 @section('nav-top')
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="/fuerzas" title="Ir a operarios">
+            <i class="material-icons">arrow_upward</i>
+            <p class="hidden-lg hidden-md">Ir a clientes</p>
+        </a>
+    </li>
+  </ul>
   @component('components.navbarsearch',[
       'action'    =>  'FuerzaTareaController@search',
   ])
   @endcomponent()
+@endsection
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Fuerza de tarea' => 'fuerza-tarea', 'Agregar operarario' => '' ],
+    ])
+    @endcomponent()
 @endsection
 @section('content')
   <form id="createOperario" class="" action="/fuerzas" method="POST" autocomplete="off">
@@ -12,62 +28,35 @@
     <div class="row">
     <div class="col-md-10 col-sm-12  col-md-offset-1">
       <div class="card">
-        <div class="card-header card-header-icon" data-background-color="">
-          <i class="fa fa-users fa-lg" aria-hidden="true"></i>
-        </div>
         <div class="card-content">
-          <h4 class="card-title">Nuevo</h4>
+          <h4 class="card-title">Ingrese los datos</h4>
           <div class="form-horizontal">
-            <div class="row">
-              <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Nombre</label>
+            <div class="form-group">
+              <label class="col-md-2 control-label"><span class="text-danger">*</span> Nombre</label>
               <div class="col-md-10">
-                <div class="form-group label-floating is-empty">
-                  <input type="text" name="nombre" value="{{old('nombre')}}" class="form-control" required>
-                </div>
+                <input type="text" name="nombre" value="{{old('nombre')}}" class="form-control" required>
               </div>
             </div>
-            <div class="row">
-              <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Apellido</label>
+            <div class="form-group">
+              <label class="col-md-2 control-label"> Contacto</label>
               <div class="col-md-10">
-                <div class="form-group label-floating is-empty">
-                  <input type="text" name="apellido" value="{{old('apellido')}}" class="form-control" required>
-                </div>
+                  <input type="text" name="contacto" value="{{old('contacto')}}" class="form-control">
               </div>
             </div>
-            <div class="row">
-              <label class="col-md-2 label-on-left">Dirección</label>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Descripcion</label>
               <div class="col-md-10">
-                <div class="form-group label-floating is-empty">
-                  <input type="text" name="direccion" value="{{old('direccion')}}" class="form-control">
-                </div>
+                <textarea name="descripcion" class="form-control">{{old('descripcion')}}</textarea>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label class="col-md-4 label-on-left">Telefono</label>
-                <div class="col-md-8">
-                  <div class="form-group label-floating is-empty">
-                    <input type="text" name="telefono" value="{{old('telefono')}}" class="form-control" maxlength="20">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label class="col-md-2 label-on-left">Celular</label>
-                <div class="col-md-10">
-                  <div class="form-group label-floating is-empty">
-                    <input type="text" name="celular" value="{{old('celular')}}" class="form-control" maxlength="20">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Categoria</label>
+            <div class="form-group">
+              <label class="col-md-2 control-label"><span class="text-danger">*</span> Categoria</label>
               <div class="col-md-10">
                 <div class="btn-group bootstrap-select show-tick">
-                  <select class="selectpicker" name="categoria"  data-style="select-with-transition" title="Selecione el Categoria" required>
-                    <option value="Montacarguista">Montacarguista</option>
-                    <option value="Montacarga">Montacarga</option>
-                    <option value="Auxiliar Patio">Auxililar de Patio</option>
+                  <select class="selectpicker" name="categoria"  data-style="select-with-transition" title="Selecione una opcion" required>
+                    <option value="Montacarguista" @if(old('categoria') == "Montacarguista") select  @endif>Montacarguista</option>
+                    <option value="Montacarga" @if(old('categoria') == "Montacarga") select  @endif>Montacarga</option>
+                    <option value="Auxiliar de patio" @if(old('categoria') == "Auxiliar de patio") select  @endif>Auxililar de Patio</option>
                   </select>
                 </div>
               </div>

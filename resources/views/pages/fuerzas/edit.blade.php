@@ -1,21 +1,29 @@
 @extends('layouts.master')
-@section('title','Editar Operario')
+
+@section('title','Edición operario: '.$fuerza->nombre)
   @section('nav-top')
     @component('components.navbarsearch',[
         'action'    =>  'FuerzaTareaController@search',
     ])
     @endcomponent()
-  @endsection
-  @section('content')
+@endsection
+
+@section('breadcrump')
+  @component('components.breadcrump',[
+       'navigation'    =>  [ 'Inicio' => 'inicio', 'Fuerza de tarea' => 'fuerza-tarea', 'Edicion operario: '.$fuerza->nombre => '' ],
+   ])
+   @endcomponent()
+@endsection
+
+@section('content')
     <form id="editOperario" class="form-horizontal" action="/fuerzas/{{$fuerza->id}}" method="post">
       {{ csrf_field() }}
       {{ method_field('PATCH') }}
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <div class="card">
-            <div class="card-header card-header-icon" data-background-color="">
-              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-            </div>
+            
+          
             <div class="card-content">
               <h4 class="card-title">Editar Operario</h4>
               <div class="row">
@@ -24,62 +32,41 @@
                     <div class="card-avatar" style="max-width:170px; max-height:170px;">
                       <img src="{{asset('img/fuerza-'.str_replace(" ","-",$fuerza->categoria).'.png')}}" alt="..." class="img img-responsive" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                     </div>
-                    <div class="row form-horizontal">
-                      <div class="col-md-6 col-md-offset-3">
-                        <div class="btn-group bootstrap-select show-tick">
-                          <select class="selectpicker" name="categoria"  data-style="select-with-transition" title="{{$fuerza->categoria}}" required>
-                            <option value="Montacarguista">Montacarguista</option>
-                            <option value="Montacarga">Montacarga</option>
-                            <option value="Auxiliar Patio">Auxililar de Patio</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <div class="row form-horizontal">
-                    <div class="col-md-6">
-                      <label class="col-md-2 label-on-left">Nombre</label>
+                  <div class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">Nombre</label>
                       <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" name="nombre" value="{{$fuerza->nombre}}" class="form-control" required>
-                        </div>
+                        <input type="text" name="nombre" value="{{$fuerza->nombre}}" class="form-control" required>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                        <label class="col-md-2 label-on-left">Apellido</label>
-                        <div class="col-md-10">
-                          <div class="form-group label-floating is-empty">
-                            <input type="text" name="apellido" value="{{$fuerza->apellido}}" class="form-control" required>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="row form-horizontal">
-                    <div class="col-md-12">
-                      <label class="col-md-1 label-on-left">Dirección</label>
-                      <div class="col-md-11">
-                        <input type="text" name="direccion" value="{{$fuerza->direccion}}" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row form-horizontal">
-                    <div class="col-md-6">
-                      <label class="col-md-2 label-on-left">Telefono</label>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">Categoria</label>
                       <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" name="telefono" value="{{$fuerza->telefono}}" class="form-control" maxlength="20">
-                        </div>
+                        <select class="selectpicker" name="categoria"  data-style="select-with-transition" required>
+                          
+                            <option value="Montacarguista" @if($fuerza->categoria == "Montacarguista")  selected @endif > Montacarguista</option>
+                          
+                            <option value="Montacarga" @if($fuerza->categoria == 'Montacarga') selected @endif >Montacarga</option>
+                          
+                            <option value="Auxiliar de patio" @if($fuerza->categoria == 'Auxiliar de patio') selected @endif >Auxililar de Patio</option>
+                          
+                        </select>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                        <label class="col-md-2 label-on-left">Celular</label>
-                        <div class="col-md-10">
-                          <div class="form-group label-floating is-empty">
-                            <input type="text" name="celular" value="{{$fuerza->celular}}" class="form-control" maxlength="20">
-                          </div>
-                        </div>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">Contacto</label>
+                      <div class="col-md-10">
+                        <input type="text" name="direccion" value="{{$fuerza->contacto}}" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">Descripcion</label>
+                      <div class="col-md-10">
+                        <textarea name="descripcion" class="form-control">{{$fuerza->descripcion}}</textarea>
+                      </div>
                     </div>
                   </div>
                 </div>

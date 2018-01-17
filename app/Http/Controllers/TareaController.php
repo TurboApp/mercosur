@@ -260,7 +260,6 @@ class TareaController extends Controller
             $subtarea->value = $request->value; 
             $subtarea->save();
             $coordinacion = $subtarea->tarea->coordinacion;
-            
             if($coordinacion->coordinador_id == auth()->user()->id ){
                 $receptor = $coordinacion->supervisor_id;
                 $emisor = auth()->user()->id;
@@ -272,16 +271,22 @@ class TareaController extends Controller
                 case 'onValidation':
                         $titulo = 'Necesita Validar una maniobra';
                         $mensaje = 'Usted debe de validar una maniobra para proceder con la supervisión';
-                    break;
-                    
-                case 'okValidation':
+                        $tipoAlert='warning';
+                        $url = '/coordinacion/servicio/'.$coordinacion->servicio_id;
+                        break;
+                        
+                        case 'okValidation':
                         $titulo = 'La validación se realizo exitosamente';
-                        $mensaje = 'Usted puede proeguir con la supervisión de la maniobra';
-                    break;
-                    
-                case 'errorValidation': 
+                        $mensaje = 'Usted puede proseguir con la supervisión de la maniobra';
+                        $tipoAlert='success';
+                        $url = '/maniobras/'.$coordinacion->servicio_id;
+                        break;
+                        
+                        case 'errorValidation': 
                         $titulo = 'Upss Necesita revisar una maniobra';
                         $mensaje = 'La validación no se realizo, la maniobra requiere de su atención';
+                        $tipoAlert='danger';
+                        $url = '/maniobras/'.$coordinacion->servicio_id;
                     break;
             }
 
@@ -290,8 +295,9 @@ class TareaController extends Controller
                 'receptor_id' => $receptor,
                 'titulo' => $titulo,
                 'mensaje' => $mensaje,
+                'type'  =>  $tipoAlert,
                 'url_icon' => '/img/pushIcon/round.png',
-                'url' => '/maniobras/'.$coordinacion->servicio_id
+                'url' => $url
             ]);
 
             event(new ManiobraTareaValidacion($subtarea));
@@ -350,6 +356,32 @@ class TareaController extends Controller
         $operario->save();
         
         return $operario->toJson();
+    }
+
+    public function liberarFuerzaTarea(Request $request)
+    {
+        $horaTermino = date("Y-m-d H:i:s");
+        
+        $produccion = ProduccionOperarios::where([
+            ['coordinacion_id' , $request->coordinacion],
+            ['final', null]
+        ])->get();
+        
+        if(!$produccion->isEmpty()) 
+        {  
+            foreach ($produccion as $fuerzatarea) {
+                
+                $operario = FuerzaTarea::find($fuerzatarea->fuerza_tarea_id);
+                $operario->status = '0';
+                $operario->coordinacion_id = '0';
+                $operario->save();
+                 
+                $fuerzatarea->final = $horaTermino;
+                $fuerzatarea->save();
+            }
+        }
+
+        return $produccion->toJson();
     }
 
     public function tareaTimer(Request $request)

@@ -9,10 +9,18 @@
                             <i class="fa-stack-1x fa-inverse" :class="datos.icono"></i>
                         </span>
                     </div>
-                    <div class="col-xs-10 col-sm-11 ">
+                    <div class="col-xs-6 col-sm-8 ">
                         <h4 v-text="datos.titulo_corto" style="margin:3px 0;"></h4>
                         <h6 v-text="datos.titulo_largo" style="margin:3px 0;"></h6>
                     </div>
+                    <div class="col-xs-4 col-sm-3">
+                        <div class="text-center">
+                            <h4 v-text="tareaDuracion(datos.inicio, datos.final)"></h4>
+                            <small><i class="fa fa-clock-o" aria-hidden="true"></i>
+                            Duración</small>
+                        </div>
+                    </div>
+
                 </div>
                 <transition name="fade">
                     <div class="row" v-if="show" style="padding:15px 20px;">
@@ -27,6 +35,7 @@
     </div>
 </template>
 <script>
+var moment = require('moment');
 import card from './../../../cards/Card.vue';
 import subtareas from './subtarea-maniobra.vue';
 import EventBus from './../../../event-bus.js';
@@ -51,24 +60,7 @@ export default {
             
         }
     },
-    created(){
-        EventBus.$on('onValidation', ()=>{
-                $.notify({
-                    icon: "add_alert",
-                    message: "La maniobra require de su validación"
-                },{
-                    type: 'warning',
-                    timer: 4000,
-                    placement: {
-                        from: 'top',
-                        align: 'right'
-                    }
-                });
-        });
-    },
-    mounted(){
-        //this.maniobraId = this.$parent.$parent.$options.propsData.datos.servicio_id;
-    },
+    
     computed:{
         statusIcon(){
             let estatus ='text-muted';
@@ -86,8 +78,19 @@ export default {
         showInfo(){
            this.show = !this.show;     
         },
-        getSubtareas(){
-            
+        tareaDuracion(inicio, final){
+            if(!inicio || !final){
+                return '...';
+            }    
+            let hora_inicio = moment(inicio);
+            let hora_termino = moment(final);
+            let diff = hora_termino.diff(inicio); 
+            let duration = moment.duration(diff, 'milliseconds');
+            if(duration.days()){
+                return duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds() + ' D.';
+            }else{
+                return duration.hours() + ":" + duration.minutes() + ":" + duration.seconds() + ' Hrs.';
+            }
         }
     }
 }

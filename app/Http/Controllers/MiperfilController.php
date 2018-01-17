@@ -31,8 +31,8 @@ class MiperfilController extends Controller
       ]);
 
       if (!empty($request->password_actual)) {
-        if (Hash::check($request->password_actual, Auth::user()->password)) {
-          $user->password = Hash::make($request->password);
+        if (Hash::check( $request->password_actual, Auth::user()->password )) {
+          $user->password =  
           $user->save();
         }
         else {
@@ -43,6 +43,7 @@ class MiperfilController extends Controller
       if($request->hasFile('url_avatar')){
         $user->url_avatar=$request->file('url_avatar')->store('public');
       }
+
       $user->update($request->only('nombre','apellido','email','direccion','telefono','celular'));
 
       $request->session()->flash('success', 'Su perfil de '.$user->nombre.' se ha actualizado satisfactoriamente');

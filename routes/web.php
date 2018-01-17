@@ -56,7 +56,7 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::delete('/destinos/{destino}/destroy','DestinoController@destroy');
 
   // RUTAS DE FUERZA DE TAREA
-  Route::get('/fuerzas/','FuerzaTareaController@index')->name('');
+  Route::get('/fuerzas/','FuerzaTareaController@index')->name('fuerza-tarea');
   Route::get('/fuerzas/busqueda/', 'FuerzaTareaController@search');
   Route::get('/fuerzas/nuevo','FuerzaTareaController@create');
   Route::get('/fuerzas/{fuerza}/editar','FuerzaTareaController@edit');
@@ -100,6 +100,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/maniobras/subtarea/{id}/destroy','TareaController@destroySubtarea');
   Route::patch('/maniobras/fuerza-tarea/status/{id}/{coordinacion}','TareaController@updateFuerzaTarea');
   Route::post('/maniobras/produccion/{coordinacion}/{operario}','TareaController@updateProduccionFuerzaTarea');
+  Route::get('/maniobras/fuerzaTarea/free/{coordinacion}', 'TareaController@liberarFuerzaTarea');
   
   Route::post('/maniobra/avance/update/{maniobra}/{avance}/{activeIndex}', 'CoordinacionController@updateAvanceManiobra');
 
@@ -123,7 +124,10 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::get('/API/almacen/{date?}','OrdenServicioController@almacen');
 
   Route::get('/notificaciones/', 'NotificationController@index');
-  
+  Route::get('/notificaciones/loadMore/','NotificationController@loadMore');
+  Route::get('/notificaciones/readed/','NotificationController@readed');
+  Route::get('/notificaciones/unread/','NotificationController@unread');
+  Route::get('/notificaciones/readedAll/','NotificationController@readedAll');
   
   #API
 
@@ -135,7 +139,8 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::get('/API/servicios/{date?}','APIController@servicios');
   Route::get('/API/coordinacion/{date?}','APIController@coordinacion');
-  
+  //Route::get('/API/coordinacion/')
+
   Route::get('/API/maniobra-supervisor/{date?}','APIController@maniobrasSupervisor');
 
   Route::get('/API/coordinacion/servicio/{id}','APIController@coordinacionServicio');
@@ -156,11 +161,8 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/find/transporte', 'SearchController@transporte');
 
 
-
-
-
   #RUTAS USUARIOS
-  Route::get('/usuarios/','UserController@index');
+  Route::get('/usuarios/','UserController@index')->name('usuarios');
   Route::get('/usuarios/busqueda/', 'UserController@search');
   Route::get('/usuarios/nuevo','UserController@create');
   Route::post('/usuarios','UserController@store');
@@ -170,10 +172,17 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/usuarios/{usuario}/destroy','UserController@destroy');
 
   #RUTAS herramientas
-  Route::get('/herramientas','ToolController@create');
-  Route::post('/herramientas/nuevo','ToolController@store');
-  Route::get('herramientas/puestos','ToolController@get');
+  Route::get('/herramientas/puestos','ToolController@createPuesto');
+  Route::post('/herramientas/puestos/nuevo','ToolController@storePuesto');
+  Route::get('/herramientas/getPuestos','ToolController@get');
   Route::patch('/herramientas/actualizar','ToolController@update');
   Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');
+
+  Route::get('/herramientas/equipos','ToolController@createEquipo')->name('equipos');
+  Route::get('/herramientas/equipos/detalles/{id}','ToolController@showEquipo');
+  Route::post('/herramientas/equipos/nuevo','ToolController@storeEquipo');
+  Route::get('/herramientas/equipos/info/{id}','ToolController@infoEquipo');
+  Route::post('/herramientas/equipos/update', 'ToolController@updateEquipo');
+
 
 });

@@ -102,7 +102,7 @@
                     <div class="wizard-footer grey lighten-4">
                         <div class="pull-right">
                             <button type='button' class='btn btn-next btn-fill btn-primary btn-wd' title="Siguiente" name='next' />Siguiente <i class="material-icons">keyboard_arrow_right</i></button>
-                            <button type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' title="Finalizar" /><i class="material-icons">check</i> Finalizar</button>
+                            <button type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' title="Finalizar" /><i class="material-icons">check</i> Finalizar</button>
                         </div>
                         <div class="pull-left">
                             <button type='button' class='btn btn-previous btn-fill btn-primary btn-wd' title="Anterior" name='previous'/><i class="material-icons">keyboard_arrow_left</i> Anterior</button>
@@ -126,7 +126,15 @@
     
     $(function() {
         
-        
+        $('.btn-finish').on('click',function(){
+            var $valid = $('.wizard-card form').valid();
+            if(!$valid){
+                return false;
+            } else{
+                $(this).html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i> Procesando').prop( "disabled", true );
+                $('#formServicioNuevo').submit();
+            }
+        });
            
         $('.selectpicker').on('change', function () {
             $(this).valid();

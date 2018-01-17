@@ -1,108 +1,94 @@
 @extends('layouts.master')
-@section('title','Agregar Nuevo Usuario')
+@section('title','Agregar usuario')
   @section('nav-top')
     @component('components.navbarsearch',[
         'action'    =>  'UserController@search',
     ])
     @endcomponent()
-  @endsection
-  @section('content')
+@endsection
+
+@section('breadcrump')
+  @component('components.breadcrump',[
+      'navigation'    =>  [ 'Inicio' => 'inicio', 'Usuarios'=>'usuarios' , 'Agregar usuario' => '' ],
+  ])
+  @endcomponent()
+@endsection
+
+@section('content')
     <div class="row">
       <form id="createUsuario" action="/usuarios" method="POST" autocomplete="off" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <div class="col-md-8">
+        <div class="col-md-10 col-sm-12  col-md-offset-1">
           <div class="card">
-            <div class="card-header card-header-icon" data-background-color="blue">
-              <i class="fa fa-address-book-o fa-lg" aria-hidden="true"></i>
-            </div>
             <div class="card-content">
               <h4 class="card-title">Datos Generales</h4>
               <div class="form-horizontal">
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Nombre</label>
-                      <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required>
-                        </div>
-                      </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Nombre</label>
+                  <div class="col-md-10">
+                    <input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Apellido</label>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Apellido</label>
+                  <div class="col-md-10">
+                    <input type="text" class="form-control" name="apellido" value="{{ old('apellido') }}" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Dirección</label>
+                  <div class="col-md-10">
+                    <textarea class="form-control" name="direccion" required>{{ old('direccion') }}</textarea> 
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Email</label>
+                  <div class="col-md-10">
+                      <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Telefono</label>
                     <div class="col-md-10">
-                      <div class="form-group label-floating is-empty">
-                        <input type="text" class="form-control" name="apellido" value="{{ old('apellido') }}" required>
-                      </div>
+                      <input type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" maxlength="10">
                     </div>
-                  </div>
+                  
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Dirección</label>
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><span class="text-danger">*</span> Celular</label>
                     <div class="col-md-10">
-                      <div class="form-group label-floating is-empty">
-                        <input type="text" class="form-control" name="direccion" value="{{ old('direccion') }}" required>
-                      </div>
+                      <input type="text" class="form-control" name="celular" value="{{ old('celular') }}" maxlength="10" required>
                     </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Puesto</label>
+                  <div class="col-md-10">
+                    <select class="selectpicker" name="id_puesto[]" multiple  data-style="select-with-transition" title="Selecione el Puesto"  required>
+                        @foreach ($puestos as $puesto )
+                            <option value="{{$puesto->id}}" >{{$puesto->puesto}}</option>
+                        @endforeach
+                    </select>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Email</label>
-                    <div class="col-md-10">
-                      <div class="form-group label-floating is-empty">
-                        <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-                      </div>
-                    </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Equipo</label>
+                  <div class="col-md-10">
+                    <select class="selectpicker" name="equipo_id" data-style="select-with-transition" title="Seleccione un equipo" required>
+                      @foreach ($equipos as $equipo)
+                        <option value="{{$equipo->id}}" @if($equipo->id == old('equipo_id')) selected  @endif > {{ $equipo->nombre }} </option>
+                      @endforeach
+                    </select>  
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <label class="col-md-4 label-on-left">Telefono</label>
-                      <div class="col-md-8">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" maxlength="10">
-                        </div>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Celular</label>
-                      <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" name="celular" value="{{ old('celular') }}" maxlength="10" required>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left"><span class="text-danger">*</span> Puesto</label>
-                    <div class="col-md-10">
-                      <div class="btn-group bootstrap-select show-tick">
-                        {{-- {{$datos['puestos']}} --}}
-                        <select class="selectpicker" name="id_puesto[]" multiple  data-style="select-with-transition" title="Selecione el Puesto"  required>
-                          @foreach ($puestos as $puesto )
-                              <option value="{{$puesto->id}}">{{$puesto->puesto}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> {{--fin col insertar--}}
-        <div class="col-md-4">
+              </div><!-- ./form-horizontal -->
+            </div><!-- ./card-content -->
+          </div> <!--  ./card  -->
+        </div> {{-- ./col-md --}}
+        <div class="col-md-10 col-sm-12  col-md-offset-1">
           <div class="card">
-            <div class="card-header card-header-icon" data-background-color="blue">
-              <i class="fa fa-key fa-lg" aria-hidden="true"></i>
-            </div>
             <div class="card-content">
               <h4 class="card-title">Datos de la Cuenta</h4>
-              <div class="text-center">
+              {{--  <div class="text-center">
                 <div class="fileinput fileinput-new text-center" data-provides="fileinput">
                   <div class="fileinput-new thumbnail img-circle">
                     <img src="{{asset('img/user-default.jpg')}}" alt="...">
@@ -115,47 +101,43 @@
                         <input type="file" name="url_avatar" accept="image/x-png,image/gif,image/jpeg"/></span>
                     </div>
                   </div>
-                </div>
-                <div class="form-horizontal">
-                  <div class="row">
-                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Perfil de Usuario</label>
-                    <div class="col-md-8">
-                      <div class="btn-group bootstrap-select show-tick">
-                        <select class="selectpicker" name="perfil_id"  data-style="select-with-transition" title="Selecione el Perfil" required>
-                          @foreach ($perfiles as $index => $perfil)
-                            <option value={{$perfil->id}}>{{$perfil->descripcion}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Nombre de Usuario</label>
-                    <div class="col-md-8">
-                      <div class="form-group label-floating is-empty">
-                        <input type="text" class="form-control" name="user" value="{{ old('user') }}" required>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Contraseña</label>
-                    <div class="col-md-8">
-                      <div class="form-group label-floating is-empty">
-                        <input id="pass" type="password" class="form-control" name="password" value="{{ old('password') }}"  required>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label class="col-md-4 label-on-left"><span class="text-danger">*</span> Confirmar Contraseña</label>
-                    <div class="col-md-8">
-                      <input type="password" class="form-control" equalto="#pass" required>
+                </div>  --}}
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Perfil de Usuario</label>
+                  <div class="col-md-10">
+                    <div class="btn-group bootstrap-select show-tick">
+                      <select class="selectpicker" name="perfil_id"  data-style="select-with-transition" title="Selecione el Perfil" required>
+                        @foreach ($perfiles as $index => $perfil)
+                          <option value={{$perfil->id}} @if($perfil->id == old('perfil_id')) selected @endif >{{$perfil->descripcion}}</option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        <div class="text-right">
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Nombre de Usuario</label>
+                  <div class="col-md-10">
+                    <input type="text" class="form-control" name="user" value="{{ old('user') }}" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Contraseña</label>
+                  <div class="col-md-10">
+                    <input id="pass" type="password" class="form-control" name="password"  required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Confirmar Contraseña</label>
+                  <div class="col-md-10">
+                    <input type="password" class="form-control" equalto="#pass" required>
+                  </div>
+                </div>
+              </div><!-- ./form-horizontal -->
+            </div><!-- ./card-content -->
+          </div><!-- ./card -->
+        </div><!-- ./col-md -->
+        <div class="col-md-12 text-right">
             <button type="submit" class="btn btn-primary">
               <i class="material-icons">save</i>
                Guardar

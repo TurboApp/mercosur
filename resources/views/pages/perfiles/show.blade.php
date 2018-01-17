@@ -42,14 +42,6 @@
                   <div class="col-md-12">
                     <label class="col-md-2 label-on-left">Telefono</label>
                     <div class="col-md-10">
-                      <input type="text" class="form-control" value="{{auth()->user()->direccion}}" disabled>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Telefono</label>
-                    <div class="col-md-10">
                       <input type="text" class="form-control" value="{{auth()->user()->telefono}}" disabled>
                     </div>
                   </div>
@@ -70,6 +62,24 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                      <label class="col-md-2 label-on-left">Dirección</label>
+                      <div class="col-md-10">
+                        {{--  <input type="text" class="form-control" value="{{auth()->user()->direccion}}" disabled>  --}}
+                        <textarea class="form-control" disabled>{{ auth()->user()->direccion }}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="col-md-2 label-on-left">Equipo</label>
+                    <div class="col-md-10">
+                      <input type="text" class="form-control" value="{{auth()->user()->equipo->nombre}}" disabled>
+                    </div>
+                  </div>
+                </div>
+                <br>
               </div>
             </div>
             <div class="card-footer text-right">

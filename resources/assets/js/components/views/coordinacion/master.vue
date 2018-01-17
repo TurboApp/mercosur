@@ -13,7 +13,7 @@
                         <div class="row" v-if="datosM.inicio_maniobra">
                             <div class="col-xs-12">
                                 <h6 style="margin:0;">
-                                    <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                                    Inicio.
                                     <span v-text="datosM.inicio_maniobra"></span> 
                                 </h6>
                             </div>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-xs-12" v-else>
                                  <h6 style="margin:0;">
-                                    <i class="fa fa-hourglass-end" aria-hidden="true"></i>
+                                    Fin.
                                     <span v-text="datosM.termino_maniobra"></span> 
                                 </h6>
                                 <div class="text-center">

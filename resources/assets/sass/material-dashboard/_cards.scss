@@ -80,6 +80,65 @@
             margin-bottom: 0;
         }
     }
+    .header-info,
+    .content-info {
+        background: linear-gradient(60deg, #26c6da, #0097a7);
+    }
+    .header-success,
+    .content-success {
+        background: linear-gradient(60deg, #66bb6a, #388e3c);
+    }
+    .header-warning,
+    .content-warning {
+        background: linear-gradient(60deg, #ffa726, #f57c00);
+    }
+    .header-danger,
+    .content-danger {
+        background: linear-gradient(60deg, #ef5350, #d32f2f);
+    }
+    .header-rose,
+    .content-rose {
+        background: linear-gradient(60deg, #ec407a, #c2185b);
+    }
+
+    .header-purple,
+    .content-purple {
+        box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(156, 39, 176, 0.6);
+    }
+    
+    .header-danger {
+        box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(244, 67, 54, 0.6);
+    }
+    
+    .header-rose {
+        box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(233, 30, 99, 0.6);
+    }
+    
+    .header-warning {
+        box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(255, 152, 0, 0.6);
+    }
+    
+    .header-info {
+        box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(0, 188, 212, 0.6);
+    }
+    
+    .header-success {
+        box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2), 0 13px 24px -11px rgba(76, 175, 80, 0.6);
+    }
+
+    [class*="header-"],
+    [class*="content-"] {
+        color: #FFFFFF;
+    }
+
+    [class*="header-"] .card-title a,
+    [class*="header-"] .card-title,
+    [class*="header-"] .icon i,
+    [class*="content-"] .card-title a,
+    [class*="content-"] .card-title,
+    [class*="content-"] .icon i {
+        color: #FFFFFF;
+    }
 
     .card-actions{
         position: absolute;
@@ -406,6 +465,34 @@
         a{
             color: $white-color;
         }
+    }
+
+    .footer{
+        margin-top: 15px;
+        div {
+            display: inline-block;
+        }
+        .author{
+            color: rgba(255,255,255,.6);
+            a{
+                color: rgba(255,255,255,.6);
+                &:hover{
+                    color: rgba(255,255,255,1);
+                }
+            }
+        } 
+        .stats{
+            float: right;
+            line-height: 30px;
+            color: rgba(255,255,255,.6);
+        
+            .material-icons {
+                position: relative;
+                top: 4px;
+                font-size: 18px;
+            }
+        }
+
     }
 }
 

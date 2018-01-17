@@ -1,7 +1,15 @@
 <template>
     <div class="row">
         <div class="col-xs-12" v-if="load">
-            <card >
+            <div v-if="value=='okValidation'">
+                <p class="text-center lead text-muted">
+                    La validación fue realizada satisfactoriamente
+                </p>
+            </div>
+            <card v-else>
+                <p class="text-center lead text-muted">
+                    Revise con atención las actividades anteriores del supervisor
+                </p>
                 <div class="row"> 
                     <div class="col-sm-6 text-center">
                         <button type="button" 
@@ -23,6 +31,7 @@
                     </div>
                 </div>
             </card>
+            
         </div>
         <div v-else>
             <p class="lead text-center text-muted">
@@ -76,6 +85,7 @@ export default {
         let self = this;
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.init();
+        console.log(this.value);
     },
     methods:{
         init()
@@ -129,6 +139,7 @@ export default {
             let self = this;
             EventBus.$on('validationEvent', (data)=>{
                 if(data.validation.id == self.id){
+                    self.value = data.validation.value;
                     switch (data.validation.value) {
                         case 'onValidation':
                                 this.disabled = false;

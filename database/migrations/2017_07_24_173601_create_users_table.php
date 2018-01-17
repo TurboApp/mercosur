@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('user',50)->unique();
             $table->string('password');
             $table->integer('perfil_id');
+            $table->integer('equipo_id');
             $table->rememberToken();
             $table->timestamps();
 

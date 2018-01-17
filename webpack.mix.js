@@ -27,9 +27,10 @@ let mix = require('laravel-mix');
 //   'resources/assets/js/vendor/responsive.bootstrap.min.js',
   
 // 	'resources/assets/js/vendor/lightbox.js',
+// 	'resources/assets/js/vendor/colorpicker.js',
 	
 
-// 	'resources/assets/js/vendor/webcam.js',
+	
 // 	'resources/assets/js/vendor/sweetalert2.js',
 //   'resources/assets/js/vendor/jquery.sweet-modal.min.js',
 // 	'resources/assets/js/vendor/select2.js',

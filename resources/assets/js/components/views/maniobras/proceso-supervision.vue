@@ -66,16 +66,43 @@
                         Anterior
                     </wizard-button>
                 </div>
-                <div class="wizard-footer-right" v-if="btnNext">
-                    <wizard-button v-if="!props.isLastStep" @click.native="props.nextTab()" 
-                    class="wizard-footer-right text-uppercase" 
-                    :style="props.fillButtonStyle">
-                        Siguiente
-                    </wizard-button>
+                <div v-if="btnNext">
 
-                    <wizard-button v-else @click.native="onComplete" class="wizard-footer-right finish-button text-uppercase" :style="props.fillButtonStyle">
-                        {{props.isLastStep ? 'Finalizar' : 'Next'}}
-                    </wizard-button>
+
+                    <div class="wizard-footer-right" v-if="!props.isLastStep">
+                        <wizard-button  @click.native="props.nextTab()" 
+                        class="wizard-footer-right text-uppercase" 
+                        :style="props.fillButtonStyle">
+                            Siguiente
+                        </wizard-button>
+                    </div>
+
+                    <div v-else>
+                        <div v-show="!alertaFinalizar" class="alert alert-warning ">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <i class="material-icons md-medium white-text" >warning</i>
+                                </div>
+                                <div class="col-sm-7">
+                                    <span data-notify="message"> 
+                                        <b class="text-uppercase">Advertencia</b>.<br/>
+                                        Asegurese de guardar las firmas antes de finalizar la maniobra.
+                                    </span>
+                                </div>
+                                <div class="col-sm-4 text-right">
+                                    <button type="button" @click="alertaLeida" class="btn btn-danger btn-round" >
+                                        Entendido
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-show="alertaFinalizar==1" class="wizard-footer-right">
+                            <wizard-button @click.native="onComplete" class="wizard-footer-right finish-button text-uppercase" :style="props.fillButtonStyle">
+                                {{props.isLastStep ? 'Finalizar' : 'Next'}}
+                            </wizard-button>
+                        </div>
+                    </div>
                 </div>
             </template>
         </form-wizard>
@@ -136,53 +163,42 @@ export default {
             avance:0,
             tiempo_maniobra:'',
             inicio_maniobra:'',
+            alertaFinalizar:0,
+            token:'',
         }
     },
     
     mounted(){
         let self = this;
+        this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+        axios.get('/API/coordinacion/servicio/'+this.maniobraId)
+            .then(function(response){
+                self.avance = response.data.avance_total;
+        });
+
         axios.get('/API/supervision/getTareas/'+this.maniobraId)
             .then(function (response) {
                 self.tareas = response.data;
                 self.tareaInicio(self.tareas[0].id);
                 self.indiceActivo(self.activeIndex);
         });
-        this.avance = this.avanceTotal; 
+
     },
     created(){
+        this.avance = this.avanceTotal; 
+
         EventBus.$on('onValidation', ()=>{
             this.btnPrev=false;
         });
         EventBus.$on('okValidation', ()=>{
             this.validation=true;
             this.btnNext=true;
-            $.notify({
-                icon: "add_alert",
-                message: "La maniobra ha sido validada"
-            },{
-                type: 'info',
-                timer: 4000,
-                placement: {
-                    from: 'top',
-                    align: 'right'
-                }
-            });
         });
         EventBus.$on('errorValidation', ()=>{
             this.validation=false;
             this.btnNext=false;
             this.btnPrev=true;
-            $.notify({
-                icon: "add_alert",
-                message: "La maniobra require de su atención"
-            },{
-                type: 'warning',
-                timer: 4000,
-                placement: {
-                    from: 'top',
-                    align: 'right'
-                }
-            });
         });
         $(window).on("load",function() {
             $(".loader").fadeOut("slow");
@@ -194,8 +210,8 @@ export default {
         * Se tieque hacer eventos con EvenBus para actualizar el objeto datos de master.vue para mostrar el avance en tiempo real
         * Se deben actualizar el tiempo de las tareas el inicio y el final (sobretodo la tarea de "proceso de maniobra")
         - Checar cuando se termina la session cuando se hace una peticion desde axios a la base de datos
-        - Checar la fuerza de trabajo (Produccion de operarios)
-        - Se debe mandar a imprimir en PDF Guardar el archivo en los archivos y mandarlo a imprimir
+        * Checar la fuerza de trabajo (Produccion de operarios)
+        * Se debe mandar a imprimir en PDF Guardar el archivo en los archivos y mandarlo a imprimir
         * validate status si esta validando que se desabilite
         *se debe de realizar una funcion que habilite/deshabilite los botones btnNext y bntPrev segun donde se activo el indice
     */
@@ -259,11 +275,12 @@ export default {
                             this.btnNext=false;
                     break;
                 case 6: // Tarea 7: Finalización
-                            if(prevIndex === 5 ){
+                            if( prevIndex === 5 ){
                                 this.avanceUpdate(6,95);
                                 this.tareaFin(this.tareas[4].id);
                                 this.tareaFin(this.tareas[5].id);
                                 this.tareaInicio(this.tareas[6].id);
+                                this.operariosLibres();
                             }
                             this.btnPrev=false;
                     break;
@@ -271,7 +288,9 @@ export default {
         },
         avanceUpdate(index, avance){
             let self = this;
-            axios.post('/maniobra/avance/update/'+this.maniobraId+'/'+avance+'/'+index)
+            axios.post('/maniobra/avance/update/'+this.maniobraId+'/'+avance+'/'+index,{
+                    _token: this.token 
+            })
                 .then(function (response) {
                     self.avance = response.data.avance_total;
             });
@@ -290,6 +309,15 @@ export default {
                     return response.data.final;
             });
         },
+
+        operariosLibres(){
+            let self = this;
+            axios.get('/maniobras/fuerzaTarea/free/'+this.maniobraId)
+                .then(function (response) {
+                    console.log('Se liberaron los ');
+            });
+        },
+        
         indiceActivo(indice){
             switch (indice) {
                 case 0: // Tarea 1: Revision
@@ -322,6 +350,7 @@ export default {
                 case 4: // Tarea 5: Proceso de maniobra
                         this.btnPrev = true; 
                         this.btnNext = true; 
+                        this.tiempoManiobra(this.tareas[4].id);
                     break;
                 case 5: // Tarea 6: Validacion
                         this.btnNext=false;
@@ -344,10 +373,10 @@ export default {
                         duration = moment.duration(duration + interval, 'milliseconds');
                         if(duration.days()){
                             self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                            return self.tiempo_maniobra;
+                            //return self.tiempo_maniobra;
                         }else{
                             self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                            return self.tiempo_maniobra;
+                            //return self.tiempo_maniobra;
                         }
                     }, interval);
             });
@@ -356,8 +385,12 @@ export default {
             //Aqui se cambia elestatus de la maniobra tambien se libera al supervisor
             axios.post('/coordinacion/maniobra/fin/'+this.maniobraId)
             .then(function (response) {
+                console.log(response);
                 EventBus.$emit('termino-maniobra', response.data);
             });
+        },
+        alertaLeida(){
+            this.alertaFinalizar=1;
         }
     }
 }

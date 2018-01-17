@@ -13,7 +13,10 @@ use App\User;
 use App\supervisor_activo;
 use App\ManiobraTarea;
 use App\ManiobraSubtarea;
+use App\Notification;
 
+use App\Events\notificaciones;
+use App\Events\ManiobraInicio;
 
 use DB;
 
@@ -30,6 +33,7 @@ class APIController extends Controller
     }
     public function coordinacion(Request $request)
     {
+        
         $fecha = Carbon::today()->format('Y-m-d');
         $fechas = explode("*",$request->date);
                 
@@ -37,21 +41,31 @@ class APIController extends Controller
         {
             $fechaInicio = date('Y-m-d', strtotime($fechas[0])) ;
             $fechaFinal = date('Y-m-d', strtotime($fechas[1])) ;
-            $data = Coordinacion::whereBetween("fecha_servicio", [$fechaInicio,$fechaFinal])
+            $data = Coordinacion::whereBetween("fecha_servicio", [$fechaInicio, $fechaFinal])
                     ->orderBy('fecha_servicio')
                     ->with(['servicio.cliente','supervisor','coordinador'])
+                    ->whereHas('servicio.autor', function($q){
+                        $q->where('equipo_id', auth()->user()->equipo_id);
+                    })    
                     ->get();
         }
         else if( $request->date )
         {
             $fecha = date('Y-m-d', strtotime( str_replace('/', '-', $request->date ) ) );
-            $data=Coordinacion::whereDate("fecha_servicio", $fecha)->with(['servicio.cliente','supervisor','coordinador'])->get();
+            $data=Coordinacion::whereDate("fecha_servicio", $fecha)->with(['servicio.cliente','supervisor','coordinador'])
+                ->whereHas('servicio.autor', function($q){
+                    $q->where('equipo_id', auth()->user()->equipo_id);
+                })
+                ->get();
         }else{
-            $data=Coordinacion::whereDate("fecha_servicio", $fecha)->with(['servicio.cliente','supervisor','coordinador'])->get();
+            $data=Coordinacion::whereDate("fecha_servicio", $fecha)->with(['servicio.cliente','supervisor','coordinador'])
+                ->whereHas('servicio.autor', function($q){
+                    $q->where('equipo_id', auth()->user()->equipo_id);
+                })
+                ->get();
+
         }
         
-        
-
         foreach($data as $item){
             $date_humans=Date::instance($item->servicio->fecha_recepcion)->format('l j \\d\\e F \\d\\e Y');
             $item->servicio['date_humans'] = $date_humans;
@@ -248,18 +262,21 @@ class APIController extends Controller
         {
             $supervisores = User::where([
                     ['perfil_id', '6'],
+                    ['equipo_id', auth()->user()->equipo_id],
                     ['nombre', 'LIKE','%'.$request->s.'%']
                 ])
                 ->orWhere([
                     ['perfil_id', '6'],
+                    ['equipo_id', auth()->user()->equipo_id],
                     ['apellido', 'LIKE','%'.$request->s.'%']
                 ])->get();
         }
         else 
         {
-            $supervisores = User::whereHas( 'perfil' , function($q) {
-                    $q->where( 'perfil' , 'supervisor' );
-            })->get();
+            $supervisores = User::where([
+                ['perfil_id', '6'],
+                ['equipo_id', auth()->user()->equipo_id]
+            ])->get();
         }
         $activos = supervisor_activo::all();
         $inActivos = collect();
@@ -277,6 +294,7 @@ class APIController extends Controller
 
     public function agregarSupervisor(Request $request, Coordinacion $coordinacion)
     {
+        //return $coordinacion->servicio->cliente->toJson();
         $coordinacion->supervisor_id = $request->supervisor;
         $coordinacion->coordinador_id = auth()->user()->id;
         $coordinacion->status='Asignado';
@@ -287,6 +305,17 @@ class APIController extends Controller
             'is_active'      => '1'
         ]);
         
+        $notifi = Notification::create([
+            'emisor_id' => $coordinacion->coordinador_id, 
+            'receptor_id' => $coordinacion->supervisor_id,
+            'titulo' => 'Se le asigno un nuevo servicio',
+            'mensaje' => 'Servicio '.  $coordinacion->servicio->tipo . '. Num. ' . $coordinacion->servicio->numero_servicio.', cliente ' . $coordinacion->servicio->cliente->nombre,
+            'url_icon' => '/img/pushIcon/settings.png',
+            'url' => '/maniobras'
+        ]);
+        event(new notificaciones($notifi));
+        event(new ManiobraInicio($notifi));
+
         return $coordinacion->toJson();
     }
     

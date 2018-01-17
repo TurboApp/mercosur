@@ -6,10 +6,10 @@
 		<div class="signature-pad--footer">
 			<div class="signature-pad--actions">
 				<div>
-					<button type="button" @click="clear" class="btn btn-warning btn-sm btn-round">Limpiar</button>
+					<button type="button" @click="clear" class="btn btn-warning btn-round">Limpiar</button>
 				</div>
 				<div>
-					<button type="button" @click="save" class="btn btn-success btn-sm btn-round">Guardar</button>
+					<button type="button" @click="save" class="btn btn-success btn-round">Guardar</button>
 				</div>
 			</div>
 		</div>

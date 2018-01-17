@@ -42,6 +42,7 @@
     "sweetalert2": "^6.6.8",
     "uiv": "^0.11.8",
     "vue-animate": "0.0.4",
+    "vue-infinite-loading": "^2.2.3",
     "vue-sweetalert": "^0.1.18",
     "vue-typeahead": "^2.3.2",
     "vue-upload-component": "^2.4.0-beta.11",

@@ -187,11 +187,16 @@
           </a>
           <div class="collapse {{ Request::is('herramientas*')  ? 'in' : ''}}" id="menuHerramientas">
               <ul class="nav">
-                  <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                  </li>
-                  <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                      <a href="/herramientas/">
+                  {{--  <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
+                  </li>  --}}
+                  <li {{ Request::is('herramientas/puestos') ? ' class=active' : ''}}>
+                      <a href="/herramientas/puestos">
                           Puestos
+                      </a>
+                  </li>
+                  <li {{ Request::is('herramientas/equipos') ? ' class=active' : ''}}>
+                      <a href="/herramientas/equipos">
+                          Equipos
                       </a>
                   </li>
               </ul>
@@ -201,8 +206,8 @@
         
 
         {{-- NOTIFICACIONES --}}
-        <li>
-            <a href="../notificaciones.html">
+        <li {{ Request::is('notificaciones*') ? ' class=active' : ''}}>
+            <a href="/notificaciones/">
                 <i class="material-icons">notifications</i>
                 <p>Notificaciones</p>
             </a>

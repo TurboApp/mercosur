@@ -1,26 +1,28 @@
 @extends('layouts.master')
-@section('title','Agregar nuevas herramientas')
-  @section('content')
+@section('title','Puestos')
+@section('breadcrump')
+   @component('components.breadcrump',[
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Herramientas' => 'inicio', 'Puestos' => '' ],
+    ])
+    @endcomponent()
+@endsection
+@section('content')
     <div class="row">
       <div class="col-md-12">
-        <form id="createPuesto" action="/herramientas/nuevo" method="POST" autocomplete="off">
-          {{ csrf_field() }}
-          <card-collapse title="Agregar Puesto">
-            <div class="row form-horizontal">
+        <card>
+          <form id="createPuesto" action="/herramientas/puestos/nuevo" method="POST" autocomplete="off">
+            {{ csrf_field() }}
+            <div class="row">
               <div class="col-md-5">
-                <label class="col-xs-2 label-on-left">Nombre Puesto</label>
-                <div class="col-xs-10">
-                  <div class="form-group label-floating is-empty">
-                    <input type="text" class="form-control" name="puesto" value="{{ old('puesto') }}" required>
-                  </div>
+                <div class="form-group label-floating">
+                  <label class="control-label">Nombre Puesto</label>
+                  <input type="text" class="form-control" name="puesto" value="{{ old('puesto') }}" required>
                 </div>
               </div>
               <div class="col-md-5">
-                <label class="col-xs-2 label-on-left">Descripción</label>
-                <div class="col-xs-10">
-                  <div class="form-group label-floating is-empty">
-                    <input type="text" class="form-control" name="descripcion" value="{{ old('descripcion') }}" required>
-                  </div>
+                <div class="form-group label-floating">
+                  <label class="control-label">Descripción</label>
+                  <input type="text" class="form-control" name="descripcion" value="{{ old('descripcion') }}" required>
                 </div>
               </div>
               <div class="col-md-2 text-right">
@@ -30,18 +32,16 @@
                 </button>
               </div>
             </div>
-          </card-collapse>
-        </form>
+          </form>
+        </card>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <div class="card grey lighten-5">
-          <div class="card-header card-header-icon" data-background-color="">
-            <i class="fa fa-address-card-o fa-lg" aria-hidden="true"></i>
-          </div>
           <div class="card-content">
-            <h4 class="card-title">Puestos</h4>
+            <h3 class="card-title">Lista de Puestos</h3>
+            <hr>
             <div class="row">
               <div class="col-md-12">
                 <div class="table-responsive">
@@ -114,9 +114,30 @@
         responsive: true,
         processing: true,
         serverSide: true,
-        ajax: "/herramientas/puestos",
+        ajax: "/herramientas/getPuestos",
         language: {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+          sProcessing: "Procesando...",
+          sLengthMenu: "Mostrar _MENU_ registros",
+          sZeroRecords: "No se encontraron resultados",
+          sEmptyTable: "Ningún dato disponible en esta tabla",
+          sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+          sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+          sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+          sInfoPostFix: "",
+          sSearch: "Buscar:",
+          sUrl: "",
+          sInfoThousands: ",",
+          sLoadingRecords: "Cargando...",
+          oPaginate: {
+              sFirst: "Primero",
+              sLast: "Último",
+              sNext: "Siguiente",
+              sPrevious: "Anterior"
+          },
+          oAria: {
+              sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+              sSortDescending: ": Activar para ordenar la columna de manera descendente"
+          }
         },
         columns: [
               {
@@ -130,14 +151,14 @@
                 "data": "puesto",
                 "render":function(data, type, row)
                 {
-                  return '<h4 class="category text-primary">'+data+'<h4>'
+                  return '<h4 class="text-primary text-left">'+data+'<h4>'
                 }
               },
               {
                 "data": "descripcion",
                 "render":function(data, type, row)
                 {
-                  return '<h4 class="category">'+data+'<h4>'
+                  return '<h4 class="text-left text-muted">'+data+'<h4>'
                 }
               },
 

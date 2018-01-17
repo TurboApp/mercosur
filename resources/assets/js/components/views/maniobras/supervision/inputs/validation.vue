@@ -1,7 +1,13 @@
 <template>
     <div class="row">
+      
         <div class="col-xs-12" v-if="load">
-            <card class="text-center">
+            <div v-if="value=='okValidation'">
+                <p class="text-center lead text-muted">
+                    La validación fue realizada satisfactoriamente
+                </p>
+            </div>
+            <card v-else class="text-center">
                 <p class="form-group text-muted" v-text="text"></p>
                 <p>
                     <button 
@@ -20,6 +26,7 @@
                 </div>
               
             </card>
+           
         </div>
         <div v-else>
             <p class="lead text-center text-muted">
@@ -107,7 +114,6 @@ export default {
             axios.post('/maniobra/subtarea/'+ this.id,{
                     inputType: 'validation',
                     value:'onValidation',
-                    
                     _token: this.token 
             }).then(function(response){
                 EventBus.$emit('onValidation');
@@ -118,6 +124,7 @@ export default {
             let self = this;
             EventBus.$on('validationEvent', (data)=>{
                 if(data.validation.id == self.id){
+                    self.value = data.validation.value;
                     switch (data.validation.value) {
                         case 'onValidation':
                                 this.disabled = true;

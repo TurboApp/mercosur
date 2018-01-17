@@ -21,8 +21,9 @@ class CreateNotificationsTable extends Migration
             $table->string('titulo')->nullable();
             $table->text('mensaje')->nullable();
             $table->string('status')->default('no-read');
+            $table->string('type')->default('info');
             $table->string('url_icon')->nullable();
-            $table->string('url')->nullable();
+            $table->string('url')->default('#');
             $table->timestamps();
         });
     }

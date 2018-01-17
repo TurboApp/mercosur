@@ -1,6 +1,6 @@
 <template>
         
-    <a href @click.prevent="itemSelected(operarioActivo)">
+    <a href @click.prevent="itemSelected(operarioActivo)" >
         <div class="card  light-green accent-1" style="padding:12px 0; margin:0; margin-bottom:7px;" >
             <div class="col-xs-2 col-sm-3">
                 <div class="">
@@ -23,8 +23,7 @@ export default {
     props:['operarioActivo','index'],
     data(){
         return {
-            
-            
+          
         }
     },
     computed:{

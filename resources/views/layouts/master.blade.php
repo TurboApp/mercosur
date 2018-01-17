@@ -95,7 +95,7 @@
                           <img src="{{asset('img/'.str_replace(" ","-",auth()->user()->perfil->perfil).'.png')}}" alt="..." class="img img-responsive img-circle z-depth-3" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                         @endif
                     </div>
-                    <div class="info">
+                    <div class="info-log">
                         <a data-toggle="collapse" href="#collapseProfile" class="collapsed">
                             <p class="text-uppercase">{{auth()->user()->user}}
                                 <b class="caret"></b>
@@ -162,7 +162,8 @@
                                     <p class="hidden-lg hidden-md">Inicio</p>
                                 </a>
                             </li>
-                            <li class="dropdown">
+                            <dropdown-notification></dropdown-notification>
+                            {{--  <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notificaciones">
                                     <i class="material-icons">notifications</i>
                                     <span class="notification">5</span>
@@ -188,7 +189,7 @@
                                         <a href="#">Another One</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>  --}}
                             <li>
                                 <a href="/perfil/{{auth()->user()->id}}" title="Mi perfil">
                                     <i class="material-icons">person</i>
@@ -220,7 +221,6 @@
             <div class="content" style="padding-top:0;">
                 <div class="container-fluid">
                     
-                    
                     @yield('content')
 
                 </div>
@@ -236,7 +236,7 @@
     
     
     <!-- datepicker en español -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
     @stack('scripts')
     <script >
         $(window).on("load",function() {

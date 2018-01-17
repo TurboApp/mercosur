@@ -26,13 +26,13 @@
                     <img src="{{asset('img/'.str_replace(" ","-",auth()->user()->perfil->perfil).'.png')}}" alt="..." class="img img-responsive img-circle z-depth-3" onerror='this.onerror = null; this.src="/img/user-default.jpg"'>
                   @endif
                 </div>
-                <div class="fileinput-preview fileinput-exists thumbnail img-circle" style="max-width:170px;"></div>
+                {{--  <div class="fileinput-preview fileinput-exists thumbnail img-circle" style="max-width:170px;"></div>
                 <div>
                   <span class="btn btn-simple btn-primary btn-file btn-xs" style="cursor:pointer">
                     <span class="fileinput-new"><i class="fa fa-camera" aria-hidden="true"></i> Agregar Imagen</span>
                     <span class="fileinput-exists"><i class="fa fa-picture-o" aria-hidden="true"></i> Cambiar imagen</span>
                     <input type="file" name="url_avatar" accept="image/x-png,image/gif,image/jpeg"/></span>
-                  </div>
+                </div>  --}}
                 </div><hr class="hr">
                 <div class="row">
                   <span class="label light-blue darken-4"><i class="fa fa-key" aria-hidden="true"></i> {{$user->user}}</span>

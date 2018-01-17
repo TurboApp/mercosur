@@ -1,20 +1,31 @@
 @extends('layouts.master')
-@section('title','Vista de Usuario')
-  @section('nav-top')
+
+@section('title', 'Usuario: '.str_limit($usuario->nombre, 24) )
+
+@section('nav-top')
     @component('components.navbarsearch',[
         'action'    =>  'UserController@search',
     ])
     @endcomponent()
-  @endsection
-  @section('content')
+@endsection
+
+@section('breadcrump')
+  @component('components.breadcrump',[
+      'navigation'    =>  [ 'Inicio' => 'inicio', 'Usuarios'=>'usuarios' , $usuario->nombre  => '' ],
+  ])
+  @endcomponent()
+@endsection
+
+@section('content')
     <div class="row">
       <div class="col-md-10 col-sm-12  col-md-offset-1">
         <div class="card">
-          <div class="card-header card-header-icon" data-background-color="">
-            <i class="fa fa-user fa-lg" aria-hidden="true"></i>
-          </div>
           <div class="card-content">
-            <h4 class="card-title">Datos del Usuario</h4>
+            <div class="col-md-12 visible-sm-* visible-xs-* hidden-md hidden-lg ">
+                <h3 class="card-title" style="margin:0;padding:0;">{{$usuario->nombre}} {{$usuario->apellido}}</h3>
+                <h4 class="category text-gray" style="margin:0;padding:0;">{{$usuario->user}}</h4>
+                <hr style="margin:0;">
+            </div>
             <div class="col-md-4">
               <div class="card-profile text-center" style="margin-top:100px;">
                 <div class="card-avatar"  style="max-width:170px; max-height:170px;">
@@ -36,65 +47,49 @@
                 </h4>
               </div>
             </div>{{--card imagen--}}
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col-md-9">
-                  <h3 class="card-title">{{$usuario->nombre}} {{$usuario->apellido}}</h3>
-                  <h4 class="category text-gray">{{$usuario->direccion}}</h4>
-                </div>
-                <div class="col-md-3 text-right">
-                  <a href="/usuarios/{{$usuario->id}}/editar"><button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon"><i class="fa fa-pencil fa-1x" aria-hidden="true"></i></button></a>
-                  <a href="#" class="delete-usuario">
-                    <button type="button" class="btn btn-danger btn-round btn-just-icon"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button>
-                  </a>
-                </div>
+            <div class="col-md-6">
+              <div class="hidden-sm hidden-xs ">
+                <h3 class="card-title" style="margin:0;padding:0;">{{$usuario->nombre}} {{$usuario->apellido}}</h3>
+                <h4 class="category text-gray" style="margin:0;padding:0;">{{$usuario->user}}</h4>
+                <hr style="margin:0;">
               </div>
-              <hr>
-              <div class="row">
-                <div class="form-horizontal">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label class="col-md-2 label-on-left">Email</label>
-                      <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" value="{{$usuario->email}}" disabled="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label class="col-md-2 label-on-left">Telefono</label>
-                      <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" value="{{$usuario->telefono}}" disabled="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label class="col-md-2 label-on-left">Celular</label>
-                      <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" value="{{$usuario->celular}}" disabled="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label class="col-md-2 label-on-left">Usuario</label>
-                      <div class="col-md-10">
-                        <div class="form-group label-floating is-empty">
-                          <input type="text" class="form-control" value="{{$usuario->user}}" disabled="">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div class="form-group" style="margin:0;">
+                  <label class="control-label">Equipo</label>
+                  <p class="text-muted" style="font-weight:500;">
+                    {{$usuario->equipo->nombre}}
+                  </p>
                 </div>
+              <div class="form-group" style="margin:0;">
+                <label class="control-label">Email</label>
+                <p class="text-muted" style="font-weight:500;">
+                  {{$usuario->email}}
+                </p>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="control-label">Telefono</label>
+                <p class="text-muted" style="font-weight:500;">
+                  {{$usuario->telefono}}
+                </p>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="control-label">Celular</label>
+                  <p class="text-muted" style="font-weight:500;">
+                    {{$usuario->celular}}
+                  </p>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="control-label">Dirección</label>
+                <p class="text-muted" style="font-weight:500;"> 
+                  {{$usuario->direccion}}
+                </p>
               </div>
             </div>{{--datos usuario--}}
+            <div class="col-md-2 text-center">
+                <a href="/usuarios/{{$usuario->id}}/editar"><button type="button" rel="tooltip" class="btn btn-success btn-round btn-just-icon"><i class="fa fa-pencil fa-1x" aria-hidden="true"></i></button></a>
+                <a href="#" class="delete-usuario">
+                  <button type="button" class="btn btn-danger btn-round btn-just-icon"><i class="fa fa-trash-o fa-1x" aria-hidden="true"></i></button>
+                </a>
+              </div>
           </div>
         </div>
       </div>
