@@ -1,5 +1,5 @@
 {{--Verifica si el usuario esta autenticado--}}
-@if( auth()->check() && auth()->user()->perfil->perfil == 'trafico' ) 
+@if( auth()->check() && auth()->user()->perfil->perfil == 'trafico' )
     <ul class="nav">
         {{-- Inicio --}}
         <li {{ Request::is('/') ? ' class=active' : ''}}>
