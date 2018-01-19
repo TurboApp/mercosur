@@ -198,7 +198,7 @@ export default {
                 tipo:"insertar"
             })
             .then(function(response){
-                console.log(response.data);
+                //console.log(response.data);
             });
         },
         rmselectOperario(index){
@@ -218,7 +218,7 @@ export default {
                 tipo:"eliminar"
             })
             .then(function(response){
-                console.log(response.data);
+                //console.log(response.data);
             });
         },
        

@@ -273,21 +273,21 @@ class TareaController extends Controller
                         $mensaje = 'Usted debe de validar una maniobra para proceder con la supervisión';
                         $tipoAlert='warning';
                         $url = '/coordinacion/servicio/'.$coordinacion->servicio_id;
-                        break;
+                break;
                         
-                        case 'okValidation':
+                case 'okValidation':
                         $titulo = 'La validación se realizo exitosamente';
                         $mensaje = 'Usted puede proseguir con la supervisión de la maniobra';
                         $tipoAlert='success';
                         $url = '/maniobras/'.$coordinacion->servicio_id;
-                        break;
+                break;
                         
-                        case 'errorValidation': 
+                case 'errorValidation': 
                         $titulo = 'Upss Necesita revisar una maniobra';
                         $mensaje = 'La validación no se realizo, la maniobra requiere de su atención';
                         $tipoAlert='danger';
                         $url = '/maniobras/'.$coordinacion->servicio_id;
-                    break;
+                break;
             }
 
             $notifi = Notification::create([

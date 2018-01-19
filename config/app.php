@@ -178,8 +178,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //sweetAlert 2
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         //Laravel Captative
         Collective\Html\HtmlServiceProvider::class,
 
@@ -243,8 +241,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         
-        //sweet Alert 2
-        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         //fechas español
         'Date' => Jenssegers\Date\Date::class,
         //Exportar de excel a laravel

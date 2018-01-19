@@ -15,54 +15,60 @@
                 :index="props.index">
                 </wizard-step>
             </template>
-            <!-- <tab-content  v-for="(tarea, index) in tareas" 
-                :title="tarea.titulo_corto" 
-                :icon="tarea.icono"  
-                :key="index" 
-                >
-                <h2 v-text="tarea.titulo_largo" class="text-center text-uppercase"></h2>
-                <hr>
-                <sub-tareas  :tarea-id="tarea.id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
-            </tab-content> -->
+            
             <!-- Tareas -->
-            <tab-content :title="tareas[0].titulo_corto" :icon="tareas[0].icono">
-                <h2 v-text="tareas[0].titulo_largo" class="text-center text-uppercase"></h2><hr>
-                <sub-tareas  :tarea-id="tareas[0].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+            <tab-content v-bind:title="tareaTituloCorto(0)" v-bind:icon="tareaIcono(0)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(0) }}
+                </h2><hr/>
+                <sub-tareas  v-bind:tarea-id="tareaID(0)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
-            <tab-content :title="tareas[1].titulo_corto" :icon="tareas[1].icono">
-                <h2 v-text="tareas[1].titulo_largo" class="text-center text-uppercase"></h2><hr>
-                <sub-tareas  :tarea-id="tareas[1].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+            <tab-content v-bind:title="tareaTituloCorto(1)" v-bind:icon="tareaIcono(1)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(1) }}
+                </h2><hr>
+                <sub-tareas  v-bind:tarea-id="tareaID(1)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
-            <tab-content :title="tareas[2].titulo_corto" :icon="tareas[2].icono">
-                <h2 v-text="tareas[2].titulo_largo" class="text-center text-uppercase"></h2><hr>
-                <sub-tareas  :tarea-id="tareas[2].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+            <tab-content v-bind:title="tareaTituloCorto(2)" v-bind:icon="tareaIcono(2)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(2) }}
+                </h2><hr>
+                <sub-tareas  v-bind:tarea-id="tareaID(2)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
-            <tab-content :title="tareas[3].titulo_corto" :icon="tareas[3].icono">
-                <h2 v-text="tareas[3].titulo_largo" class="text-center text-uppercase"></h2><hr>
-                <sub-tareas  :tarea-id="tareas[3].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+            <tab-content v-bind:title="tareaTituloCorto(3)" v-bind:icon="tareaIcono(3)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(3) }}
+                </h2><hr>
+                <sub-tareas  v-bind:tarea-id="tareaID(3)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
-            <tab-content :title="tareas[4].titulo_corto" :icon="tareas[4].icono">
-                <h2 v-text="tareas[4].titulo_largo" class="text-center text-uppercase"></h2><hr>
+            <tab-content v-bind:title="tareaTituloCorto(4)" v-bind:icon="tareaIcono(4)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(4) }}
+                </h2><hr>
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <h3 v-text="tiempo_maniobra"></h3>
                         <p>Tiempo</p>
                     </div>
                 </div>
-                <sub-tareas  :tarea-id="tareas[4].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(4)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
-            <tab-content :title="tareas[5].titulo_corto" :icon="tareas[5].icono">
-                <h2 v-text="tareas[5].titulo_largo" class="text-center text-uppercase"></h2><hr>
-                <sub-tareas  :tarea-id="tareas[5].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+            <tab-content v-bind:title="tareaTituloCorto(5)" v-bind:icon="tareaIcono(5)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(5) }}
+                </h2><hr>
+                <sub-tareas  v-bind:tarea-id="tareaID(5)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
-            <tab-content :title="tareas[6].titulo_corto" :icon="tareas[6].icono">
-                <h2 v-text="tareas[6].titulo_largo" class="text-center text-uppercase"></h2><hr>
-                <sub-tareas  :tarea-id="tareas[6].id" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+            <tab-content v-bind:title="tareaTituloCorto(6)" v-bind:icon="tareaIcono(6)">
+                <h2 class="text-center text-uppercase">
+                    {{ tareaTituloLargo(6) }}
+                </h2><hr>
+                <sub-tareas  v-bind:tarea-id="tareaID(6)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
             </tab-content>
 
             <template slot="footer" slot-scope="props">
                 <div class="wizard-footer-left" v-if="btnPrev">
-                    <wizard-button class="text-uppercase"  v-if=" props.activeTabIndex > 0 && !props.isLastStep " @click.native="props.prevTab()" :style="props.fillButtonStyle">
+                    <wizard-button class="text-uppercase"  v-if="props.activeTabIndex > 0 && !props.isLastStep " @click.native="props.prevTab()" :style="props.fillButtonStyle">
                         Anterior
                     </wizard-button>
                 </div>
@@ -115,6 +121,7 @@
         </div>    
     </div>
 </template>
+
 <script>
 import FormWizard from './../../ui/FormWizard.vue';
 import WizardButton from './../../ui/WizardButton.vue';
@@ -152,7 +159,8 @@ export default {
         avanceTotal:{
             type:Number,
             required:true
-        }
+        },
+        
     },
     data(){
         return {
@@ -170,6 +178,8 @@ export default {
     
     mounted(){
         let self = this;
+        console.log('Active tab index: '+this.activeTabIndex);
+        alert(this.activeTabIndex);
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         
         axios.get('/API/coordinacion/servicio/'+this.maniobraId)
@@ -182,20 +192,22 @@ export default {
                 self.tareas = response.data;
                 self.tareaInicio(self.tareas[0].id);
                 self.indiceActivo(self.activeIndex);
-        });
+        });  
 
     },
+    
     created(){
         this.avance = this.avanceTotal; 
-
-        EventBus.$on('onValidation', ()=>{
+        //Estos eventos son emitidos desde el componente coordinacion/validation
+        // y supervicion o  maniobra/validation
+        EventBus.$on('onValidation', (data)=>{
             this.btnPrev=false;
         });
-        EventBus.$on('okValidation', ()=>{
+        EventBus.$on('okValidation', (data)=>{
             this.validation=true;
             this.btnNext=true;
         });
-        EventBus.$on('errorValidation', ()=>{
+        EventBus.$on('errorValidation', (data)=>{
             this.validation=false;
             this.btnNext=false;
             this.btnPrev=true;
@@ -217,7 +229,7 @@ export default {
     */
     methods:{
         onComplete(){
-            this.avanceUpdate(0,100);
+            this.avanceUpdate(-1,100);
             this.tareaFin(this.tareas[6].id);
             this.terminoManiobra();
         },
@@ -291,7 +303,7 @@ export default {
             axios.post('/maniobra/avance/update/'+this.maniobraId+'/'+avance+'/'+index,{
                     _token: this.token 
             })
-                .then(function (response) {
+            .then(function (response) {
                     self.avance = response.data.avance_total;
             });
         },
@@ -319,6 +331,7 @@ export default {
         },
         
         indiceActivo(indice){
+           
             switch (indice) {
                 case 0: // Tarea 1: Revision
                         this.btnNext = true;    
@@ -353,7 +366,12 @@ export default {
                         this.tiempoManiobra(this.tareas[4].id);
                     break;
                 case 5: // Tarea 6: Validacion
-                        this.btnNext=false;
+                        this.btnNext = false;
+                        EventBus.$on('okValidation', ()=>{
+                           // this.validation=false;
+                            //this.btnNext=false;
+                        });
+
                     break;
                 case 6: // Tarea 7: Finalización
                         this.btnPrev=false;
@@ -391,9 +409,20 @@ export default {
         },
         alertaLeida(){
             this.alertaFinalizar=1;
+        },
+        //ATRIBUTOS TABS
+        tareaTituloCorto(i){
+            return this.tareas[i].titulo_corto;
+        },
+        tareaTituloLargo(i){
+            return this.tareas[i].titulo_largo;
+        },
+        tareaIcono(i){
+            return this.tareas[i].icono;
+        },
+        tareaID(i){
+            return this.tareas[i].id;
         }
     }
 }
 </script>
-
-    
