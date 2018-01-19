@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-xs-4 col-sm-3">
                         <div class="text-center">
-                            <h4 v-text="tareaDuracion(datos.inicio, datos.final)"></h4>
+                            <h4 v-html="tareaDuracion(datos.inicio, datos.final)"></h4>
                             <small><i class="fa fa-clock-o" aria-hidden="true"></i>
                             Duración</small>
                         </div>
@@ -87,9 +87,12 @@ export default {
             let diff = hora_termino.diff(inicio); 
             let duration = moment.duration(diff, 'milliseconds');
             if(duration.days()){
-                return duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds() + ' D.';
-            }else{
-                return duration.hours() + ":" + duration.minutes() + ":" + duration.seconds() + ' Hrs.';
+                return duration.days() + " : " + duration.hours() + ": " + duration.minutes() + ":" + duration.seconds() + '<small>Dias.</small>';
+            }else if(duration.hours() == 0 && duration.minutes() == 0){
+                return duration.hours() + ":" + duration.minutes() + " <small>Hrs.</small> " +  duration.seconds() + "<small>S.</small>";
+            }
+            else{
+                return duration.hours() + ":" + duration.minutes() + " <small>Hrs.</small>";
             }
         }
     }

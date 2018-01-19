@@ -178,7 +178,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> 853e9d483b953a8680858ee628b248b60d30f2b7
         //Laravel Captative
         Collective\Html\HtmlServiceProvider::class,
 
@@ -245,7 +248,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 853e9d483b953a8680858ee628b248b60d30f2b7
         
         //fechas español
         'Date' => Jenssegers\Date\Date::class,

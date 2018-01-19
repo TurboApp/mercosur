@@ -31,7 +31,6 @@ export default {
     props:{
         tareaId:{
             type:[Number, String],
-            
         },
         maniobraId:{
             type:[Number, String],

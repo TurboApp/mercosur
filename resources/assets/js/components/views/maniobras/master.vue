@@ -43,7 +43,13 @@
 
         <tabs >
              <tab name="Supervisión" >
-                <proceso-supervision :maniobra-id="datos.servicio_id" :active-index="datos.indice_activo" :avance-total="avanceTotal" :maniobra-tipo = "datos.servicio.tipo"></proceso-supervision>
+                <proceso-supervision 
+                    :maniobra-id="datos.servicio_id" 
+                    :active-index="datos.indice_activo" 
+                    :avance-total="avanceTotal" 
+                    :maniobra-tipo = "datos.servicio.tipo"
+                   >
+                </proceso-supervision>
             </tab>
             <tab name="Datos generales">
                 <coordinacion-datosgenerales :datosGenerales="datosGenerales()"></coordinacion-datosgenerales>
@@ -102,18 +108,19 @@ export default {
         }
     },
     created(){
+        let self = this;
         this.datosM = this.datos;
         this.EventBus();
     },
     mounted(){
-        this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.avanceTotal = this.datos.avance_total;
         this.inicioManiobra();
     },
     methods:{
         datosGenerales(){
             return {
-               datos : {
+                datos : {
                     fecha : moment(this.datos.servicio.fecha_recepcion).format('DD/MM/YYYY') + ' - ' + this.datos.servicio.hora_recepcion,
                     cliente: this.datos.servicio.cliente.nombre_corto + ' - ' + this.datos.servicio.cliente.nombre,
                     agente: this.datos.servicio.agente.nombre_corto + ' - ' + this.datos.servicio.agente.nombre,
@@ -170,7 +177,8 @@ export default {
                     }
                 });   
             EventBus.$on('termino-maniobra', (data) => {
-                    if(self.datos.id == data.maniobra.id)
+                    console.log(data);
+                    if(self.datos.id == data.id)
                     {
                         self.$set(self.datosM, 'termino_maniobra', moment(data.termino_maniobra.date).format('D/MM/YY, HH:mm:ss'));
                         clearInterval(self.intervalTimer);

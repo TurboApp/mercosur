@@ -1,22 +1,23 @@
 <template>
     <div class="row">
-      
         <div class="col-xs-12" v-if="load">
-            <div v-if="value=='okValidation'">
+            <div v-if="isValid=='okValidation'">
                 <p class="text-center lead text-muted">
                     La validación fue realizada satisfactoriamente
                 </p>
             </div>
             <card v-else class="text-center">
-                <p class="form-group text-muted" v-text="text"></p>
+                <p class="lead">Asegurese de haber realizado las actividades anteriores correctamente</p>
+                <p class="form-group text-muted " v-text="text"></p>
                 <p>
-                    <button 
+                    <button v-if="!disabled"
                         type="button" 
                         class="btn btn-warning btn-lg" 
                         v-text="title"
                         @click="validar"
                         :disabled="disabled"
                         >
+
                     </button>  
                 </p>
                 <div v-if="disabled">
@@ -24,9 +25,12 @@
                         En espera de ser validado
                     </p>
                 </div>
+                <div v-if="isValid=='errorValidation'">
+                    <p>Debe de hacer correcciones</p>
+                </div>
               
             </card>
-           
+            
         </div>
         <div v-else>
             <p class="lead text-center text-muted">
@@ -71,12 +75,14 @@ export default {
             load:false,
             estado:'',
             token:'',
+            isValid:''
         }
     },
     created(){
         this.EventBus();
     },
     mounted(){
+        this.isValid=this.value;
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.init();
     },
@@ -111,12 +117,16 @@ export default {
         validar()
         {
             let self = this;
+            let data = {
+                maniobraId : this.maniobraId,
+                tareaId : this.tareaId
+            };
             axios.post('/maniobra/subtarea/'+ this.id,{
                     inputType: 'validation',
                     value:'onValidation',
                     _token: this.token 
             }).then(function(response){
-                EventBus.$emit('onValidation');
+                EventBus.$emit('onValidation', data );
                 self.disabled=true;
             });
         },
@@ -124,24 +134,23 @@ export default {
             let self = this;
             EventBus.$on('validationEvent', (data)=>{
                 if(data.validation.id == self.id){
-                    self.value = data.validation.value;
+                    self.isValid = data.validation.value;
+                    
+                    //EventBus.$emit(data.validation.value);
                     switch (data.validation.value) {
                         case 'onValidation':
                                 this.disabled = true;
-                                EventBus.$emit('onValidation');
                                 this.load = true;
                             break;
             
                         case 'okValidation':
                                 this.disabled = true;
-                                EventBus.$emit('okValidation');
                                 this.load = true;
                                
                             break;
                     
                         case 'errorValidation': 
                                 this.disabled=false;
-                                EventBus.$emit('errorValidation');
                                 this.load = true;
                                
                             break;
