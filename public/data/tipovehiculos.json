@@ -1,0 +1,95 @@
+[
+    {
+        "tipo":"RABON"
+        
+    },
+    {
+        "tipo":"TORTON"
+        
+    },
+    {
+        "tipo":"CAJA SECA"
+    },
+    {
+        "tipo":"FULL / DOBLE SEMIREMOLQUE"
+    },
+    {
+        "tipo":"CAJA REFRIGERADA"
+    },
+    {
+        "tipo":"PLATAFORMA"
+    },
+    {
+        "tipo":"AUTOTANQUE / PIPA"
+    },
+    {
+        "tipo":"AUTOTANQUE PARA ASFALTO / GRANEL"
+    },
+    {
+        "tipo":"JAULA A GRANEL / GRANELERA"
+    },
+    {
+        "tipo":"JAULA GANADERA"
+    },
+    {
+        "tipo":"JAULA ENLONADA / CORTINA"
+    },
+    {
+        "tipo":"LOW BOY / CAMA BAJA"
+    },
+    {
+        "tipo":"TOLVA"
+    },
+    {
+        "tipo":"MADRINA / PORTA VEHÍCULOS"
+    },
+    {
+        "tipo":"TRACTOCAMION QUINTA RUEDA C / SIN CARROCERIA"
+    },
+    {
+        "tipo":"CHASIS CABINA"
+    },
+    {
+        "tipo":"CHASIS CABINA / RECOLECTOR COMPACTADORA DE BASURA"
+    },
+    {
+        "tipo":"CHASIS CABINA / VOLTEO"
+    },
+    {
+        "tipo":"CHASIS CABINA / TANQUE IRRIGADOR"
+    },
+    {
+        "tipo":"CHASIS CABINA / CARROCERIA REFRESQUERA"
+    },
+    {
+        "tipo":"CHASIS CABINA / CARROCERIA LUB TRUCK"
+    },
+    {
+        "tipo":"CHASIS CABINA / MEZCLADORA"
+    },
+    {
+        "tipo":"CHASIS / TANQUE PIPA DE AGUA"
+    },
+    {
+        "tipo":"CHASIS CABINA / TANQUE PARA COMBUSTIBLE"
+    },
+    {
+        "tipo":"CHASIS CORAZA / CARROCERIA TIPO BUS 65 PASAJEROS"
+    },
+    {
+        "tipo":"CHASIS CABINA / GRUA ARTICULADA HAYVA CRANE"
+    },
+    {
+        "tipo":"CHASIS CABINA / PLATAFORMA SOBRE CHASIS PLANA"
+    },
+    {
+        "tipo":"CHASIS CABINA / CAJA SECA"
+    },
+    {
+        "tipo":"REMOLQUE TOLVA PRESURIZADA 38M3 3 EJES"
+    },
+    {
+        "tipo":"TRACTOCAMION QUINTA RUEDA / SISTEMA DE BOMBEO PARA TANQUE DE DIESEL"
+    }
+
+]

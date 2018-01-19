@@ -1,0 +1,1010 @@
+[
+    { 
+    "abb" : "AF",
+    "country" : "Afganistán"
+    },
+    { 
+    "abb" : "AL",
+    "country" : "Albania"
+    },
+    { 
+    "abb" : "DE",
+    "country" : "Alemania"
+    },
+    { 
+    "abb" :"AD",
+    "country" : "Andorra"
+    },
+    { 
+    "abb" :"AO",
+    "country" : "Angola"
+    },
+    { 
+    "abb" :"AI",
+    "country" : "Anguila"
+    },
+    { 
+    "abb" :"AQ",
+    "country" : "Antártida"
+    },
+    { 
+    "abb" :"AG",
+    "country" : "Antigua y Barbuda"
+    },
+    { 
+    "abb" :"SA",
+    "country" : "Arabia Saudí"
+    },
+    { 
+    "abb" :"DZ",
+    "country" : "Argelia"
+    },
+    { 
+    "abb" :"AR",
+    "country" : "Argentina"
+    },
+    { 
+    "abb" :"AM",
+    "country" : "Armenia"
+    },
+    { 
+    "abb" :"AW",
+    "country" : "Aruba"
+    },
+    { 
+    "abb" :"AU",
+    "country" : "Australia"
+    },
+    { 
+    "abb" :"AT",
+    "country" : "Austria"
+    },
+    { 
+    "abb" :"AZ",
+    "country" : "Azerbaiyán"
+    },
+    { 
+    "abb" :"BS",
+    "country" : "Bahamas"
+    },
+    { 
+    "abb" :"BD",
+    "country" : "Bangladesh"
+    },
+    { 
+    "abb" :"BB",
+    "country" : "Barbados"
+    },
+    { 
+    "abb" :"BH",
+    "country" : "Baréin"
+    },
+    { 
+    "abb" :"BE",
+    "country" : "Bélgica"
+    },
+    { 
+    "abb" :"BZ",
+    "country" : "Belice"
+    },
+    { 
+    "abb" :"BJ",
+    "country" : "Benín"
+    },
+    { 
+    "abb" :"BM",
+    "country" : "Bermudas"
+    },
+    { 
+    "abb" :"BY",
+    "country" : "Bielorrusia"
+    },
+    { 
+    "abb" :"BO",
+    "country" : "Bolivia"
+    },
+    { 
+    "abb" :"BA",
+    "country" : "Bosnia-Herzegovina"
+    },
+    { 
+    "abb" :"BW",
+    "country" : "Botsuana"
+    },
+    { 
+    "abb" :"BR",
+    "country" : "Brasil"
+    },
+    { 
+    "abb" :"BN",
+    "country" : "Brunéi"
+    },
+    { 
+    "abb" :"BG",
+    "country" : "Bulgaria"
+    },
+    { 
+    "abb" :"BF",
+    "country" : "Burkina Faso"
+    },
+    { 
+    "abb" :"BI",
+    "country" : "Burundi"
+    },
+    { 
+    "abb" :"BT",
+    "country" : "Bután"
+    },
+    { 
+    "abb" :"CV",
+    "country" : "Cabo Verde"
+    },
+    { 
+    "abb" :"KH",
+    "country" : "Camboya"
+    },
+    { 
+    "abb" :"CM",
+    "country" : "Camerún"
+    },
+    { 
+    "abb" :"CA",
+    "country" : "Canadá"
+    },
+    { 
+    "abb" :"BQ",
+    "country" : "Caribe neerlandés"
+    },
+    { 
+    "abb" :"TD",
+    "country" : "Chad"
+    },
+    { 
+    "abb" :"CL",
+    "country" : "Chile"
+    },
+    { 
+    "abb" :"CN",
+    "country" : "China"
+    },
+    { 
+    "abb" :"CY",
+    "country" : "Chipre"
+    },
+    { 
+    "abb" :"VA",
+    "country" : "Ciudad del Vaticano"
+    },
+    { 
+    "abb" :"CO",
+    "country" : "Colombia"
+    },
+    { 
+    "abb" :"KM",
+    "country" : "Comoras"
+    },
+    { 
+    "abb" :"CG",
+    "country" : "Congo Brazzaville"
+    },
+    { 
+    "abb" :"KP",
+    "country" : "Corea del Norte"
+    },
+    { 
+    "abb" :"KR",
+    "country" : "Corea del Sur"
+    },
+    { 
+    "abb" :"CI",
+    "country" : "Costa de Marfil"
+    },
+    { 
+    "abb" :"CR",
+    "country" : "Costa Rica"
+    },
+    { 
+    "abb" :"HR",
+    "country" : "Croacia"
+    },
+    { 
+    "abb" :"CU",
+    "country" : "Cuba"
+    },
+    { 
+    "abb" :"CW",
+    "country" : "Curazao"
+    },
+    { 
+    "abb" :"DK",
+    "country" : "Dinamarca"
+    },
+    { 
+    "abb" :"DM",
+    "country" : "Dominica"
+    },
+    { 
+    "abb" :"EC",
+    "country" : "Ecuador"
+    },
+    { 
+    "abb" :"EG",
+    "country" : "Egipto"
+    },
+    { 
+    "abb" :"SV",
+    "country" : "El Salvador"
+    },
+    { 
+    "abb" :"AE",
+    "country" : "Emiratos Árabes Unidos"
+    },
+    { 
+    "abb" :"ER",
+    "country" : "Eritrea"
+    },
+    { 
+    "abb" :"SK",
+    "country" : "Eslovaquia"
+    },
+    { 
+    "abb" :"SI",
+    "country" : "Eslovenia"
+    },
+    { 
+    "abb" :"ES",
+    "country" : "España"
+    },
+    { 
+    "abb" :"US",
+    "country" : "Estados Unidos"
+    },
+    { 
+    "abb" :"EE",
+    "country" : "Estonia"
+    },
+    { 
+    "abb" :"ET",
+    "country" : "Etiopía"
+    },
+    { 
+    "abb" :"PH",
+    "country" : "Filipinas"
+    },
+    { 
+    "abb" :"FI",
+    "country" : "Finlandia"
+    },
+    { 
+    "abb" :"FJ",
+    "country" : "Fiyi"
+    },
+    { 
+    "abb" :"FR",
+    "country" : "Francia"
+    },
+    { 
+    "abb" :"GA",
+    "country" : "Gabón"
+    },
+    { 
+    "abb" :"GM",
+    "country" : "Gambia"
+    },
+    { 
+    "abb" :"GE",
+    "country" : "Georgia"
+    },
+    { 
+    "abb" :"GH",
+    "country" : "Ghana"
+    },
+    { 
+    "abb" :"GI",
+    "country" : "Gibraltar"
+    },
+    { 
+    "abb" :"GD",
+    "country" : "Granada"
+    },
+    { 
+    "abb" :"GR",
+    "country" : "Grecia"
+    },
+    { 
+    "abb" :"GL",
+    "country" : "Groenlandia"
+    },
+    { 
+    "abb" :"GP",
+    "country" : "Guadalupe"
+    },
+    { 
+    "abb" :"GU",
+    "country" : "Guam"
+    },
+    { 
+    "abb" :"GT",
+    "country" : "Guatemala"
+    },
+    { 
+    "abb" :"GF",
+    "country" : "Guayana Francesa"
+    },
+    { 
+    "abb" :"GG",
+    "country" : "Guernsey"
+    },
+    { 
+    "abb" :"GN",
+    "country" : "Guinea"
+    },
+    { 
+    "abb" :"GQ",
+    "country" : "Guinea Ecuatorial"
+    },
+    { 
+    "abb" :"GW",
+    "country" : "Guinea-Bissau"
+    },
+    { 
+    "abb" :"GY",
+    "country" : "Guyana"
+    },
+    { 
+    "abb" :"HT",
+    "country" : "Haití"
+    },
+    { 
+    "abb" :"HN",
+    "country" : "Honduras"
+    },
+    { 
+    "abb" :"HU",
+    "country" : "Hungría"
+    },
+    { 
+    "abb" :"IN",
+    "country" : "India"
+    },
+    { 
+    "abb" :"ID",
+    "country" : "Indonesia"
+    },
+    { 
+    "abb" :"IR",
+    "country" : "Irán"
+    },
+    { 
+    "abb" :"IQ",
+    "country" : "Iraq"
+    },
+    { 
+    "abb" :"IE",
+    "country" : "Irlanda"
+    },
+    { 
+    "abb" :"AC",
+    "country" : "Isla de la Ascensión"
+    },
+    { 
+    "abb" :"IM",
+    "country" : "Isla de Man"
+    },
+    { 
+    "abb" :"CX",
+    "country" : "Isla de Navidad"
+    },
+    { 
+    "abb" :"NU",
+    "country" : "Isla Niue"
+    },
+    { 
+    "abb" :"NF",
+    "country" : "Isla Norfolk"
+    },
+    { 
+    "abb" :"IS",
+    "country" : "Islandia"
+    },
+    { 
+    "abb" :"AX",
+    "country" : "Islas Åland"
+    },
+    { 
+    "abb" :"KY",
+    "country" : "Islas Caimán"
+    },
+    { 
+    "abb" :"IC",
+    "country" : "Islas Canarias"
+    },
+    { 
+    "abb" :"CC",
+    "country" : "Islas Cocos (Keeling)"
+    },
+    { 
+    "abb" :"CK",
+    "country" : "Islas Cook"
+    },
+    { 
+    "abb" :"FO",
+    "country" : "Islas Feroe"
+    },
+    { 
+    "abb" :"GS",
+    "country" : "Islas Georgias del Sur y Sandwich del Sur"
+    },
+    { 
+    "abb" :"FK",
+    "country" : "Islas Malvinas"
+    },
+    { 
+    "abb" :"MP",
+    "country" : "Islas Marianas del Norte"
+    },
+    { 
+    "abb" :"MH",
+    "country" : "Islas Marshall"
+    },
+    { 
+    "abb" :"PN",
+    "country" : "Islas Pitcairn"
+    },
+    { 
+    "abb" :"SB",
+    "country" : "Islas Salomón"
+    },
+    { 
+    "abb" :"TC",
+    "country" : "Islas Turcas y Caicos"
+    },
+    { 
+    "abb" :"UM",
+    "country" : "Islas UltramarinasMenores de Estados Unidos"
+    },
+    { 
+    "abb" :"VG",
+    "country" : "Islas Vírgenes Británicas"
+    },
+    { 
+    "abb" :"VI",
+    "country" : "Islas Vírgenes de los Estados Unidos"
+    },
+    { 
+    "abb" :"IL",
+    "country" : "Israel"
+    },
+    { 
+    "abb" :"IT",
+    "country" : "Italia"
+    },
+    { 
+    "abb" :"JM",
+    "country" : "Jamaica"
+    },
+    { 
+    "abb" :"JP",
+    "country" : "Japón"
+    },
+    { 
+    "abb" :"JE",
+    "country" : "Jersey"
+    },
+    { 
+    "abb" :"JO",
+    "country" : "Jordania"
+    },
+    { 
+    "abb" :"KZ",
+    "country" : "Kazajistán"
+    },
+    { 
+    "abb" :"KE",
+    "country" : "Kenia"
+    },
+    { 
+    "abb" :"KG",
+    "country" : "Kirguistán"
+    },
+    { 
+    "abb" :"KI",
+    "country" : "Kiribati"
+    },
+    { 
+    "abb" :"XK",
+    "country" : "Kosovo"
+    },
+    { 
+    "abb" :"KW",
+    "country" : "Kuwait"
+    },
+    { 
+    "abb" :"LA",
+    "country" : "Laos"
+    },
+    { 
+    "abb" :"LS",
+    "country" : "Lesoto"
+    },
+    { 
+    "abb" :"LV",
+    "country" : "Letonia"
+    },
+    { 
+    "abb" :"LB",
+    "country" : "Líbano"
+    },
+    { 
+    "abb" :"LR",
+    "country" : "Liberia"
+    },
+    { 
+    "abb" :"LY",
+    "country" : "Libia"
+    },
+    { 
+    "abb" :"LI",
+    "country" : "Liechtenstein"
+    },
+    { 
+    "abb" :"LT",
+    "country" : "Lituania"
+    },
+    { 
+    "abb" :"LU",
+    "country" : "Luxemburgo"
+    },
+    { 
+    "abb" :"MK",
+    "country" : "Macedonia"
+    },
+    { 
+    "abb" :"MG",
+    "country" : "Madagascar"
+    },
+    { 
+    "abb" :"MY",
+    "country" : "Malasia"
+    },
+    { 
+    "abb" :"MW",
+    "country" : "Malaui"
+    },
+    { 
+    "abb" :"MV",
+    "country" : "Maldivas"
+    },
+    { 
+    "abb" :"ML",
+    "country" : "Mali"
+    },
+    { 
+    "abb" :"MT",
+    "country" : "Malta"
+    },
+    { 
+    "abb" :"MA",
+    "country" : "Marruecos"
+    },
+    { 
+    "abb" :"MQ",
+    "country" : "Martinica"
+    },
+    { 
+    "abb" :"MU",
+    "country" : "Mauricio"
+    },
+    { 
+    "abb" :"MR",
+    "country" : "Mauritania"
+    },
+    { 
+    "abb" :"YT",
+    "country" : "Mayotte"
+    },
+    { 
+    "abb" :"MX",
+    "country" : "México"
+    },
+    { 
+    "abb" :"MX",
+    "country" : "Mexico"
+    },
+    { 
+    "abb" :"FM",
+    "country" : "Micronesia"
+    },
+    { 
+    "abb" :"MD",
+    "country" : "Moldavia"
+    },
+    { 
+    "abb" :"MC",
+    "country" : "Mónaco"
+    },
+    { 
+    "abb" :"MN",
+    "country" : "Mongolia"
+    },
+    { 
+    "abb" :"ME",
+    "country" : "Montenegro"
+    },
+    { 
+    "abb" :"MS",
+    "country" : "Montserrat"
+    },
+    { 
+    "abb" :"MZ",
+    "country" : "Mozambique"
+    },
+    { 
+    "abb" :"MM",
+    "country" : "Myanmar (Birmania)"
+    },
+    { 
+    "abb" :"NA",
+    "country" : "Namibia"
+    },
+    { 
+    "abb" :"NR",
+    "country" : "Nauru"
+    },
+    { 
+    "abb" :"NP",
+    "country" : "Nepal"
+    },
+    { 
+    "abb" :"NI",
+    "country" : "Nicaragua"
+    },
+    { 
+    "abb" :"NE",
+    "country" : "Níger"
+    },
+    { 
+    "abb" :"NG",
+    "country" : "Nigeria"
+    },
+    { 
+    "abb" :"NO",
+    "country" : "Noruega"
+    },
+    { 
+    "abb" :"NC",
+    "country" : "Nueva Caledonia"
+    },
+    { 
+    "abb" :"NZ",
+    "country" : "Nueva Zelanda"
+    },
+    { 
+    "abb" :"OM",
+    "country" : "Omán"
+    },
+    { 
+    "abb" :"NL",
+    "country" : "Países Bajos"
+    },
+    { 
+    "abb" :"PK",
+    "country" : "Pakistán"
+    },
+    { 
+    "abb" :"PW",
+    "country" : "Palaos"
+    },
+    { 
+    "abb" :"PA",
+    "country" : "Panamá"
+    },
+    { 
+    "abb" :"PG",
+    "country" : "Papúa Nueva Guinea"
+    },
+    { 
+    "abb" :"PY",
+    "country" : "Paraguay"
+    },
+    { 
+    "abb" :"PE",
+    "country" : "Perú"
+    },
+    { 
+    "abb" :"PF",
+    "country" : "Polinesia Francesa"
+    },
+    { 
+    "abb" :"PL",
+    "country" : "Polonia"
+    },
+    { 
+    "abb" :"PT",
+    "country" : "Portugal"
+    },
+    { 
+    "abb" :"PR",
+    "country" : "Puerto Rico"
+    },
+    { 
+    "abb" :"QA",
+    "country" : "Qatar"
+    },
+    { 
+    "abb" :"HK",
+    "country" : "Región Administrativa Especial de Hong Kong de la República Popular China"
+    },
+    { 
+    "abb" :"MO",
+    "country" : "Región Administrativa Especial de Macao de la República Popular China"
+    },
+    { 
+    "abb" :"GB",
+    "country" : "Reino Unido"
+    },
+    { 
+    "abb" :"CF",
+    "country" : "República Centroafricana"
+    },
+    { 
+    "abb" :"CZ",
+    "country" : "República Checa"
+    },
+    { 
+    "abb" :"CD",
+    "country" : "República Democrática del Congo"
+    },
+    { 
+    "abb" :"DO",
+    "country" : "República Dominicana"
+    },
+    { 
+    "abb" :"RE",
+    "country" : "Reunión"
+    },
+    { 
+    "abb" :"RW",
+    "country" : "Ruanda"
+    },
+    { 
+    "abb" :"RO",
+    "country" : "Rumanía"
+    },
+    { 
+    "abb" :"RU",
+    "country" : "Rusia"
+    },
+    { 
+    "abb" :"EH",
+    "country" : "Sáhara Occidental"
+    },
+    { 
+    "abb" :"WS",
+    "country" : "Samoa"
+    },
+    { 
+    "abb" :"AS",
+    "country" : "Samoa Americana"
+    },
+    { 
+    "abb" :"BL",
+    "country" : "San Bartolomé"
+    },
+    { 
+    "abb" :"KN",
+    "country" : "San Cristóbal y Nieves"
+    },
+    { 
+    "abb" :"SM",
+    "country" : "San Marino"
+    },
+    { 
+    "abb" :"MF",
+    "country" : "San Martín"
+    },
+    { 
+    "abb" :"PM",
+    "country" : "San Pedro y Miquelón"
+    },
+    { 
+    "abb" :"VC",
+    "country" : "San Vicente y las Granadinas"
+    },
+    { 
+    "abb" :"SH",
+    "country" : "Santa Elena"
+    },
+    { 
+    "abb" :"LC",
+    "country" : "Santa Lucía"
+    },
+    { 
+    "abb" :"ST",
+    "country" : "Santo Tomé y Príncipe"
+    },
+    { 
+    "abb" :"SN",
+    "country" : "Senegal"
+    },
+    { 
+    "abb" :"RS",
+    "country" : "Serbia"
+    },
+    { 
+    "abb" :"SC",
+    "country" : "Seychelles"
+    },
+    { 
+    "abb" :"SL",
+    "country" : "Sierra Leona"
+    },
+    { 
+    "abb" :"SG",
+    "country" : "Singapur"
+    },
+    { 
+    "abb" :"SX",
+    "country" : "Sint Maarten"
+    },
+    { 
+    "abb" :"SY",
+    "country" : "Siria"
+    },
+    { 
+    "abb" :"SO",
+    "country" : "Somalia"
+    },
+    { 
+    "abb" :"LK",
+    "country" : "Sri Lanka"
+    },
+    { 
+    "abb" :"SZ",
+    "country" : "Suazilandia"
+    },
+    { 
+    "abb" :"ZA",
+    "country" : "Sudáfrica"
+    },
+    { 
+    "abb" :"SD",
+    "country" : "Sudán"
+    },
+    { 
+    "abb" :"SS",
+    "country" : "Sudán del Sur"
+    },
+    { 
+    "abb" :"SE",
+    "country" : "Suecia"
+    },
+    { 
+    "abb" :"CH",
+    "country" : "Suiza"
+    },
+    { 
+    "abb" :"SR",
+    "country" : "Surinam"
+    },
+    { 
+    "abb" :"SJ",
+    "country" : "Svalbard y Jan Mayen"
+    },
+    { 
+    "abb" :"TH",
+    "country" : "Tailandia"
+    },
+    { 
+    "abb" :"TW",
+    "country" : "Taiwán"
+    },
+    { 
+    "abb" :"TZ",
+    "country" : "Tanzania"
+    },
+    { 
+    "abb" :"TJ",
+    "country" : "Tayikistán"
+    },
+    { 
+    "abb" :"IO",
+    "country" : "Territorio Británico del Océano Índico"
+    },
+    { 
+    "abb" :"TF",
+    "country" : "Territorios Australes Franceses"
+    },
+    { 
+    "abb" :"PS",
+    "country" : "Territorios Palestinos"
+    },
+    { 
+    "abb" :"TL",
+    "country" : "Timor Oriental"
+    },
+    { 
+    "abb" :"TG",
+    "country" : "Togo"
+    },
+    { 
+    "abb" :"TK",
+    "country" : "Tokelau"
+    },
+    { 
+    "abb" :"TO",
+    "country" : "Tonga"
+    },
+    { 
+    "abb" :"TT",
+    "country" : "Trinidad y Tobago"
+    },
+    { 
+    "abb" :"TA",
+    "country" : "Tristán de Acuña"
+    },
+    { 
+    "abb" :"TN",
+    "country" : "Túnez"
+    },
+    { 
+    "abb" :"TM",
+    "country" : "Turkmenistán"
+    },
+    { 
+    "abb" :"TR",
+    "country" : "Turquía"
+    },
+    { 
+    "abb" :"TV",
+    "country" : "Tuvalu"
+    },
+    { 
+    "abb" :"UA",
+    "country" : "Ucrania"
+    },
+    { 
+    "abb" :"UG",
+    "country" : "Uganda"
+    },
+    { 
+    "abb" :"UY",
+    "country" : "Uruguay"
+    },
+    { 
+    "abb" :"UZ",
+    "country" : "Uzbekistán"
+    },
+    { 
+    "abb" :"VU",
+    "country" : "Vanuatu"
+    },
+    { 
+    "abb" :"VE",
+    "country" : "Venezuela"
+    },
+    { 
+    "abb" :"VN",
+    "country" : "Vietnam"
+    },
+    { 
+    "abb" :"WF",
+    "country" : "Wallis y Futuna"
+    },
+    { 
+    "abb" :"YE",
+    "country" : "Yemen"
+    },
+    { 
+    "abb" :"DJ",
+    "country" : "Yibuti"
+    },
+    { 
+    "abb" :"ZM",
+    "country" : "Zambia"
+    }   ,
+    { 
+    "abb" :"ZW",
+    "country" : "Zimbabue" 
+    }
+]
