@@ -91,6 +91,7 @@ var vm = new Vue({
         eventValidation(){
             Echo.channel('maniobra-channel')
                 .listen('ManiobraTareaValidacion', (data) => {
+                    //recibe el evento
                     EventBus.$emit('validationEvent', data );
                 });   
         },

@@ -20,6 +20,7 @@ class CreateManiobraTareasTable extends Migration
             $table->string('titulo_largo')->nullable();
             $table->integer('avance')->default(0);
             $table->text('observaciones')->nullable();
+            $table->string('tipo')->length(10)->nullable();
             $table->dateTime('inicio')->nullable();
             $table->dateTime('final')->nullable();
             $table->string('icono',20)->nullable();

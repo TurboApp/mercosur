@@ -6,29 +6,39 @@
                     La validación fue realizada satisfactoriamente
                 </p>
             </div>
+            <div v-else-if="isValid=='errorValidation'" class="text-center">
+                <p class="text-danger lead">
+                    No paso la validación<br/>
+                    Debe de hacer algunas correcciones.
+                </p>
+                <button 
+                    type="button" 
+                    class="btn btn-warning btn-lg" 
+                    @click="validar"
+                    :disabled="disabled"
+                    >
+                    Volver a validar
+                </button>
+            </div>
+            <div v-else-if="isValid=='onValidation'">
+                <p class="lead text-muted text-center">
+                    <i class="fa fa-cog fa-spin fa-lg fa-fw"></i>
+
+                    En espera de ser validado
+                    
+                </p>
+            </div>
             <card v-else class="text-center">
                 <p class="lead">Asegurese de haber realizado las actividades anteriores correctamente</p>
                 <p class="form-group text-muted " v-text="text"></p>
-                <p>
-                    <button v-if="!disabled"
-                        type="button" 
-                        class="btn btn-warning btn-lg" 
-                        v-text="title"
-                        @click="validar"
-                        :disabled="disabled"
-                        >
-
-                    </button>  
-                </p>
-                <div v-if="disabled">
-                    <p class="lead text-muted">
-                        En espera de ser validado
-                    </p>
-                </div>
-                <div v-if="isValid=='errorValidation'">
-                    <p>Debe de hacer correcciones</p>
-                </div>
-              
+                <button 
+                    type="button" 
+                    class="btn btn-warning btn-lg" 
+                    v-text="title"
+                    @click="validar"
+                    :disabled="disabled"
+                    >
+                </button>  
             </card>
             
         </div>
@@ -89,22 +99,27 @@ export default {
     methods:{
         init()
         {
+            let data = {
+                maniobraId : this.maniobraId,
+                tareaId : this.tareaId
+            };
+           
             switch (this.value) {
                 case 'onValidation':
+                        //EventBus.$emit('onValidation', data);
                         this.disabled = true;
-                        EventBus.$emit('onValidation');
                         this.load = true;
                     break;
             
                 case 'okValidation':
+                        //EventBus.$emit('okValidation', data);
                         this.disabled = true;
-                        EventBus.$emit('okValidation');
                         this.load = true;
                     break;
             
                 case 'errorValidation': 
+                        //EventBus.$emit('errorValidation', data);
                         this.disabled=false;
-                        EventBus.$emit('errorValidation');
                         this.load = true;
                     break;
             
@@ -117,51 +132,54 @@ export default {
         validar()
         {
             let self = this;
-            let data = {
-                maniobraId : this.maniobraId,
-                tareaId : this.tareaId
-            };
             axios.post('/maniobra/subtarea/'+ this.id,{
-                    inputType: 'validation',
+                inputType: 'validation',
                     value:'onValidation',
                     _token: this.token 
             }).then(function(response){
-                EventBus.$emit('onValidation', data );
-                self.disabled=true;
+                // if(response.data.tarea_id == self.tareaId){
+                //     self.disabled=true;
+                //     self.load = true;
+                //     self.isValid='onValidation';
+                // }
             });
         },
         EventBus(){
             let self = this;
-            EventBus.$on('validationEvent', (data)=>{
-                if(data.validation.id == self.id){
-                    self.isValid = data.validation.value;
-                    
-                    //EventBus.$emit(data.validation.value);
-                    switch (data.validation.value) {
-                        case 'onValidation':
-                                this.disabled = true;
-                                this.load = true;
-                            break;
-            
-                        case 'okValidation':
-                                this.disabled = true;
-                                this.load = true;
-                               
-                            break;
-                    
-                        case 'errorValidation': 
-                                this.disabled=false;
-                                this.load = true;
-                               
-                            break;
-                    
-                        default:
-                                this.load = true;
-                            break;
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraTareaValidacion', (data) => {
+                    if(data.validation.id == self.id){
+                        switch (data.validation.value) {
+
+                            case 'onValidation':
+                                    this.disabled = true;
+                                    this.load = true;
+                                    this.isValid= 'onValidation';
+                                break;
+                        
+                            case 'okValidation':
+                                    this.disabled = true;
+                                    this.load = true;
+                                    this.isValid= 'okValidation';
+                                break;
+                        
+                            case 'errorValidation': 
+                                    this.disabled=false;
+                                    this.load = true;
+                                    this.isValid= 'errorValidation';
+                                break;
+                        
+                            default:
+                                    this.load = true;
+                                break;
+                        }
                     }
-                    
-                }
-            })
+                });              
+            
+            
+                
+
+            
         }
        
     }

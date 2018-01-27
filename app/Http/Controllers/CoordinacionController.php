@@ -9,6 +9,7 @@ use App\LineasTransporte as Transporte;
 
 use App\Events\ManiobraUpdate;
 use App\Events\ManiobraInicio;
+use App\Events\ManiobraFin;
 
 use Carbon\Carbon;
 use Jenssegers\Date\Date;
@@ -120,12 +121,15 @@ class CoordinacionController extends Controller
     }
     public function maniobraFin(Request $request)
     {
-        $maniobra = Coordinacion::where('servicio_id',$request->servicio)->first();
+        $maniobra = Coordinacion::where( 'servicio_id' , $request->servicio )->first();
         if (!$maniobra->termino_maniobra) {
             $now = Carbon::now();
             $maniobra->termino_maniobra = $now; 
             $maniobra->status='Finalizado';
+            $maniobra->avance_total =  '100'; 
+            $maniobra->indice_activo = '-1';
             $maniobra->save();
+            
             $supervisor = Supervisor_activo::where([
                 ['supervisor_id' , $maniobra->supervisor_id],
                 ['coordinacion_id' , $maniobra->id]
@@ -133,18 +137,21 @@ class CoordinacionController extends Controller
             
             $supervisor->delete();
             
+            event(new ManiobraFin($maniobra));
+            event(new ManiobraUpdate($maniobra));
         }
-        
         return $maniobra->toJson();
     }
 
     public function updateAvanceManiobra(Request $request)
     {
-        $coordinacion = Coordinacion::find($request->maniobra);    
-        $coordinacion->avance_total =  $request->avance; 
-        $coordinacion->indice_activo = $request->activeIndex;
-        $coordinacion->save();
-        event(new ManiobraUpdate($coordinacion));
+        $coordinacion = Coordinacion::find($request->maniobra);   
+        if($request->avance > $coordinacion->avance_total){ 
+            $coordinacion->avance_total =  $request->avance; 
+            $coordinacion->indice_activo = $request->activeIndex;
+            $coordinacion->save();
+            event(new ManiobraUpdate($coordinacion));
+        }
         return $coordinacion->toJson();
     }
     

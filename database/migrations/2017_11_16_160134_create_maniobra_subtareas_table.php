@@ -21,7 +21,9 @@ class CreateManiobraSubtareasTable extends Migration
             $table->string('value')->nullable();
             $table->string('inputType',30)->nullable();
             $table->integer('limit')->length(2)->default(1);
+            $table->string('options')->nullable();
             $table->integer('required')->length(1)->default(1);
+            $table->enum('tipo_transporte',['N','C'])->nullable();
             $table->timestamps();
         });
     }

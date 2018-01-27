@@ -21,25 +21,25 @@
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(0) }}
                 </h2><hr/>
-                <sub-tareas  v-bind:tarea-id="tareaID(0)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(0)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(0)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(1)" v-bind:icon="tareaIcono(1)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(1) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(1)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(1)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(1)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(2)" v-bind:icon="tareaIcono(2)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(2) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(2)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(2)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(2)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(3)" v-bind:icon="tareaIcono(3)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(3) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(3)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(3)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(3)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(4)" v-bind:icon="tareaIcono(4)">
                 <h2 class="text-center text-uppercase">
@@ -51,19 +51,19 @@
                         <p>Tiempo</p>
                     </div>
                 </div>
-                <sub-tareas  v-bind:tarea-id="tareaID(4)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(4)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(4)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(5)" v-bind:icon="tareaIcono(5)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(5) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(5)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(5)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(5)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(6)" v-bind:icon="tareaIcono(6)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(6) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(6)" :maniobra-id="maniobraId" :maniobra-tipo="maniobraTipo"></sub-tareas>
+                <sub-tareas  v-bind:tarea-id="tareaID(6)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(6)"></sub-tareas>
             </tab-content>
 
             <template slot="footer" slot-scope="props">
@@ -148,10 +148,6 @@ export default {
             type: [Number, String],
             required: true, 
         },
-        maniobraTipo:{
-            type: String,
-            required: true, 
-        },
         activeIndex:{
             type:Number,
             default: 0,
@@ -172,14 +168,14 @@ export default {
             tiempo_maniobra:'',
             inicio_maniobra:'',
             alertaFinalizar:0,
+            currentIndex:'',
             token:'',
         }
     },
     
     mounted(){
         let self = this;
-        console.log('Active tab index: '+this.activeTabIndex);
-        alert(this.activeTabIndex);
+        this.currentIndex = this.activeIndex;
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         
         axios.get('/API/coordinacion/servicio/'+this.maniobraId)
@@ -197,24 +193,40 @@ export default {
     },
     
     created(){
+        let self = this;
         this.avance = this.avanceTotal; 
-        //Estos eventos son emitidos desde el componente coordinacion/validation
-        // y supervicion o  maniobra/validation
-        EventBus.$on('onValidation', (data)=>{
-            this.btnPrev=false;
-        });
-        EventBus.$on('okValidation', (data)=>{
-            this.validation=true;
-            this.btnNext=true;
-        });
-        EventBus.$on('errorValidation', (data)=>{
-            this.validation=false;
-            this.btnNext=false;
-            this.btnPrev=true;
-        });
-        $(window).on("load",function() {
-            $(".loader").fadeOut("slow");
-        })
+        //Estos eventos son emitidos desde los componentes [coordinacion/validation,maniobra/validation]
+        Echo.channel('maniobra-channel')
+                .listen('ManiobraTareaValidacion', (data) => {
+                    if(data.validation.tarea_id == self.tareas[self.currentIndex].id ){
+
+                        if(data.validation.value == 'onValidation')
+                        {
+                            console.log('Entra en onValidation - proseso supervision');
+                            this.btnPrev=false;
+                            this.btnNext=false;
+                        }
+                        else if(data.validation.value == 'errorValidation')
+                        {
+                            console.log('Entra en errorValidation - proceso supervision');
+                            this.validation = false;
+                            this.btnNext = false;
+                            this.btnPrev = true;
+                        }
+                        else if(data.validation.value == 'okValidation')
+                        {
+                            console.log('Entra en okValidation - proseso supervision');
+                            this.btnNext = true;
+                            this.validation = true;
+                            this.btnPrev = false;    
+                        }
+                        else{
+                            window.location.reload(true);
+                        }
+                    }
+                });   
+        
+        
     },
     /*
         NOTAS:....
@@ -229,11 +241,12 @@ export default {
     */
     methods:{
         onComplete(){
-            this.avanceUpdate(-1,100);
             this.tareaFin(this.tareas[6].id);
             this.terminoManiobra();
+            this.getTarea();
         },
         onChange(prevIndex, nextIndex){
+            this.currentIndex = nextIndex;
             switch (nextIndex) {
                 case 0: // Tarea 1: Revision
                             this.btnNext = true;    
@@ -301,7 +314,7 @@ export default {
         avanceUpdate(index, avance){
             let self = this;
             axios.post('/maniobra/avance/update/'+this.maniobraId+'/'+avance+'/'+index,{
-                    _token: this.token 
+                _token: this.token 
             })
             .then(function (response) {
                     self.avance = response.data.avance_total;
@@ -321,17 +334,15 @@ export default {
                     return response.data.final;
             });
         },
-
         operariosLibres(){
             let self = this;
             axios.get('/maniobras/fuerzaTarea/free/'+this.maniobraId)
                 .then(function (response) {
-                    console.log('Se liberaron los ');
+                    
             });
         },
-        
         indiceActivo(indice){
-           
+           let self = this;
             switch (indice) {
                 case 0: // Tarea 1: Revision
                         this.btnNext = true;    
@@ -344,15 +355,19 @@ export default {
                 case 2: // Tarea 3: Validacion
                         axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
                             .then(function (response) {
-                                if( response.data === "onValidation" ){
-                                    this.btnPrev = false;
-                                    this.btnNext = false;
-                                }else if(response.data === "okValidation"){
-                                    this.btnPrev = false;
-                                    this.btnNext = true;
-                                }else if(response.data === "errorValidation"){
-                                    this.btnPrev = true;
-                                    this.btnNext = false;
+                                if( response.data[0].value == "onValidation" ){
+                                    self.btnPrev = false;
+                                    self.btnNext = false;
+                                }else if(response.data[0].value == "okValidation"){
+                                    self.btnPrev = false;
+                                    self.btnNext = true;
+                                }else if(response.data[0].value == "errorValidation"){
+                                    self.btnPrev = true;
+                                    self.btnNext = false;
+                                }
+                                else {
+                                    self.btnPrev = true;
+                                    self.btnNext = false;
                                 }
                         });   
                     break;
@@ -366,15 +381,28 @@ export default {
                         this.tiempoManiobra(this.tareas[4].id);
                     break;
                 case 5: // Tarea 6: Validacion
-                        this.btnNext = false;
-                        EventBus.$on('okValidation', ()=>{
-                           // this.validation=false;
-                            //this.btnNext=false;
-                        });
-
+                        axios.get('/API/supervision/getSubTareas/'+this.tareas[5].id)
+                            .then(function (response) {
+                                if( response.data[0].value == "onValidation" ){
+                                    self.btnPrev = false;
+                                    self.btnNext = false;
+                                }else if(response.data[0].value == "okValidation"){
+                                    self.btnPrev = false;
+                                    self.btnNext = true;
+                                }else if(response.data[0].value == "errorValidation"){
+                                    self.btnPrev = true;
+                                    self.btnNext = false;
+                                }
+                                else {
+                                    self.btnPrev = true;
+                                    self.btnNext = false;
+                                }
+                        });   
+                       
                     break;
                 case 6: // Tarea 7: Finalización
                         this.btnPrev=false;
+                        this.btnNext=true;
                     break;
             }
         },
@@ -400,11 +428,30 @@ export default {
             });
         },
         terminoManiobra(){
+            let self = this;
             //Aqui se cambia elestatus de la maniobra tambien se libera al supervisor
             axios.post('/coordinacion/maniobra/fin/'+this.maniobraId)
             .then(function (response) {
-                console.log(response);
-                EventBus.$emit('termino-maniobra', response.data);
+                self.avance = response.data.avance_total;
+                $.notify({
+                    icon: "check",
+                    message: '<h4>En hora buena</h4> La maniobra a finalizado correctamente.'
+                },{
+                    type: 'success',
+                    timer: 4000,
+                    placement: {
+                        from: 'top',
+                        align: 'right'
+                    }
+                });
+                //EventBus.$emit('termino-maniobra', response.data);
+            });
+        },
+        getTarea(){
+            let self = this;
+            axios.get('/API/supervision/getTareas/'+this.maniobraId)
+                .then(function (response) {
+                    self.tareas = response.data;
             });
         },
         alertaLeida(){
@@ -422,6 +469,9 @@ export default {
         },
         tareaID(i){
             return this.tareas[i].id;
+        },
+        tareaTipo(i){
+            return this.tareas[i].tipo;
         }
     }
 }

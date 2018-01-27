@@ -16,12 +16,12 @@
     background-color 0.2s $mdb-animation-curve-default;
 
     &::-moz-focus-inner {
-    border: 0;
+        border: 0;
     }
 
     &,
     &.btn-default{
-        @include btn-styles($gray-light);
+        @include btn-styles(#e0e0e0);
     }
 
     &.btn-primary{
@@ -250,6 +250,7 @@
 
     & > .dropdown-toggle.btn {
       @include variations(unquote(".btn"), unquote(""), background-color, $mdb-btn-background-color);
+      //@include variations(unquote(".btn"), unquote(""), background-color, red);
     }
   }
 

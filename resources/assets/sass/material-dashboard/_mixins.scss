@@ -176,7 +176,7 @@
   &#{$component}-default#{$selector-suffix} {
 
     $args-extra: map-merge($args, (
-            variation-color: $white-color,
+            variation-color: #e0e0e0,
             variation-color-text: $gray
     ));
     @include call-variations-content-mixin($args-extra);

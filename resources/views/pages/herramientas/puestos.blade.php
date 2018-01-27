@@ -9,38 +9,31 @@
 @section('content')
     <div class="row">
       <div class="col-md-12">
-        <card>
-          <form id="createPuesto" action="/herramientas/puestos/nuevo" method="POST" autocomplete="off">
-            {{ csrf_field() }}
-            <div class="row">
-              <div class="col-md-5">
-                <div class="form-group label-floating">
-                  <label class="control-label">Nombre Puesto</label>
-                  <input type="text" class="form-control" name="puesto" value="{{ old('puesto') }}" required>
-                </div>
-              </div>
-              <div class="col-md-5">
-                <div class="form-group label-floating">
-                  <label class="control-label">Descripción</label>
-                  <input type="text" class="form-control" name="descripcion" value="{{ old('descripcion') }}" required>
-                </div>
-              </div>
-              <div class="col-md-2 text-right">
-                <button type="submit" class="btn btn-primary">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                  Agregar
-                </button>
-              </div>
-            </div>
-          </form>
-        </card>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
         <div class="card grey lighten-5">
           <div class="card-content">
-            <h3 class="card-title">Lista de Puestos</h3>
+            <form id="createPuesto" action="/herramientas/puestos/nuevo" method="POST" autocomplete="off">
+              {{ csrf_field() }}
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Nombre Puesto</label>
+                    <input type="text" class="form-control" id="puesto" name="puesto" value="{{ old('puesto') }}" required>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ old('descripcion') }}" required>
+                  </div>
+                </div>
+                <div class="col-md-2 text-right">
+                  <button type="submit" id="submitPuesto" class="btn btn-primary">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Agregar
+                  </button>
+                </div>
+              </div>
+            </form>
             <hr>
             <div class="row">
               <div class="col-md-12">
@@ -64,7 +57,7 @@
     </div>
     {{-- modal --}}
       <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <form class="" action="/herramientas/actualizar" method="post">
+        <form id="editFormPuesto" >
           {{ csrf_field() }}
           {{ method_field('PATCH') }}
         <div class="modal-dialog" role="document">
@@ -75,25 +68,17 @@
             </div>
             <div class="modal-body">
               <div class="card-content">
-                <div class="form-horizontal">
-                  <div class="row">
-                    <label class="col-md-3">Puesto</label>
-                    <input type="hidden" name="id" value="" id="id" class="form-control">
+                  <div class="form-group">
+                    <input type="hidden" name="id" id="editId" class="form-control">
                   </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <input type="text" name="puesto" value="" id="info-puesto" class="form-control">
-                    </div>
+                  <div class="form-group">
+                    <label class="control-label">Puesto</label>
+                    <input type="text" id="editPuesto" name="puesto" value=""  class="form-control" required>
                   </div>
-                  <div class="row">
-                    <label class="col-md-3">Descripción</label>
+                  <div class="form-group">
+                    <label class="control-label">Descripción</label>
+                    <textarea type="text" id="editDescripcion" name="descripcion" class="form-control" required></textarea>
                   </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <input type="text" name="descripcion" value="" id="info-descripcion" class="form-control">
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div class="modal-footer">
@@ -109,7 +94,7 @@
   @include('layouts.partials.notify')
   <script>
   $().ready(function() {
-      oTable = $('#puestos').DataTable({
+      var oTable = $('#puestos').DataTable({
         order: [],
         responsive: true,
         processing: true,
@@ -174,29 +159,93 @@
       $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
           console.log(message);
       };
-  });
-
-  $(function(){
+      
       $('#createPuesto').validate({
         errorPlacement: function(error, element) {
           $(element).closest('div.form-group').addClass('has-error');
-        }
+        },
+        
+      });
+      $('#createPuesto').submit(function(e){
+          e.preventDefault();
+          let inputPuesto = $('#createPuesto #puesto').val();
+          let inputDescripcion = $('#createPuesto #descripcion').val();
+          axios.post('/herramientas/puestos/nuevo',{
+            puesto: inputPuesto,
+            descripcion: inputDescripcion
+          }).then(function(response){
+              oTable.ajax.reload();
+              $('#createPuesto #puesto').val('');
+              $('#createPuesto #descripcion').val('');
+              $.notify({
+                  icon: "check",
+                  message: "<h6>En hora buena</h6>Se agrego un puesto satisfacctoriamente"
+              },{
+                  type: 'success',
+                  timer: 4000,
+                  placement: {
+                      from: 'top',
+                      align: 'right'
+                  }
+              });
+          });
+      });
+
+      $('#editFormPuesto').validate({
+        errorPlacement: function(error, element) {
+          $(element).closest('div.form-group').addClass('has-error');
+        },
+        
+      });
+      $('#editFormPuesto').submit(function(e){
+          e.preventDefault();
+          let id = $('#editId').val();
+          let puesto = $('#editPuesto').val();
+          let descripcion = $('#editDescripcion').val();
+          let token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+          if(puesto =='' || descripcion==''){
+            return
+          }
+          axios.post('/herramientas/puestos/edit',{
+            id : id,
+            puesto : puesto,
+            descripcion : descripcion,
+            _token : token
+          }).then(function(response){
+              console.log(response.data);
+              oTable.ajax.reload();
+              $('#editId').val();
+              $('#editPuesto').val('');
+              $('#editDescripcion').val('');
+              $('#update').removeClass('in');
+              $('#update').css({'display':'none'});
+              $('.modal-backdrop').remove();
+              $('body').removeClass( "modal-open" );
+              $.notify({
+                  icon: "check",
+                  message: "<h6>En hora buena</h6>Los cambios se realizarón satisfacctoriamente"
+              },{
+                  type: 'info',
+                  timer: 4000,
+                  placement: {
+                      from: 'top',
+                      align: 'right'
+                  }
+              });
+          });
       });
 
       $(document).on("click",".puesto", function(){
-        // console.log($(this).data('id'));
           let id = $(this).data('id');
-          $('#info-puesto').attr('value','');
-          $('#info-descripcion').attr('value','');
+          $('#editPuesto').val('');
+          $('#editDescripcion').val('');
           $('#id').attr('value','');
-
           axios.get('/herramientas/info-puesto/'+id)
           .then(function(response){
               let data=response.data;
-              console.log(data);
-              $('#info-puesto').attr('value',data.puesto);
-              $('#info-descripcion').attr('value',data.descripcion);
-              $('#id').attr('value',data.id);
+              $('#editPuesto').val(data.puesto);
+              $('#editDescripcion').val(data.descripcion);
+              $('#editId').val(data.id);
           });
       });
 });

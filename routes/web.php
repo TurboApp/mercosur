@@ -181,7 +181,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/herramientas/puestos','ToolController@createPuesto');
   Route::post('/herramientas/puestos/nuevo','ToolController@storePuesto');
   Route::get('/herramientas/getPuestos','ToolController@get');
-  Route::patch('/herramientas/actualizar','ToolController@update');
+  Route::post('/herramientas/puestos/edit','ToolController@update');
   Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');
 
   Route::get('/herramientas/equipos','ToolController@createEquipo')->name('equipos');

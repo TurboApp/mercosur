@@ -68,6 +68,58 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'
 };
+
+
+window.axios.interceptors.response.use(response => {
+    // Everything fine, just pass it for further processing.
+    return response;
+}, error => {
+    // If it is an HTTP error
+    if(error.response) {
+        if(error.response.status == 500 || error.response.status == 401) { // Session expired.
+			alert('LO SENTIMOS PERO OCURRIO UN ERROR INESPERADO.');
+			window.location.reload(true);
+			
+            // // Set the new token as default HTTP header.
+			axios.defaults.headers.common['X-CSRF-TOKEN'] = error.response.data.newToken;
+			// window.axios.defaults.headers.common = {
+			// 	'X-CSRF-TOKEN': window.Laravel.csrfToken,
+			// 	'X-Requested-With': 'XMLHttpRequest'
+			// };
+			
+
+            // // If the user was signed in, we need to prompt for password.
+            // if(app.signedIn) {
+            //     return new Promise((resolve, reject) => {
+
+            //         // Request the password from user.
+            //         app.requestPassword()
+            //            .then(() => {
+            //                // If the user succeeds with authentication
+            //                // Repeat the same request with the new token and return the response to the original requesting function.
+
+            //                let request = error.response.config;
+            //                request.headers['X-CSRF-TOKEN'] = error.response.data.newToken;
+
+            //                axios.request(request).then(response => {
+            //                    resolve(response)
+            //                }, error => {
+            //                    reject(error)
+            //                })
+            //             })
+            //     });
+            // }
+        } else {
+            // Handle other errors
+        }
+    }
+
+    return Promise.reject(error);
+});
+
+
+
+
 // let token = document.head.querySelector('meta[name="csrf-token"]');
 
 // if (token) {

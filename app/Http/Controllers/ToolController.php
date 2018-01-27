@@ -34,8 +34,8 @@ class ToolController extends Controller
         ]);
         $pu=(new Puesto)->fill($request->all());
         $pu->save();
-        $request->session()->flash('success', 'El puesto '.$pu->puesto.' se agrego a la base de datos satisfactoriamente');
-        return redirect('/herramientas/puestos');
+        //$request->session()->flash('success', 'El puesto '.$pu->puesto.' se agrego a la base de datos satisfactoriamente');
+        return $pu->toJson();//redirect('/herramientas/puestos');
     }
 
     public function infopuesto(Puesto $puesto)
@@ -50,8 +50,8 @@ class ToolController extends Controller
       ]);
       $puesto=Puesto::find($request->id);
       $puesto->update($request->only('puesto','descripcion'));
-      $request->session()->flash('success', 'El puesto '.$puesto->puesto.' se actualizo satisfactoriamente');
-      return redirect('/herramientas/puestos');
+      //$request->session()->flash('success', 'El puesto '.$puesto->puesto.' se actualizo satisfactoriamente');
+      return  $puesto->toJson();//redirect('/herramientas/puestos');
     }
 
     ##Equipos

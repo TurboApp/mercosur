@@ -26,7 +26,7 @@
                     <div class="row" v-if="show" style="padding:15px 20px;">
                         <hr>
                         <div class="col-xs-12">
-                            <subtareas-maniobra :tarea-id="datos.id" :maniobra-id="maniobraId" />
+                            <subtareas-maniobra :tarea-id="datos.id" :tarea-tipo="datos.tipo" :maniobra-id="maniobraId" />
                         </div>
                     </div>
                 </transition>

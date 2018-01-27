@@ -1,6 +1,6 @@
 <template>
     <div class="tabs-component">
-        <ul role="tablist" class="nav nav-pills">
+        <ul role="tablist" class="nav  nav-pills" :class="cssClass"  >
             <li v-for="tab in tabs"
                 :class="{ 'active': tab.isActive }"
                 class="tabs-component-tab"
@@ -29,6 +29,10 @@
     export default {
         props: {
             cacheLifetime: { default: 5 },
+            cssClass:{
+                type:String,
+                required: false,
+            },
             options: {
                 type: Object,
                 required: false,

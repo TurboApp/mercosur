@@ -42,12 +42,12 @@
         </card>
 
         <tabs >
-             <tab name="Supervisión" >
+            <tab name="Supervisión" >
                 <proceso-supervision 
                     :maniobra-id="datos.servicio_id" 
                     :active-index="datos.indice_activo" 
                     :avance-total="avanceTotal" 
-                    :maniobra-tipo = "datos.servicio.tipo"
+                    
                    >
                 </proceso-supervision>
             </tab>
@@ -175,15 +175,26 @@ export default {
                     {
                         self.avanceTotal = parseInt(data.maniobra.avance_total);
                     }
-                });   
-            EventBus.$on('termino-maniobra', (data) => {
+                });  
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraFin', (data) => {
+                    console.log('Maniobra Fin - Maniobra/Master');
                     console.log(data);
-                    if(self.datos.id == data.id)
+                    if(self.datos.id == data.maniobra.id)
                     {
-                        self.$set(self.datosM, 'termino_maniobra', moment(data.termino_maniobra.date).format('D/MM/YY, HH:mm:ss'));
+                        self.datosM.termino_maniobra = moment(data.maniobra.termino_maniobra).format('D/MM/YY, HH:mm:ss');
+                        self.avanceTotal = parseInt(data.maniobra.avance_total);
                         clearInterval(self.intervalTimer);
                     }
-            });
+                });    
+            // EventBus.$on('termino-maniobra', (data) => {
+            //         console.log(data);
+            //         if(self.datos.id == data.id)
+            //         {
+            //             self.$set(self.datosM, 'termino_maniobra', moment(data.termino_maniobra.date).format('D/MM/YY, HH:mm:ss'));
+            //             clearInterval(self.intervalTimer);
+            //         }
+            // });
         },
         
     }

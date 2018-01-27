@@ -142,7 +142,7 @@ export default {
                 let diffTime = currentTime.diff(eventTime);
                 let duration = moment.duration(diffTime, 'milliseconds');
                 let interval = 1000;
-                this.tempo = setInterval(function(){
+                self.tempo = setInterval(function(){
                     duration = moment.duration(duration + interval, 'milliseconds');
                     if(duration.days()){
                         self.generalTimer = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
@@ -234,6 +234,21 @@ export default {
                         }, interval);
                     }
                 });
+            
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraFin', (data) => {
+                    console.log('Maniobra Fin - Coordinacion/Master');
+                    console.log(data);
+                    if(self.datos.id == data.maniobra.id)
+                    {
+                        self.datosM.termino_maniobra = moment(data.maniobra.termino_maniobra.date).format('D/MM/YY, HH:mm:ss');
+                        self.datosM.avance_total = parseInt(data.maniobra.avance_total);
+                        self.datosM.status = data.maniobra.status;
+                        clearInterval(self.tempo);
+                        
+                        
+                    }
+                });  
             
         },
         EventBus(){

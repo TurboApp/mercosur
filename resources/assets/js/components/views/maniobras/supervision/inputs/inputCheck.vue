@@ -1,13 +1,13 @@
 <template>
     <div class="row">
         <div class="col-xs-8">
-            <h3 v-text="title"></h3>    
+            <h4 v-text="title"></h4>    
             <p class="list-group-item-text text-muted" v-text="text"></p>
         </div>
         <div class="col-xs-4 text-right">
             <p class="form-group">
-                <toggle-button :value="input" :color="'#2ECC40'" :sync="true" :height="25"
-                    :labels="{checked: '<i class=\'fa fa-check\' ></i>', unchecked: ''}" 
+                <toggle-button :value="input" :color="{checked: '#64dd17', unchecked: '#e0e0e0'}" :sync="true" :height="30" :width="60"
+                    :labels="{checked: 'Si', unchecked: 'No'}" 
                     @change="isCheck"/>
             </p>
         </div>

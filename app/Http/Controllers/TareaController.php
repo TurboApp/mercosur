@@ -301,7 +301,14 @@ class TareaController extends Controller
             ]);
 
             event(new ManiobraTareaValidacion($subtarea));
+            
+            //Emite el evento para app.js 
             event(new notificaciones($notifi));
+        }
+        elseif($request->inputType == 'selected'){
+            $subtarea = Subtarea::find($request->id);
+            $subtarea->value = $request->value; 
+            $subtarea->save();
         }
         else{
             $subtarea = Subtarea::find($request->id);
@@ -388,18 +395,14 @@ class TareaController extends Controller
     {
         $tarea = Tareas::find($request->tareaId);
         $now = Carbon::now();
-        if($request->option === 'inicio'){
-            if(!$tarea->inicio){
-                $tarea->inicio = $now; 
-                $tarea->status ='en proceso';
-                $tarea->save();
-            }
-        }elseif($request->option === 'fin'){
-            if(!$tarea->final){
-                $tarea->final = $now; 
-                $tarea->status ='finalizado';
-                $tarea->save();
-            }
+        if($request->option == 'inicio' && !$tarea->inicio){
+            $tarea->inicio = $now; 
+            $tarea->status ='en proceso';
+            $tarea->save();
+        }elseif($request->option == 'fin' && !$tarea->final){
+            $tarea->final = $now; 
+            $tarea->status ='finalizado';
+            $tarea->save();
         }
         return $tarea->toJson();
     }

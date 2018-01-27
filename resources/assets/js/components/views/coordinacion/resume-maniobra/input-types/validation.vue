@@ -11,7 +11,7 @@
                     Verifique si las actividades anteriores fueron realizadas correctamente
                 </p>
                 <div class="row"> 
-                    <div class="col-sm-6 text-center">
+                    <div class="col-sm-6 text-center red lighten-4" style="padding:15px 0;">
                         <h6>Ups, hay un error, enviar a correción</h6>
                         <button type="button" 
                             class="btn btn-danger btn-round btn-lg" 
@@ -22,8 +22,8 @@
                             Error
                         </button>          
                     </div>
-                    <div class="col-sm-6 text-center">
-                        <h6>Todo estabien puede proseguir con la siguiente tarea</h6>
+                    <div class="col-sm-6 text-center light-green accent-1" style="padding:15px 0;">
+                        <h6>Todo estabien puede proseguir con la maniobra</h6>
                         <button type="button" 
                             class="btn btn-success btn-round btn-lg" 
                             @click="validado"
@@ -37,6 +37,7 @@
             </div>
             <div v-else-if="isValid=='errorValidation'" class="">
                 <p class="text-muted lead text-center">
+                    <i class="fa fa-cog fa-spin fa-lg fa-fw"></i>
                     En espera de la rectificacción...
                 </p>
             </div>
@@ -58,7 +59,7 @@
 </template>
 <script>
 import card from "./../../../../cards/Card.vue";
-import EventBus from './../../../../event-bus.js';
+import EventBus from './../../../../event-bus';
 export default {
     components:{
         'card':card,
@@ -94,21 +95,22 @@ export default {
             isValid:'',
         }
     },
-    
     created(){
         this.EventBus();
     },
     mounted(){
-        console.log(this.$parent.$parent.$parent.$parent.$options);
         let self = this;
         this.isValid = this.value;
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.init();
-        console.log(this.value);
     },
     methods:{
         init()
         {
+            let data = {
+                maniobraId : this.maniobraId,
+                tareaId : this.tareaId
+            };
             switch (this.value) {
                 case 'onValidation':
                         this.disabled = false;
@@ -116,11 +118,13 @@ export default {
                     break;
             
                 case 'okValidation':
+                        EventBus.$emit('okValidation', data);
                         this.disabled = true;
                         this.load = true;
                     break;
             
                 case 'errorValidation': 
+                        EventBus.$emit('errorValidation', data);
                         this.disabled=true;
                         this.load = true;
                     break;
@@ -133,11 +137,7 @@ export default {
         },
        
         validado(){
-            let self=this;
-            let data={
-                maniobraId:this.maniobraId,
-                tareaId:this.tareaId    
-            };
+            let self = this;
             swal({
                 title: '¿Está seguro de validar?',
                 text: "Ya no se podrán realizar correcciones",
@@ -154,57 +154,58 @@ export default {
                         value:'okValidation',
                         _token: self.token 
                     }).then(function(response){
-                        EventBus.$emit('okValidation', data );
-                        self.disabled = true;
+                        // if(response.data.tarea_id == self.tareaId){
+                        //     self.disabled = true;
+                        //     self.isValid='okValidation';
+                        // }
                     });
-            })
-
-            
-            
+            });
         },
         error(){
             let self = this;
-            let data={
-                maniobraId:this.maniobraId,
-                tareaId:this.tareaId    
-            };
             axios.post('/maniobra/subtarea/'+ this.id,{
                 inputType: 'validation',
                 value:'errorValidation',
                 _token: this.token 
             }).then(function(response){
-                EventBus.$emit('errorValidation', data );
-                self.disabled=true;
+                // if(response.data.tarea_id == self.tareaId){
+                //     self.disabled=true;
+                //     self.isValid='errorValidation';
+                // }     
             });
         },
+       
         EventBus(){
             let self = this;
-            EventBus.$on('validationEvent', (data)=>{
-                if(data.validation.id == self.id){
-                    self.isValid = data.validation.value;
-                    switch (data.validation.value) {
-                        case 'onValidation':
-                                this.disabled = false;
-                                this.load = true;
+
+            Echo.channel('maniobra-channel')
+                .listen('ManiobraTareaValidacion', (data) => {
+                    if(data.validation.id == self.id){
+                        switch (data.validation.value) {
+                            case 'onValidation':
+                                self.isValid = 'onValidation';
+                                self.disabled = false;
+                                self.load = true;
+
                             break;
-                    
-                        case 'okValidation':
-                                this.disabled = true;
-                                this.load = true;
-                            break;
-                    
-                        case 'errorValidation': 
-                                this.disabled=true;
-                                this.load = true;
-                            break;
-                    
-                        default:
-                                this.load = true;
-                            break;
-                    }   
-                }
-                
-            })
+                            case 'okValidation':
+                                    self.disabled = true;
+                                    //self.load = true;
+                                    self.isValid= 'okValidation';
+                                break;
+                        
+                            case 'errorValidation': 
+                                    self.disabled=true;
+                                    
+                                    self.isValid= 'errorValidation';
+                                break;
+                        
+                            default:
+                                    self.load = true;
+                                break;
+                        }
+                    }
+                });   
         }
     }
 }

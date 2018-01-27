@@ -2,7 +2,7 @@
     <div class="row"> 
             <div class="col-xs-12">
                 <card>
-                    <h3 class="text-center text-uppercase" v-text="title"></h3>
+                    <h4 class="text-center text-uppercase" v-text="title"></h4>
                     <div class="col-xs-12 text-center">
                         <p class="form-group text-muted" v-text="text"></p>
                         <div v-if="images.length > 0" class="clearfix">

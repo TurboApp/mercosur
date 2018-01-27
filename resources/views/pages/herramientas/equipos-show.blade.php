@@ -25,7 +25,7 @@
         @endforelse  
     </div>
    
-  @endsection
+@endsection
 @push('scripts')
     @include('layouts.partials.errors')
     @include('layouts.partials.notify')

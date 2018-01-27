@@ -1,7 +1,62 @@
 <template>
     <div>
         <div class="list-group list-task" v-if="subTareas.length > 0">
-            <subtarea-element v-for="(subtarea, index) in subTareas" 
+            <div v-if="tareaTipo=='doble'">
+                <tabs css-class="nav-justified">
+                    <tab name="Nacional" >
+                        
+                        <div class="list-group list-task">
+                            <subtarea-element v-for="(subtarea, index) in subTareas" 
+                                class="list-group-item list-task-item"
+                                :key="subtarea.id" 
+                                :input-type="subtarea.inputType"
+                                :limit="subtarea.limit"
+                                :id="subtarea.id"
+                                :title="subtarea.subtarea"
+                                :help-text="subtarea.texto_ayuda"
+                                :maniobra-id="maniobraId"
+                                :value="subtarea.value"
+                                :index="index"
+                                v-if="subtarea.tipo_transporte=='N'"
+                                /> 
+                        </div> 
+                    </tab>
+                    <tab name="Centroaméricano">
+                        <div class="list-group list-task">
+                            <subtarea-element v-for="(subtarea, index) in subTareas" 
+                                class="list-group-item list-task-item"
+                                :key="subtarea.id" 
+                                :input-type="subtarea.inputType"
+                                :limit="subtarea.limit"
+                                :id="subtarea.id"
+                                :title="subtarea.subtarea"
+                                :help-text="subtarea.texto_ayuda"
+                                :maniobra-id="maniobraId"
+                                :value="subtarea.value"
+                                :index="index"
+                                v-if="subtarea.tipo_transporte=='C'"
+                                /> 
+                        </div> 
+                    </tab>
+                </tabs> 
+            </div>
+            <div v-else>
+                <div class="list-group list-task">
+                    <subtarea-element v-for="(subtarea, index) in subTareas" 
+                        class="list-group-item list-task-item"
+                        :key="subtarea.id" 
+                        :input-type="subtarea.inputType"
+                        :limit="subtarea.limit"
+                        :id="subtarea.id"
+                        :title="subtarea.subtarea"
+                        :help-text="subtarea.texto_ayuda"
+                        :maniobra-id="maniobraId"
+                        :value="subtarea.value"
+                        :index="index"
+                        /> 
+                </div>
+            </div>
+            <!-- <subtarea-element v-for="(subtarea, index) in subTareas" 
                 class="list-group-item list-task-item"
                 :key="subtarea.id" 
                 :input-type="subtarea.inputType"
@@ -12,7 +67,7 @@
                 :maniobra-id="maniobraId"
                 :value="subtarea.value"
                 :index="index"
-                /> 
+                />  -->
         </div>
         <div v-else >
             <p class="text-center text-muted">
@@ -24,14 +79,22 @@
 </template>
 <script>
 import subtarea from './subtarea-element.vue';
+import tabs from '../../../ui/nav/tabs.vue';
+import tab from '../../../ui/nav/tab.vue';
 export default {
     components:{
+        'tabs':tabs,
+        'tab':tab,
         'subtarea-element':subtarea,
     },
     props:{
         tareaId:{
             type:[Number, String],
             required: true
+        },
+        tareaTipo:{
+            type:String,
+            required:false
         },
         maniobraId:{
             type:[Number, String],

@@ -1,12 +1,15 @@
 <template>
     <div class="row">
         <div class="col-xs-12">
-            <h3 v-text="title"></h3>    
+            <h4 v-text="title"></h4>    
         </div>
-        <div class="col-xs-12">
-            <p class="form-group">
+        <div class="col-xs-12" >
+            <div class="form-group" :class="classSuccess">
                 <input type="number" v-model="input" @blur="guardar" min="1" class="form-control input-lg" :placeholder="text">
-            </p>
+                 <span class="form-control-feedback" v-if=" classSuccess == 'has-success'  ">
+                    <i class="material-icons">done</i>
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -31,6 +34,13 @@ export default {
     data(){
         return{
             input:''
+        }
+    },
+     computed:{
+        classSuccess(){
+            if(this.input){
+                return 'has-success';
+            }
         }
     },
     mounted(){
