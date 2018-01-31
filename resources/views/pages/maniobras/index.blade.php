@@ -30,7 +30,9 @@
         <div id="oneDate" class="col-md-4 col-md-offset-2">
             <div class="input-group">
                 <span class="input-group-addon">
-                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
+                    <button type="button" id="view_range_date" title="Rango de fechas" data-toggle="tooltip" class="btn btn-simple btn-primary btn-just-icon">
+                        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                    </button>
                     <i class="fa fa-calendar "></i> Fecha
                 </span>
                 <input type="text" id="fecha" name="fecha" value="{{$data->format('j/m/Y')}}" class="form-control"  maxlength="10">
@@ -41,7 +43,9 @@
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
+                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" data-toggle="tooltip" class="btn btn-simple btn-primary btn-just-icon">
+                                <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                            </button>
                             <i class="fa fa-calendar "></i> 
                         </span>
                         <input type="text" id="fechaInicio" placeholder="Desde" class="form-control"  maxlength="10">
@@ -54,7 +58,9 @@
                         </span>
                         <input type="text" id="fechaFinal" placeholder="Hasta" class="form-control"  maxlength="10">
                         <span class="input-group-addon">
-                            <button type="button" id="source_date" title="Seleccionar fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></button>
+                            <button type="button" id="source_date" title="Seleccionar fechas" class="btn btn-simple btn-primary btn-just-icon">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            </button>
                         </span>
                     </div>
                 </div>
@@ -71,7 +77,9 @@
                     <thead>
                         <tr>
                             <th>Tipo</th>
-                            <th>Cliente</th>
+                            <th>Servicio</th>
+                            <th>Nombre de Cliente</th>
+                            <th>Recepción</th>
                             <th>Estatus</th>
                             <th>
                                 <span class="visible-xs">Opciones</span>
@@ -83,7 +91,9 @@
                     <tfoot>
                         <tr>
                             <th>Tipo</th>
+                            <th>Servicio</th>
                             <th>Cliente</th>
+                            <th>Recepción</th>
                             <th>Estatus</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -102,6 +112,7 @@
 @include('layouts.partials.notify')
 <script>
     $().ready(function(){
+        
         let options = {
             format: 'DD/MM/YYYY',
             useCurrent:true,
@@ -128,7 +139,7 @@
         fechaFinal.on('dp.change', function(e){
             fechaInicio.data("DateTimePicker").maxDate(e.date);
         });
-
+        
         fecha.on('dp.change', function(e){ 
             let date=$(this).val().replace(/[/]/g,'-');
             
@@ -169,21 +180,38 @@
                 { 
                     "data" : "servicio.tipo",
                     "render":function(data,type,row){
-                        return  `
-                        <figure class="`+data+` img-rounded" style="padding:5px;max-width:200px;">
-                            <img src="/img/servicios-iconos/`+data.toLowerCase()+`-icon-on.png" alt="`+ data +`">
-                            <figcaption style="margin-top:1em;"><p class="text-center text-uppercase">`+data+`</p></figcaption>
-                        </figure>
+                        return `
+                            <p class="${data} letter-icon text-center" title="${data}" data-toggle="tooltip">${data.substring(0,1)}</p>
+                            
+                        `;
+                    }
+                },
+                {
+                    "data" : "servicio.numero_servicio",
+                    "render" : function(data, type, row){
+                        return `
+                           <h3 class="text-center">N. ${data}</h3>
                         `;
                     }
                 },
                 { 
                     "data" : "servicio.cliente.nombre",
                     "render": function(data, type, row){
-                        return "<small class=\"text-muted\"><i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> "+ row.servicio.date_humans +" - No. de servicio "+row.servicio.numero_servicio+" </small> <h4 class=\"text-uppercase text-primary\">"+data+"</h4>";
+                        return `
+                            <p class="lead text-primary" style="font-weight:500;margin:0;">${data}</p>
+                        `
                     }    
                 },
-                
+                {
+                    "data" : "servicio.date_humans",
+                    "render" : function(data, type, row){
+                        return `
+                            <p>
+                                    ${data} 
+                            </p>
+                        `;
+                    }
+                },
                 { 
                     "data" : "status",
                     "render": function(data, type, row){
@@ -214,7 +242,7 @@
                     "data":null,
                     "render": function(data, type, row){
                         return `
-                            <a href="/maniobras/`+data.id+`" class="btn btn-primary btn-simple btn-icon">
+                            <a href="/maniobras/${data.id}" class="btn btn-primary btn-round btn-just-icon">
                                 <i class="fa fa-search-plus" aria-hidden="true"></i>
                             </a>
                         `;
@@ -230,30 +258,21 @@
         $("#filtros").on('click','a',function(){
             switch ($(this).data("filter")) {
                 case 'finalizados':
-                        table.columns(2).search("Finalizado").draw();     
+                        table.columns(4).search("Finalizado").draw();     
                     break;
                 case 'haciendo':
-                        table.columns(2).search("EN PROCESO").draw();     
+                        table.columns(4).search("EN PROCESO").draw();     
                     break;
                 case 'pendientes':
-                        table.columns(2).search("PARA ASIGNAR|ASIGNADO|EN PAUSA", true, false, true).draw();     
+                        table.columns(4).search("PARA ASIGNAR|ASIGNADO|EN PAUSA", true, false, true).draw();     
                     break;
                 default:
-                        table.columns(2).search("").draw();     
+                        table.columns(4).search("").draw();     
                     break;
             }
         });
 
-        $("#view_range_date,#hide_range_date").mouseover(function(){
-            $(this).removeClass("btn-default");
-            $(this).addClass("btn-primary");
-        });
-        $("#view_range_date,#hide_range_date").mouseout(function(){
-            $(this).removeClass("btn-primary");
-            $(this).addClass("btn-default");
-        });
-
-    
+       
         $('#view_range_date').on('click',function(){
             $("#oneDate").hide();
             $("#rangeDate").fadeIn();
@@ -311,7 +330,9 @@
                 return;
             }else{
                 let date=inicio.val().replace(/[/]/g,'-')+"*"+final.val().replace(/[/]/g,'-');
-                table.ajax.url( "/API/servicios/"+date).load();
+                console.log('date');
+                console.log(date);
+                table.ajax.url( "/API/maniobra-supervisor/"+date ).load();
             }
         });
 
@@ -322,6 +343,8 @@
                 table.ajax.reload();
             }
         });  
+
+        $('[data-toggle="tooltip"]').tooltip(); 
 
     });
 </script>

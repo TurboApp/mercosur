@@ -2,32 +2,51 @@
     <template>
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="col-md-2 control-label">Linea de transporte</label>
-                <div class="col-md-10">
-                    <input type="text" class="form-control" value="{{ $data->transporte->nombre }}" disabled>  
-                </div>
-            </div>
-        
-            <div class="form-group">
-                <label class="col-md-2 control-label">Nombre del operador</label>
-                <div class="col-md-10">
-                    <input type="text" class="form-control"  value="{{ $data->nombre_operador }}" disabled>   
-                </div>
-            </div>
-        
-            <div class="form-group">
-                <label class="col-md-2 control-label">No. de talon</label>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" value="{{ $data->talon_embarque }}" disabled>   
-                </div>
-                    
                 <label class="col-md-2 control-label">Operación</label>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" value="{{ $data->operacion }}" disabled>   
+                <div class="col-md-10">
+                    <input type="text" class="form-control" value="{{ $data->operacion }}" disabled>  
                 </div>
-            
             </div>
-                
+
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="row">
+                        <label class="col-md-3 control-label">Linea de transporte</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" value="{{ $data->transporte->nombre }}" disabled>  
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <label class="col-md-4 control-label">No. de talon</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" value="{{ $data->talon_embarque }}" disabled>   
+                        </div> 
+                    </div>
+                </div>
+
+            </div>
+        
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="row">
+                        <label class="col-md-3 control-label">Nombre del operador</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control"  value="{{ $data->nombre_operador }}" disabled>   
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <label class="col-md-4 control-label">Teléfono</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control"  value="{{ $data->telefono_operador }}" disabled>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
             <div class="form-group">
                 <label class="col-md-2 control-label">Marca del Vehiculo</label>
                 <div class="col-md-10">

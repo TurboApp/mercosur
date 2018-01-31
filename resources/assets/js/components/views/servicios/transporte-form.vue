@@ -1,13 +1,19 @@
 <template>
     <card >
         <div class="row">
-            <div class="col-md-12">  
+            <div class="col-md-8">  
                 <div class="form-group">
                     <span class="twitter-typeahead">
                         <label for="lineaTransporte" class="control-label">Linea de transporte <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" :id="idlt" :name="name_linea_transporte(index)" v-model="transporte.lineaTranporte" required />
                         <input type="hidden" :name="name_id_linea_transporte(index)" v-model="transporte.id_linea_transporte" >
                     </span>
+                </div>
+            </div>
+            <div class="col-md-4">  
+                <div class="form-group">
+                    <label for="n_talon" class="control-label">No. de talon <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" :name="name_talon_embarque(index)" v-model="transporte.talon_embarque" maxlength="191" required>   
                 </div>
             </div>
         </div>
@@ -21,8 +27,8 @@
             </div>
             <div class="col-md-4">  
                 <div class="form-group">
-                    <label for="n_talon" class="control-label">No. de talon <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" :name="name_talon_embarque(index)" v-model="transporte.talon_embarque" maxlength="191" required>   
+                    <label for="telefono_operador" class="control-label">Teléfono <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" :name="name_telefono_operador(index)" v-model="transporte.telefono_operador" maxlength="191" required>   
                 </div>
             </div>
         </div>
@@ -148,6 +154,9 @@ export default {
         }, 
         name_nombre_operador(indice){
             return 'transporte['+ indice +']['+this.tipo+'][nombre_operador]';
+        },
+        name_telefono_operador(indice){
+            return 'transporte['+ indice +']['+this.tipo+'][telefono_operador]';
         },
         name_talon_embarque(indice){
             return 'transporte['+indice+']['+this.tipo+'][talon_embarque]';

@@ -17,6 +17,13 @@
                           <input type="text" class="form-control"  :value="transporte.nombre_operador" disabled>   
                       </div>
                   </div>
+
+                  <div class="form-group">
+                      <label class="col-md-2 control-label">Telefono del operador</label>
+                      <div class="col-md-10">
+                          <input type="text" class="form-control"  :value="transporte.telefono_operador" disabled>   
+                      </div>
+                  </div>
               
                   <div class="form-group">
                       <label class="col-md-2 control-label">No. de talon</label>

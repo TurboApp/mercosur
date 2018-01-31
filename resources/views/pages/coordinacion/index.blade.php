@@ -29,7 +29,7 @@
         <div id="oneDate" class="col-md-4 col-md-offset-2">
             <div class="input-group">
                 <span class="input-group-addon">
-                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
+                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
                     <i class="fa fa-calendar "></i> Fecha
                 </span>
                 <input type="text" id="fecha" name="fecha" value="{{$data->format('j/m/Y')}}" class="form-control"  maxlength="10">
@@ -40,7 +40,7 @@
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
+                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
                             <i class="fa fa-calendar "></i> 
                         </span>
                         <input type="text" id="fechaInicio" placeholder="Desde" class="form-control"  maxlength="10">
@@ -70,7 +70,7 @@
                         <tr>
                             <th>Turno</th>
                             <th>Servicio</th>
-                            <th>Cliente</th>
+                            <th>Nombre del cliente</th>
                             <th>Supervisor</th>
                             <th>Estatus</th>
                             <th><span class="visible-xs">Opciones</span></th>
@@ -179,12 +179,10 @@
                 { 
                     data : "servicio.tipo",
                     render :function(data,type,row){
-                        return  `
-                        <figure class="`+data+` img-rounded" style="padding:5px;max-width:200px;margin:0 auto;">
-                            <img src="/img/servicios-iconos/`+data.toLowerCase()+`-icon-on.png" alt="`+ data +`">
-                            <figcaption style="margin-top:1em;"><p class="text-center text-uppercase">`+data+`</p></figcaption>
-                       </figure>
+                        return `
+                            <p class="${data} letter-icon text-center" title="${data}" data-toggle="tooltip">${data.substring(0,1)}</p>
                         `;
+                       
                     }
                 },
                 { 
@@ -192,9 +190,9 @@
                     render : function(data, type, row){
                         return `
                             <small class="text-muted">
-                              <i class="fa fa-calendar-o" aria-hidden="true"></i> `+ row.servicio.date_humans +` - No. de servicio `+row.servicio.numero_servicio+` 
+                              <i class="fa fa-calendar-o" aria-hidden="true"></i> ${row.servicio.date_humans} - No. de servicio ${row.servicio.numero_servicio} 
                             </small> 
-                            <h4 class="text-uppercase text-primary">`+data+`</h4>;
+                            <h4 class="text-uppercase text-primary">${data}</h4>
                         `;
                     }     
                 },
@@ -203,7 +201,7 @@
                     render : function(data, type, row){
                        
                         if( data.supervisor_id ){
-                            return '<p class="text-center"><b>'+data.supervisor.nombre+'</b></p>';
+                            return '<h6 class="text-center">'+data.supervisor.nombre+'</h6>';
                             
                         }
                         else{
@@ -240,15 +238,15 @@
                     orderable: false,
                     data :null,
                     render : function(data, type, row){
-                        if(data.supervicor_id !== 'Null'){
+                        if(row.supervisor_id){
                             return `
-                                <a href="/coordinacion/servicio/`+data.id+`" class="btn btn-info btn-simple btn-icon">
+                                <a href="/coordinacion/servicio/${data.id}" class="btn btn-primary btn-round btn-just-icon">
                                     <i class="fa fa-search-plus" aria-hidden="true"></i>
                                 </a>
                             `;
                         }else{
                             return `
-                                <a href="/coordinacion/servicio/`+data.id+`" class="btn btn-primary btn-simple btn-icon">
+                                <a href="/coordinacion/servicio/${data.id}" class="btn btn-warning btn-round btn-just-icon">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                 </a>
                             `;
@@ -279,14 +277,14 @@
             }
         });
 
-        $("#view_range_date,#hide_range_date").mouseover(function(){
+        {{--  $("#view_range_date,#hide_range_date").mouseover(function(){
             $(this).removeClass("btn-default");
             $(this).addClass("btn-primary");
         });
         $("#view_range_date,#hide_range_date").mouseout(function(){
             $(this).removeClass("btn-primary");
             $(this).addClass("btn-default");
-        });
+        });  --}}
 
     
         $('#view_range_date').on('click',function(){

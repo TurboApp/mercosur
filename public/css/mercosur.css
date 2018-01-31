@@ -809,3 +809,16 @@ figure.image-hover figcaption {
   border: none;
 }
 
+.letter-icon {
+  font-size: 1.825em;
+  background: #e0e0e0;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 7px;
+}
+

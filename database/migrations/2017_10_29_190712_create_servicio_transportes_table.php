@@ -18,7 +18,8 @@ class CreateServicioTransportesTable extends Migration
             $table->integer('servicio_id');
             $table->integer('linea_transporte_id');
             $table->enum('operacion', ['Origen','Destino']);
-            $table->string('nombre_operador',120);
+            $table->string('nombre_operador');
+            $table->string('telefono_operador')->nullable();
             $table->string('tipo_unidad');
             $table->string('medida_unidad',30);
             $table->string('ejes',25);

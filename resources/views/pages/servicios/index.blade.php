@@ -38,7 +38,7 @@
         <div id="oneDate" class="col-md-4 col-md-offset-2">
             <div class="input-group">
                 <span class="input-group-addon">
-                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
+                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
                     <i class="fa fa-calendar "></i> Fecha
                 </span>
                 <input type="text" id="fecha" name="fecha" value="{{$data->format('j/m/Y')}}" class="form-control"  maxlength="10">
@@ -49,7 +49,7 @@
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
+                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
                             <i class="fa fa-calendar "></i> 
                         </span>
                         <input type="text" id="fechaInicio" placeholder="Desde" class="form-control"  maxlength="10">
@@ -78,8 +78,10 @@
                 <table id="servicios" class="table" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Turno</th>
                             <th>Tipo</th>
-                            <th>Cliente</th>
+                            <th>Cliente y linea de transporte</th>
+                            <th>Operador</th>
                             <th>Estatus</th>
                             <th>
                                 <span class="visible-xs">Opciones</span>
@@ -90,8 +92,10 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>Turno</th>
                             <th>Tipo</th>
                             <th>Cliente</th>
+                            <th>Operador</th>
                             <th>Estatus</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -174,24 +178,51 @@
             },
             ajax: "/API/servicios",
             columns:[
+                {
+                    "data" : "coordinacion.turno",
+                    "render" : function(data, type, row){
+                        return `
+                           <span class="text-center yellow accent-1" style="display:block; font-size:5.2em;">${data}</span>
+                        `;
+                    }
+                },
                 { 
                     "data" : "tipo",
                     "render":function(data,type,row){
-                        return  `
-                        <figure class="`+data+` img-rounded" style="padding:5px;max-width:200px;">
-                            <img src="/img/servicios-iconos/`+data.toLowerCase()+`-icon-on.png" alt="`+ data +`">
-                            <figcaption style="margin-top:1em;"><p class="text-center text-uppercase">`+data+`</p></figcaption>
-                        </figure>
+                        return `
+                        <p class="${data} letter-icon text-center" title="${data}" data-toggle="tooltip">${data.substring(0,1)}</p>
                         `;
+                        
                     }
                 },
                 { 
                     "data" : "cliente.nombre",
                     "render": function(data, type, row){
-                        return "<small class=\"text-muted\"><i class=\"fa fa-calendar-o\" aria-hidden=\"true\"></i> "+ row.date_humans +" - No. de servicio "+row.numero_servicio+" </small> <h4 class=\"text-uppercase text-primary\">"+data+"</h4>";
+                        return `
+                            <small class="text-muted">
+                            <i class="fa fa-calendar-o" aria-hidden="true"></i> ${row.date_humans} 
+                            - No. de servicio ${row.numero_servicio}</small> 
+                            <h3 class="text-uppercase text-primary">${data}</h3>
+                            <h5 class="text-muted"><i class="fa fa-truck" aria-hidden="true"></i> ${row.transportes[0].transporte.nombre}</h5>
+                        `;
                     }    
                 },
-                
+                {
+                    "data" : "",
+                    "render" : function(data, type, row){
+                        let telefono = row.transportes[0].telefono_operador;
+                        if(!telefono){
+                            telefono = '';
+                        }
+                        return `
+                        <p class="text-uppercase text-muted">
+                            ${row.transportes[0].nombre_operador} 
+                        </p>
+                        <small class="text-muted">${telefono}</small>
+                        `;   
+                    }
+
+                },
                 { 
                     "data" : "coordinacion.status",
                     "render": function(data, type, row){
@@ -222,10 +253,7 @@
                     "data":null,
                     "render": function(data, type, row){
                         return `
-                            <a href="/servicios/edit/`+data.id+`" class="btn btn-warning btn-simple btn-icon">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                            <a href="/servicios/`+data.id+`" class="btn btn-info btn-simple btn-icon">
+                            <a href="/servicios/`+data.id+`" class="btn btn-info  btn-round btn-just-icon">
                                 <i class="fa fa-info" aria-hidden="true"></i>
                             </a>
                         `;
@@ -241,30 +269,21 @@
         $("#filtros").on('click','a',function(){
             switch ($(this).data("filter")) {
                 case 'finalizados':
-                        table.columns(2).search("Finalizado").draw();     
+                        table.columns(4).search("Finalizado").draw();     
                     break;
                 case 'haciendo':
-                        table.columns(2).search("EN PROCESO").draw();     
+                        table.columns(4).search("EN PROCESO").draw();     
                     break;
                 case 'pendientes':
-                        table.columns(2).search("PARA ASIGNAR|EN PAUSA", true, false, true).draw();     
+                        table.columns(4).search("PARA ASIGNAR|EN PAUSA", true, false, true).draw();     
                     break;
                 default:
-                        table.columns(2).search("").draw();     
+                        table.columns(4).search("").draw();     
                     break;
             }
         });
 
-        $("#view_range_date,#hide_range_date").mouseover(function(){
-            $(this).removeClass("btn-default");
-            $(this).addClass("btn-primary");
-        });
-        $("#view_range_date,#hide_range_date").mouseout(function(){
-            $(this).removeClass("btn-primary");
-            $(this).addClass("btn-default");
-        });
-
-    
+       
         $('#view_range_date').on('click',function(){
             $("#oneDate").hide();
             $("#rangeDate").fadeIn();

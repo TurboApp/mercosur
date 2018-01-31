@@ -8,13 +8,13 @@
         :tipo="tipo"
         @remove="deleteTransporte(index)">
     </transporte-form>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12 text-right">
             <button type="button" class="btn btn-primary btn-simple" @click="addTransporte">
                 <i class="material-icons">add_box</i> Agregar transporte
             </button>
         </div>
-    </div>
+    </div> -->
 </div>
 </template>
 <script>
@@ -31,6 +31,7 @@ export default {
                  lineaTranporte:'',
                  id_linea_transporte:'', 
                  nombre_operador:'',
+                 telefono_operador:'',
                  talon_embarque:'',
                  marca_vehiculo:'',
                  placas_tractor:'',
@@ -49,6 +50,7 @@ export default {
                 lineaTranporte:'',
                 id_linea_transporte:'', 
                 nombre_operador:'',
+                telefono_operador:'',
                 talon_embarque:'',
                 marca_vehiculo:'',
                 placas_tractor:'',

@@ -34,7 +34,7 @@
             <div id="oneDate" class="col-md-4 col-md-offset-8">
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
+                        <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
                         <i class="fa fa-calendar "></i> Fecha
                     </span>
                     <input type="text" id="fecha" name="fecha" value="{{$data->format('j/m/Y')}}" class="form-control"  maxlength="10">
@@ -45,7 +45,7 @@
                     <div class="col-md-6">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
+                                <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
                                 <i class="fa fa-calendar "></i> 
                             </span>
                             <input type="text" id="fechaInicio" placeholder="Desde" class="form-control"  maxlength="10">
@@ -279,15 +279,7 @@
          });
 
         
-        $("#view_range_date,#hide_range_date").mouseover(function(){
-            $(this).removeClass("btn-default");
-            $(this).addClass("btn-primary");
-        });
-        $("#view_range_date,#hide_range_date").mouseout(function(){
-            $(this).removeClass("btn-primary");
-            $(this).addClass("btn-default");
-        });
-
+       
     
         $('#view_range_date').on('click',function(){
             $("#oneDate").hide();

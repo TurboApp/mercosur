@@ -103,32 +103,7 @@
           </div>
 
     </li>
-    <!-- DESTINOS -->
-    {{--
-    <li {{ Request::is('destinos*') ? ' class=active' : ''}}>
-        <a  href="#menuDestinos" data-toggle="collapse">
-            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-            <p>Destinos
-                <b class="caret"></b>
-            </p>
-        </a>
-        <div class="collapse {{ Request::is('destinos*')  ? 'in' : ''}}" id="menuDestinos">
-            <ul class="nav">
-                <li {{ Request::is('destinos*') && !Request::is('destinos/nuevo') ? ' class=active' : ''}}>
-                    <a href="/destinos/">
-                        Todos los destinos
-                    </a>
-                </li>
-                <li {{ Request::is('destinos/nuevo') ? ' class=active' : ''}}>
-                    <a href="/destinos/nuevo">
-                        Añadir nuevo
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-    </li>
-    --}}
+    
     <!-- TRASNPORTES -->
     <li {{ Request::is('transportes*') ? ' class=active' : ''}}>
         <a  href="#menuTransportes" data-toggle="collapse">
@@ -154,66 +129,7 @@
       </li>
       
       
-      
-    {{-- TRAFICO --}}
-    <li {{ Request::is('trafico*') ? ' class=active' : ''}}>
-        <a  href="#menuTrafico" data-toggle="collapse">
-            <i class="material-icons">traffic</i>
-            <p>Trafico
-                <b class="caret"></b>
-            </p>
-        </a>
-        <div class="collapse {{ Request::is('trafico*')  ? 'in' : ''}}" id="menuTrafico">
-            <ul class="nav">
-                <li {{ Request::is('trafico*') && !Request::is('trafico/nuevo*') && !Request::is('trafico/coordinacion*') ? ' class=active' : ''}}>
-                    <a href="/trafico/">
-                        Todos los servicios
-                    </a>
-                </li>
-                <li {{ Request::is('trafico/nuevo*') ? ' class=active' : ''}}>
-                    <a href="/trafico/nuevo">
-                        Nuevo Servicio
-                    </a>
-                </li>
-                <li {{ Request::is('trafico/coordinacion*') ? ' class=active' : ''}}>
-                    <a href="/trafico/coordinacion">
-                        Coordinación
-                    </a>
-                </li>
-            </ul>
-        </div>
 
-    </li>
-
-    
-    
-      
-
-      
-      {{-- HERRAMIENTAS  --}}
-      <li {{ Request::is('herramientas*') ? ' class=active' : ''}}>
-          <a  href="#menuHerramientas" data-toggle="collapse">
-              <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
-              <p>Herramientas
-                  <b class="caret"></b>
-              </p>
-          </a>
-          <div class="collapse {{ Request::is('herramientas*')  ? 'in' : ''}}" id="menuHerramientas">
-              <ul class="nav">
-                  <li {{ Request::is('herramientas*') && !Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                      <a href="/herramientas/">
-                          Todos los Traficos
-                      </a>
-                  </li>
-                  <li {{ Request::is('herramientas/nuevo') ? ' class=active' : ''}}>
-                      <a href="/herramientas/nuevo">
-                          Agregar Herramientas
-                      </a>
-                  </li>
-              </ul>
-          </div>
-
-      </li>
       <!-- NOTIFICACIONES -->
         <li {{ Request::is('notificaciones*') ? ' class=active' : ''}}>
             <a href="/notificaciones/">

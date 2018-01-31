@@ -77121,6 +77121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lineaTranporte: '',
                 id_linea_transporte: '',
                 nombre_operador: '',
+                telefono_operador: '',
                 talon_embarque: '',
                 marca_vehiculo: '',
                 placas_tractor: '',
@@ -77139,6 +77140,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lineaTranporte: '',
                 id_linea_transporte: '',
                 nombre_operador: '',
+                telefono_operador: '',
                 talon_embarque: '',
                 marca_vehiculo: '',
                 placas_tractor: '',
@@ -77167,6 +77169,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cards_Card_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__cards_Card_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__trafico_forms_transporteSuggest__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__trafico_forms_transporteSuggest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__trafico_forms_transporteSuggest__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -77319,6 +77327,9 @@ var Bloodhound = __webpack_require__(46);
         },
         name_nombre_operador: function name_nombre_operador(indice) {
             return 'transporte[' + indice + '][' + this.tipo + '][nombre_operador]';
+        },
+        name_telefono_operador: function name_telefono_operador(indice) {
+            return 'transporte[' + indice + '][' + this.tipo + '][telefono_operador]';
         },
         name_talon_embarque: function name_talon_embarque(indice) {
             return 'transporte[' + indice + '][' + this.tipo + '][talon_embarque]';
@@ -77655,7 +77666,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("card", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "form-group" }, [
           _c("span", { staticClass: "twitter-typeahead" }, [
             _c(
@@ -77730,6 +77741,46 @@ var render = function() {
             })
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c(
+            "label",
+            { staticClass: "control-label", attrs: { for: "n_talon" } },
+            [
+              _vm._v("No. de talon "),
+              _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
+            ]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.transporte.talon_embarque,
+                expression: "transporte.talon_embarque"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              name: _vm.name_talon_embarque(_vm.index),
+              maxlength: "191",
+              required: ""
+            },
+            domProps: { value: _vm.transporte.talon_embarque },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.transporte, "talon_embarque", $event.target.value)
+              }
+            }
+          })
+        ])
       ])
     ]),
     _vm._v(" "),
@@ -77778,9 +77829,12 @@ var render = function() {
         _c("div", { staticClass: "form-group" }, [
           _c(
             "label",
-            { staticClass: "control-label", attrs: { for: "n_talon" } },
+            {
+              staticClass: "control-label",
+              attrs: { for: "telefono_operador" }
+            },
             [
-              _vm._v("No. de talon "),
+              _vm._v("Teléfono "),
               _c("span", { staticClass: "text-danger" }, [_vm._v("*")])
             ]
           ),
@@ -77790,24 +77844,28 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.transporte.talon_embarque,
-                expression: "transporte.talon_embarque"
+                value: _vm.transporte.telefono_operador,
+                expression: "transporte.telefono_operador"
               }
             ],
             staticClass: "form-control",
             attrs: {
               type: "text",
-              name: _vm.name_talon_embarque(_vm.index),
+              name: _vm.name_telefono_operador(_vm.index),
               maxlength: "191",
               required: ""
             },
-            domProps: { value: _vm.transporte.talon_embarque },
+            domProps: { value: _vm.transporte.telefono_operador },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.transporte, "talon_embarque", $event.target.value)
+                _vm.$set(
+                  _vm.transporte,
+                  "telefono_operador",
+                  $event.target.value
+                )
               }
             }
           })
@@ -78187,37 +78245,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _vm._l(_vm.transportes, function(transporte, index) {
-        return _c("transporte-form", {
-          key: index,
-          attrs: { transporte: transporte, index: index, tipo: _vm.tipo },
-          on: {
-            remove: function($event) {
-              _vm.deleteTransporte(index)
-            }
+    _vm._l(_vm.transportes, function(transporte, index) {
+      return _c("transporte-form", {
+        key: index,
+        attrs: { transporte: transporte, index: index, tipo: _vm.tipo },
+        on: {
+          remove: function($event) {
+            _vm.deleteTransporte(index)
           }
-        })
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12 text-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-simple",
-              attrs: { type: "button" },
-              on: { click: _vm.addTransporte }
-            },
-            [
-              _c("i", { staticClass: "material-icons" }, [_vm._v("add_box")]),
-              _vm._v(" Agregar transporte\r\n            ")
-            ]
-          )
-        ])
-      ])
-    ],
-    2
+        }
+      })
+    })
   )
 }
 var staticRenderFns = []
@@ -84693,6 +84731,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -84746,6 +84791,20 @@ var render = function() {
                       staticClass: "form-control",
                       attrs: { type: "text", disabled: "" },
                       domProps: { value: transporte.nombre_operador }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { staticClass: "col-md-2 control-label" }, [
+                    _vm._v("Telefono del operador")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-10" }, [
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "text", disabled: "" },
+                      domProps: { value: transporte.telefono_operador }
                     })
                   ])
                 ]),

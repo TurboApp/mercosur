@@ -38,7 +38,7 @@
         <div id="oneDate" class="col-md-4 col-md-offset-2">
             <div class="input-group">
                 <span class="input-group-addon">
-                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
+                    <button type="button" id="view_range_date" title="Agregar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></button>
                     <i class="fa fa-calendar "></i> Fecha
                 </span>
                 <input type="text" id="fecha" name="fecha" value="{{$data->format('j/m/Y')}}" class="form-control"  maxlength="10">
@@ -49,7 +49,7 @@
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-default btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
+                            <button type="button" id="hide_range_date" title="Quitar rango de fechas" class="btn btn-simple btn-primary btn-just-icon"><i class="fa fa-calendar-minus-o" aria-hidden="true"></i></button>
                             <i class="fa fa-calendar "></i> 
                         </span>
                         <input type="text" id="fechaInicio" placeholder="Desde" class="form-control"  maxlength="10">
@@ -71,6 +71,7 @@
         </template>
         </div>
     </div>
+    <h1>AQUI ESTAMOS</h1>
    
         <card>
         <template>
@@ -78,6 +79,7 @@
                 <table id="servicios" class="table" cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Turno</th>
                             <th>Tipo</th>
                             <th>Cliente</th>
                             <th>Estatus</th>
@@ -90,6 +92,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>Turno</th>
                             <th>Tipo</th>
                             <th>Cliente</th>
                             <th>Estatus</th>
@@ -151,6 +154,14 @@
             },
             ajax: "/API/servicios",
             columns:[
+                {
+                    "data":"coordinacion.turno",
+                    "render":function(data, type, row){
+                        return `
+                        ${data}
+                        `;
+                    }
+                },
                 { 
                     "data" : "tipo",
                     "render":function(data,type,row){

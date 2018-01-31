@@ -48,7 +48,7 @@ let mix = require('laravel-mix');
 //    'resources/assets/js/vendor/mercosur.js',
 //  ], 'public/js/scripts.js');
 
-   mix.js('resources/assets/js/app.js', 'public/js');
+  mix.js('resources/assets/js/app.js', 'public/js');
    
 // mix.sass('resources/assets/sass/common.scss', 'public/css');
 // mix.sass('resources/assets/sass/dashboard.scss', 'public/css');

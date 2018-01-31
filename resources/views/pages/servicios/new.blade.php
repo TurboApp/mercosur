@@ -32,30 +32,30 @@
         </div>
     </div>    
     <div class="row">
-        <div class="col-md-3 col-xs-6 ">
+        <div class="col-md-4 col-xs-4 ">
             <a href="/servicios/nuevo/Descarga" class="btn btn-bg btn-block btn-default Descarga tbn-service">
                 <img src="/img/servicios-iconos/descarga-icon.png" class="img img-responsive" alt="" style="margin:0 auto;">
                 <h4>Descarga</h4>
             </a>
         </div>
-        <div class="col-md-3 col-xs-6">
+        <div class="col-md-4 col-xs-4">
             <a href="/almacen/" class="btn btn-bg btn-block btn-defult Carga tbn-service">
                 <img src="/img/servicios-iconos/carga-icon.png" class="img img-responsive" alt="" style="margin:0 auto;">
                 <h4>Carga</h4>
             </a>
         </div>
-        <div class="col-md-3 col-xs-6">
+        <div class="col-md-4 col-xs-4">
             <a href="/servicios/nuevo/Trasbordo" class="btn btn-bg btn-block btn-defult Trasbordo tbn-service">
             <img src="/img/servicios-iconos/trasbordo-icon.png" class="img img-responsive" alt="" style="margin:0 auto;">
                 <h4>Trasbordo</h4>
             </a>
         </div>
-        <div class="col-md-3 col-xs-6">
+        {{--  <div class="col-md-3 col-xs-6">
             <a href="/servicios/nuevo/otros_servicios" class="btn btn-bg btn-block btn-default deep-purple deep-purple tbn-service">
             <img src="/img/servicios-iconos/otros-servicios-icon.png" class="img img-responsive" alt="" style="margin:0 auto;">
                 <h4>Otros servicios</h4>
             </a>
-        </div>
+        </div>  --}}
     </div>
     
     
