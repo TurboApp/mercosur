@@ -33,13 +33,49 @@
     <div class="row">
         <card class="{{$servicio->tipo}}">
             <template>
-                <h1 class="title white-text">{{$servicio->tipo}}</h1>
+                @foreach (['para-asignar'=>'Para Asignar','asignado'=>'Asignado','en-proceso'=>'En Proceso','en-pausa'=>'En Pausa','finalizado'=>'Finalizado','cancelado'=>'Cancelado'] as $proceso=>$status)
+                @if ($servicio->coordinacion->status==$status)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h1 class="title white-text">{{$servicio->tipo}}</h1>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group" style="margin-top:35px;">
+                                @if ($servicio->coordinacion->status=='Finalizado' && $servicio->coordinacion->avance_total=='100')
+                                    <p style="text-align:right;">
+                                        <a href="/pdf/{{$servicio->id}}/previo" target="_blank"><button class="btn transparent btn-just-icon btn-simple white-text" data-toggle="tooltip" data-placement="top" title="Ver Formato"><i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></button></a>
+                                        <a href="/pdf/{{$servicio->id}}/download"><button class="btn transparent btn-just-icon btn-simple white-text " data-toggle="tooltip" data-placement="top" title="Descargar Formato"><i class="fa fa-download fa-lg" aria-hidden="true"></i></button></a>
+                                        <a href="/pdf/{{$servicio->id}}/print" target="_blank"><button class="btn transparent btn-just-icon btn-simple white-text " data-toggle="tooltip" data-placement="top" title="Imprimir Formato"><i class="fa fa-print fa-lg" aria-hidden="true"></i></button></a>
+                                        <a href="/pdf/{{$servicio->id}}/tarjeta" target="_blank"><button class="btn transparent btn-just-icon btn-simple white-text " data-toggle="tooltip" data-placement="top" title="tarjeta"><i class="fa fa-caret-square-o-down fa-lg" aria-hidden="true"></i></button></a>
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                                <p>
+                                <span class="label-default {{$proceso}}" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
+                                    {{$servicio->coordinacion->status}}
+                                </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;">
+                            <div class="progress progress-line-primary" style="margin-bottom:0px; margin-top:12px;">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{$servicio->coordinacion->avance_total}}%;">
+                                </div>
+                            </div>
+                            <div class="text-center white-text"><small>{{$servicio->coordinacion->avance_total}}%</small></div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
                 <p>
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{$servicio->autor->nombre .' '.$servicio->autor->apellido}} -
                     <i class="fa fa-calendar" aria-hidden="true"></i> {{Date::instance($servicio->created_at)->format('l j \\d\\e F Y ')}} -
                     <i class="fa fa-clock-o" aria-hidden="true"></i> {{Date::instance($servicio->created_at)->format('h:i:s A')}}
                 </p>
-                
                 
                 @if($servicio->parent)
                     <a href="/servicios/{{$servicio->parent->id}}" class="btn {{$servicio->parent->tipo}}">
@@ -57,7 +93,8 @@
                
             </template>
         </card>
-    </div> 
+    </div>
+    
 
     <div class="row">   
     
@@ -163,4 +200,10 @@
     @include('layouts.partials.notify')
 
     @include('layouts.partials.errors')
+
+    <script>
+        $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+    </script>
 @endpush

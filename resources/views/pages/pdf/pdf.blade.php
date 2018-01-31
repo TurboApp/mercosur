@@ -32,14 +32,32 @@
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Ciudad Hidalgo, Chiapas: <span style="font-weight: bold; font-size: 8pt;">{{$date}}</span></td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">El suscrito operador: <strong>{{$data->nombre}}</strong></td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">El suscrito operador: 
+          <strong>
+            @foreach ($data->transportes as $servicio)
+              {{ucwords($servicio->nombre_operador)}}
+            @endforeach
+          </strong>
+        </td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Hora de entrega de documentos:</td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="2">Hora de inicio de maniobras:</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Fecha y hora de entrega de documentos:
+          <strong>
+            {{$data->fecha_recepcion->format('d/m/Y')}} a las {{date('h:i A',strtotime($data->hora_recepcion))}} 
+          </strong>
+        </td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Fecha y Hora de Finalización de maniobra:</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Inicio de maniobras:
+          <strong>
+            {{date('d/m/Y \\a \\l\\a\\s h:i A',strtotime($data->coordinacion->inicio_maniobra))}}
+          </strong>
+        </td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="2">Finalización de maniobra:
+          <strong>
+            {{date('d/m/Y \\a \\l\\a\\s h:i A',strtotime($data->coordinacion->termino_maniobra))}}
+          </strong>
+        </td>
       </tr>
       <tr>
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Me Recibieron Mercancia:</td>
@@ -54,22 +72,53 @@
       </tr>
       <tr>
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Con peso de</td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Talon</td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Fact o Rem. N°:</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Talon:
+          <strong>
+            @foreach ($data->transportes as $servicio)
+              {{ucfirst($servicio->talon_embarque)}}
+            @endforeach
+          </strong>
+        </td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Fact o Rem. N°:
+          @foreach ($data->documentos as $servicio)
+              <strong>{{ucfirst($servicio->tipo_documento)}}-{{$servicio->num_documento}}</strong>
+          @endforeach
+        </td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Observación del mercancia</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Observación de la mercancia:</td>
       </tr>
       <tr>
         <td colspan="3" style='font-weight: bold; font-size: 10pt; color: #000000; font-family: Times; text-align:center; padding:10px;'>DATOS DEL VEHICULO QUE ENTREGO O RECIBIO LA MERCANCIA</td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Tipo de transporte:</td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Medias:</td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Placas:</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Tipo de transporte:
+          @foreach ($data->transportes as $servicio)
+              <strong>{{ucfirst($servicio->tipo_unidad)}}</strong>
+          @endforeach
+        </td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Medias:
+          <strong>
+            @foreach ($data->transportes as $servicio)
+              {{ucfirst($servicio->medida_unidad)}}
+            @endforeach
+          </strong>
+        </td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000;'>
+            @foreach ($data->transportes as $servicio)
+              <p>Placas Caja: <strong>{{ucfirst($servicio->placas_caja)}}</strong></p>  
+              <span style='display:block'>Placas Tractor: <strong>{{ucfirst($servicio->placas_tractor)}}</strong></span>
+            @endforeach
+        </td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Line de transporte:</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="3">Linea de transporte:
+          <strong>
+            @foreach ($data->transportes as $servicio)
+              {{ucfirst($servicio->transporte->nombre)}}
+            @endforeach
+          </strong>
+        </td>
       </tr>
       <tr>
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Estado de la plataforma:</td>
@@ -81,7 +130,7 @@
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;' colspan="2">Llantas de repuesto:</td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>herramientas y señales reflejantes:</td>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Herramientas y señales reflejantes:</td>
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Lonas en buen estado:</td>
         <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Cuenta con lona:</td>
       </tr>
@@ -99,12 +148,15 @@
         <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:6px;'>
           <span>ENTREGO</span><br><br>
           <span>________________________</span><br>
-          <span>Nombre y Firma</span>
+          <span>{{$data->autor->nombre}} {{$data->autor->apellido}}</span>
         </td>
         <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:6px;' colspan="2">
           <span>RECIBIO</span><br><br>
           <span>________________________</span><br>
-          <span>Nombre y Firma</span>
+          <span>@foreach ($data->transportes as $servicio)
+              {{ucwords($servicio->nombre_operador)}}
+            @endforeach
+          </span>
         </td>
       </tr>
   </table>
