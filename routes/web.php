@@ -162,7 +162,7 @@ Route::group( ['middleware' => 'auth' ], function()
 
 
   #Rutas creacion de PDF
-  Route::get('/pdf/{usuario}/{tipo}','PdfController@previo');
+  Route::get('/pdf/{servicio}/{tipo}','PdfController@previo');
 
   #Rutas Notificacion
   Route::get('/notificaciones/','NotificationController@index');
