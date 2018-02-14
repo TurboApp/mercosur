@@ -19,6 +19,7 @@ class PdfController extends Controller
         if($tipo=='tarjeta'){
           $html2pdf = new Html2Pdf('L', 'LETTER', 'en','UTF-8');
           $html2pdf->pdf->SetDisplayMode('fullpage');
+          $html2pdf->pdf->IncludeJS('print(TRUE)');
           $html2pdf->writeHTML($view);
           $html2pdf->output('reporte.pdf');  
         }else{

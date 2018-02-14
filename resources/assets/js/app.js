@@ -99,6 +99,7 @@ var vm = new Vue({
             let self = this;
             Echo.channel('notification-channel')
                 .listen('notificaciones', (data) => {
+                    console.log(data);
                     if(self.auth.id == data.notify.receptor_id){
                         EventBus.$emit('notificaciones');
 

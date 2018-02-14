@@ -1,7 +1,12 @@
 {
-	"authHost": "http://localhost",
+	"authHost": "http://192.168.0.110",
 	"authEndpoint": "/broadcasting/auth",
-	"clients": [],
+	"clients": [
+		{
+			"appId": "dd0c2ee6cb67cf3d",
+			"key": "012b8b725a53cb3cff5e36b4c6dc0a9d"
+		}
+	],
 	"database": "redis",
 	"databaseConfig": {
 		"redis": {},
@@ -10,7 +15,7 @@
 		}
 	},
 	"devMode": true,
-	"host": null,
+	"host": "0.0.0.0",
 	"port": "6001",
 	"protocol": "http",
 	"socketio": {},

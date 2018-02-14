@@ -30,7 +30,7 @@ class Coordinacion extends Model
     }
 
     public function tareas(){
-        return $this->belongsTo('App\ManiobraTarea','coordinacion_id','id');
+        return $this->hasMany('App\ManiobraTarea','coordinacion_id','id');
     }
 
 }
