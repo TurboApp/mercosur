@@ -45610,6 +45610,7 @@ var vm = new Vue({
         notificaciones: function notificaciones() {
             var self = this;
             Echo.channel('notification-channel').listen('notificaciones', function (data) {
+                console.log(data);
                 if (self.auth.id == data.notify.receptor_id) {
                     __WEBPACK_IMPORTED_MODULE_2__components_event_bus__["a" /* default */].$emit('notificaciones');
 
