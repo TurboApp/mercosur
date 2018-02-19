@@ -21,51 +21,52 @@
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(0) }}
                 </h2><hr/>
-                <sub-tareas  v-bind:tarea-id="tareaID(0)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(0)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(0)" v-bind:tarea-id="tareaID(0)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(0)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(1)" v-bind:icon="tareaIcono(1)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(1) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(1)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(1)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(1)" v-bind:tarea-id="tareaID(1)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(1)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(2)" v-bind:icon="tareaIcono(2)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(2) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(2)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(2)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(2)" v-bind:tarea-id="tareaID(2)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(2)"></sub-tareas>
             </tab-content>
+            
             <tab-content v-bind:title="tareaTituloCorto(3)" v-bind:icon="tareaIcono(3)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(3) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(3)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(3)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(3)"  v-bind:tarea-id="tareaID(3)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(3)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(4)" v-bind:icon="tareaIcono(4)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(4) }}
                 </h2><hr>
                 <div class="row">
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center" v-if="tiempo_maniobra != 'NaN:NaN:NaN'">
                         <h3 v-text="tiempo_maniobra"></h3>
                         <p>Tiempo</p>
                     </div>
                 </div>
-                <sub-tareas  v-bind:tarea-id="tareaID(4)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(4)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(4)"  v-bind:tarea-id="tareaID(4)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(4)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(5)" v-bind:icon="tareaIcono(5)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(5) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(5)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(5)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(5)" v-bind:tarea-id="tareaID(5)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(5)"></sub-tareas>
             </tab-content>
             <tab-content v-bind:title="tareaTituloCorto(6)" v-bind:icon="tareaIcono(6)">
                 <h2 class="text-center text-uppercase">
                     {{ tareaTituloLargo(6) }}
                 </h2><hr>
-                <sub-tareas  v-bind:tarea-id="tareaID(6)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(6)"></sub-tareas>
+                <sub-tareas :subTareas="subTareas(6)" v-bind:tarea-id="tareaID(6)" :maniobra-id="maniobraId" :tarea-tipo="tareaTipo(6)"></sub-tareas>
             </tab-content>
-
+            
             <template slot="footer" slot-scope="props">
                 <div class="wizard-footer-left" v-if="btnPrev">
                     <wizard-button class="text-uppercase"  v-if="props.activeTabIndex > 0 && !props.isLastStep " @click.native="props.prevTab()" :style="props.fillButtonStyle">
@@ -144,6 +145,14 @@ export default {
         'detalles-tarea':detallesTarea,
     },
     props:{
+        tareas:{
+            type:[Object, Array],
+            required:true,
+        },
+        servicioId:{
+            type: [Number, String],
+            required: true, 
+        },
         maniobraId:{
             type: [Number, String],
             required: true, 
@@ -156,11 +165,10 @@ export default {
             type:Number,
             required:true
         },
-        
     },
     data(){
         return {
-            tareas:[],
+            //tareas:[],
             btnNext:false,
             btnPrev:false,
             validation:false,
@@ -174,21 +182,23 @@ export default {
     },
     
     mounted(){
+        //console.log('parent');
+        //console.log(this.$parent.$parent.$parent.tareas);
         let self = this;
         this.currentIndex = this.activeIndex;
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         
-        axios.get('/API/coordinacion/servicio/'+this.maniobraId)
+        axios.get('/API/coordinacion/servicio/'+this.servicioId)
             .then(function(response){
                 self.avance = response.data.avance_total;
         });
 
-        axios.get('/API/supervision/getTareas/'+this.maniobraId)
-            .then(function (response) {
-                self.tareas = response.data;
+       // axios.get('/API/supervision/getTareas/'+this.maniobraId)
+         //   .then(function (response) {
+                //self.tareas = response.data;
                 self.tareaInicio(self.tareas[0].id);
                 self.indiceActivo(self.activeIndex);
-        });  
+       // });  
 
     },
     
@@ -202,20 +212,17 @@ export default {
 
                         if(data.validation.value == 'onValidation')
                         {
-                            console.log('Entra en onValidation - proseso supervision');
                             this.btnPrev=false;
                             this.btnNext=false;
                         }
                         else if(data.validation.value == 'errorValidation')
                         {
-                            console.log('Entra en errorValidation - proceso supervision');
                             this.validation = false;
                             this.btnNext = false;
                             this.btnPrev = true;
                         }
                         else if(data.validation.value == 'okValidation')
                         {
-                            console.log('Entra en okValidation - proseso supervision');
                             this.btnNext = true;
                             this.validation = true;
                             this.btnPrev = false;    
@@ -225,8 +232,6 @@ export default {
                         }
                     }
                 });   
-        
-        
     },
     /*
         NOTAS:....
@@ -237,13 +242,22 @@ export default {
         * Checar la fuerza de trabajo (Produccion de operarios)
         * Se debe mandar a imprimir en PDF Guardar el archivo en los archivos y mandarlo a imprimir
         * validate status si esta validando que se desabilite
-        *se debe de realizar una funcion que habilite/deshabilite los botones btnNext y bntPrev segun donde se activo el indice
+        * se debe de realizar una funcion que habilite/deshabilite los botones btnNext y bntPrev segun donde se activo el indice
     */
     methods:{
         onComplete(){
-            this.tareaFin(this.tareas[6].id);
-            this.terminoManiobra();
-            this.getTarea();
+            //this.terminoManiobra();
+            //this.getTarea();
+            let self = this;
+            //Aqui se cambia el estatus de la maniobra tambien se libera al supervisor
+            axios.post('/coordinacion/maniobra/fin/'+this.maniobraId)
+            .then(function (response) {
+                self.avance = response.data.avance_total;
+                
+                self.tareaFin(self.tareas[6].id);
+                
+                window.location.reload(true);
+            });
         },
         onChange(prevIndex, nextIndex){
             this.currentIndex = nextIndex;
@@ -334,6 +348,7 @@ export default {
                     return response.data.final;
             });
         },
+        
         operariosLibres(){
             let self = this;
             axios.get('/maniobras/fuerzaTarea/free/'+this.maniobraId)
@@ -419,10 +434,8 @@ export default {
                         duration = moment.duration(duration + interval, 'milliseconds');
                         if(duration.days()){
                             self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                            //return self.tiempo_maniobra;
                         }else{
                             self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                            //return self.tiempo_maniobra;
                         }
                     }, interval);
             });
@@ -433,27 +446,29 @@ export default {
             axios.post('/coordinacion/maniobra/fin/'+this.maniobraId)
             .then(function (response) {
                 self.avance = response.data.avance_total;
-                $.notify({
-                    icon: "check",
-                    message: '<h4>En hora buena</h4> La maniobra a finalizado correctamente.'
-                },{
-                    type: 'success',
-                    timer: 4000,
-                    placement: {
-                        from: 'top',
-                        align: 'right'
-                    }
-                });
+                self.tareaFin(this.tareas[6].id);
+                window.location.reload(true);
+                // $.notify({
+                //     icon: "check",
+                //     message: '<h4>En hora buena</h4> La maniobra a finalizado correctamente.'
+                // },{
+                //     type: 'success',
+                //     timer: 4000,
+                //     placement: {
+                //         from: 'top',
+                //         align: 'right'
+                //     }
+                // });
                 //EventBus.$emit('termino-maniobra', response.data);
             });
         },
-        getTarea(){
-            let self = this;
-            axios.get('/API/supervision/getTareas/'+this.maniobraId)
-                .then(function (response) {
-                    self.tareas = response.data;
-            });
-        },
+        // getTarea(){
+        //     let self = this;
+        //     axios.get('/API/supervision/getTareas/'+this.maniobraId)
+        //         .then(function (response) {
+        //             self.tareas = response.data;
+        //     });
+        // },
         alertaLeida(){
             this.alertaFinalizar=1;
         },
@@ -472,7 +487,10 @@ export default {
         },
         tareaTipo(i){
             return this.tareas[i].tipo;
-        }
+        },
+        subTareas(i){
+            return this.tareas[i].sub_tareas;
+        },
     }
 }
 </script>

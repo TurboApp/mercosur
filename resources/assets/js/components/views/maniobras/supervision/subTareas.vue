@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="tareaTipo=='doble'">
-            <tabs css-class="nav-justified">
+            <tabs css-class="nav-justified tab-space">
                 <tab name="Nacional" >
                     <div class="list-group list-task">
                         <subtarea-element v-for="(subtarea, index) in subTareas" 
@@ -87,18 +87,22 @@ export default {
             type: String,
             default: 'single'
         },
+        subTareas:{
+            type:[Array, Object],
+            //required: true
+        }
        
     },
     data(){
         return {
-            subTareas:[]
+            //subTareas:[]
         }
     },
     mounted(){
         let self = this;
-        axios.get('/API/supervision/getSubTareas/'+this.tareaId)
+        axios.get('/API/supervision/getSubTareas/'+self.tareaId)
             .then(function (response) {
-                self.subTareas = response.data;
+                //self.subTareas = response.data;
         });
 
     },

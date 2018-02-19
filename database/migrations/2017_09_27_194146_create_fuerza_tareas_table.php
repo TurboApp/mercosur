@@ -20,7 +20,6 @@ class CreateFuerzaTareasTable extends Migration
             $table->text('descripcion')->nullable();
             $table->string('categoria',50);
             $table->enum('status',[0,1])->default(0);
-            $table->integer('coordinacion_id')->nullable();
             $table->timestamps();
         });
     }

@@ -76,12 +76,12 @@ window.axios.interceptors.response.use(response => {
 }, error => {
     // If it is an HTTP error
     if(error.response) {
-        if(error.response.status == 500 || error.response.status == 401) { // Session expired.
-			alert('LO SENTIMOS PERO OCURRIO UN ERROR INESPERADO.');
-			window.location.reload(true);
+        if(error.response.status == 500 || error.response.status == 420) { // Session expired.
+			//alert('LO SENTIMOS PERO OCURRIO UN ERROR INESPERADO.');2
+			//window.location.reload(true);
 			
             // // Set the new token as default HTTP header.
-			axios.defaults.headers.common['X-CSRF-TOKEN'] = error.response.data.newToken;
+			//axios.defaults.headers.common['X-CSRF-TOKEN'] = error.response.data.newToken;
 			// window.axios.defaults.headers.common = {
 			// 	'X-CSRF-TOKEN': window.Laravel.csrfToken,
 			// 	'X-Requested-With': 'XMLHttpRequest'
@@ -141,6 +141,7 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: 'http://127.0.0.1:6001'
+    //host: 'http://127.0.0.1:6001'
+    host: 'http://192.168.8.107:6001'
 });
 

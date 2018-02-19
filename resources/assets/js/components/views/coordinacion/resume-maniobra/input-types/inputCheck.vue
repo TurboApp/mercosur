@@ -5,10 +5,10 @@
         </div>
         <div class="col-xs-4 text-right">
             <div v-if="val == 1">
-                <i class="material-icons md-24 text-success">check_circle</i>
+                Si
             </div>
             <div v-else>
-                <i class="material-icons md-24 grey-text text-lighten-1">radio_button_unchecked</i>
+                No
             </div>
         </div>
     </div>

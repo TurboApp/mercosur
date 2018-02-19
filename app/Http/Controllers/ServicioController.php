@@ -22,12 +22,16 @@ use Illuminate\Http\Request;
 class ServicioController extends Controller
 {
     function __construct(){
-        $this->middleware(['auth','perfils:trafico,admin,supervisor,coordinador']);
+        $this->middleware(['auth','perfils:trafico,admin,supervisor,coordinador,go,directivo']);
     }
 
     public function index()
-    {
+    {   
         $data = Date::instance(Carbon::now());
+        if( auth()->user()->perfil->perfil == 'go' || auth()->user()->perfil->perfil == 'directivo' )
+        {
+            return view('pages.productividad.servicios.index', compact('data'));
+        }
         return view('pages.servicios.index', compact('data'));
     }
 

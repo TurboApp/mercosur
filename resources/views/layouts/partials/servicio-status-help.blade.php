@@ -21,12 +21,6 @@
             </li>
             <li>
                 <small>
-                    <span class="label-warning en-pausa" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
-                    EN PAUSA
-                </small>
-            </li>
-            <li>
-                <small>
                     <span class="label-success finalizado" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
                     FINALIZADO
                 </small>

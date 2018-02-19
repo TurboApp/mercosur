@@ -323,10 +323,10 @@ class Servicio extends Model
                     ["subtarea" => "Ingrese el numero de gatas que tiene la unidad", "texto_ayuda" => "",  "inputType" => "number"],
                     //3.- Foto de proceso de descarga
                     ["subtarea" => "Capture las fotos del proceso de descarga", "texto_ayuda" => "Capture las fotos necesarias",  "inputType" => "photos", "limit" => 99],
-                    //4.- Evidencia de irregularidades
-                    ["subtarea" => "Capture fotos de evidencia de irregularidades", "texto_ayuda" => "En caso que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
-                    //5.- Observaciones de mercancia
+                    //4.- Observaciones de mercancia
                     ["subtarea" => "Escriba las observaciones de la mercancia", "texto_ayuda" => "",  "inputType" => "textarea"],
+                    //5.- Evidencia de irregularidades
+                    ["subtarea" => "Capture fotos de evidencia de irregularidades", "texto_ayuda" => "En caso que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
                     //6.- Ubicacion de mercancia
                     ["subtarea" => "Capture las fotos donde fue ubicada la mercancia", "texto_ayuda" => "",  "inputType" => "photos", "limit"=> 20],
                 ]
@@ -676,14 +676,31 @@ class Servicio extends Model
                     "titulo_largo" => "Proceso de supervisión y verificación de mercancia",
                     "avance" => 70,
                     "icono" => "fa fa-cog",
-                    
+                    "tipo" => "doble"
                 ],
                 "subtareas" => [
-                    ["subtarea" => "Foto inicial", "texto_ayuda" => "Capture la foto inicial",  "inputType" => "photos"],
-                    ["subtarea" => "Numero de gatas", "texto_ayuda" => "Inserte el numero de gatas",  "inputType" => "number"],
-                    ["subtarea" => "Fotos del proceso de trasbordo", "texto_ayuda" => "Inserte las fotos del proceso de descarga",  "inputType" => "photos", "limit" => 15],
-                    ["subtarea" => "Evidencia de irregularidades", "texto_ayuda" => "Encaso de que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
-                    ["subtarea" => "Observaciones de la mercancia", "texto_ayuda" => "Escriba las observaciones de la mercancia",  "inputType" => "textarea"],
+                    "NACIONAL" => [
+                        //1.- Toma de foto inicial
+                        ["subtarea" => "Foto inicial", "texto_ayuda" => "Capture la foto inicial",  "inputType" => "photos"],
+                        //2.- Numero de gatas
+                        ["subtarea" => "Numero de gatas", "texto_ayuda" => "Inserte el numero de gatas",  "inputType" => "number"],
+                        //3.- Fotos del proceso de carga 
+                        ["subtarea" => "Fotos del proceso de descarga", "texto_ayuda" => "Inserte las fotos del proceso de descarga",  "inputType" => "photos", "limit" => 15],
+                        //4.- Observaciones de la mercancia
+                        ["subtarea" => "Observaciones de la mercancia", "texto_ayuda" => "Escriba las observaciones de la mercancia",  "inputType" => "textarea"],
+                        //5.- Evidencia de irregularidades
+                        ["subtarea" => "Evidencia de irregularidades", "texto_ayuda" => "Encaso de que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
+                    ],
+                    "CENTROAMERICANO" => [
+                        //1.- Toma de foto inicial
+                        ["subtarea" => "Foto inicial", "texto_ayuda" => "Capture la foto inicial",  "inputType" => "photos"],
+                        //2.- Fotos del proceso de carga 
+                        ["subtarea" => "Fotos del proceso de carga", "texto_ayuda" => "Inserte las fotos del proceso de descarga",  "inputType" => "photos", "limit" => 15],
+                        //3.- Observaciones de la mercancia
+                        ["subtarea" => "Observaciones de la mercancia", "texto_ayuda" => "Escriba las observaciones de la mercancia",  "inputType" => "textarea"],
+                        //4.- Evidencia de irregularidades
+                        ["subtarea" => "Evidencia de irregularidades", "texto_ayuda" => "Encaso de que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
+                    ]
                 ]
             ],
             [

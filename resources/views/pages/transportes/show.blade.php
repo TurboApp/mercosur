@@ -11,6 +11,7 @@
 
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
+        @if (auth()->user()->perfil->perfil =='admin')
         <li>
             <a href="/transportes/{{ $transporte->id }}/editar" title="Editar">
                 <i class="material-icons">edit</i>
@@ -29,6 +30,7 @@
                 <p class="hidden-lg hidden-md">Agregar</p>
             </a>
         </li>
+        @endif
         <li>
             <a href="/transportes" title="Ir a clientes">
                 <i class="material-icons">arrow_upward</i>
@@ -192,6 +194,7 @@
                         </div>
                     </div>
                 </div><!-- ./card-content -->
+                @if (auth()->user()->perfil->perfil == 'admin')
                 <div class="card-footer">
                     <hr>
                     <nav class="navs pull-right">
@@ -211,6 +214,7 @@
                         </ul>
                     </nav>
                 </div>  <!-- ./card-footer -->
+                @endif
             </form>
         </div>  <!-- ./card -->
 

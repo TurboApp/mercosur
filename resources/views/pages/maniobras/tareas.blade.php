@@ -15,7 +15,7 @@
 
 @section('content')
    
-    <maniobra-tareas :datos="{{$coordinacion}}">
+    <maniobra-tareas :datos="{{$coordinacion}}" :tareas="{{$tareas}}">
     </maniobra-tareas>
    
 @endsection

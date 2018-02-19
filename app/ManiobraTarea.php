@@ -10,7 +10,7 @@ class ManiobraTarea extends Model
     }
 
     public function subTareas(){
-        return $this->belongsTo('App\ManiobraSubtarea', 'tarea_id','id');
+        return $this->hasMany('App\ManiobraSubtarea', 'tarea_id','id');
     }
 
 }

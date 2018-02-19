@@ -25,7 +25,7 @@ class CreateServiciosTable extends Migration
             $table->date('fecha_recepcion');
             $table->time('hora_recepcion');
             $table->text('observaciones')->nullable();
-            $table->string('destino');
+            $table->text('destino');
             $table->string('destino_pais',60);
             
             $table->timestamps();

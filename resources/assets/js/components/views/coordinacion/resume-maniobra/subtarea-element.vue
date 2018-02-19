@@ -3,6 +3,10 @@
         <div  v-if="inputType == 'check'">
             <input-check :title="title" :text="helpText" :id="id" :value="value"></input-check>
         </div>
+
+        <div  v-if="inputType == 'select'">
+            <input-select :title="title" :text="helpText" :id="id" :value="value"></input-select>
+        </div>
         
         <div v-else-if="inputType == 'text'">
             <input-text :title="title" :text="helpText" :id="id" :value="value"></input-text>
@@ -37,6 +41,7 @@
 import inputPhoto from './input-types/inputPhoto.vue';
 import inputSignature from './input-types/inputSignature.vue';
 import inputCheck from './input-types/inputCheck.vue';
+import inputSelect from './input-types/inputSelect.vue';
 import inputText from './input-types/inputText.vue';
 import inputNumber from './input-types/inputNumber.vue';
 import inputTextArea from './input-types/inputTextarea.vue';
@@ -46,6 +51,7 @@ import validacion from './input-types/validation.vue';
 export default {
     components:{
         'input-check': inputCheck,
+        'input-select': inputSelect,
         'input-text': inputText,
         'input-number': inputNumber,
         'input-textarea': inputTextArea,

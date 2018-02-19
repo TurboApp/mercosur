@@ -91,9 +91,9 @@ export default {
             swal({
                 showCancelButton: true,
                 html: `
-                    <img class="z-depth-4 img img-circle img-resposive" src="`+ data.url_avatar.replace('public/','/storage/') +`" onerror='this.onerror = null; this.src="/img/supervisor.png"' style="max-width:120px;margin:0 auto;">
-                    <h3 class="title">`+ data.nombre +' '+ data.apellido +`</h3>
-                    <h6 class="text-muted text-uppercase">`+ data.user +`</h6>
+                    <img class="z-depth-4 img img-circle img-resposive" src="/img/supervisor.png"  style="max-width:120px;margin:0 auto;">
+                    <h3 class="title">${data.nombre} ${data.apellido}</h3>
+                    <h6 class="text-muted text-uppercase">${data.user}</h6>
                 `,
                 allowOutsideClick: false,
                 allowEscapeKey:false,

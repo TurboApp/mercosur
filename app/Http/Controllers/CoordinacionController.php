@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Coordinacion;
+use App\ManiobraTarea  as Tareas;
 use App\supervisor_activo;
 use App\LineasTransporte as Transporte;
 
@@ -19,7 +20,7 @@ use DataTables;
 class CoordinacionController extends Controller
 {
     function __construct(){
-        $this->middleware(['auth','perfils:admin,trafico,supervisor,coordinador']);
+        $this->middleware(['auth','perfils:admin,trafico,supervisor,coordinador,go']);
     }
 
     public function index()
@@ -76,7 +77,11 @@ class CoordinacionController extends Controller
             $request->session()->flash('danger', 'No se encontro ningun dato');
             return redirect('/coordinacion');
         }else{
-            return view('pages.coordinacion.master', compact('coordinacion'));
+            if(auth()->user()->perfil->perfil == 'coordinador'){
+                return view('pages.coordinacion.master', compact('coordinacion'));
+            }else{
+                return view('pages.servicios.detalles', compact('coordinacion'));
+            }
         }
     }
 
@@ -103,7 +108,9 @@ class CoordinacionController extends Controller
             $lineaTransporte=Transporte::find($transporte->linea_transporte_id);
             $transporte['lineaTransporte'] = $lineaTransporte->nombre;
         }
-        return view('pages.maniobras.tareas', compact('coordinacion'));
+        $tareas = Tareas::where('coordinacion_id',$coordinacion->id)->with('subTareas')->get();
+        
+        return view('pages.maniobras.tareas', compact('coordinacion', 'tareas'));
     }
 
     public function maniobraInicio(Request $request)
@@ -127,7 +134,7 @@ class CoordinacionController extends Controller
             $maniobra->termino_maniobra = $now; 
             $maniobra->status='Finalizado';
             $maniobra->avance_total =  '100'; 
-            $maniobra->indice_activo = '-1';
+            $maniobra->indice_activo = '6';
             $maniobra->save();
             
             $supervisor = Supervisor_activo::where([

@@ -82,6 +82,10 @@ export default {
         servicioId:{
             type: Number,
             required: true,
+        },
+        maniobraId:{
+            type: Number,
+            required: true,
         }
     },
     data(){
@@ -106,7 +110,7 @@ export default {
         },
         getTarea(){
             let self = this;
-            axios.get('/API/supervision/getTareas/'+this.servicioId)
+            axios.get('/API/supervision/getTareas/'+this.maniobraId)
                 .then(function (response) {
                     self.tareas = response.data;
             });

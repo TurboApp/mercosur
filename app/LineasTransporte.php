@@ -17,7 +17,7 @@ class LineasTransporte extends Model
 
     public function ordenservicios()
     {
-        return $this->hasMany('App\OrdenServicioTransporte','id_linea_transporte','id');
+        return $this->hasMany('App\ServicioTransporte','linea_transporte_id','id');
     }
     
 }

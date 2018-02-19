@@ -1,6 +1,3 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/common.css": "/css/common.css",
-    "/css/dashboard.css": "/css/dashboard.css",
-    "/css/mercosur.css": "/css/mercosur.css"
+    "/js/app.js": "/js/app.js"
 }

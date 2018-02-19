@@ -97,6 +97,7 @@ class TareaController extends Controller
 
     public function getOperarios( Request $request )
     {
+
         if($request->s)
         {
             $operarios = FuerzaTarea::where([
@@ -113,9 +114,11 @@ class TareaController extends Controller
     }
     public function getOperariosActivos( Request $request )
     {
-        //dd($request->coordinacionid);
-            
-        $operarios = FuerzaTarea::where( 'coordinacion_id',$request->coordinacionid )->get();
+        $produccion = ProduccionOperarios::where( 'coordinacion_id',$request->coordinacionid )->with('fuerzaTarea')->get();
+        $operarios = collect();
+        for($i = 0; $i < $produccion->count() ; $i++){
+            $operarios->push($produccion[$i]->fuerzaTarea);
+        }
                 
         return $operarios->toJson();
     }
@@ -359,7 +362,7 @@ class TareaController extends Controller
     {
         $operario = FuerzaTarea::find($request->id);
         $operario->status = $request->status;
-        $operario->coordinacion_id=$request->coordinacion;
+        //$operario->coordinacion_id=$request->coordinacion;
         $operario->save();
         
         return $operario->toJson();
@@ -380,7 +383,6 @@ class TareaController extends Controller
                 
                 $operario = FuerzaTarea::find($fuerzatarea->fuerza_tarea_id);
                 $operario->status = '0';
-                $operario->coordinacion_id = '0';
                 $operario->save();
                  
                 $fuerzatarea->final = $horaTermino;
