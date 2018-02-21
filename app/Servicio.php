@@ -95,10 +95,15 @@ class Servicio extends Model
     //Crea relacion con coordinacion
     public function asignarTurno($fecha)
     {
-        $date = str_replace('/', '-', $fecha);
-        $date=date('Y-m-d', strtotime($date));
-        $coordinacion = Coordinacion::whereDate( 'created_at', $date )->orderBy('turno','desc')->first();
-        
+        $date = str_replace( '/', '-', $fecha);
+        $date = date( 'Y-m-d' , strtotime($date) );
+        //$coordinacion = Coordinacion::whereDate( 'created_at', $date )->orderBy('turno','desc')->first();
+        $equipoID = auth()->user()->equipo_id;
+        $coordinacion = Coordinacion::whereDate( 'created_at', $date )
+                    ->whereHas('servicio.autor', function($q) use ($equipoID){
+                        $q->where('equipo_id', $equipoID );
+                    })
+                    ->orderBy('turno','desc')->first();
         if($coordinacion){
             $turno = $coordinacion->turno + 1; 
         }else{

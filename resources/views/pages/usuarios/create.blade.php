@@ -70,16 +70,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Equipo</label>
-                  <div class="col-md-10">
-                    <select class="selectpicker" name="equipo_id" data-style="select-with-transition" title="Seleccione un equipo" required>
-                      @foreach ($equipos as $equipo)
-                        <option value="{{$equipo->id}}" @if($equipo->id == old('equipo_id')) selected  @endif > {{ $equipo->nombre }} </option>
-                      @endforeach
-                    </select>  
-                  </div>
-                </div>
+                
               </div><!-- ./form-horizontal -->
             </div><!-- ./card-content -->
           </div> <!--  ./card  -->
@@ -107,12 +98,22 @@
                   <label class="col-md-2 control-label"><span class="text-danger">*</span> Perfil de Usuario</label>
                   <div class="col-md-10">
                     <div class="btn-group bootstrap-select show-tick">
-                      <select class="selectpicker" name="perfil_id"  data-style="select-with-transition" title="Selecione el Perfil" required>
+                      <select class="selectpicker" id="perfil_id" name="perfil_id"  data-style="select-with-transition" title="Selecione el Perfil" required>
                         @foreach ($perfiles as $index => $perfil)
                           <option value={{$perfil->id}} @if($perfil->id == old('perfil_id')) selected @endif >{{$perfil->descripcion}}</option>
                         @endforeach
                       </select>
                     </div>
+                  </div>
+                </div>
+                <div id="equipoForm" class="form-group">
+                  <label class="col-md-2 control-label"><span class="text-danger">*</span> Equipo</label>
+                  <div class="col-md-10">
+                    <select class="selectpicker" id="equipo_id" name="equipo_id" data-style="select-with-transition" title="Seleccione un equipo" disabled required>
+                      @foreach ($equipos as $equipo)
+                        <option value="{{$equipo->id}}" @if($equipo->id == old('equipo_id')) selected  @endif > {{ $equipo->nombre }} </option>
+                      @endforeach
+                    </select>  
                   </div>
                 </div>
                 <div class="form-group">
@@ -156,10 +157,27 @@
             $(element).siblings( ".select-with-transition" ).addClass('error_selectpicker');
           }
         });
+
         $('.selectpicker').on('change', function () {
             $(this).valid();
             $(this).siblings( ".select-with-transition" ).removeClass('error_selectpicker');
         });
+
+        $("#perfil_id").on('change', function(){
+          console.log('select perfil');
+          let val = $(this).val();
+          if( val > 3){
+            $("#equipo_id").prop("disabled", false);
+            $("#equipoForm").show();
+          }else{
+            $("#equipoForm").hide();
+            $("#equipo_id").val('null');
+            $("#equipo_id").prop("disabled", true);
+          }
+          //$('#equipo_id').selectpicker('refresh');
+          $('.selectpicker').selectpicker('refresh');
+        });
+
     });
     </script>
   @endpush

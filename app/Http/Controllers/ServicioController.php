@@ -6,6 +6,7 @@ use App\Servicio;
 use App\Agente;
 use App\Coordinacion;
 use App\User;
+use App\Equipo;
 use App\Notification;
 use App\Http\Requests\RequestServicio;
 
@@ -28,9 +29,11 @@ class ServicioController extends Controller
     public function index()
     {   
         $data = Date::instance(Carbon::now());
+        $equipos=[];
         if( auth()->user()->perfil->perfil == 'go' || auth()->user()->perfil->perfil == 'directivo' )
-        {
-            return view('pages.productividad.servicios.index', compact('data'));
+        {   
+            $equipos = Equipo::paginate(16);
+            return view('pages.productividad.servicios.teams', compact('data','equipos'));
         }
         return view('pages.servicios.index', compact('data'));
     }

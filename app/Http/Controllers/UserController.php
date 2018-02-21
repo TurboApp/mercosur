@@ -39,7 +39,7 @@ class UserController extends Controller
           'celular' => 'required',
           'id_puesto' => 'required',
           'perfil_id' => 'required',
-          'equipo_id' => 'required',
+          //'equipo_id' => 'required',
           'user' => 'required|unique:users,user',
           'password' =>'required|min:6',
           'email' => 'nullable|email|unique:users,email',

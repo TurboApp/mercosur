@@ -193,13 +193,10 @@ export default {
                 self.avance = response.data.avance_total;
         });
 
-       // axios.get('/API/supervision/getTareas/'+this.maniobraId)
-         //   .then(function (response) {
-                //self.tareas = response.data;
-                self.tareaInicio(self.tareas[0].id);
-                self.indiceActivo(self.activeIndex);
-       // });  
-
+        if(this.activeIndex == 0){
+            self.tareaInicio(self.tareas[0].id);
+        }
+        self.indiceActivo(self.activeIndex);
     },
     
     created(){
@@ -208,8 +205,8 @@ export default {
         //Estos eventos son emitidos desde los componentes [coordinacion/validation,maniobra/validation]
         Echo.channel('maniobra-channel')
                 .listen('ManiobraTareaValidacion', (data) => {
+                    console.log(data);
                     if(data.validation.tarea_id == self.tareas[self.currentIndex].id ){
-
                         if(data.validation.value == 'onValidation')
                         {
                             this.btnPrev=false;
@@ -233,17 +230,7 @@ export default {
                     }
                 });   
     },
-    /*
-        NOTAS:....
-        * AL hacer cambio de tabs se debe alctualizar los siguientes campos en la tabla -coordinations- [avance_total, indice_activo].
-        * Se tieque hacer eventos con EvenBus para actualizar el objeto datos de master.vue para mostrar el avance en tiempo real
-        * Se deben actualizar el tiempo de las tareas el inicio y el final (sobretodo la tarea de "proceso de maniobra")
-        - Checar cuando se termina la session cuando se hace una peticion desde axios a la base de datos
-        * Checar la fuerza de trabajo (Produccion de operarios)
-        * Se debe mandar a imprimir en PDF Guardar el archivo en los archivos y mandarlo a imprimir
-        * validate status si esta validando que se desabilite
-        * se debe de realizar una funcion que habilite/deshabilite los botones btnNext y bntPrev segun donde se activo el indice
-    */
+   
     methods:{
         onComplete(){
             //this.terminoManiobra();
@@ -252,174 +239,156 @@ export default {
             //Aqui se cambia el estatus de la maniobra tambien se libera al supervisor
             axios.post('/coordinacion/maniobra/fin/'+this.maniobraId)
             .then(function (response) {
-                self.avance = response.data.avance_total;
+                //self.avance = response.data.avance_total;
+                //self.tareaFin(self.tareas[6].id);
+                axios.post('/maniobra/tarea/fin/'+self.tareas[6].id,{
+                    _token: self.token 
+                }).then(function (response) {
+                    window.location.reload(true);
+                });
                 
-                self.tareaFin(self.tareas[6].id);
-                
-                window.location.reload(true);
             });
         },
         onChange(prevIndex, nextIndex){
             this.currentIndex = nextIndex;
-            switch (nextIndex) {
-                case 0: // Tarea 1: Revision
-                            this.btnNext = true;    
-                            this.btnPrev = true;    
-                    break;
-                case 1: // Tarea 2: Anexos fotograficos
-                            if( prevIndex === 0 ){
-                                this.avanceUpdate( 1 , 5 );
-                                this.tareaFin(this.tareas[0].id);
-                                this.tareaInicio(this.tareas[1].id);
-                            }
-                            this.btnNext = true;    
-                            this.btnPrev = true;    
-                    break;
-                case 2: // Tarea 3: Validacion
-                            if( prevIndex === 1 ){
-                                this.avanceUpdate( 2 , 10 );
-                                this.tareaFin(this.tareas[1].id);
-                                this.tareaInicio(this.tareas[2].id);
-                            }    
-                            if(this.validation){
-                                this.btnPrev = false;
-                            }
-                            this.btnNext = false;
-                    break;
-                case 3: // Tarea 4: Fuerza de tarea 
-                            if( prevIndex === 2 ){
-                                this.avanceUpdate( 3 , 15 );
-                                this.tareaFin(this.tareas[2].id);
-                                this.tareaInicio(this.tareas[3].id);
-                            }
-                            this.btnPrev = false; 
-                            this.btnNext = true;   
-                    break;
-                case 4: // Tarea 5: Proceso de maniobra
-                            if( prevIndex === 3 ){
-                                this.avanceUpdate(4 , 20);
-                                this.tareaFin(this.tareas[3].id);
-                                this.tareaInicio(this.tareas[4].id);
-                                this.tiempoManiobra(this.tareas[4].id);
-                                EventBus.$emit('iniciarProduccionOperarios');
-                            }
-                            this.btnPrev = true; 
-                            this.btnNext = true; 
-                    break;
-                case 5: // Tarea 6: Validacion
-                            if( prevIndex === 4 ){
-                                this.avanceUpdate(5,90);
-                                this.tareaInicio(this.tareas[5].id);
-                            }
-                            this.btnNext=false;
-                    break;
-                case 6: // Tarea 7: Finalización
-                            if( prevIndex === 5 ){
-                                this.avanceUpdate(6,95);
-                                this.tareaFin(this.tareas[4].id);
-                                this.tareaFin(this.tareas[5].id);
-                                this.tareaInicio(this.tareas[6].id);
-                                this.operariosLibres();
-                            }
-                            this.btnPrev=false;
-                    break;
-            }
+            this.steps(nextIndex, prevIndex);
         },
         avanceUpdate(index, avance){
             let self = this;
-            axios.post('/maniobra/avance/update/'+this.maniobraId+'/'+avance+'/'+index,{
-                _token: this.token 
-            })
-            .then(function (response) {
-                    self.avance = response.data.avance_total;
-            });
+            return  axios.post(`/maniobra/avance/update/${self.maniobraId}/${avance}/${index}`,{
+                        _token: self.token 
+                    });
         },
         tareaInicio(tarea){
             let self = this;
-            axios.post('/maniobra/tarea/inicio/'+tarea)
-                .then(function (response) {
-                    return response.data.inicio;
-            });
+            return axios.post('/maniobra/tarea/inicio/'+tarea,{
+                        _token: self.token 
+                    });
         },
         tareaFin(tarea){
             let self = this;
-            axios.post('/maniobra/tarea/fin/'+tarea)
-                .then(function (response) {
-                    return response.data.final;
-            });
+            return axios.post('/maniobra/tarea/fin/'+tarea,{
+                        _token: self.token 
+                    });
         },
-        
         operariosLibres(){
             let self = this;
-            axios.get('/maniobras/fuerzaTarea/free/'+this.maniobraId)
-                .then(function (response) {
-                    
-            });
+            return axios.get('/maniobras/fuerzaTarea/free/'+this.maniobraId,{
+                        _token: self.token 
+                    });
         },
         indiceActivo(indice){
-           let self = this;
-            switch (indice) {
-                case 0: // Tarea 1: Revision
-                        this.btnNext = true;    
-                        this.btnPrev = true;    
-                    break;
-                case 1: // Tarea 2: Anexos fotograficos
-                        this.btnNext = true;    
-                        this.btnPrev = true;    
-                    break;
-                case 2: // Tarea 3: Validacion
-                        axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
-                            .then(function (response) {
-                                if( response.data[0].value == "onValidation" ){
-                                    self.btnPrev = false;
-                                    self.btnNext = false;
-                                }else if(response.data[0].value == "okValidation"){
-                                    self.btnPrev = false;
-                                    self.btnNext = true;
-                                }else if(response.data[0].value == "errorValidation"){
-                                    self.btnPrev = true;
-                                    self.btnNext = false;
-                                }
-                                else {
-                                    self.btnPrev = true;
-                                    self.btnNext = false;
-                                }
-                        });   
-                    break;
-                case 3: // Tarea 4: Fuerza de tarea 
-                        this.btnPrev = false; 
-                        this.btnNext = true;   
-                    break;
-                case 4: // Tarea 5: Proceso de maniobra
-                        this.btnPrev = true; 
-                        this.btnNext = true; 
-                        this.tiempoManiobra(this.tareas[4].id);
-                    break;
-                case 5: // Tarea 6: Validacion
-                        axios.get('/API/supervision/getSubTareas/'+this.tareas[5].id)
-                            .then(function (response) {
-                                if( response.data[0].value == "onValidation" ){
-                                    self.btnPrev = false;
-                                    self.btnNext = false;
-                                }else if(response.data[0].value == "okValidation"){
-                                    self.btnPrev = false;
-                                    self.btnNext = true;
-                                }else if(response.data[0].value == "errorValidation"){
-                                    self.btnPrev = true;
-                                    self.btnNext = false;
-                                }
-                                else {
-                                    self.btnPrev = true;
-                                    self.btnNext = false;
-                                }
-                        });   
-                       
-                    break;
-                case 6: // Tarea 7: Finalización
-                        this.btnPrev=false;
-                        this.btnNext=true;
-                    break;
+            let self = this;
+            let nextIndex = indice;
+            let prevIndex = indice - 1;
+            this.steps(nextIndex, prevIndex);
+            if(indice === 2) // Tarea 3: Validacion
+            { 
+                axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
+                    .then(function (response) {
+                            if( response.data[0].value == "onValidation" ){
+                                self.btnPrev = false;
+                                self.btnNext = false;
+                            }else if(response.data[0].value == "okValidation"){
+                                self.btnPrev = false;
+                                self.btnNext = true;
+                            }else if(response.data[0].value == "errorValidation"){
+                                self.btnPrev = true;
+                                self.btnNext = false;
+                            }
+                            else {
+                                self.btnPrev = true;
+                                self.btnNext = false;
+                            }
+                    });   
             }
+            else if( indice === 4 ){
+                this.tiempoManiobra(this.tareas[4].id);
+            }
+            else if( indice === 5 ) // Tarea 6: Validacion
+            {
+                axios.get('/API/supervision/getSubTareas/'+this.tareas[5].id)
+                    .then(function (response) {
+                        if( response.data[0].value == "onValidation" ){
+                            self.btnPrev = false;
+                            self.btnNext = false;
+                        }else if(response.data[0].value == "okValidation"){
+                            self.btnPrev = false;
+                            self.btnNext = true;
+                        }else if(response.data[0].value == "errorValidation"){
+                            self.btnPrev = true;
+                            self.btnNext = false;
+                        }
+                        else {
+                            self.btnPrev = true;
+                            self.btnNext = false;
+                        }
+                });   
+                       
+            }
+        //    let self = this;
+        //     switch (indice) {
+        //         case 0: // Tarea 1: Revision
+        //                 this.btnNext = true;    
+        //                 this.btnPrev = true;    
+        //             break;
+        //         case 1: // Tarea 2: Anexos fotograficos
+        //                 this.btnNext = true;    
+        //                 this.btnPrev = true;    
+        //             break;
+        //         case 2: // Tarea 3: Validacion
+        //                 // axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
+        //                 //     .then(function (response) {
+        //                 //         if( response.data[0].value == "onValidation" ){
+        //                 //             self.btnPrev = false;
+        //                 //             self.btnNext = false;
+        //                 //         }else if(response.data[0].value == "okValidation"){
+        //                 //             self.btnPrev = false;
+        //                 //             self.btnNext = true;
+        //                 //         }else if(response.data[0].value == "errorValidation"){
+        //                 //             self.btnPrev = true;
+        //                 //             self.btnNext = false;
+        //                 //         }
+        //                 //         else {
+        //                 //             self.btnPrev = true;
+        //                 //             self.btnNext = false;
+        //                 //         }
+        //                 // });   
+        //             break;
+        //         case 3: // Tarea 4: Fuerza de tarea 
+        //                 this.btnPrev = false; 
+        //                 this.btnNext = true;   
+        //             break;
+        //         case 4: // Tarea 5: Proceso de maniobra
+        //                 this.btnPrev = true; 
+        //                 this.btnNext = true; 
+        //                 this.tiempoManiobra(this.tareas[4].id);
+        //             break;
+        //         case 5: // Tarea 6: Validacion
+        //                 axios.get('/API/supervision/getSubTareas/'+this.tareas[5].id)
+        //                     .then(function (response) {
+        //                         if( response.data[0].value == "onValidation" ){
+        //                             self.btnPrev = false;
+        //                             self.btnNext = false;
+        //                         }else if(response.data[0].value == "okValidation"){
+        //                             self.btnPrev = false;
+        //                             self.btnNext = true;
+        //                         }else if(response.data[0].value == "errorValidation"){
+        //                             self.btnPrev = true;
+        //                             self.btnNext = false;
+        //                         }
+        //                         else {
+        //                             self.btnPrev = true;
+        //                             self.btnNext = false;
+        //                         }
+        //                 });   
+                       
+        //             break;
+        //         case 6: // Tarea 7: Finalización
+        //                 this.btnPrev=false;
+        //                 this.btnNext=true;
+        //             break;
+        //     }
         },
         tiempoManiobra(tarea){
             let self = this; 
@@ -448,27 +417,125 @@ export default {
                 self.avance = response.data.avance_total;
                 self.tareaFin(this.tareas[6].id);
                 window.location.reload(true);
-                // $.notify({
-                //     icon: "check",
-                //     message: '<h4>En hora buena</h4> La maniobra a finalizado correctamente.'
-                // },{
-                //     type: 'success',
-                //     timer: 4000,
-                //     placement: {
-                //         from: 'top',
-                //         align: 'right'
-                //     }
-                // });
-                //EventBus.$emit('termino-maniobra', response.data);
             });
         },
-        // getTarea(){
-        //     let self = this;
-        //     axios.get('/API/supervision/getTareas/'+this.maniobraId)
-        //         .then(function (response) {
-        //             self.tareas = response.data;
-        //     });
-        // },
+        
+        steps(nextIndex, prevIndex){
+            let self = this;
+            switch (nextIndex) {
+                case 0: // Tarea 1: Revision
+                            this.btnNext = true;    
+                    break;
+                case 1: // Tarea 2: Anexos fotograficos
+                            if( prevIndex === 0 ){
+                                axios.all([
+                                    self.avanceUpdate( 1 , 5 ),
+                                    self.tareaFin(self.tareas[0].id),
+                                    self.tareaInicio(self.tareas[1].id)
+                                ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
+                                    if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 )
+                                    {
+                                        alert('Error en index 1');
+                                        window.location.reload(true);
+                                    }
+                                }));
+                            }
+                            this.btnNext = true;    
+                            this.btnPrev = true;    
+                    break;
+                case 2: // Tarea 3: Validacion
+                            if( prevIndex === 1 ){
+                                axios.all([
+                                    this.avanceUpdate( 2 , 10 ),
+                                    this.tareaFin(this.tareas[1].id),
+                                    this.tareaInicio(this.tareas[2].id)
+                                ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
+                                    if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 ){
+                                        alert('Error en index 2');
+                                        window.location.reload(true);
+                                    }
+                                }));
+                            }    
+                            if(this.validation){
+                                this.btnPrev = false;
+                            }
+                            this.btnNext = false;
+                    break;
+                case 3: // Tarea 4: Fuerza de tarea 
+                            if( prevIndex === 2 ){
+                                axios.all([
+                                    this.avanceUpdate( 3 , 15 ),
+                                    this.tareaFin(this.tareas[2].id),
+                                    this.tareaInicio(this.tareas[3].id)
+                                ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
+                                    if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 )
+                                    {
+                                        alert('Error en index 3');
+                                        window.location.reload(true);
+                                    }
+                                }));
+                            }
+                            this.btnPrev = false; 
+                            this.btnNext = true;   
+                    break;
+                case 4: // Tarea 5: Proceso de maniobra
+                            if( prevIndex === 3 ){
+                                axios.all([
+                                    this.avanceUpdate(4 , 20),
+                                    this.tareaFin(this.tareas[3].id),
+                                    this.tareaInicio(this.tareas[4].id)
+                                ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
+                                    console.log("ENTRA AL PROCESO DE LA MANIOBRA");
+                                    if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 )
+                                    {
+                                        alert('Error en index 4');
+                                        window.location.reload(true);
+                                    }else{
+                                        
+                                        self.tiempoManiobra(self.tareas[4].id);
+                                        EventBus.$emit('iniciarProduccionOperarios');
+                                    }
+                                }));
+                            }
+                            this.btnPrev = true; 
+                            this.btnNext = true; 
+                    break;
+                case 5: // Tarea 6: Validacion
+                            if( prevIndex === 4 ){
+                                axios.all([
+                                    this.avanceUpdate(5,90),
+                                    this.tareaInicio(this.tareas[5].id)
+                                ]).then(axios.spread(function (avance, tareaInicio){
+                                    if( ( avance.status + tareaInicio.status ) !== 400 )
+                                    {
+                                        alert('Error en index 5');
+                                        window.location.reload(true);
+                                    }
+                                }));    
+                            }
+                            this.btnNext=false;
+                    break;
+                case 6: // Tarea 7: Finalización
+                            if( prevIndex === 5 ){
+                                axios.all([
+                                    this.avanceUpdate(6,95),
+                                    this.tareaFin(this.tareas[4].id),
+                                    this.tareaFin(this.tareas[5].id),
+                                    this.tareaInicio(this.tareas[6].id)
+                                ]).then(axios.spread(function (avance, tareaFin4, tareaFin5, tareaInicio){
+                                    if( ( avance.status + tareaFin4.status + tareaFin5.status + tareaInicio.status ) !== 800)
+                                    {
+                                        alert('Error en index 6');
+                                        window.location.reload(true);
+                                    }else{
+                                        self.operariosLibres();
+                                    }
+                                }));
+                            }
+                            this.btnPrev=false;
+                    break;
+            }
+        },
         alertaLeida(){
             this.alertaFinalizar=1;
         },

@@ -362,7 +362,6 @@ class TareaController extends Controller
     {
         $operario = FuerzaTarea::find($request->id);
         $operario->status = $request->status;
-        //$operario->coordinacion_id=$request->coordinacion;
         $operario->save();
         
         return $operario->toJson();

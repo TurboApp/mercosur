@@ -176,12 +176,12 @@ export default {
             }, 500);
         },
         selectOperario(operario, isActive){
-            let self= this;
+            let self = this;
             let estatus = isActive ? "1" : "0";
             let update = isActive ? "insertar" : "eliminar";
             axios.patch('/maniobras/fuerza-tarea/status/'+operario.id+'/'+this.maniobraId,{
                     status: estatus,
-                    _token:this.token
+                    _token:self.token
             }).then(function(response){
                 let activos = 0;
                 let inactivos = 0;

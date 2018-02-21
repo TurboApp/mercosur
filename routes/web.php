@@ -209,17 +209,17 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/usuarios/{usuario}/destroy','UserController@destroy');
 
   #RUTAS herramientas
-  Route::get('/herramientas/puestos','ToolController@createPuesto');
-  Route::post('/herramientas/puestos/nuevo','ToolController@storePuesto');
-  Route::get('/herramientas/getPuestos','ToolController@get');
-  Route::post('/herramientas/puestos/edit','ToolController@update');
-  Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');
+  Route::get('/herramientas/puestos','PuestoController@createPuesto');
+  Route::post('/herramientas/puestos/nuevo','PuestoController@storePuesto');
+  Route::get('/herramientas/getPuestos','PuestoController@get');
+  Route::post('/herramientas/puestos/edit','PuestoController@update');
+  Route::get('/herramientas/info-puesto/{puesto}','PuestoController@infopuesto');
 
-  Route::get('/herramientas/equipos','ToolController@createEquipo')->name('equipos');
-  Route::get('/herramientas/equipos/detalles/{id}','ToolController@showEquipo');
-  Route::post('/herramientas/equipos/nuevo','ToolController@storeEquipo');
-  Route::get('/herramientas/equipos/info/{id}','ToolController@infoEquipo');
-  Route::post('/herramientas/equipos/update', 'ToolController@updateEquipo');
+  Route::get('/herramientas/equipos','EquipoController@createEquipo')->name('equipos');
+  Route::get('/herramientas/equipos/detalles/{id}','EquipoController@showEquipo');
+  Route::post('/herramientas/equipos/nuevo','EquipoController@storeEquipo');
+  Route::get('/herramientas/equipos/info/{id}','EquipoController@infoEquipo');
+  Route::post('/herramientas/equipos/update', 'EquipoController@updateEquipo');
 
 
 });
