@@ -34,7 +34,7 @@ class APIController extends Controller
     public function coordinacion(Request $request)
     {
         
-        if(auth()->user()->perfil->perfil !== 'coordinador')
+        if(auth()->user()->perfil->perfil !== 'coordinador' && auth()->user()->perfil->perfil !== 'admin')
         {
             return redirect('/');
         }
@@ -82,7 +82,7 @@ class APIController extends Controller
     public function maniobrasSupervisor(Request $request)
     {
         
-        if(auth()->user()->perfil->perfil !== 'supervisor')
+        if(auth()->user()->perfil->perfil !== 'supervisor' && auth()->user()->perfil->perfil !== 'admin')
         {
             return redirect('/');
         }
@@ -130,7 +130,7 @@ class APIController extends Controller
     public function almacen(Request $request)
     {
         
-        if(auth()->user()->perfil->perfil !== 'trafico')
+        if(auth()->user()->perfil->perfil !== 'trafico' && auth()->user()->perfil->perfil !== 'admin')
         {
             return redirect('/');
         }
@@ -142,21 +142,43 @@ class APIController extends Controller
         {
             $fechaInicio = date('Y-m-d', strtotime($fechas[0])) ;
             $fechaFinal = date('Y-m-d', strtotime($fechas[1])) ;
-            $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio, $fechaFinal])
-                ->whereHas('documentos', function($q){
-                        $q->where([['status','>','0'],['user_id', auth()->user()->id]]);
-                })->get();
+            if(auth()->user()->perfil->perfil=='admin'){
+                $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio, $fechaFinal])
+                    ->whereHas('documentos', function($q){
+                            $q->where('status','>','0');
+                    })->get();
+            }else{
+                $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio, $fechaFinal])
+                    ->whereHas('documentos', function($q){
+                            $q->where([['status','>','0'],['user_id', auth()->user()->id]]);
+                    })->get();
+            }
         }
         else if( $request->date )
         {
             $fecha = date('Y-m-d', strtotime( str_replace('/', '-', $request->date ) ) );
-            $servicios = Servicio::where("fecha_recepcion", $fecha)->whereHas('documentos', function($q){
-                $q->where([['status','>','0'],['user_id', auth()->user()->id]]);
-            })->get();
+            if(auth()->user()->perfil->perfil=='admin'){
+                $servicios = Servicio::where("fecha_recepcion", $fecha)->whereHas('documentos', function($q){
+                    $q->where('status','>','0');
+                })->get();
+            }else{
+                $servicios = Servicio::where("fecha_recepcion", $fecha)->whereHas('documentos', function($q){
+                    $q->where([['status','>','0'],['user_id', auth()->user()->id]]);
+                })->get();
+
+            }
         }else{
-            $servicios = Servicio::where("fecha_recepcion", $fecha)->whereHas('documentos', function($q){
-                $q->where([['status','>','0'],['user_id', auth()->user()->id]]);
-            })->get();
+            if(auth()->user()->perfil->perfil=='admin'){
+                $servicios = Servicio::where("fecha_recepcion", $fecha)->whereHas('documentos', function($q){
+                    $q->where('status','>','0');
+                })->get();
+
+            }else{
+                $servicios = Servicio::where("fecha_recepcion", $fecha)->whereHas('documentos', function($q){
+                    $q->where([['status','>','0'],['user_id', auth()->user()->id]]);
+                })->get();
+
+            }
         }
         
         foreach($servicios as $servicio){
@@ -184,45 +206,63 @@ class APIController extends Controller
     }
     public function coordinacionServicio(Request $request)
     {
-        $data = Coordinacion::find($request->id);
-        $data->servicio->cliente;
-        $data->servicio->agente; 
-        $data->servicio->archivos;
-        $data->servicio->documentos;
-        $data->servicio->transportes;
+        
+        $data = Coordinacion::where('servicio_id',$request->id)
+                ->with(['servicio.cliente','servicio.agente','servicio.archivos','servicio.documentos','servicio.transportes'])
+                ->first();
         foreach ($data->servicio->transportes as $transporte) {
             $lineaTransporte=Transporte::find($transporte->linea_transporte_id);
             $transporte['lineaTransporte'] = $lineaTransporte->nombre;
         }
-        
+       
         return $data->toJson();
     }
 
     public function servicios(Request $request)
     {
+        
         $fecha=Carbon::today()->format('Y-m-d');
         $fechas=explode("*",$request->date);
         if( count( $fechas ) > 1 )
         {
             $fechaInicio = date('Y-m-d', strtotime($fechas[0])) ;
             $fechaFinal = date('Y-m-d', strtotime($fechas[1])) ;
-            $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])
-                        ->where('user_id', auth()->user()->id)->get();
+            if( auth()->user()->perfil->perfil == 'admin' ){
+                $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])
+                            ->get();
+
+            }else{
+                $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])
+                            ->where('user_id', auth()->user()->id)->get();
+
+            }
         }
         else if( $request->date )
         {
             $fecha = date('Y-m-d', strtotime( str_replace('/', '-', $request->date ) ) );
-            $servicios=Servicio::where([
-                    ["fecha_recepcion", $fecha],
-                    ["user_id", auth()->user()->id]
-                ])->get();
+            if( auth()->user()->perfil->perfil == 'admin' ){
+                $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+
+            }else{
+                $servicios=Servicio::where([
+                        ["fecha_recepcion", $fecha],
+                        ["user_id", auth()->user()->id]
+                    ])->get();
+
+            }
         }
         else
         {
-            $servicios=Servicio::where([
-                    ["fecha_recepcion", $fecha],
-                    ["user_id", auth()->user()->id]
-                ])->get();
+            if( auth()->user()->perfil->perfil == 'admin' ){
+                $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+
+            }else{
+                $servicios=Servicio::where([
+                        ["fecha_recepcion", $fecha],
+                        ["user_id", auth()->user()->id]
+                    ])->get();
+
+            }
         }
         foreach($servicios as $servicio){
             $servicio->cliente;
@@ -363,5 +403,60 @@ class APIController extends Controller
         return $tareas->toJson();
     }
 
+
+    public function maniobras(Request $request)
+    {
+        
+        $fecha=Carbon::today()->format('Y-m-d');
+        $fechas=explode("*",$request->date);
+        if( count( $fechas ) > 1 )
+        {
+            $fechaInicio = date('Y-m-d', strtotime($fechas[0])) ;
+            $fechaFinal = date('Y-m-d', strtotime($fechas[1])) ;
+            $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])->get();
+        }
+        else if( $request->date )
+        {
+            $fecha = date('Y-m-d', strtotime( str_replace('/', '-', $request->date ) ) );
+            $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+        }
+        else
+        {
+            $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+        }
+        foreach($servicios as $servicio){
+            $servicio->cliente;
+            $servicio->coordinacion;
+            $servicio->transportes;
+            
+            foreach($servicio->transportes as $transporte){
+                $transporte->transporte;
+            }
+            
+            
+            $date_humans = Date::instance($servicio->fecha_recepcion)->format('F j, Y');
+            
+
+            $hora_registro = Date::instance($servicio->created_at)->format('H:i A');
+            
+            
+            $servicio['date_humans'] = $date_humans . '. A las '. $hora_registro;
+            if(!empty($servicio->coordinacion->inicio_maniobra)){
+                $inicio_maniobra = Carbon::createFromFormat('Y-m-d H:i:s', $servicio->coordinacion->inicio_maniobra, 'America/Mexico_City');
+                $servicio['inicio_maniobra'] = $inicio_maniobra->format('H:i A');
+            }else{
+                $servicio['inicio_maniobra'] = '...';
+            }
+
+            if(!empty($servicio->coordinacion->termino_maniobra)){
+                $termino_maniobra = Carbon::createFromFormat('Y-m-d H:i:s', $servicio->coordinacion->termino_maniobra, 'America/Mexico_City');
+                $servicio['termino_maniobra'] = $termino_maniobra->format('H:i A');
+            }else{
+                $servicio['termino_maniobra'] = '...';
+            }
+        }
+
+        return DataTables::of($servicios)->toJson();
+    }
 
 }

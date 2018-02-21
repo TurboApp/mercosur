@@ -1,8 +1,8 @@
 <template>
-    <div class="col-xs-3">
+    <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="card grey lighten-4" style="padding:12px 0; margin:0; margin-bottom:7px;" >
             <div class="col-xs-12">
-                <div class="">
+                <div class="text-center" style="max-width:180px; margin:0 auto;">
                     <img class="img img-responsive img-circle z-depth-3" :src="avatar">
                 </div>
             </div>

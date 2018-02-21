@@ -704,3 +704,8 @@ figure.image-hover{
     margin: 0 auto;
     padding-top:7px;
 }
+//Agregar filtro gris a imagenes
+.img-gray{
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}

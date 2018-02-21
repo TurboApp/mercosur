@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('title','Lineas de transportes')
 @section('nav-top')
+    @if(auth()->user()->perfil->perfil == 'admin')
     <ul class="nav navbar-nav navbar-right">
         <li>
             <a href="/transportes/nuevo"  title="Agregar nuevo">
@@ -10,6 +11,7 @@
         </li>
         <li class="separator hidden-lg hidden-md"></li>
     </ul>
+    @endif
     @component('components.navbarsearch',[
                 'action'  =>  'LineasTransporteController@search',
             ])

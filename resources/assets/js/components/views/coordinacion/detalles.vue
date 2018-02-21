@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-if="supervisor > 0 ">
-          <resume-maniobra :supervisor-id="supervisor" :servicio-id="datos.servicio_id"></resume-maniobra>
+          <resume-maniobra :supervisor-id="supervisor" :servicio-id="datos.servicio_id" :maniobra-id="datos.id"></resume-maniobra>
       </div>
       <div v-else>
           <select-supervisor :id="id" ></select-supervisor>

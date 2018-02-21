@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
-@section('title','Agente: '.str_limit($agente->nombre, 24))
+@section( 'title' , str_limit( $agente->nombre , 24 ) )
 
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
+        @if(auth()->user()->perfil->perfil == 'admin')
         <li>
             <a href="/agentes/{{ $agente->id }}/editar" title="Editar">
                 <i class="material-icons">edit</i>
@@ -16,13 +17,14 @@
                 <p class="hidden-lg hidden-md">Eliminar</p>
             </a>
         </li>
-    
+        
         <li>
             <a href="/agentes/nuevo" title="Agregar nuevo">
                 <i class="material-icons">add</i>
                 <p class="hidden-lg hidden-md">Nuevo</p>
             </a>
         </li>
+        @endif
         <li>
             <a href="/agentes" title="Todos los agentes">
                 <i class="material-icons">arrow_upward</i>
@@ -175,6 +177,7 @@
                         </div>
                     </div>
                 </div><!-- ./card-content -->
+                @if (auth()->user()->perfil->perfil == 'admin')
                 <div class="card-footer">
                     <hr>
                     <nav class="navs pull-right">
@@ -194,6 +197,7 @@
                         </ul>
                     </nav>
                 </div>  <!-- ./card-footer -->
+                @endif
             </form>
         </div>  <!-- ./card -->         
    

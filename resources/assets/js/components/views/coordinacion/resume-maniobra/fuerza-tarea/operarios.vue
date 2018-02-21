@@ -7,19 +7,17 @@
                 </div>
             </div>
             <div class="row">
-                <card >
-                    <div class="row">
-                        <div v-if="operariosActivos.length > 0" >
-                            <card-operario v-for="(operario, index) in operariosActivos" :key="index" 
-                                :operario="operario" :index="index" 
-                            >
-                            </card-operario>
-                        </div>
-                        <div v-else class="text-center">
-                            <p class="text-muted lead">Aun no se ha seleccionado ningun operario</p>
-                        </div>
+                <div class="row">
+                    <div v-if="operariosActivos.length > 0" >
+                        <card-operario v-for="(operario, index) in operariosActivos" :key="index" 
+                            :operario="operario" :index="index" 
+                        >
+                        </card-operario>
                     </div>
-                </card>
+                    <div v-else class="text-center">
+                        <p class="text-muted lead">Aun no se ha seleccionado ningun operario</p>
+                    </div>
+                </div>
             </div>
         </template>       
     </div> 

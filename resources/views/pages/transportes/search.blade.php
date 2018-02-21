@@ -4,12 +4,14 @@
 
 @section('nav-top')
     <ul class="nav navbar-nav navbar-right">
+        @if(auth()->user()->perfil->perfil == 'admin')
         <li>
             <a href="/transportes/nuevo"  title="Agregar nuevo">
                 <i class="material-icons">add</i>
                 <p class="hidden-lg hidden-md">Agregar</p>
             </a>
         </li>
+        @endif
         <li>
             <a href="/transportes" title="Ir a lineas de transportes">
                 <i class="material-icons">arrow_upward</i>

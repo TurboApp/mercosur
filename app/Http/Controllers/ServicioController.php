@@ -6,6 +6,7 @@ use App\Servicio;
 use App\Agente;
 use App\Coordinacion;
 use App\User;
+use App\Equipo;
 use App\Notification;
 use App\Http\Requests\RequestServicio;
 
@@ -22,12 +23,18 @@ use Illuminate\Http\Request;
 class ServicioController extends Controller
 {
     function __construct(){
-        $this->middleware(['auth','perfils:trafico,admin,supervisor,coordinador']);
+        $this->middleware(['auth','perfils:trafico,admin,supervisor,coordinador,go,directivo']);
     }
 
     public function index()
-    {
+    {   
         $data = Date::instance(Carbon::now());
+        $equipos=[];
+        if( auth()->user()->perfil->perfil == 'go' || auth()->user()->perfil->perfil == 'directivo' )
+        {   
+            $equipos = Equipo::paginate(16);
+            return view('pages.productividad.servicios.teams', compact('data','equipos'));
+        }
         return view('pages.servicios.index', compact('data'));
     }
 

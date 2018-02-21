@@ -110,13 +110,19 @@
                     data: null,
                     render: function(data, type, row){
                        return `<p class="text-center">
-                         <a href="/{{$urlTo}}/`+row.id+`" rel="tooltip" class="btn btn-info btn-simple btn-icon" data-original-title="info" title="Información">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
-                                </a>
-                                <a href="/{{$urlTo}}/`+row.id+`/editar" rel="tooltip" class="btn btn-warning btn-simple btn-icon" data-original-title="" title="Editar">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </a>
-                                </p>
+                                    <a href="/{{$urlTo}}/`+row.id+`" rel="tooltip" class="btn btn-info btn-simple btn-icon" data-original-title="info" title="Información">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                    </a>
+                                @if(auth()->user()->perfil->perfil == 'admin')
+                                    <a href="/{{$urlTo}}/`+row.id+`/editar" rel="tooltip" class="btn btn-warning btn-simple btn-icon" data-original-title="" title="Editar">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                @elseif(auth()->user()->perfil->perfil == 'go')
+                                    <a href="/{{$urlTo}}/`+row.id+`/metricas" rel="tooltip" class="btn btn-success btn-simple btn-icon" data-original-title="" title="Metricas">
+                                        <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                    </a>
+                                @endif
+                            </p>
                        `;
                        
                     },

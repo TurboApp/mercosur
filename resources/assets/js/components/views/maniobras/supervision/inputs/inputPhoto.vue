@@ -15,12 +15,14 @@
                                 </a>
                             </div>
                             <upload v-if="limit > images.length" :url="urlUpload" :done="feedBack" image capture class="grey lighten-3" :class="colum" :style="styleColum">
-                                <i class="material-icons md-36 text-muted">add_a_photo</i>
+                                <!-- <i class="material-icons md-36 text-muted">add_a_photo</i> -->
+                                <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i>
                             </upload>
                         </div>
                         <div v-else>
                             <upload :url="urlUpload" :done="feedBack" image capture class="grey lighten-3" :class="colum" :style="styleColum">
-                                <i class="material-icons md-36 text-muted">add_a_photo</i>
+                                <!-- <i class="material-icons md-36 text-muted">add_a_photo</i> -->
+                                <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i>
                             </upload>
                         </div>
                     </div>
@@ -72,27 +74,33 @@ export default {
             return '/maniobra/subtarea/'+ this.id + '?_token=' + this.token + '&inputType=photo';
         },
         colum(){
-            switch(this.limit){
+            //switch(this.limit){
+            switch(this.images.length){
+                case 0:
                 case 1:
-                    return 'col-xs-12 col-sm-8 col-sm-offset-2';
+                    return 'col-xs-12 col-sm-10 col-sm-offset-1';
                     
-                case 2:
-                    return 'col-xs-6 col-sm-6';
-                
+                //case 2:
                 default:
-                    return 'col-xs-6 col-sm-3';
+                    return 'col-xs-12 col-sm-6';
+                
+                //default:
+                    //return 'col-xs-6 col-sm-6';
             }
         },
         styleColum(){
-            switch(this.limit){
+            //switch(this.limit){
+            switch(this.images.length){
+                case 0:
                 case 1:
-                    return 'height:300px; margin-bottom:25px; overflow:hidden;';
+                    return 'height:350px; margin-bottom:25px; overflow:hidden;';
                     
-                case 2:
+                //case 2:
+                default:
                     return 'height:280px; margin-bottom:25px; overflow:hidden;';
                     
-                default:
-                    return 'height:150px; margin-bottom:25px; overflow:hidden;';
+                // default:
+                //     return 'height:150px; margin-bottom:25px; overflow:hidden;';
                                     
             }
         }

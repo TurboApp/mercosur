@@ -23,7 +23,9 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/clientes/{cliente}', 'ClienteController@show')->name('cliente');
   Route::post('/clientes', 'ClienteController@store')->name('clienteGuardar');
   Route::patch('/clientes/{cliente}', 'ClienteController@update')->name('clienteGuardarCambios');
+  Route::get('/clientes/{cliente}/metricas', 'ClienteController@metrica')->name('clienteMetrica');
   Route::delete('/clientes/{cliente}/destroy', 'ClienteController@destroy')->name('clienteEliminar');
+  Route::get('/clientes/API/{cliente}', 'ClienteController@APImetrica');
 
   #RUTAS DE AGENTES
 
@@ -31,6 +33,9 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/agentes/busqueda/', 'AgenteController@search')->name('agenteBusqueda');
   Route::get('/agentes/nuevo', 'AgenteController@create')->name('agenteNuevo');
   Route::get('/agentes/{agente}/editar', 'AgenteController@edit')->name('agenteEditar');
+  Route::get('/agentes/{agente}/metricas', 'AgenteController@metrica')->name('agenteMetrica');
+  Route::get('/agentes/API/{agente}', 'AgenteController@APImetrica');
+
   Route::get('/agentes/{agente}', 'AgenteController@show')->name('agente');
   Route::post('/agentes', 'AgenteController@store')->name('agenteGuardar');
   Route::patch('/agentes/{agente}', 'AgenteController@update')->name('agenteGuardarCambios');
@@ -44,6 +49,8 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/transportes/{transporte}','LineasTransporteController@show')->name('transporte');
   Route::post('/transportes','LineasTransporteController@store')->name('transporteGuardar');
   Route::patch('/transportes/{transporte}','LineasTransporteController@update')->name('transporteGuardarCambios');
+  Route::get('/transportes/{transporte}/metricas', 'LineasTransporteController@metrica')->name('transporteMetrica');
+  Route::get('/transportes/API/{transporte}', 'LineasTransporteController@APImetrica');
   Route::delete('/transportes/{transporte}/destroy','LineasTransporteController@destroy')->name('transporteEliminar');
   #RUTAS DE DESTINOS
   // Route::get('/destinos/', 'DestinoController@index');
@@ -54,6 +61,28 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::patch('/destinos/{destino}', 'DestinoController@update');
   // Route::get('/destinos/{destino}', 'DestinoController@show');
   // Route::delete('/destinos/{destino}/destroy','DestinoController@destroy');
+
+  // RUTA DE PRODUCCION OPERARIOS (PERFIL GERENTE OPERATIVO)
+  Route::get('/operarios-produccion/','FuerzaTareaController@operariosProdccion')->name('operarios-produccion');
+  Route::get('/operarios-produccion/busqueda/', 'FuerzaTareaController@searchOperariosProduccion');
+  Route::get('/operarios-produccion/API/{operario}/{date?}','FuerzaTareaController@getDataOperario');
+  Route::get('/operarios-produccion/{operario}','FuerzaTareaController@showOperario');
+
+  Route::get('/supervisores/','FuerzaTareaController@supervisoresProduccion')->name('supervisores');
+  Route::get('/supervisores/busqueda/', 'FuerzaTareaController@searchSupervisoresProduccion');
+  Route::get('/supervisores/API/{supervisor}/{date?}','FuerzaTareaController@getDataSupervisor');
+  Route::get('/supervisores/{supervisor}','userController@showSupervisor');
+  Route::get('/supervisores/{supervisor}/metricas','FuerzaTareaController@showSupervisor');
+
+  Route::get('/coordinadores/','FuerzaTareaController@coordinadoresProduccion')->name('coordinadores');
+  Route::get('/coordinadores/busqueda/', 'FuerzaTareaController@searchCoordinadoresProduccion');
+  Route::get('/coordinadores/API/{coordinador}/{date?}','FuerzaTareaController@getDataCoordinador');
+  Route::get('/coordinadores/{coordinador}','userController@showCoordinador');
+  Route::get('/coordinadores/{coordinador}/metricas','FuerzaTareaController@showCoordinador');
+
+
+
+
 
   // RUTAS DE FUERZA DE TAREA
   Route::get('/fuerzas/','FuerzaTareaController@index')->name('fuerza-tarea');
@@ -71,6 +100,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/servicios/nuevo/{servicio}/{id?}', 'ServicioController@create')->name('servicioCrear');
   Route::post('/servicios', 'ServicioController@store')->name('servicioGuardar');
   Route::get('/servicios/{servicio}', 'ServicioController@show');
+  Route::get('/servicios/detalles/{servicio}', 'CoordinacionController@maniobra');
 
   Route::get('/almacen', 'ServicioController@almacen');
 
@@ -138,6 +168,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/API/transportes/{s?}', 'APIController@transportes');
 
   Route::get('/API/servicios/{date?}','APIController@servicios');
+  Route::get('/API/maniobras/{date?}','APIController@maniobras');
   Route::get('/API/coordinacion/{date?}','APIController@coordinacion');
   //Route::get('/API/coordinacion/')
 
@@ -178,17 +209,17 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::delete('/usuarios/{usuario}/destroy','UserController@destroy');
 
   #RUTAS herramientas
-  Route::get('/herramientas/puestos','ToolController@createPuesto');
-  Route::post('/herramientas/puestos/nuevo','ToolController@storePuesto');
-  Route::get('/herramientas/getPuestos','ToolController@get');
-  Route::post('/herramientas/puestos/edit','ToolController@update');
-  Route::get('/herramientas/info-puesto/{puesto}','ToolController@infopuesto');
+  Route::get('/herramientas/puestos','PuestoController@createPuesto');
+  Route::post('/herramientas/puestos/nuevo','PuestoController@storePuesto');
+  Route::get('/herramientas/getPuestos','PuestoController@get');
+  Route::post('/herramientas/puestos/edit','PuestoController@update');
+  Route::get('/herramientas/info-puesto/{puesto}','PuestoController@infopuesto');
 
-  Route::get('/herramientas/equipos','ToolController@createEquipo')->name('equipos');
-  Route::get('/herramientas/equipos/detalles/{id}','ToolController@showEquipo');
-  Route::post('/herramientas/equipos/nuevo','ToolController@storeEquipo');
-  Route::get('/herramientas/equipos/info/{id}','ToolController@infoEquipo');
-  Route::post('/herramientas/equipos/update', 'ToolController@updateEquipo');
+  Route::get('/herramientas/equipos','EquipoController@createEquipo')->name('equipos');
+  Route::get('/herramientas/equipos/detalles/{id}','EquipoController@showEquipo');
+  Route::post('/herramientas/equipos/nuevo','EquipoController@storeEquipo');
+  Route::get('/herramientas/equipos/info/{id}','EquipoController@infoEquipo');
+  Route::post('/herramientas/equipos/update', 'EquipoController@updateEquipo');
 
 
 });

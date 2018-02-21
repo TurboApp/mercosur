@@ -41,9 +41,9 @@
               </div>
               <div class="row text-center">
                 <h4 class="card-title">
-                  @foreach ($usuario->puestos as $puesto)
+                  {{-- @foreach ($usuario->puestos as $puesto)
                     {{$puesto->puesto}}
-                  @endforeach
+                  @endforeach --}}
                 </h4>
               </div>
             </div>{{--card imagen--}}

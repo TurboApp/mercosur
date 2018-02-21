@@ -12,7 +12,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            {{$resumen}}
+            {{$resumen->supervisorDescargasHoy}}
         </div>
     </div>
 @endsection

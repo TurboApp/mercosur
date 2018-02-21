@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AgentesTableSeeder::class);
         $this->call(TransportesTableSeeder::class);
         $this->call(FuerzasTableSeeder::class);
-        // $this->call(DescargasDataSeeder::class);
+        //$this->call(DescargasDataSeeder::class);
 
     }
 }

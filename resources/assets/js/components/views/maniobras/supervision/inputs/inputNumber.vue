@@ -55,7 +55,7 @@ export default {
                     value:self.input,
                     _token: token 
             }).then(function(response){
-               
+                
             }).catch(function(error){
                
             });

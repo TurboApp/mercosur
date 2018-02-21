@@ -44,10 +44,11 @@
         <tabs >
             <tab name="Supervisión" >
                 <proceso-supervision 
-                    :maniobra-id="datos.servicio_id" 
+                    :servicio-id="datos.servicio_id" 
+                    :maniobra-id="datos.id"
                     :active-index="datos.indice_activo" 
                     :avance-total="avanceTotal" 
-                    
+                    :tareas="tareas"
                    >
                 </proceso-supervision>
             </tab>
@@ -96,6 +97,10 @@ export default {
             type:[Object, Array],
             required:true,
         },
+        tareas:{
+            type:[Object, Array],
+            required:true,
+        }
         
     },
     data(){
@@ -110,6 +115,7 @@ export default {
     created(){
         let self = this;
         this.datosM = this.datos;
+        
         this.EventBus();
     },
     mounted(){

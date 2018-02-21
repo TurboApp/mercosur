@@ -126,7 +126,7 @@
         <div class="main-panel">
             <!-- NAVEGACION -->
             
-            {{--  <nav class="navbar navbar-transparent navbar-absolute">  --}}
+            
             <nav class="navbar grey lighten-3 navbar-absolute ">
                 <div class="container-fluid">
                     <div class="navbar-minimize">
@@ -204,6 +204,7 @@
                 </div>
             </nav>
 
+            
             <nav class="nav grey lighten-3 " style="margin-top:71px;border-top:1px solid #e0e0e0;">
                 <div class="container-fluid">
                     <div class="col-sm-6">

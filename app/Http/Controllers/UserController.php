@@ -15,7 +15,7 @@ use App\UserPuesto;
 class UserController extends Controller
 {
     function __construct(){
-      $this->middleware(['auth','perfils:admin']);
+      $this->middleware(['auth','perfils:admin,go,directivo']);
     }
 
     public function index(){
@@ -39,7 +39,7 @@ class UserController extends Controller
           'celular' => 'required',
           'id_puesto' => 'required',
           'perfil_id' => 'required',
-          'equipo_id' => 'required',
+          //'equipo_id' => 'required',
           'user' => 'required|unique:users,user',
           'password' =>'required|min:6',
           'email' => 'nullable|email|unique:users,email',
@@ -64,13 +64,41 @@ class UserController extends Controller
 
     public function show(Request $request, $usuario){
       $usuario=User::find($usuario);
+      
       if ($usuario==null) {
         $request->session()->flash('danger', 'No se encontro ningun dato');
         return redirect('/usuarios/');
       } else {
         $perfil=$usuario->perfil;
         $puesto=$usuario->puestos;
+       
         return view('pages.usuarios.show',compact('usuario'));
+      }
+
+    }
+
+    public function showSupervisor(Request $request, $supervisor){
+      $usuario=User::find($supervisor);
+      if ($usuario==null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/supervisores/');
+      } else {
+        $perfil=$usuario->perfil;
+        $puesto=$usuario->puestos;
+        return view('pages.productividad.supervisores.info',compact('usuario'));
+      }
+
+    }
+
+    public function showCoordinador(Request $request, $coordinador){
+      $usuario=User::find($coordinador);
+      if ($usuario==null) {
+        $request->session()->flash('danger', 'No se encontro ningun dato');
+        return redirect('/supervisores/');
+      } else {
+        $perfil=$usuario->perfil;
+        $puesto=$usuario->puestos;
+        return view('pages.productividad.coordinadores.info',compact('usuario'));
       }
 
     }

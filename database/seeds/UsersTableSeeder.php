@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         
         //Admin
-        for($i = 0; $i < 4; $i++) {
+        for($i = 0; $i < 1; $i++) {
             App\User::create([
                 'nombre' => $faker->name,
                 'apellido' => $faker->lastName,
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
         }    
         
         //Directores
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 3; $i++) {
             $user = App\User::create([
                 'nombre' => $faker->name,
                 'apellido' => $faker->lastName,
@@ -49,7 +49,7 @@ class UsersTableSeeder extends Seeder
         }
 
         //Gerente operativo
-        for($i = 0; $i < 2; $i++) {
+        for($i = 0; $i < 3; $i++) {
             $user = App\User::create([
                 'nombre' => $faker->name,
                 'apellido' => $faker->lastName,
@@ -66,7 +66,7 @@ class UsersTableSeeder extends Seeder
         }
 
         //Trafico
-        for($i = 0; $i < 2; $i++) {
+        for($i = 0; $i < 5; $i++) {
             $user = App\User::create([
                 'nombre' => $faker->name,
                 'apellido' => $faker->lastName,
@@ -101,7 +101,7 @@ class UsersTableSeeder extends Seeder
         }
 
         //Supervisores
-        for($i = 0; $i < 25; $i++) {
+        for($i = 0; $i < 10; $i++) {
             $user = App\User::create([
                 'nombre' => $faker->name,
                 'apellido' => $faker->lastName,

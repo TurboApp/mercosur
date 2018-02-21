@@ -31,6 +31,10 @@ class User extends Model implements Authenticatable
     return $this->belongsTo('App\Equipo','equipo_id','id');
   }
 
+  public function supervisor()
+  {
+      return $this->hasMany('App\coordinacion','supervisor_id', 'id');
+  }
 
   public function hasPerfils(array $perfiles)
   {
