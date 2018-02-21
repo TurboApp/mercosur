@@ -1,4 +1,4 @@
-<page backtop="43mm" backbottom="11mm" backleft="4mm" backright="0mm">
+<page backtop="43mm" backbottom="11mm" backleft="4mm" backright="100mm">
   <page_header>
       <table style="width: 100%;" class="page_header">
           <tr>
@@ -25,6 +25,7 @@
       </table>
   </page_footer>
   <table border=".5px" cellspacing="0" bordercolor="Blue Grey">
+    <col style="width:100%;">
     <tr>
         <td colspan="3" style='font-weight: bold; font-size: 10pt; color: #000000; font-family: Times; text-align:center; padding:10px;'>DATOS DE LA  MERCANCIA QUE SE ENTREGO O RECIBIO EN BODEGA</td>
       </tr>
@@ -152,7 +153,7 @@
               <strong style='font-weight: italic; font-size: 8pt; color: #B71C1C; padding:7px;'>Campo No Validado</strong>
           @endif
         </td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Llantas en buen estado:<br>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Llantas en buen estado:
           <?php
             $tarea=$data->coordinacion->tareas->where('titulo_corto','Revisión')->first();
             $llantas=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Seleccione el estado de las llantas"]])->first();
@@ -163,7 +164,7 @@
               <strong style='font-weight: italic; font-size: 8pt; color: #B71C1C; padding:7px;'>Campo No Validado</strong>
           @endif
         </td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Las llantas traen la presión adecuada:<br>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Las llantas traen la presión adecuada:
           <?php
             $tarea=$data->coordinacion->tareas->where('titulo_corto','Revisión')->first();
             $calibracion=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Indique el estado de la  presion de llantas"]])->first();
@@ -211,7 +212,7 @@
               <strong>NO</strong>
           @endif
         </td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Lonas en buen estado:<br>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Lonas en buen estado:
           <?php
             $tarea=$data->coordinacion->tareas->where('titulo_corto','Revisión')->first();
             $herramientas=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","¿La unidad cuenta con lonas en buen estado?"]])->first();
@@ -222,7 +223,7 @@
               <strong>NO</strong>
           @endif
         </td>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Cuenta con lona:<br>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Cuenta con lona:
           <?php
             $tarea=$data->coordinacion->tareas->where('titulo_corto','Revisión')->first();
             $herramientas=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","¿La cantidad de lonas es la adecuada?"]])->first();
@@ -235,7 +236,7 @@
         </td>
       </tr>
       <tr>
-        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Cuenta con cadenas, Lazos, Slingas y Fajas para ajustar el material y en buenestado:<br>
+        <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Cuenta con cadenas, Lazos, Slingas y Fajas para ajustar el material y en buenestado:
           <?php
             $tarea=$data->coordinacion->tareas->where('titulo_corto','Revisión')->first();
             $cadenas=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","¿La unidad cuenta con herramientas para ajustar?"]])->first();
@@ -278,14 +279,14 @@
       </tr>
       @if ($data->tipo=="Descarga")
         <tr>
-          <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:2px;' colspan="2" width="50%">
+          <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:2px;' colspan="2">
             <span>ENTREGO</span><br><br>
             <span>
               <?php
               $tarea=$data->coordinacion->tareas->where('titulo_corto','Finalización')->first();
               $firma_operaor=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Firma del operador"]])->first();
               ?>
-              <img src="{{storage_path('app/'.$firma_operaor->value)}}" style="width:150px; " />
+              <img src="{{storage_path('app/'.$firma_operaor->value)}}" style="width:200px; " />
             </span><br>
             <span>@foreach ($data->transportes as $servicio)
                 {{ucwords($servicio->nombre_operador)}}
@@ -299,7 +300,7 @@
               $tarea=$data->coordinacion->tareas->where('titulo_corto','Finalización')->first();
               $firma_supervisor=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Firma del supervisor"]])->first();
               ?>
-              <img src="{{storage_path('app/'.$firma_supervisor->value)}}" style="width:150px; " />
+              <img src="{{storage_path('app/'.$firma_supervisor->value)}}" style="width:200px; " />
             </span><br>
             <span>{{$data->autor->nombre}} {{$data->autor->apellido}}</span>
           </td>
