@@ -582,6 +582,7 @@ class Servicio extends Model
                         ["subtarea" => "Ingrese el peso total de la mercancia", "texto_ayuda" => "", "inputType" => "text"],
                         // 11.- Cantidad de bultos	
                         ["subtarea" => "Ingrese la cantidad de bultos", "texto_ayuda" => "",  "inputType" => "text"],
+
                     ]
                 ]
             ],

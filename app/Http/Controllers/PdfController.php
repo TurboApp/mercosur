@@ -26,9 +26,6 @@ class PdfController extends Controller
           $html2pdf = new Html2Pdf('P', 'LETTER', 'en','UTF-8');
           $html2pdf->pdf->SetDisplayMode('fullpage');
           $html2pdf->writeHTML($view);
-          if($tipo=='previo'){
-            return $html2pdf->output('reporte.pdf');
-          }
           if($tipo=='download'){
             foreach ($data->transportes as $servicio){
               $name=$servicio->nombre_operador;

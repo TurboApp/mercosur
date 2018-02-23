@@ -51,7 +51,6 @@
                                 
                                 @if ($servicio->coordinacion->status=='Finalizado' && $servicio->coordinacion->avance_total=='100')
                                     <p style="text-align:right;">
-                                        <a href="/pdf/{{$servicio->id}}/previo" target="_blank"><button class="btn transparent btn-just-icon btn-simple white-text" data-toggle="tooltip" data-placement="top" title="Ver Formato"><i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></button></a>
                                         <a href="/pdf/{{$servicio->id}}/download"><button class="btn transparent btn-just-icon btn-simple white-text " data-toggle="tooltip" data-placement="top" title="Descargar Formato"><i class="fa fa-download fa-lg" aria-hidden="true"></i></button></a>
                                         <a href="/pdf/{{$servicio->id}}/print" target="_blank"><button class="btn transparent btn-just-icon btn-simple white-text " data-toggle="tooltip" data-placement="top" title="Imprimir Formato"><i class="fa fa-print fa-lg" aria-hidden="true"></i></button></a>
                                     </p>
