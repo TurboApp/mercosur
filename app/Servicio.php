@@ -581,7 +581,8 @@ class Servicio extends Model
                         // 10.- Cantidad de bultos	
                         ["subtarea" => "Ingrese la cantidad de bultos", "texto_ayuda" => "",  "inputType" => "text"],
                         // 11.- Peso total	Fotos (2)
-                        ["subtarea" => "Capture las fotos del peso total", "texto_ayuda" => "", "inputType" => "photos", "limit"=>2],
+                        ["subtarea" => "Ingrese el peso total de la mercancia", "texto_ayuda" => "", "inputType" => "text"],
+
                     ]
                 ]
             ],

@@ -12,7 +12,7 @@
         <li  {{ Request::is('maniobras*') ? ' class=active' : ''}}>
             <a href="/maniobras">
                 <i class="material-icons">flag</i>
-                <p>Manibras</p>
+                <p>Maniobras</p>
             </a>
         </li>
 
