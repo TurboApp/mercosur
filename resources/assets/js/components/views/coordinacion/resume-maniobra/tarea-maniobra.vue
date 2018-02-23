@@ -26,7 +26,11 @@
                     <div class="row" v-if="show" style="padding:15px 20px;">
                         <hr>
                         <div class="col-xs-12">
-                            <subtareas-maniobra :tarea-id="datos.id" :tarea-tipo="datos.tipo" :maniobra-id="maniobraId" />
+                            <subtareas-maniobra 
+                                :tarea-id="datos.id" 
+                                :tarea-tipo="datos.tipo" 
+                                :maniobra-id="maniobraId" 
+                                :auth-id="authId" />
                         </div>
                     </div>
                 </transition>
@@ -50,6 +54,10 @@ export default {
             required: true,            
         },
         maniobraId:{
+            type:Number,
+            reruired:true,
+        },
+        authId:{
             type:Number,
             reruired:true,
         }

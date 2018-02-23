@@ -63,7 +63,10 @@ Route::group( ['middleware' => 'auth' ], function()
   // Route::delete('/destinos/{destino}/destroy','DestinoController@destroy');
 
   // RUTA DE PRODUCCION OPERARIOS (PERFIL GERENTE OPERATIVO)
-  Route::get('/operarios-produccion/','FuerzaTareaController@operariosProdccion')->name('operarios-produccion');
+  Route::get('/operarios-produccion/','FuerzaTareaController@operariosProduccion')->name('operarios-produccion');
+  Route::get('/operarios-produccion/activos','FuerzaTareaController@operariosProduccionActivos')->name('operarios-produccion-activos');
+  Route::get('/operarios-produccion/inactivos','FuerzaTareaController@operariosProduccionInactivos')->name('operarios-produccion-inactivos');
+
   Route::get('/operarios-produccion/busqueda/', 'FuerzaTareaController@searchOperariosProduccion');
   Route::get('/operarios-produccion/API/{operario}/{date?}','FuerzaTareaController@getDataOperario');
   Route::get('/operarios-produccion/{operario}','FuerzaTareaController@showOperario');
@@ -98,8 +101,10 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/servicios', 'ServicioController@index')->name('servicios');
   Route::get('/servicios/nuevo', 'ServicioController@new')->name('servicioNuevo');
   Route::get('/servicios/nuevo/{servicio}/{id?}', 'ServicioController@create')->name('servicioCrear');
+  Route::get('/servicios/team/{equipo}', 'ServicioController@indexEquipo')->name('serviciosEquipo');
   Route::post('/servicios', 'ServicioController@store')->name('servicioGuardar');
   Route::get('/servicios/{servicio}', 'ServicioController@show');
+  Route::get('/servicios/{servicio}/editar', 'ServicioController@edit');
   Route::get('/servicios/detalles/{servicio}', 'CoordinacionController@maniobra');
 
   Route::get('/almacen', 'ServicioController@almacen');
@@ -129,6 +134,9 @@ Route::group( ['middleware' => 'auth' ], function()
 
   Route::delete('/maniobras/subtarea/{id}/destroy','TareaController@destroySubtarea');
   Route::patch('/maniobras/fuerza-tarea/status/{id}/{coordinacion}','TareaController@updateFuerzaTarea');
+  
+
+  Route::post('/maniobras/produccion/inicar/{coordinacion}/','TareaController@activarProduccionFuerzaTarea');
   Route::post('/maniobras/produccion/{coordinacion}/{operario}','TareaController@updateProduccionFuerzaTarea');
   Route::get('/maniobras/fuerzaTarea/free/{coordinacion}', 'TareaController@liberarFuerzaTarea');
   
@@ -168,7 +176,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::get('/API/transportes/{s?}', 'APIController@transportes');
 
   Route::get('/API/servicios/{date?}','APIController@servicios');
-  Route::get('/API/maniobras/{date?}','APIController@maniobras');
+  Route::get('/API/maniobras/{date?}/{equipo?}','APIController@maniobras');
   Route::get('/API/coordinacion/{date?}','APIController@coordinacion');
   //Route::get('/API/coordinacion/')
 

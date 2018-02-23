@@ -142,6 +142,6 @@ window.io = require('socket.io-client');
 window.Echo = new Echo({
     broadcaster: 'socket.io',
     //host: 'http://127.0.0.1:6001'
-    host: 'http://192.168.8.107:6001'
+    host: 'http://192.168.8.122:6001'
 });
 

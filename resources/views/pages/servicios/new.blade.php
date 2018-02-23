@@ -3,10 +3,10 @@
 @section('title', 'Nuevo Servicio')
 
 @section('breadcrump')
-   @component('components.breadcrump',[
+   {{--  @component('components.breadcrump',[
         'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  'Nuevo' => '' ],
     ])
-    @endcomponent()
+    @endcomponent()  --}}
 @endsection
 
 @section('nav-top')

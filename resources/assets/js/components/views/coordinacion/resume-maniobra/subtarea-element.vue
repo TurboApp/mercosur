@@ -32,7 +32,14 @@
         </div> 
         
         <div v-else-if="inputType == 'button-validation'">
-            <button-validation :title="title" :text="helpText" :id="id" :maniobra-id="maniobraId" :tarea-id="tareaID"  :value="value"></button-validation>
+            <button-validation 
+                :title="title" 
+                :text="helpText" :id="id" 
+                :maniobra-id="maniobraId" 
+                :auth-id="authId" 
+                :tarea-id="tareaID"  
+                :value="value" >
+            </button-validation>
         </div> 
     </div>
 </template>
@@ -84,6 +91,11 @@ export default {
         },
         maniobraId:{
             type:[Number, String]
+        },
+        
+        authId:{
+            type:Number, 
+            required:true
         },
         limit:{
             type:Number,

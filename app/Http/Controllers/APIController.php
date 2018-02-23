@@ -409,21 +409,49 @@ class APIController extends Controller
         
         $fecha=Carbon::today()->format('Y-m-d');
         $fechas=explode("*",$request->date);
+        $equipoID = $request->equipo;
+
         if( count( $fechas ) > 1 )
         {
             $fechaInicio = date('Y-m-d', strtotime($fechas[0])) ;
             $fechaFinal = date('Y-m-d', strtotime($fechas[1])) ;
-            $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])->get();
+            if($equipoID)
+            {
+                $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])
+                            ->whereHas('autor', function($q) use ($equipoID){
+                                $q->where('equipo_id', $equipoID );
+                            })->get();
+            }else{
+                $servicios = Servicio::whereBetween("fecha_recepcion", [$fechaInicio,$fechaFinal])->get();
+            }
+
         }
         else if( $request->date )
         {
             $fecha = date('Y-m-d', strtotime( str_replace('/', '-', $request->date ) ) );
-            $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+            if($equipoID)
+            {
+                $servicios = Servicio::where("fecha_recepcion", $fecha)
+                            ->whereHas('autor', function($q) use ($equipoID){
+                                $q->where('equipo_id', $equipoID );
+                            })->get();
+            }else{
+                $servicios = Servicio::where("fecha_recepcion", $fecha)->get();
+            }
         }
         else
         {
-            $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+            if($equipoID)
+            {
+                $servicios = Servicio::where("fecha_recepcion", $fecha)
+                        ->whereHas('autor', function($q) use ($equipoID){
+                            $q->where('equipo_id', $equipoID );
+                        })->get();
+            }else{
+                $servicios=Servicio::where("fecha_recepcion", $fecha)->get();
+            }
         }
+
         foreach($servicios as $servicio){
             $servicio->cliente;
             $servicio->coordinacion;
@@ -435,10 +463,8 @@ class APIController extends Controller
             
             
             $date_humans = Date::instance($servicio->fecha_recepcion)->format('F j, Y');
-            
-
             $hora_registro = Date::instance($servicio->created_at)->format('H:i A');
-            
+           
             
             $servicio['date_humans'] = $date_humans . '. A las '. $hora_registro;
             if(!empty($servicio->coordinacion->inicio_maniobra)){

@@ -271,6 +271,12 @@ export default {
                         _token: self.token 
                     });
         },
+        activarOperarios(){
+            let self = this;
+            return  axios.post(`/maniobras/produccion/inicar/${self.maniobraId}`,{
+                        _token: self.token 
+                    });
+        },
         operariosLibres(){
             let self = this;
             return axios.get('/maniobras/fuerzaTarea/free/'+this.maniobraId,{
@@ -326,88 +332,10 @@ export default {
                 });   
                        
             }
-        //    let self = this;
-        //     switch (indice) {
-        //         case 0: // Tarea 1: Revision
-        //                 this.btnNext = true;    
-        //                 this.btnPrev = true;    
-        //             break;
-        //         case 1: // Tarea 2: Anexos fotograficos
-        //                 this.btnNext = true;    
-        //                 this.btnPrev = true;    
-        //             break;
-        //         case 2: // Tarea 3: Validacion
-        //                 // axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
-        //                 //     .then(function (response) {
-        //                 //         if( response.data[0].value == "onValidation" ){
-        //                 //             self.btnPrev = false;
-        //                 //             self.btnNext = false;
-        //                 //         }else if(response.data[0].value == "okValidation"){
-        //                 //             self.btnPrev = false;
-        //                 //             self.btnNext = true;
-        //                 //         }else if(response.data[0].value == "errorValidation"){
-        //                 //             self.btnPrev = true;
-        //                 //             self.btnNext = false;
-        //                 //         }
-        //                 //         else {
-        //                 //             self.btnPrev = true;
-        //                 //             self.btnNext = false;
-        //                 //         }
-        //                 // });   
-        //             break;
-        //         case 3: // Tarea 4: Fuerza de tarea 
-        //                 this.btnPrev = false; 
-        //                 this.btnNext = true;   
-        //             break;
-        //         case 4: // Tarea 5: Proceso de maniobra
-        //                 this.btnPrev = true; 
-        //                 this.btnNext = true; 
-        //                 this.tiempoManiobra(this.tareas[4].id);
-        //             break;
-        //         case 5: // Tarea 6: Validacion
-        //                 axios.get('/API/supervision/getSubTareas/'+this.tareas[5].id)
-        //                     .then(function (response) {
-        //                         if( response.data[0].value == "onValidation" ){
-        //                             self.btnPrev = false;
-        //                             self.btnNext = false;
-        //                         }else if(response.data[0].value == "okValidation"){
-        //                             self.btnPrev = false;
-        //                             self.btnNext = true;
-        //                         }else if(response.data[0].value == "errorValidation"){
-        //                             self.btnPrev = true;
-        //                             self.btnNext = false;
-        //                         }
-        //                         else {
-        //                             self.btnPrev = true;
-        //                             self.btnNext = false;
-        //                         }
-        //                 });   
-                       
-        //             break;
-        //         case 6: // Tarea 7: Finalización
-        //                 this.btnPrev=false;
-        //                 this.btnNext=true;
-        //             break;
-        //     }
+        
         },
         tiempoManiobra(tarea){
-            let self = this; 
-             axios.get('/maniobra/tarea/'+tarea)
-                .then(function (response) {
-                    let eventTime = moment(response.data.inicio);
-                    let currentTime = moment();
-                    let diffTime = currentTime.diff(eventTime);
-                    let duration = moment.duration(diffTime, 'milliseconds');
-                    let interval = 1000;
-                    setInterval(function(){
-                        duration = moment.duration(duration + interval, 'milliseconds');
-                        if(duration.days()){
-                            self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                        }else{
-                            self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                        }
-                    }, interval);
-            });
+             return axios.get('/maniobra/tarea/'+tarea);
         },
         terminoManiobra(){
             let self = this;
@@ -451,7 +379,6 @@ export default {
                                     this.tareaInicio(this.tareas[2].id)
                                 ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
                                     if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 ){
-                                        alert('Error en index 2');
                                         window.location.reload(true);
                                     }
                                 }));
@@ -470,7 +397,6 @@ export default {
                                 ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
                                     if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 )
                                     {
-                                        alert('Error en index 3');
                                         window.location.reload(true);
                                     }
                                 }));
@@ -479,21 +405,40 @@ export default {
                             this.btnNext = true;   
                     break;
                 case 4: // Tarea 5: Proceso de maniobra
+                console.log('this.$children[0].$children');
+                console.log(this.$children[0].$children[3].$children[0].$children[0].$children[0]);
+                console.log(this.$children[0].$children[3].$children[0].$children[0].$children[0].operarios);
                             if( prevIndex === 3 ){
                                 axios.all([
                                     this.avanceUpdate(4 , 20),
                                     this.tareaFin(this.tareas[3].id),
-                                    this.tareaInicio(this.tareas[4].id)
-                                ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
-                                    console.log("ENTRA AL PROCESO DE LA MANIOBRA");
-                                    if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 )
+                                    this.tareaInicio(this.tareas[4].id),
+                                    this.activarOperarios(),
+                                    this.tiempoManiobra(this.tareas[4].id)
+                                ]).then(axios.spread(function (avance, tareaFin, tareaInicio, activacion, tiempo){
+                                    if( ( avance.status + tareaFin.status + tareaInicio.status + activacion.status + tiempo.status ) !== 1000 )
                                     {
-                                        alert('Error en index 4');
                                         window.location.reload(true);
                                     }else{
+
+                                        //EventBus.$emit('iniciarProduccionOperarios');
                                         
-                                        self.tiempoManiobra(self.tareas[4].id);
-                                        EventBus.$emit('iniciarProduccionOperarios');
+                                        //tiempo maniobra
+                                        let eventTime = moment(tiempo.data.inicio);
+                                        let currentTime = moment();
+                                        let diffTime = currentTime.diff(eventTime);
+                                        let duration = moment.duration(diffTime, 'milliseconds');
+                                        let interval = 1000;
+                                        setInterval(function(){
+                                            duration = moment.duration(duration + interval, 'milliseconds');
+                                            if(duration.days()){
+                                                self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                                            }else{
+                                                self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                                            }
+                                        }, interval);
+                                                    
+                                        
                                     }
                                 }));
                             }
@@ -508,7 +453,6 @@ export default {
                                 ]).then(axios.spread(function (avance, tareaInicio){
                                     if( ( avance.status + tareaInicio.status ) !== 400 )
                                     {
-                                        alert('Error en index 5');
                                         window.location.reload(true);
                                     }
                                 }));    
@@ -521,14 +465,12 @@ export default {
                                     this.avanceUpdate(6,95),
                                     this.tareaFin(this.tareas[4].id),
                                     this.tareaFin(this.tareas[5].id),
-                                    this.tareaInicio(this.tareas[6].id)
-                                ]).then(axios.spread(function (avance, tareaFin4, tareaFin5, tareaInicio){
-                                    if( ( avance.status + tareaFin4.status + tareaFin5.status + tareaInicio.status ) !== 800)
+                                    this.tareaInicio(this.tareas[6].id),
+                                    this.operariosLibres()
+                                ]).then(axios.spread(function (avance, tareaFin4, tareaFin5, tareaInicio, operariosFree){
+                                    if( ( avance.status + tareaFin4.status + tareaFin5.status + tareaInicio.status + operariosFree.status ) !== 1000)
                                     {
-                                        alert('Error en index 6');
                                         window.location.reload(true);
-                                    }else{
-                                        self.operariosLibres();
                                     }
                                 }));
                             }

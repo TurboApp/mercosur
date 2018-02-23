@@ -1,10 +1,10 @@
 {
-	"authHost": "192.168.8.107",
+	"authHost": "192.168.8.122",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
-			"appId": "00c91fca87052690",
-			"key": "09a04aa1d40ff8305c1e4d9ec6c31a59"
+			"appId": "e9a0e0aa7df2ecac",
+			"key": "206ac85697e1b0884a8a88331785b7ec"
 		}
 	],
 	"database": "redis",

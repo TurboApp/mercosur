@@ -45787,7 +45787,7 @@ window.io = __webpack_require__(199);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'socket.io',
     //host: 'http://127.0.0.1:6001'
-    host: 'http://192.168.8.107:6001'
+    host: 'http://192.168.8.122:6001'
 });
 
 /***/ }),
@@ -79999,6 +79999,14 @@ var moment = __webpack_require__(0);
         datos: {
             type: [Object, Array],
             required: true
+        },
+        auth: {
+            type: [Number, String],
+            required: true
+        },
+        authId: {
+            type: Number,
+            required: true
         }
     },
     data: function data() {
@@ -80554,6 +80562,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_supervisores_select_supervisor_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__select_supervisores_select_supervisor_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resume_maniobra_detalles_maniobra_vue__ = __webpack_require__(274);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__resume_maniobra_detalles_maniobra_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__resume_maniobra_detalles_maniobra_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards_Card_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cards_Card_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__cards_Card_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -80573,12 +80598,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
+    'card': __WEBPACK_IMPORTED_MODULE_3__cards_Card_vue___default.a,
     'select-supervisor': __WEBPACK_IMPORTED_MODULE_1__select_supervisores_select_supervisor_vue___default.a,
     'resume-maniobra': __WEBPACK_IMPORTED_MODULE_2__resume_maniobra_detalles_maniobra_vue___default.a
   },
   props: {
     datos: {
       type: [Array, Object],
+      required: true
+    },
+    auth: {
+      type: Number,
+      required: true
+    },
+    authId: {
+      type: Number,
       required: true
     }
   },
@@ -80601,6 +80635,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     this.datosM = this.datos;
+    console.log('this.datos');
+    console.log(this.datos);
   },
 
   methods: {
@@ -81274,6 +81310,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -81290,6 +81327,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             required: true
         },
         maniobraId: {
+            type: Number,
+            required: true
+        },
+
+        authId: {
             type: Number,
             required: true
         }
@@ -81424,6 +81466,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 var moment = __webpack_require__(0);
 
@@ -81440,6 +81486,10 @@ var moment = __webpack_require__(0);
             required: true
         },
         maniobraId: {
+            type: Number,
+            reruired: true
+        },
+        authId: {
             type: Number,
             reruired: true
         }
@@ -81885,6 +81935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -81906,6 +81957,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         maniobraId: {
             type: [Number, String],
+            required: true
+        },
+
+        authId: {
+            type: Number,
             required: true
         }
 
@@ -82038,6 +82094,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -82086,6 +82149,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         maniobraId: {
             type: [Number, String]
+        },
+
+        authId: {
+            type: Number,
+            required: true
         },
         limit: {
             type: Number
@@ -82220,27 +82288,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         colum: function colum() {
-            switch (this.limit) {
+            switch (this.images.length) {
+                case 0:
                 case 1:
-                    return 'col-xs-12 col-sm-6 col-sm-offset-3';
+                    return 'col-xs-12 col-sm-10 col-sm-offset-1';
 
-                case 2:
-                    return 'col-xs-6 col-sm-6';
-
+                //case 2:
                 default:
-                    return 'col-xs-6 col-sm-3';
+                    return 'col-xs-12 col-sm-6';
+                // case 1:
+                //     return 'col-xs-12 col-sm-6 col-sm-offset-3';
+
+                // case 2:
+                //     return 'col-xs-6 col-sm-6';
+
+                // default:
+                //     return 'col-xs-6 col-sm-3';
             }
         },
         styleColum: function styleColum() {
-            switch (this.limit) {
+            switch (this.images.length) {
+                case 0:
                 case 1:
-                    return 'height:300px; margin-bottom:25px; overflow:hidden;';
+                    return 'height:350px; margin-bottom:25px; overflow:hidden;';
 
-                case 2:
-                    return 'height:280px; margin-bottom:25px; overflow:hidden;';
-
+                //case 2:
                 default:
-                    return 'height:150px; margin-bottom:25px; overflow:hidden;';
+                    return 'height:280px; margin-bottom:25px; overflow:hidden;';
+                // case 1:
+                //     return 'height:300px; margin-bottom:25px; overflow:hidden;';
+
+                // case 2:
+                //     return 'height:280px; margin-bottom:25px; overflow:hidden;';
+
+                // default:
+                //     return 'height:150px; margin-bottom:25px; overflow:hidden;';
 
             }
         }
@@ -83718,6 +83800,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -83740,6 +83832,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         maniobraId: {
             type: [Number]
         },
+        authId: {
+            type: Number,
+            required: true
+        },
         value: {
             type: [String, Number]
         },
@@ -83753,7 +83849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             load: false,
             estado: '',
             token: '',
-            isValid: ''
+            isValid: '',
+            coordinadorId: 0
         };
     },
     created: function created() {
@@ -83763,6 +83860,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var self = this;
         this.isValid = this.value;
         this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        this.getCoordinadorId();
         this.init();
     },
 
@@ -83834,6 +83932,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 // }     
             });
         },
+        getCoordinadorId: function getCoordinadorId() {
+            var self = this;
+            axios.get('/API/coordinacion/servicio/' + self.maniobraId).then(function (response) {
+                self.coordinadorId = response.data.coordinador_id;
+                console.log('self.coordinadorId');
+                console.log(self.coordinadorId);
+            });
+        },
         EventBus: function EventBus() {
             var self = this;
 
@@ -83889,88 +83995,100 @@ var render = function() {
               ])
             : _vm.isValid == "onValidation"
               ? _c("div", [
-                  _c(
-                    "p",
-                    {
-                      staticClass: "text-center lead text-muted",
-                      staticStyle: { padding: "15px 0" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                Verifique si las actividades anteriores fueron realizadas correctamente\n            "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "col-sm-6 text-center red lighten-4",
-                        staticStyle: { padding: "15px 0" }
-                      },
-                      [
-                        _c("h6", [
-                          _vm._v("Ups, hay un error, enviar a correción")
-                        ]),
-                        _vm._v(" "),
+                  _vm.authId == _vm.coordinadorId
+                    ? _c("div", [
                         _c(
-                          "button",
+                          "p",
                           {
-                            staticClass: "btn btn-danger btn-round btn-lg",
-                            attrs: { type: "button", disabled: _vm.disabled },
-                            on: { click: _vm.error }
+                            staticClass: "text-center lead text-muted",
+                            staticStyle: { padding: "15px 0" }
                           },
                           [
-                            _c("i", {
-                              staticClass: "fa fa-exclamation-circle",
-                              attrs: { "aria-hidden": "true" }
-                            }),
                             _vm._v(
-                              " \n                        Error\n                    "
+                              "\n                    Verifique si las actividades anteriores fueron realizadas correctamente\n                "
                             )
                           ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-sm-6 text-center light-green accent-1",
-                        staticStyle: { padding: "15px 0" }
-                      },
-                      [
-                        _c("h6", [
-                          _vm._v(
-                            "Todo estabien puede proseguir con la maniobra"
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col-sm-6 text-center red lighten-4",
+                              staticStyle: { padding: "15px 0" }
+                            },
+                            [
+                              _c("h6", [
+                                _vm._v("Ups, hay un error, enviar a correción")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-round btn-lg",
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.disabled
+                                  },
+                                  on: { click: _vm.error }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-exclamation-circle",
+                                    attrs: { "aria-hidden": "true" }
+                                  }),
+                                  _vm._v(
+                                    " \n                                Error\n                            "
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "col-sm-6 text-center light-green accent-1",
+                              staticStyle: { padding: "15px 0" }
+                            },
+                            [
+                              _c("h6", [
+                                _vm._v(
+                                  "Todo estabien puede proseguir con la maniobra"
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-success btn-round btn-lg",
+                                  attrs: {
+                                    type: "button",
+                                    disabled: _vm.disabled
+                                  },
+                                  on: { click: _vm.validado }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-check",
+                                    attrs: { "aria-hidden": "true" }
+                                  }),
+                                  _vm._v(
+                                    " \n                                Proseguir\n                            "
+                                  )
+                                ]
+                              )
+                            ]
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success btn-round btn-lg",
-                            attrs: { type: "button", disabled: _vm.disabled },
-                            on: { click: _vm.validado }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fa fa-check",
-                              attrs: { "aria-hidden": "true" }
-                            }),
-                            _vm._v(
-                              " \n                        Proseguir\n                    "
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ])
+                        ])
+                      ])
+                    : _c("div", [_vm._m(0)])
                 ])
               : _vm.isValid == "errorValidation"
-                ? _c("div", {}, [_vm._m(0)])
+                ? _c("div", {}, [_vm._m(1)])
                 : _c("div", {}, [
                     _c("p", { staticClass: "text-muted lead text-center" }, [
                       _vm._v(
@@ -83979,10 +84097,21 @@ var render = function() {
                     ])
                   ])
         ])
-      : _c("div", [_vm._m(1)])
+      : _c("div", [_vm._m(2)])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-muted text-center lead" }, [
+      _c("i", { staticClass: "fa fa-cog fa-spin fa-lg fa-fw" }),
+      _vm._v(
+        "\n                    La validación se esta realizando\n                "
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -84154,6 +84283,7 @@ var render = function() {
                               text: _vm.helpText,
                               id: _vm.id,
                               "maniobra-id": _vm.maniobraId,
+                              "auth-id": _vm.authId,
                               "tarea-id": _vm.tareaID,
                               value: _vm.value
                             }
@@ -84263,6 +84393,7 @@ var render = function() {
                         title: subtarea.subtarea,
                         "help-text": subtarea.texto_ayuda,
                         "maniobra-id": _vm.maniobraId,
+                        "auth-id": _vm.authId,
                         value: subtarea.value,
                         index: index
                       }
@@ -84389,7 +84520,8 @@ var render = function() {
                               attrs: {
                                 "tarea-id": _vm.datos.id,
                                 "tarea-tipo": _vm.datos.tipo,
-                                "maniobra-id": _vm.maniobraId
+                                "maniobra-id": _vm.maniobraId,
+                                "auth-id": _vm.authId
                               }
                             })
                           ],
@@ -84467,7 +84599,11 @@ var render = function() {
                   _vm._l(_vm.tareas, function(tarea, index) {
                     return _c("tarea-maniobra", {
                       key: index,
-                      attrs: { datos: tarea, maniobraId: _vm.servicioId }
+                      attrs: {
+                        datos: tarea,
+                        maniobraId: _vm.servicioId,
+                        authId: _vm.authId
+                      }
                     })
                   })
                 )
@@ -84601,13 +84737,28 @@ var render = function() {
               attrs: {
                 "supervisor-id": _vm.supervisor,
                 "servicio-id": _vm.datos.servicio_id,
-                "maniobra-id": _vm.datos.id
+                "maniobra-id": _vm.datos.id,
+                "auth-id": _vm.authId
               }
             })
           ],
           1
         )
-      : _c("div", [_c("select-supervisor", { attrs: { id: _vm.id } })], 1)
+      : _vm.auth > 0
+        ? _c("div", [_c("select-supervisor", { attrs: { id: _vm.id } })], 1)
+        : _c(
+            "div",
+            [
+              _c("card", { staticClass: "alert alert-warning" }, [
+                _c("p", { staticClass: "lead text-center text-muted" }, [
+                  _vm._v(
+                    "\n          Esta maniobra aun no se ha asignado\n        "
+                  )
+                ])
+              ])
+            ],
+            1
+          )
   ])
 }
 var staticRenderFns = []
@@ -85586,7 +85737,13 @@ var render = function() {
                   "tab",
                   { attrs: { name: "Detalles", active: true } },
                   [
-                    _c("coordinacion-detalles", { attrs: { datos: _vm.datos } })
+                    _c("coordinacion-detalles", {
+                      attrs: {
+                        datos: _vm.datos,
+                        auth: _vm.auth,
+                        authId: _vm.authId
+                      }
+                    })
                   ],
                   1
                 ),
@@ -86275,6 +86432,12 @@ var moment = __webpack_require__(0);
                 _token: self.token
             });
         },
+        activarOperarios: function activarOperarios() {
+            var self = this;
+            return axios.post('/maniobras/produccion/inicar/' + self.maniobraId, {
+                _token: self.token
+            });
+        },
         operariosLibres: function operariosLibres() {
             var self = this;
             return axios.get('/maniobras/fuerzaTarea/free/' + this.maniobraId, {
@@ -86323,87 +86486,9 @@ var moment = __webpack_require__(0);
                         }
                     });
                 }
-            //    let self = this;
-            //     switch (indice) {
-            //         case 0: // Tarea 1: Revision
-            //                 this.btnNext = true;    
-            //                 this.btnPrev = true;    
-            //             break;
-            //         case 1: // Tarea 2: Anexos fotograficos
-            //                 this.btnNext = true;    
-            //                 this.btnPrev = true;    
-            //             break;
-            //         case 2: // Tarea 3: Validacion
-            //                 // axios.get('/API/supervision/getSubTareas/'+this.tareas[2].id)
-            //                 //     .then(function (response) {
-            //                 //         if( response.data[0].value == "onValidation" ){
-            //                 //             self.btnPrev = false;
-            //                 //             self.btnNext = false;
-            //                 //         }else if(response.data[0].value == "okValidation"){
-            //                 //             self.btnPrev = false;
-            //                 //             self.btnNext = true;
-            //                 //         }else if(response.data[0].value == "errorValidation"){
-            //                 //             self.btnPrev = true;
-            //                 //             self.btnNext = false;
-            //                 //         }
-            //                 //         else {
-            //                 //             self.btnPrev = true;
-            //                 //             self.btnNext = false;
-            //                 //         }
-            //                 // });   
-            //             break;
-            //         case 3: // Tarea 4: Fuerza de tarea 
-            //                 this.btnPrev = false; 
-            //                 this.btnNext = true;   
-            //             break;
-            //         case 4: // Tarea 5: Proceso de maniobra
-            //                 this.btnPrev = true; 
-            //                 this.btnNext = true; 
-            //                 this.tiempoManiobra(this.tareas[4].id);
-            //             break;
-            //         case 5: // Tarea 6: Validacion
-            //                 axios.get('/API/supervision/getSubTareas/'+this.tareas[5].id)
-            //                     .then(function (response) {
-            //                         if( response.data[0].value == "onValidation" ){
-            //                             self.btnPrev = false;
-            //                             self.btnNext = false;
-            //                         }else if(response.data[0].value == "okValidation"){
-            //                             self.btnPrev = false;
-            //                             self.btnNext = true;
-            //                         }else if(response.data[0].value == "errorValidation"){
-            //                             self.btnPrev = true;
-            //                             self.btnNext = false;
-            //                         }
-            //                         else {
-            //                             self.btnPrev = true;
-            //                             self.btnNext = false;
-            //                         }
-            //                 });   
-
-            //             break;
-            //         case 6: // Tarea 7: Finalización
-            //                 this.btnPrev=false;
-            //                 this.btnNext=true;
-            //             break;
-            //     }
         },
         tiempoManiobra: function tiempoManiobra(tarea) {
-            var self = this;
-            axios.get('/maniobra/tarea/' + tarea).then(function (response) {
-                var eventTime = moment(response.data.inicio);
-                var currentTime = moment();
-                var diffTime = currentTime.diff(eventTime);
-                var duration = moment.duration(diffTime, 'milliseconds');
-                var interval = 1000;
-                setInterval(function () {
-                    duration = moment.duration(duration + interval, 'milliseconds');
-                    if (duration.days()) {
-                        self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                    } else {
-                        self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                    }
-                }, interval);
-            });
+            return axios.get('/maniobra/tarea/' + tarea);
         },
         terminoManiobra: function terminoManiobra() {
             var self = this;
@@ -86439,7 +86524,6 @@ var moment = __webpack_require__(0);
                     if (prevIndex === 1) {
                         axios.all([this.avanceUpdate(2, 10), this.tareaFin(this.tareas[1].id), this.tareaInicio(this.tareas[2].id)]).then(axios.spread(function (avance, tareaFin, tareaInicio) {
                             if (avance.status + tareaFin.status + tareaInicio.status !== 600) {
-                                alert('Error en index 2');
                                 window.location.reload(true);
                             }
                         }));
@@ -86454,7 +86538,6 @@ var moment = __webpack_require__(0);
                     if (prevIndex === 2) {
                         axios.all([this.avanceUpdate(3, 15), this.tareaFin(this.tareas[2].id), this.tareaInicio(this.tareas[3].id)]).then(axios.spread(function (avance, tareaFin, tareaInicio) {
                             if (avance.status + tareaFin.status + tareaInicio.status !== 600) {
-                                alert('Error en index 3');
                                 window.location.reload(true);
                             }
                         }));
@@ -86464,16 +86547,31 @@ var moment = __webpack_require__(0);
                     break;
                 case 4:
                     // Tarea 5: Proceso de maniobra
+                    console.log('this.$children[0].$children');
+                    console.log(this.$children[0].$children[3].$children[0].$children[0].$children[0]);
+                    console.log(this.$children[0].$children[3].$children[0].$children[0].$children[0].operarios);
                     if (prevIndex === 3) {
-                        axios.all([this.avanceUpdate(4, 20), this.tareaFin(this.tareas[3].id), this.tareaInicio(this.tareas[4].id)]).then(axios.spread(function (avance, tareaFin, tareaInicio) {
-                            console.log("ENTRA AL PROCESO DE LA MANIOBRA");
-                            if (avance.status + tareaFin.status + tareaInicio.status !== 600) {
-                                alert('Error en index 4');
+                        axios.all([this.avanceUpdate(4, 20), this.tareaFin(this.tareas[3].id), this.tareaInicio(this.tareas[4].id), this.activarOperarios(), this.tiempoManiobra(this.tareas[4].id)]).then(axios.spread(function (avance, tareaFin, tareaInicio, activacion, tiempo) {
+                            if (avance.status + tareaFin.status + tareaInicio.status + activacion.status + tiempo.status !== 1000) {
                                 window.location.reload(true);
                             } else {
 
-                                self.tiempoManiobra(self.tareas[4].id);
-                                __WEBPACK_IMPORTED_MODULE_5__event_bus__["a" /* default */].$emit('iniciarProduccionOperarios');
+                                //EventBus.$emit('iniciarProduccionOperarios');
+
+                                //tiempo maniobra
+                                var eventTime = moment(tiempo.data.inicio);
+                                var currentTime = moment();
+                                var diffTime = currentTime.diff(eventTime);
+                                var duration = moment.duration(diffTime, 'milliseconds');
+                                var interval = 1000;
+                                setInterval(function () {
+                                    duration = moment.duration(duration + interval, 'milliseconds');
+                                    if (duration.days()) {
+                                        self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                                    } else {
+                                        self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                                    }
+                                }, interval);
                             }
                         }));
                     }
@@ -86485,7 +86583,6 @@ var moment = __webpack_require__(0);
                     if (prevIndex === 4) {
                         axios.all([this.avanceUpdate(5, 90), this.tareaInicio(this.tareas[5].id)]).then(axios.spread(function (avance, tareaInicio) {
                             if (avance.status + tareaInicio.status !== 400) {
-                                alert('Error en index 5');
                                 window.location.reload(true);
                             }
                         }));
@@ -86495,12 +86592,9 @@ var moment = __webpack_require__(0);
                 case 6:
                     // Tarea 7: Finalización
                     if (prevIndex === 5) {
-                        axios.all([this.avanceUpdate(6, 95), this.tareaFin(this.tareas[4].id), this.tareaFin(this.tareas[5].id), this.tareaInicio(this.tareas[6].id)]).then(axios.spread(function (avance, tareaFin4, tareaFin5, tareaInicio) {
-                            if (avance.status + tareaFin4.status + tareaFin5.status + tareaInicio.status !== 800) {
-                                alert('Error en index 6');
+                        axios.all([this.avanceUpdate(6, 95), this.tareaFin(this.tareas[4].id), this.tareaFin(this.tareas[5].id), this.tareaInicio(this.tareas[6].id), this.operariosLibres()]).then(axios.spread(function (avance, tareaFin4, tareaFin5, tareaInicio, operariosFree) {
+                            if (avance.status + tareaFin4.status + tareaFin5.status + tareaInicio.status + operariosFree.status !== 1000) {
                                 window.location.reload(true);
-                            } else {
-                                self.operariosLibres();
                             }
                         }));
                     }
@@ -88363,6 +88457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -89221,9 +89316,9 @@ var render = function() {
                       ? _c(
                           "upload",
                           {
-                            staticClass: "grey lighten-3",
-                            class: _vm.colum,
-                            style: _vm.styleColum,
+                            staticClass:
+                              "grey lighten-3 col-sx-12 col-sm-2 col-sm-offset-5",
+                            staticStyle: { height: "50px" },
                             attrs: {
                               url: _vm.urlUpload,
                               done: _vm.feedBack,
@@ -89232,10 +89327,13 @@ var render = function() {
                             }
                           },
                           [
-                            _c("i", {
-                              staticClass: "fa fa-camera fa-3x text-muted",
-                              attrs: { "aria-hidden": "true" }
-                            })
+                            _c(
+                              "i",
+                              {
+                                staticClass: "material-icons md-36 text-muted"
+                              },
+                              [_vm._v("add_a_photo")]
+                            )
                           ]
                         )
                       : _vm._e()
@@ -89248,9 +89346,9 @@ var render = function() {
                     _c(
                       "upload",
                       {
-                        staticClass: "grey lighten-3",
-                        class: _vm.colum,
-                        style: _vm.styleColum,
+                        staticClass:
+                          "grey lighten-3 col-sx-12 col-sm-2 col-sm-offset-5",
+                        staticStyle: { height: "50px" },
                         attrs: {
                           url: _vm.urlUpload,
                           done: _vm.feedBack,
@@ -89259,10 +89357,11 @@ var render = function() {
                         }
                       },
                       [
-                        _c("i", {
-                          staticClass: "fa fa-camera fa-3x text-muted",
-                          attrs: { "aria-hidden": "true" }
-                        })
+                        _c(
+                          "i",
+                          { staticClass: "material-icons md-36 text-muted" },
+                          [_vm._v("add_a_photo")]
+                        )
                       ]
                     )
                   ],
@@ -91794,9 +91893,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             operarios: [],
             operario: '',
             searching: false,
-            showList: false,
-            hideCol: 'hidden',
-            resizeCol: 'col-sm-6 col-sm-offset-3',
             token: '',
             timeout: null,
             lengthActivos: 0,
@@ -91804,23 +91900,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        var _this = this;
-
         //Este evento se ejecuata cuando empieza la tarea de proceso de maniobra
-        __WEBPACK_IMPORTED_MODULE_3__event_bus__["a" /* default */].$on('iniciarProduccionOperarios', function () {
-            var self = _this;
-            _this.operarios.forEach(function (element) {
-                //Agrega el registro en produccion de fuerza de tarea
-                if (element.status == 1) {
-                    axios.post('/maniobras/produccion/' + self.maniobraId + '/' + element.id, {
-                        _token: _this.token,
-                        tipo: "iniciar"
-                    }).then(function (response) {
-                        //console.log(response.data);
-                    });
-                }
-            });
-        });
+        // EventBus.$on('iniciarProduccionOperarios', ()=>{
+        //     let self = this;
+        //     this.operarios.forEach(element => {
+        //         //Agrega el registro en produccion de fuerza de tarea
+        //         if( element.status == 1 && element.coordinacion_id == self.maniobraId ){
+        //             axios.post('/maniobras/produccion/'+self.maniobraId+'/'+element.id, {
+        //                 _token:this.token,
+        //                 tipo:"iniciar"
+        //             })
+        //             .then(function(response){
+        //                 //console.log(response.data);
+        //             });
+        //         }
+        //     });
+        // });
     },
     mounted: function mounted() {
         this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -91830,8 +91925,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         cargarOperarios: function cargarOperarios() {
             var self = this;
-            axios.get('/maniobra/operarios/').then(function (operariosInactivos) {
-                axios.get('/maniobra/operariosActivos/' + self.maniobraId).then(function (operariosActivos) {
+            axios.all([self.getOperariosActivos(self.maniobraId), self.getOperariosInactivos()]).then(axios.spread(function (operariosActivos, operariosInactivos) {
+                if (operariosActivos.status + operariosInactivos.status !== 400) {
+                    window.location.reload(true);
+                } else {
                     var lista = _.concat(operariosInactivos.data, operariosActivos.data);
                     lista = _.uniqBy(lista, 'id');
                     self.operarios = _.sortBy(lista, [function (i) {
@@ -91848,8 +91945,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                     self.lengthActivos = activos;
                     self.lengthInactivos = inactivos;
-                });
-            });
+                }
+            }));
+
+            // axios.get('/maniobra/operarios/')
+            //     .then(function (operariosInactivos) 
+            //     {
+            //         axios.get('/maniobra/operariosActivos/'+self.maniobraId)
+            //         .then(function (operariosActivos){
+            //                 let lista = _.concat(operariosInactivos.data, operariosActivos.data);
+            //                 lista = _.uniqBy(lista, 'id');
+            //                 self.operarios = _.sortBy( lista, [function(i){ return i.id }]);
+            //                 let activos = 0;
+            //                 let inactivos = 0;
+            //                 self.operarios.forEach(function(operario){
+            //                     if(operario.status == 1){
+            //                         activos = activos + 1;
+            //                     }else{
+            //                         inactivos = inactivos + 1;
+            //                     }    
+            //                 });
+            //                 self.lengthActivos = activos;
+            //                 self.lengthInactivos = inactivos;
+            //         });   
+            //     }
+            // );    
         },
         searchOperario: function searchOperario(e) {
             clearTimeout(this.timeout);
@@ -91857,43 +91977,100 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             self.operarios = [];
             this.searching = true;
             this.timeout = setTimeout(function () {
-                axios.get('/maniobra/operarios/' + e.target.value).then(function (operariosInactivos) {
-                    axios.get('/maniobra/operariosActivos/' + self.maniobraId).then(function (operariosActivos) {
-                        var lista = _.concat(operariosActivos.data, operariosInactivos.data);
+                axios.all([self.filterOperarios(e.target.value), self.getOperariosActivos(self.maniobraId)]).then(axios.spread(function (filterOperarios, operariosActivos) {
+                    if (filterOperarios.status + operariosActivos.status !== 400) {
+                        window.location.reload(true);
+                    } else {
+                        var lista = _.concat(operariosActivos.data, filterOperarios.data);
                         lista = _.uniqBy(lista, 'id');
                         self.operarios = _.sortBy(lista, [function (i) {
                             return i.id;
                         }]);
-                    });
-                    self.searching = false;
-                });
+                        self.searching = false;
+                    }
+                }));
+                // axios.get('/maniobra/operarios/'+e.target.value)
+                //     .then(function (operariosInactivos) 
+                //     {
+                //         axios.get('/maniobra/operariosActivos/'+self.maniobraId).then(function (operariosActivos) 
+                //             {
+                //                 let lista = _.concat(operariosActivos.data, operariosInactivos.data);
+                //                 lista = _.uniqBy(lista, 'id');
+                //                 self.operarios = _.sortBy(lista, [function(i){ return i.id }]);
+                //             }
+                //         );  
+                //         self.searching = false;
+                //     }
+                // );    
             }, 500);
         },
         selectOperario: function selectOperario(operario, isActive) {
             var self = this;
             var estatus = isActive ? "1" : "0";
             var update = isActive ? "insertar" : "eliminar";
-            axios.patch('/maniobras/fuerza-tarea/status/' + operario.id + '/' + this.maniobraId, {
+            axios.all([this.changeStatusFuerzaTarea(estatus, operario.id), this.addProduccion(operario.id, update)]).then(axios.spread(function (changeStatus, addProduccion) {
+                if (changeStatus.status + addProduccion.status !== 400) {
+                    window.location.reload(true);
+                } else {
+                    var activos = 0;
+                    var inactivos = 0;
+                    self.operarios.forEach(function (operario) {
+                        if (operario.status == 1) {
+                            activos = activos + 1;
+                        } else {
+                            inactivos = inactivos + 1;
+                        }
+                    });
+                    self.lengthActivos = activos;
+                    self.lengthInactivos = inactivos;
+                }
+            }));
+            // axios.patch('/maniobras/fuerza-tarea/status/'+operario.id+'/'+this.maniobraId,{
+            //         status: estatus,
+            //         _token:self.token
+            // }).then(function(response){
+            //     let activos = 0;
+            //     let inactivos = 0;
+            //     self.operarios.forEach(function(operario){
+            //         if(operario.status == 1){
+            //             activos = activos + 1;
+            //         }else{
+            //             inactivos = inactivos + 1;
+            //         }    
+            //     });
+            //     self.lengthActivos = activos;
+            //     self.lengthInactivos = inactivos;
+            // });
+            // //Agrega el registro en produccion de fuerza de tarea
+            // axios.post('/maniobras/produccion/'+this.maniobraId+'/'+operario.id, {
+            //     _token:this.token,
+            //     tipo: update
+            // })
+            // .then(function(response){             
+            // });
+        },
+        changeStatusFuerzaTarea: function changeStatusFuerzaTarea(estatus, operarioId) {
+            var self = this;
+            return axios.patch('/maniobras/fuerza-tarea/status/' + operarioId + '/' + self.maniobraId, {
                 status: estatus,
                 _token: self.token
-            }).then(function (response) {
-                var activos = 0;
-                var inactivos = 0;
-                self.operarios.forEach(function (operario) {
-                    if (operario.status == 1) {
-                        activos = activos + 1;
-                    } else {
-                        inactivos = inactivos + 1;
-                    }
-                });
-                self.lengthActivos = activos;
-                self.lengthInactivos = inactivos;
             });
-            //Agrega el registro en produccion de fuerza de tarea
-            axios.post('/maniobras/produccion/' + this.maniobraId + '/' + operario.id, {
-                _token: this.token,
+        },
+        addProduccion: function addProduccion(operarioId, update) {
+            var self = this;
+            return axios.post('/maniobras/produccion/' + self.maniobraId + '/' + operarioId, {
+                _token: self.token,
                 tipo: update
-            }).then(function (response) {});
+            });
+        },
+        getOperariosInactivos: function getOperariosInactivos() {
+            return axios.get('/maniobra/operarios/');
+        },
+        getOperariosActivos: function getOperariosActivos(maniobra) {
+            return axios.get('/maniobra/operariosActivos/' + maniobra);
+        },
+        filterOperarios: function filterOperarios(filter) {
+            return axios.get('/maniobra/operarios/' + filter);
         }
     }
 });

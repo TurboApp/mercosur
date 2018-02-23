@@ -69,6 +69,8 @@ class CoordinacionController extends Controller
         $coordinacion->servicio->archivos;
         $coordinacion->servicio->documentos;
         $coordinacion->servicio->transportes;
+        $coordinacion->servicio->autor;
+
         foreach ($coordinacion->servicio->transportes as $transporte) {
             $lineaTransporte=Transporte::find($transporte->linea_transporte_id);
             $transporte['lineaTransporte'] = $lineaTransporte->nombre;

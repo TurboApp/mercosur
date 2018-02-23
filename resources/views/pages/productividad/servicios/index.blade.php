@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
-@section('title','Servicios')
+@section('title','Servicios: ' . $equipo->nombre)
 
 @section('breadcrump')
     @component('components.breadcrump',[
-        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => '' ],
+        'navigation'    =>  [ 'Inicio' => 'inicio', 'Servicios' => 'servicios',  $equipo->nombre => ''],
     ])
     @endcomponent()
 @endsection
@@ -136,7 +136,7 @@
         fecha.on('dp.change', function(e){ 
             let date=$(this).val().replace(/[/]/g,'-');
             
-            table.ajax.url( "/API/maniobras/"+date ).load();
+            table.ajax.url( "/API/maniobras/"+date+"/" + {{$equipo->id}} ).load();
             
         });
         let table = $('#servicios').DataTable( {
@@ -168,7 +168,7 @@
                     sSortDescending: ": Activar para ordenar la columna de manera descendente"
                 }
             },
-            ajax: "/API/maniobras",
+            ajax: "/API/maniobras/?equipo=" + {{$equipo->id}},
             columns:[
                 {
                     "data" : "coordinacion.turno",
@@ -244,11 +244,9 @@
                                     <i class="fa fa-info" aria-hidden="true"></i></a>`;
                         let btnResume = `<a href="/servicios/detalles/${data.id}" class="btn btn-warning btn-simple btn-icon">
                                 <i class="fa fa-cog" aria-hidden="true"></i></a>`;
-                        if( row.coordinacion.status == 'Finalizado'){
+                        
                             return btnInfo + btnResume;
-                        }else{
-                            return btnInfo;
-                        }
+                        
                     }
                 }
                 
@@ -333,7 +331,7 @@
                 return;
             }else{
                 let date=inicio.val().replace(/[/]/g,'-')+"*"+final.val().replace(/[/]/g,'-');
-                table.ajax.url( "/API/maniobras/"+date).load();
+                table.ajax.url( "/API/maniobras/"+date+"/" + {{$equipo->id}}).load();
             }
         });
     });

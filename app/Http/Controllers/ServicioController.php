@@ -29,13 +29,39 @@ class ServicioController extends Controller
     public function index()
     {   
         $data = Date::instance(Carbon::now());
-        $equipos=[];
+        
         if( auth()->user()->perfil->perfil == 'go' || auth()->user()->perfil->perfil == 'directivo' )
         {   
             $equipos = Equipo::paginate(16);
+            
+            foreach($equipos as $equipo){
+                $descargas = Servicio::where('tipo', 'Descarga')->whereHas('autor', function($q) use($equipo){
+                    $q->where('equipo_id',$equipo->id);
+                })->count();
+                $equipo->descargas = $descargas;
+
+                $cargas = Servicio::where('tipo', 'Carga')->whereHas('autor', function($q) use($equipo){
+                    $q->where('equipo_id',$equipo->id);
+                })->count();
+                $equipo->cargas = $cargas;
+
+                $trasbordos = Servicio::where('tipo', 'Trasbordo')->whereHas('autor', function($q) use($equipo){
+                    $q->where('equipo_id',$equipo->id);
+                })->count();
+                $equipo->trasbordos = $trasbordos;
+            }
+
             return view('pages.productividad.servicios.teams', compact('data','equipos'));
         }
         return view('pages.servicios.index', compact('data'));
+    }
+
+    public function indexEquipo(Request $request)
+    {
+        
+        $data = Date::instance(Carbon::now());
+        $equipo = Equipo::find($request->equipo);
+        return view('pages.productividad.servicios.index', compact('data','equipo'));
     }
 
     public function almacen()
@@ -133,6 +159,20 @@ class ServicioController extends Controller
         
         if ($servicio) {
             return view('pages.servicios.show', compact('servicio'));
+        }
+        else
+        {
+            $request->session()->flash('danger', 'No se encontro ningun dato');
+            return redirect('/servicios');
+        }
+    }
+
+    public function edit(Request $request, $servicio)
+    {
+        $servicio = Servicio::find($servicio);
+        
+        if ($servicio) {
+            return view('pages.servicios.edit', compact('servicio'));
         }
         else
         {

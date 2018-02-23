@@ -14,15 +14,16 @@
                                     <img class="img img-responsive img-thumbnail" :src="'/'+image.url" :alt="text" >
                                 </a>
                             </div>
-                            <upload v-if="limit > images.length" :url="urlUpload" :done="feedBack" image capture class="grey lighten-3" :class="colum" :style="styleColum">
-                                <!-- <i class="material-icons md-36 text-muted">add_a_photo</i> -->
-                                <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i>
+                            <upload v-if="limit > images.length" :url="urlUpload" :done="feedBack" image capture class="grey lighten-3 col-sx-12 col-sm-2 col-sm-offset-5" style="height:50px">
+                                <i class="material-icons md-36 text-muted">add_a_photo</i>
+                                <!-- <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i> -->
+
                             </upload>
                         </div>
                         <div v-else>
-                            <upload :url="urlUpload" :done="feedBack" image capture class="grey lighten-3" :class="colum" :style="styleColum">
-                                <!-- <i class="material-icons md-36 text-muted">add_a_photo</i> -->
-                                <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i>
+                            <upload :url="urlUpload" :done="feedBack" image capture class="grey lighten-3 col-sx-12 col-sm-2 col-sm-offset-5" style="height:50px">
+                                <i class="material-icons md-36 text-muted">add_a_photo</i>
+                                <!-- <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i> -->
                             </upload>
                         </div>
                     </div>

@@ -549,11 +549,11 @@ class Servicio extends Model
                         // 8.- Toma de foto del numero economico
                         ["subtarea" => "Capture las fotos del numero econocmico", "texto_ayuda" => "Como maximo deben ser dos",  "inputType" => "photos", "limit" => 2],        
                         // 9.- Planta donde proviene el producto	
-                        ["subtarea" => "Planta donde proviene el producto", "texto_ayuda" => "Ingrese el nombre de la planta donde proviene la mercancia (opcional)", "inputType" => "text", "required" => 0],
+                        ["subtarea" => "Planta donde proviene el producto (opcional)", "texto_ayuda" => "Ingrese el nombre de la planta donde proviene la mercancia ", "inputType" => "text", "required" => 0],
                         // 10.- ingresa los sellos	
                         ["subtarea" => "Ingrese los sellos",  "texto_ayuda" => "Puede separar los sellos con comas", "inputType" => "text"],
                         // 11.- Foto de Sellos	Fotos(3)
-                        ["subtarea" => "Capture fotos de los sellos", "texto_ayuda" => "",  "inputType" => "photos", "limit" => 5],        
+                        ["subtarea" => "Antes de retirar los sellos tome unas fotografias", "texto_ayuda" => "",  "inputType" => "photos", "limit" => 12],            
                         // 12.- Peso total	
                         ["subtarea" => "Ingrese el peso total de la mercancia", "texto_ayuda" => "", "inputType" => "text"],
                         // 13.- Cantidad de bultos	
@@ -578,10 +578,10 @@ class Servicio extends Model
                         ["subtarea" => "Capture las fotos del numero economico", "texto_ayuda" => "Como maximo deben ser dos",  "inputType" => "photos", "limit" => 2],        
                         // 9.- Medida de Caja 56 o 43"	Fotos(3)
                         ["subtarea" => "Capture las fotos de la medida de la caja 56' o 43'", "texto_ayuda" => "Como maximo deben ser tres",  "inputType" => "photos", "limit" => 3],        
-                        // 10.- Cantidad de bultos	
+                        // 10.- Peso total	Fotos (2)
+                        ["subtarea" => "Ingrese el peso total de la mercancia", "texto_ayuda" => "", "inputType" => "text"],
+                        // 11.- Cantidad de bultos	
                         ["subtarea" => "Ingrese la cantidad de bultos", "texto_ayuda" => "",  "inputType" => "text"],
-                        // 11.- Peso total	Fotos (2)
-                        ["subtarea" => "Capture las fotos del peso total", "texto_ayuda" => "", "inputType" => "photos", "limit"=>2],
                     ]
                 ]
             ],

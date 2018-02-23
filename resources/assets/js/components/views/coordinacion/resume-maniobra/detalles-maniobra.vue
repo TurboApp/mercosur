@@ -29,6 +29,7 @@
                             <tarea-maniobra v-for="(tarea, index) in tareas" 
                                 :datos="tarea"
                                 :maniobraId="servicioId"
+                                :authId="authId"
                                 :key="index" />
                         </div>
                     </div>
@@ -84,6 +85,11 @@ export default {
             required: true,
         },
         maniobraId:{
+            type: Number,
+            required: true,
+        },
+        
+        authId:{
             type: Number,
             required: true,
         }

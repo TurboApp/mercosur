@@ -10,8 +10,13 @@
 
 @endsection
 @section('content')
+
     <template>
-        <panel-coordinacion :datos="{{$coordinacion}}" ></panel-coordinacion>
+    <panel-coordinacion 
+        :datos = "{{$coordinacion}}" 
+        :auth = "{{ $coordinacion->servicio->autor->equipo_id == auth()->user()->equipo_id && auth()->user()->perfil->perfil == 'coordinador'  ? 1 : 0 }}" 
+        :auth-id = "{{ auth()->user()->id }}"
+    ></panel-coordinacion>
     </template>
         
 @endsection
