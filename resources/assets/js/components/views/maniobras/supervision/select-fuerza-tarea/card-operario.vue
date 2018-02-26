@@ -8,9 +8,13 @@
                 </div>
             </div>
             <div class="col-xs-10 col-sm-9">
+                <div v-if="isLoading" class="pull-right">
+                    <i class="fa fa-circle-o-notch fa-spin fa-fw text-warning"></i>
+                </div>
                 <h4 class="title text-truncate" :title="operario.nombre" v-text="operario.nombre" style="paddin:0;margin:0;"></h4>
                 <h6 class="text-muted text-truncate" :title="operario.categoria" style="paddin:0;margin:0;">
                     <span v-text="operario.categoria"></span>
+                    <!-- <i v-if="isLoading" class="fa fa-circle-o-notch fa-spin  fa-fw"></i> -->
                 </h6>
             </div>
         </div> 
@@ -20,11 +24,11 @@
 <script>
 
 export default {
-    props:['operario','index'],
+    props:['operario','index','maniobraId'],
     data(){
         return {
             isActive:false,
-            
+            isLoading:false,
         }
     },
     computed:{
@@ -48,6 +52,7 @@ export default {
         }
     },
     mounted(){
+        this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         if(this.operario.status == 1){
             this.isActive = true;
         }else{
@@ -56,16 +61,44 @@ export default {
     },
     methods:{
         itemSelected(data){
-            this.isActive = !this.isActive;
-            if(this.isActive){
-                this.operario.status = 1;
-            }else{
-                this.operario.status = 0;
-            }
-            console.log(this.operario.status);
-            this.$emit('select-operario', this.operario, this.isActive)
-        }
-
+            let self = this;
+            let estatus = !this.isActive ? "1" : "0";
+            let update = !this.isActive ? "insertar" : "eliminar";
+            this.isLoading = true;
+            axios.patch(`/maniobras/fuerza-tarea/status/${this.operario.id}/${this.maniobraId}`,{
+                    status: estatus,
+                    _token:self.token
+            }).then( function(fuerzaTarea){
+                if(fuerzaTarea.status == 200){
+                    console.log('fuerzaTarea.data.status');
+                    console.log(fuerzaTarea.data.status);
+                    console.log('estatus');
+                    console.log(estatus);
+                    if(fuerzaTarea.data.status === estatus){
+                        axios.post(`/maniobras/produccion/${self.maniobraId}/${self.operario.id}`, {
+                                _token:self.token,
+                                tipo: update
+                            }).then(function (produccion){
+                                self.operario.status = fuerzaTarea.data.status;
+                                if(fuerzaTarea.data.status==1){
+                                    self.isActive = true;
+                                }else{
+                                    self.isActive = false;
+                                }
+                                self.isLoading = false;
+                                self.$emit('select-operario', true)
+                            });
+                    }else{
+                        self.$emit('select-operario', false)
+                        self.isLoading = false;
+                    }
+                }else{
+                    window.location.reload(true);
+                }
+            });
+            
+        },
+        
     }
    
 }

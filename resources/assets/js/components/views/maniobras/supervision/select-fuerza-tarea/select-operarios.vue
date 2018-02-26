@@ -9,12 +9,6 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-12">
-                    <ul class="list-inline">
-                        <li>Operarios seleccionados <span v-text="lengthActivos"></span>.</li>
-                        <li>Disponibles <span v-text="lengthInactivos"></span></li>
-                    </ul>
-                </div>
                 <div class="col-xs-12">
                     <div class="search-sup-wrapper">
                         <label >
@@ -29,11 +23,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row" v-if="operarios.length>0">
-                <div class="col-xs-12">
-                    <p><small v-text="operarios.length"></small> Elementos</p>
-                </div>
-            </div>
             <div class="row">
                 <div v-if="operarios.length == 0">
                     <p class="text-center lead">
@@ -44,7 +33,7 @@
                 
                 <div class="col-xs-12 col-sm-6 col-md-4" v-for="(operario, index) in operarios" :key="index">
                     <card-operario  
-                        :operario="operario" :index="index" 
+                        :operario="operario" :index="index" :maniobraId="maniobraId"
                         @select-operario="selectOperario"
                         >
                     </card-operario>
@@ -152,28 +141,7 @@ export default {
                 }
             }));
 
-            // axios.get('/maniobra/operarios/')
-            //     .then(function (operariosInactivos) 
-            //     {
-            //         axios.get('/maniobra/operariosActivos/'+self.maniobraId)
-            //         .then(function (operariosActivos){
-            //                 let lista = _.concat(operariosInactivos.data, operariosActivos.data);
-            //                 lista = _.uniqBy(lista, 'id');
-            //                 self.operarios = _.sortBy( lista, [function(i){ return i.id }]);
-            //                 let activos = 0;
-            //                 let inactivos = 0;
-            //                 self.operarios.forEach(function(operario){
-            //                     if(operario.status == 1){
-            //                         activos = activos + 1;
-            //                     }else{
-            //                         inactivos = inactivos + 1;
-            //                     }    
-            //                 });
-            //                 self.lengthActivos = activos;
-            //                 self.lengthInactivos = inactivos;
-            //         });   
-            //     }
-            // );    
+            
         },
         searchOperario(e){
             clearTimeout(this.timeout);
@@ -210,71 +178,14 @@ export default {
                 // );    
             }, 500);
         },
-        selectOperario(operario, isActive){
+        selectOperario(isActive){
             let self = this;
-            let estatus = isActive ? "1" : "0";
-            let update = isActive ? "insertar" : "eliminar";
-            axios.all([
-                this.changeStatusFuerzaTarea(estatus,operario.id),
-                this.addProduccion(operario.id, update)  
-            ]).then(axios.spread(function (changeStatus, addProduccion){
-                if( ( changeStatus.status + addProduccion.status ) !== 400 )
-                {
-                    window.location.reload(true);
-                }else{
-                    let activos = 0;
-                    let inactivos = 0;
-                    self.operarios.forEach(function(operario){
-                        if(operario.status == 1){
-                            activos = activos + 1;
-                        }else{
-                            inactivos = inactivos + 1;
-                        }    
-                    });
-                    self.lengthActivos = activos;
-                    self.lengthInactivos = inactivos;
-
-                }
-            }));
-            // axios.patch('/maniobras/fuerza-tarea/status/'+operario.id+'/'+this.maniobraId,{
-            //         status: estatus,
-            //         _token:self.token
-            // }).then(function(response){
-            //     let activos = 0;
-            //     let inactivos = 0;
-            //     self.operarios.forEach(function(operario){
-            //         if(operario.status == 1){
-            //             activos = activos + 1;
-            //         }else{
-            //             inactivos = inactivos + 1;
-            //         }    
-            //     });
-            //     self.lengthActivos = activos;
-            //     self.lengthInactivos = inactivos;
-            // });
-            // //Agrega el registro en produccion de fuerza de tarea
-            // axios.post('/maniobras/produccion/'+this.maniobraId+'/'+operario.id, {
-            //     _token:this.token,
-            //     tipo: update
-            // })
-            // .then(function(response){             
-            // });
-
+            if(!isActive){
+                alert("Lo sentimos pero el operario que trata de selecionar ya fue activado");
+                window.location.reload(true);
+            }
         },
-        changeStatusFuerzaTarea(estatus,operarioId){
-            let self = this;
-            return axios.patch(`/maniobras/fuerza-tarea/status/${operarioId}/${self.maniobraId}`,{
-                    status: estatus,
-                    _token:self.token
-            });
-        },
-        addProduccion(operarioId, update){
-            let self = this;
-            return axios.post(`/maniobras/produccion/${self.maniobraId}/${operarioId}`, {
-                _token:self.token,
-                tipo: update
-            })
-        },
+       
         getOperariosInactivos(){
             return axios.get('/maniobra/operarios/');
         },

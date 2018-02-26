@@ -68,14 +68,14 @@
             </tab-content>
             
             <template slot="footer" slot-scope="props">
+                
                 <div class="wizard-footer-left" v-if="btnPrev">
                     <wizard-button class="text-uppercase"  v-if="props.activeTabIndex > 0 && !props.isLastStep " @click.native="props.prevTab()" :style="props.fillButtonStyle">
                         Anterior
                     </wizard-button>
                 </div>
                 <div v-if="btnNext">
-
-
+                    
                     <div class="wizard-footer-right" v-if="!props.isLastStep">
                         <wizard-button  @click.native="props.nextTab()" 
                         class="wizard-footer-right text-uppercase" 
@@ -85,7 +85,7 @@
                     </div>
 
                     <div v-else>
-                        <div v-show="!alertaFinalizar" class="alert alert-warning ">
+                        <div v-show="alertaFinalizar == 0" class="alert alert-warning ">
                             <div class="row">
                                 <div class="col-sm-1">
                                     <i class="material-icons md-medium white-text" >warning</i>
@@ -103,8 +103,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div v-show="alertaFinalizar==1" class="wizard-footer-right">
+                        <div v-show="alertaFinalizar == 1" class="wizard-footer-right">
                             <wizard-button @click.native="onComplete" class="wizard-footer-right finish-button text-uppercase" :style="props.fillButtonStyle">
                                 {{props.isLastStep ? 'Finalizar' : 'Next'}}
                             </wizard-button>
@@ -355,7 +354,7 @@ export default {
                             this.btnNext = true;    
                     break;
                 case 1: // Tarea 2: Anexos fotograficos
-                            if( prevIndex === 0 ){
+                            //if( prevIndex === 0 ){
                                 axios.all([
                                     self.avanceUpdate( 1 , 5 ),
                                     self.tareaFin(self.tareas[0].id),
@@ -363,16 +362,16 @@ export default {
                                 ]).then(axios.spread(function (avance, tareaFin, tareaInicio){
                                     if( ( avance.status + tareaFin.status + tareaInicio.status ) !== 600 )
                                     {
-                                        alert('Error en index 1');
                                         window.location.reload(true);
                                     }
                                 }));
-                            }
+                            //}
                             this.btnNext = true;    
                             this.btnPrev = true;    
                     break;
                 case 2: // Tarea 3: Validacion
-                            if( prevIndex === 1 ){
+                            
+                            //if( prevIndex === 1 ){
                                 axios.all([
                                     this.avanceUpdate( 2 , 10 ),
                                     this.tareaFin(this.tareas[1].id),
@@ -382,14 +381,14 @@ export default {
                                         window.location.reload(true);
                                     }
                                 }));
-                            }    
+                            //}    
                             if(this.validation){
                                 this.btnPrev = false;
                             }
                             this.btnNext = false;
                     break;
                 case 3: // Tarea 4: Fuerza de tarea 
-                            if( prevIndex === 2 ){
+                            //if( prevIndex === 2 ){
                                 axios.all([
                                     this.avanceUpdate( 3 , 15 ),
                                     this.tareaFin(this.tareas[2].id),
@@ -400,15 +399,13 @@ export default {
                                         window.location.reload(true);
                                     }
                                 }));
-                            }
+                            //}
                             this.btnPrev = false; 
                             this.btnNext = true;   
                     break;
                 case 4: // Tarea 5: Proceso de maniobra
-                console.log('this.$children[0].$children');
-                console.log(this.$children[0].$children[3].$children[0].$children[0].$children[0]);
-                console.log(this.$children[0].$children[3].$children[0].$children[0].$children[0].operarios);
-                            if( prevIndex === 3 ){
+                
+                            //if( prevIndex === 3 ){
                                 axios.all([
                                     this.avanceUpdate(4 , 20),
                                     this.tareaFin(this.tareas[3].id),
@@ -422,31 +419,32 @@ export default {
                                     }else{
 
                                         //EventBus.$emit('iniciarProduccionOperarios');
-                                        
-                                        //tiempo maniobra
-                                        let eventTime = moment(tiempo.data.inicio);
-                                        let currentTime = moment();
-                                        let diffTime = currentTime.diff(eventTime);
-                                        let duration = moment.duration(diffTime, 'milliseconds');
-                                        let interval = 1000;
-                                        setInterval(function(){
-                                            duration = moment.duration(duration + interval, 'milliseconds');
-                                            if(duration.days()){
-                                                self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                                            }else{
-                                                self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
-                                            }
-                                        }, interval);
-                                                    
+                                        //if( prevIndex === 3 )
+                                        //{
+                                            //tiempo maniobra
+                                            let eventTime = moment(tiempo.data.inicio);
+                                            let currentTime = moment();
+                                            let diffTime = currentTime.diff(eventTime);
+                                            let duration = moment.duration(diffTime, 'milliseconds');
+                                            let interval = 1000;
+                                            setInterval(function(){
+                                                duration = moment.duration(duration + interval, 'milliseconds');
+                                                if(duration.days()){
+                                                    self.tiempo_maniobra = duration.days() + ":" + duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                                                }else{
+                                                    self.tiempo_maniobra = duration.hours() + ":" + duration.minutes() + ":" + duration.seconds();
+                                                }
+                                            }, interval);
+                                        //  }                
                                         
                                     }
                                 }));
-                            }
+                            //}
                             this.btnPrev = true; 
                             this.btnNext = true; 
                     break;
                 case 5: // Tarea 6: Validacion
-                            if( prevIndex === 4 ){
+                            //if( prevIndex === 4 ){
                                 axios.all([
                                     this.avanceUpdate(5,90),
                                     this.tareaInicio(this.tareas[5].id)
@@ -456,11 +454,11 @@ export default {
                                         window.location.reload(true);
                                     }
                                 }));    
-                            }
+                            //}
                             this.btnNext=false;
                     break;
                 case 6: // Tarea 7: Finalización
-                            if( prevIndex === 5 ){
+                            //if( prevIndex === 5 ){
                                 axios.all([
                                     this.avanceUpdate(6,95),
                                     this.tareaFin(this.tareas[4].id),
@@ -473,8 +471,9 @@ export default {
                                         window.location.reload(true);
                                     }
                                 }));
-                            }
+                            //}
                             this.btnPrev=false;
+                            this.btnNext=true;
                     break;
             }
         },

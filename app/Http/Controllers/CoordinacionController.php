@@ -148,6 +148,16 @@ class CoordinacionController extends Controller
             
             event(new ManiobraFin($maniobra));
             event(new ManiobraUpdate($maniobra));
+            foreach($maniobra->tareas as $tarea){
+                if(empty($tarea->inicio)){
+                    $tarea->inicio = $tarea->created_at;
+                    $tarea->save();
+                }
+                if(empty($tarea->final)){
+                    $tarea->final = $tarea->updated_at;
+                    $tarea->save();
+                }
+            }
         }
         return $maniobra->toJson();
     }

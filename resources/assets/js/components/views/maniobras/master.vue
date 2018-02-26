@@ -119,11 +119,21 @@ export default {
         this.EventBus();
     },
     mounted(){
+
+        this.backbutton();
         this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         this.avanceTotal = this.datos.avance_total;
         this.inicioManiobra();
+
     },
     methods:{
+        backbutton(){
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+
+        },
         datosGenerales(){
             return {
                 datos : {

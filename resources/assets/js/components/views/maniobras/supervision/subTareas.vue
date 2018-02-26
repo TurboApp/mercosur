@@ -100,10 +100,10 @@ export default {
     },
     mounted(){
         let self = this;
-        axios.get('/API/supervision/getSubTareas/'+self.tareaId)
-            .then(function (response) {
-                //self.subTareas = response.data;
-        });
+        // axios.get('/API/supervision/getSubTareas/'+self.tareaId)
+        //     .then(function (response) {
+        //         //self.subTareas = response.data;
+        // });
 
     },
     methods:{

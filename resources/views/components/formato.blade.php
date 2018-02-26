@@ -1,4 +1,4 @@
-@if ($data->tipo=="Descarga")
+@if ($data->tipo=="Descarga" | $data->tipo=="Trasbordo")
     <table border=".5px" cellspacing="0" bordercolor="Blue Grey">
         <col style="width:100%;">
         <tr>
@@ -254,7 +254,7 @@
         </tr>
         @if ($data->tipo=="Descarga")
             <tr>
-            <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:2px;' colspan="2">
+            <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:2px;' colspan="1">
                 <span>ENTREGO</span><br><br>
                 <span>
                 <?php
@@ -268,7 +268,7 @@
                 @endforeach
                 </span>
             </td>
-            <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:6px;' width="50%">
+            <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:6px;' width="50%" colspan="2">
                 <span>RECIBIO</span><br><br>
                 <span>
                 <?php
@@ -282,7 +282,7 @@
             </tr>
         @else    
             <tr>
-            <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:6px;'>
+            <td style='font-size: 10pt; color: #000000; font-weight: italic; text-align:center; padding:6px;' colspan="1">
                 <span>ENTREGO</span><br><br>
                 <span>
                 <?php
@@ -624,7 +624,7 @@
                 <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Con peso de:
                     <?php
                             $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                            $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Capture las fotos del peso total"],["tipo_transporte","C"]])->first();
+                            $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia"],["tipo_transporte","C"]])->first();
                     ?>
                     <strong>{{$peso->value}} KG</strong>
                 </td>

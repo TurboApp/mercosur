@@ -365,15 +365,18 @@ class TareaController extends Controller
     public function updateFuerzaTarea(Request $request)
     {
         $operario = FuerzaTarea::find($request->id);
-        $operario->status = $request->status;
-        if($request->status == 1){
-            $operario->coordinacion_id = $request->coordinacion;
+        if($request->status != $operario->status){
+            $operario->status = $request->status;
+            if($request->status == 1){
+                $operario->coordinacion_id = $request->coordinacion;
+            }else{
+                $operario->coordinacion_id = 0;
+            }
+    
+            $operario->save();
         }else{
-            $operario->coordinacion_id = 0;
+            $operario->status = -1;
         }
-
-        $operario->save();
-        
         return $operario->toJson();
     }
     public function activarProduccionFuerzaTarea(Request $request){
@@ -403,14 +406,15 @@ class TareaController extends Controller
         if(!$produccion->isEmpty()) 
         {  
             foreach ($produccion as $fuerzatarea) {
-                
                 $operario = FuerzaTarea::find($fuerzatarea->fuerza_tarea_id);
                 $operario->status = '0';
                 $operario->coordinacion_id = '0';
                 $operario->save();
-                 
-                $fuerzatarea->final = $horaTermino;
-                $fuerzatarea->save();
+                
+                if(empty($fuerzaTarea->final)){
+                    $fuerzatarea->final = $horaTermino;
+                    $fuerzatarea->save();
+                }
             }
         }
 
@@ -428,6 +432,9 @@ class TareaController extends Controller
         }elseif($request->option == 'fin' && !$tarea->final){
             $tarea->final = $now; 
             $tarea->status ='finalizado';
+            if(!$tarea->inicio){
+                $tarea->inicio = $tarea->created_at;
+            }
             $tarea->save();
         }
         return $tarea->toJson();
