@@ -1,4 +1,4 @@
-@if ($data->tipo=="Descarga")
+@if ($data->tipo=="Descarga" | $data->tipo=="Trasbordo")
     <table border=".5px" cellspacing="0" bordercolor="Blue Grey">
         <col style="width:100%;">
         <tr>
@@ -640,7 +640,7 @@
                 <td style='font-weight: italic; font-size: 8pt; color: #000000; padding:7px;'>Con peso de:
                     <?php
                             $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                            $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Capture las fotos del peso total"],["tipo_transporte","C"]])->first();
+                            $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia"],["tipo_transporte","C"]])->first();
                     ?>
                     <strong>{{$peso->value}} KG</strong>
                 </td>

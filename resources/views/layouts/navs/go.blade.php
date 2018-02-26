@@ -19,10 +19,9 @@
                 <ul class="nav">
                     <li  {{ Request::is('operarios-produccion*') ? ' class=active' : ''}}>
                         <a href="/operarios-produccion/">
-                            <p>Operarios</p>
+                            Operarios
                         </a>
                     </li>
-
                     <li {{ Request::is('supervisores*')  ? ' class=active' : ''}}>
                         <a href="/supervisores/">
                             Supervisores

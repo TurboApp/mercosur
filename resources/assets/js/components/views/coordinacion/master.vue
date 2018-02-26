@@ -44,7 +44,7 @@
         </card>
         <tabs >
             <tab name="Detalles" :active="true">
-                <coordinacion-detalles :datos="datos"></coordinacion-detalles>
+                <coordinacion-detalles :datos="datos" :auth="auth" :authId="authId"></coordinacion-detalles>
             </tab>
             <tab name="Datos generales">
                 <coordinacion-datosgenerales :datosGenerales="datosGenerales()"></coordinacion-datosgenerales>
@@ -97,8 +97,16 @@ export default {
     },
     props:{
         datos:{
-            type:[Object, Array],
-            required:true,
+            type : [Object, Array],
+            required : true,
+        },
+        auth:{
+            type : [Number, String],
+            required : true,
+        },
+        authId:{
+            type : Number,
+            required : true,
         },
     },
     data(){

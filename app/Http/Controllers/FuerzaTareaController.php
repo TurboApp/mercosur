@@ -90,8 +90,20 @@ class FuerzaTareaController extends Controller
 
   ////// PRODUCCION OPERARIOS
     public function operariosProduccion(){
-      $fuerzas=FuerzaTarea::latest()->paginate(16);
+      $fuerzas = FuerzaTarea::latest()->paginate(16);
+      $fuerzas->count = FuerzaTarea::all()->count();
+      
       return view('pages.productividad.operarios.index',compact('fuerzas'));
+    }
+    public function operariosProduccionActivos(){
+      $fuerzas=FuerzaTarea::where('status','1')->latest()->paginate(16);
+      $fuerzas->count = FuerzaTarea::where('status','1')->count();
+      return view('pages.productividad.operarios.indexActivos',compact('fuerzas'));
+    }
+    public function operariosProduccionInactivos(){
+      $fuerzas = FuerzaTarea::where('status','0')->latest()->paginate(16);
+      $fuerzas->count = FuerzaTarea::where('status','0')->count();
+      return view('pages.productividad.operarios.indexInactivos',compact('fuerzas'));
     }
 
     public function searchOperariosProduccion(Request $request)

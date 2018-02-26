@@ -147,7 +147,7 @@ class TareaController extends Controller
         {
             if($produccion->isEmpty()) //No exiete en la base de datos
             {
-                //  la accion es insertar y no existe registro de este operario en esta maniobra
+                // la accion es insertar y no existe registro de este operario en esta maniobra
                 // entonses se inserta pero no se ingresa fech y hora de inicio de la maniobra
                 $produccion = ProduccionOperarios::create([
                     'coordinacion_id' => $request->coordinacion ,
@@ -357,16 +357,43 @@ class TareaController extends Controller
     {
         //
     }
-
+    /**
+     * Se necesita :
+     * una funcion que inicie el tiempo de fuerza de tarea en la tabla [produccion_operarios]
+     * 
+     */
     public function updateFuerzaTarea(Request $request)
     {
         $operario = FuerzaTarea::find($request->id);
-        $operario->status = $request->status;
-        $operario->save();
-        
+        if($request->status != $operario->status){
+            $operario->status = $request->status;
+            if($request->status == 1){
+                $operario->coordinacion_id = $request->coordinacion;
+            }else{
+                $operario->coordinacion_id = 0;
+            }
+    
+            $operario->save();
+        }else{
+            $operario->status = -1;
+        }
         return $operario->toJson();
     }
+    public function activarProduccionFuerzaTarea(Request $request){
+        $time = date("Y-m-d H:i:s");
+        //$fuerzaTarea = FuerzaTarea::where('coordinacion_id',$request->coordinacion);
+        $produccion = ProduccionOperarios::where('coordinacion_id', $request->coordinacion)->get();
+        if(!$produccion->isEmpty()){
+            foreach($produccion as $p){
+                if(empty($p->inicio)){
+                    $p->inicio = $time;
+                    $p->save();
+                } 
+            }
+        }
 
+        return $produccion->toJson();
+    }
     public function liberarFuerzaTarea(Request $request)
     {
         $horaTermino = date("Y-m-d H:i:s");
@@ -379,13 +406,15 @@ class TareaController extends Controller
         if(!$produccion->isEmpty()) 
         {  
             foreach ($produccion as $fuerzatarea) {
-                
                 $operario = FuerzaTarea::find($fuerzatarea->fuerza_tarea_id);
                 $operario->status = '0';
+                $operario->coordinacion_id = '0';
                 $operario->save();
-                 
-                $fuerzatarea->final = $horaTermino;
-                $fuerzatarea->save();
+                
+                if(empty($fuerzaTarea->final)){
+                    $fuerzatarea->final = $horaTermino;
+                    $fuerzatarea->save();
+                }
             }
         }
 
@@ -403,6 +432,9 @@ class TareaController extends Controller
         }elseif($request->option == 'fin' && !$tarea->final){
             $tarea->final = $now; 
             $tarea->status ='finalizado';
+            if(!$tarea->inicio){
+                $tarea->inicio = $tarea->created_at;
+            }
             $tarea->save();
         }
         return $tarea->toJson();

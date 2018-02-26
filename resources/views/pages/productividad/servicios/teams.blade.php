@@ -27,25 +27,27 @@
                             {{$equipo->descripcion}}
                         </div>
                     </div>
-                    <div class=" text-center">
-                        <div class="col-md-4">
-                            <i class="material-icons">arrow_downward</i>
-                            <h4 class="title">56</h4>
-                            <small class="text-muted text-truncate">Descargas</small>
-                        </div>
-                        <div class="col-md-4">
-                            <i class="material-icons">arrow_upward</i>
-                            <h4 class="title">56</h4>
-                            <small class="text-muted text-truncate">Cargas</small>
-                        </div>
-                        <div class="col-md-4">
-                            <i class="material-icons">compare_arrows</i>
-                            <h4 class="title">56</h4>
-                            <small class="text-muted text-truncate">Descargas</small>
+                    <div class="red lighten-4 text-center">
+                        <div class="row" style="padding-top: 10px;">
+                            <div class="col-md-4">
+                                <i class="material-icons">arrow_downward</i>
+                                <h4 class="title text-truncate" title="{{$equipo->descargas}}" style="margin:0;">{{$equipo->descargas}}</h4>
+                                <small class="text-truncate">Descargas</small>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="material-icons">arrow_upward</i>
+                                <h4 class="title text-truncate" title="{{$equipo->cargas}}" style="margin:0;">{{$equipo->cargas}}</h4>
+                                <small class="text-truncate">Cargas</small>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="material-icons">compare_arrows</i>
+                                <h4 class="title text-truncate" title="{{$equipo->trasbordos}}" style="margin:0;">{{$equipo->trasbordos}}</h4>
+                                <small class="text-truncate">Trasbordos</small>
+                            </div>
                         </div>
                         <div class="row" >
                             <div class="col-md-12">
-                                <a href="#" class="btn btn-block btn-primary" style="margin-bottom:0;">
+                            <a href="/servicios/team/{{$equipo->id}}" class="btn btn-block btn-lg btn-danger" style="margin-bottom:0;">
                                     Servicios
                                 </a>
                             </div>

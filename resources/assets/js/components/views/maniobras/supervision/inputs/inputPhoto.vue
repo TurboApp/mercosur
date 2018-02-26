@@ -11,18 +11,23 @@
                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </button>
                                 <a :href="'/'+image.url" :data-lightbox="title" class="thumbnail" style="display:block; width:100%; height:100%;">
-                                    <img class="img img-responsive img-thumbnail" :src="'/'+image.url" :alt="text" >
+                                    <img class="img img-responsive img-thumbnail" 
+                                            :src="'/'+image.url" 
+                                            :alt="text" 
+                                            onerror='this.onerror = null; this.src="/img/no-image.jpg"'
+                                            >
                                 </a>
                             </div>
-                            <upload v-if="limit > images.length" :url="urlUpload" :done="feedBack" image capture class="grey lighten-3" :class="colum" :style="styleColum">
-                                <!-- <i class="material-icons md-36 text-muted">add_a_photo</i> -->
-                                <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i>
+                            <upload v-if="limit > images.length" :url="urlUpload" :done="feedBack" image capture class="grey lighten-3 col-sx-12 col-sm-2 col-sm-offset-5" style="height:50px">
+                                <i class="material-icons md-36 text-muted">add_a_photo</i>
+                                <!-- <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i> -->
+
                             </upload>
                         </div>
                         <div v-else>
-                            <upload :url="urlUpload" :done="feedBack" image capture class="grey lighten-3" :class="colum" :style="styleColum">
-                                <!-- <i class="material-icons md-36 text-muted">add_a_photo</i> -->
-                                <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i>
+                            <upload :url="urlUpload" :done="feedBack" image capture class="grey lighten-3 col-sx-12 col-sm-2 col-sm-offset-5" style="height:50px">
+                                <i class="material-icons md-36 text-muted">add_a_photo</i>
+                                <!-- <i class="fa fa-camera fa-3x text-muted" aria-hidden="true"></i> -->
                             </upload>
                         </div>
                     </div>
@@ -66,8 +71,12 @@ export default {
         let self = this;
         axios.get('/maniobra/subtarea/photos/'+this.id)
             .then(function (response) {
+                if(response.status==200){
                     self.images = response.data;
-        });
+                }
+        }).catch(function (error) {
+            console.log(error);
+        });;
     },
     computed:{
         urlUpload(){

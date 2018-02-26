@@ -7,32 +7,42 @@
                 </p>
             </div>
             <div v-else-if="isValid=='onValidation'">
-                <p class="text-center lead text-muted" style="padding:15px 0;">
-                    Verifique si las actividades anteriores fueron realizadas correctamente
-                </p>
-                <div class="row"> 
-                    <div class="col-sm-6 text-center red lighten-4" style="padding:15px 0;">
-                        <h6>Ups, hay un error, enviar a correción</h6>
-                        <button type="button" 
-                            class="btn btn-danger btn-round btn-lg" 
-                            @click="error"
-                            :disabled="disabled"
-                            >
-                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> 
-                            Error
-                        </button>          
+                <div v-if="authId == coordinadorId">
+                    <p class="text-center lead text-muted" style="padding:15px 0;">
+                        Verifique si las actividades anteriores fueron realizadas correctamente
+                    </p>
+                    <div class="row"> 
+                        <div class="col-sm-6 text-center red lighten-4" style="padding:15px 0;">
+                            
+                                <h6>Ups, hay un error, enviar a correción</h6>
+                                <button type="button" 
+                                    class="btn btn-danger btn-round btn-lg" 
+                                    @click="error"
+                                    :disabled="disabled"
+                                    >
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> 
+                                    Error
+                                </button>          
+                            
+                        </div>
+                        <div class="col-sm-6 text-center light-green accent-1" style="padding:15px 0;">
+                                <h6>Todo estabien puede proseguir con la maniobra</h6>
+                                <button type="button" 
+                                    class="btn btn-success btn-round btn-lg" 
+                                    @click="validado"
+                                    :disabled="disabled"
+                                    >
+                                    <i class="fa fa-check" aria-hidden="true"></i> 
+                                    Proseguir
+                                </button>          
+                        </div>
                     </div>
-                    <div class="col-sm-6 text-center light-green accent-1" style="padding:15px 0;">
-                        <h6>Todo estabien puede proseguir con la maniobra</h6>
-                        <button type="button" 
-                            class="btn btn-success btn-round btn-lg" 
-                            @click="validado"
-                            :disabled="disabled"
-                            >
-                            <i class="fa fa-check" aria-hidden="true"></i> 
-                            Proseguir
-                        </button>          
-                    </div>
+                </div>
+                <div v-else>
+                    <p class="text-muted text-center lead">
+                        <i class="fa fa-cog fa-spin fa-lg fa-fw"></i>
+                        La validación se esta realizando
+                    </p>
                 </div>
             </div>
             <div v-else-if="isValid=='errorValidation'" class="">
@@ -79,6 +89,10 @@ export default {
         maniobraId:{
             type:[Number]
         },
+        authId:{
+            type: Number,
+            required : true
+        },
         value:{
             type:[String, Number]
         },
@@ -93,6 +107,7 @@ export default {
             estado:'',
             token:'',
             isValid:'',
+            coordinadorId:0,
         }
     },
     created(){
@@ -102,6 +117,7 @@ export default {
         let self = this;
         this.isValid = this.value;
         this.token =  document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        this.getCoordinadorId();
         this.init();
     },
     methods:{
@@ -174,7 +190,17 @@ export default {
                 // }     
             });
         },
-       
+
+        getCoordinadorId(){
+            let self = this;
+            axios.get('/API/coordinacion/servicio/' + self.maniobraId)
+            .then(function(response){
+                 self.coordinadorId = response.data.coordinador_id;
+                 console.log('self.coordinadorId');
+                 console.log(self.coordinadorId);
+            });
+        },
+
         EventBus(){
             let self = this;
 

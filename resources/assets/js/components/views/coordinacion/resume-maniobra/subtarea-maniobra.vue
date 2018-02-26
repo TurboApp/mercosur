@@ -51,6 +51,7 @@
                         :title="subtarea.subtarea"
                         :help-text="subtarea.texto_ayuda"
                         :maniobra-id="maniobraId"
+                        :auth-id="authId"
                         :value="subtarea.value"
                         :index="index"
                         /> 
@@ -98,6 +99,11 @@ export default {
         },
         maniobraId:{
             type:[Number, String],
+            required: true
+        },
+        
+        authId:{
+            type:Number,
             required: true
         },
        

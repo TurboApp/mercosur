@@ -41,6 +41,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group" style="margin-top:35px;">
+                                @if(auth()->user()->perfil->perfil == 'go')
+                                    <p class="pull-right">
+                                    <a href="/servicios/{{$servicio->id}}/editar" class="btn transparent btn-just-icon btn-simple white-text" data-toggle="tooltip" data-placement="top" title="Editar informacion">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        </a>
+                                    </p>
+                                @endif
+                                
                                 @if ($servicio->coordinacion->status=='Finalizado' && $servicio->coordinacion->avance_total=='100')
                                     <p style="text-align:right;">
                                         <a href="/pdf/{{$servicio->id}}/download"><button class="btn transparent btn-just-icon btn-simple white-text " data-toggle="tooltip" data-placement="top" title="Descargar Formato"><i class="fa fa-download fa-lg" aria-hidden="true"></i></button></a>

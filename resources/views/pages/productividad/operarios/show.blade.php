@@ -18,7 +18,7 @@
 
 @section('content')
     <div class="row" >
-        <div class="col-sm-8">
+        <div class="col-sm-6">
             <div class="media">
                 <div class="media-left" >
                     <img src="{{asset('img/fuerza-'.str_replace(" ","-",$operario->categoria).'.png')}}" 
@@ -31,8 +31,8 @@
                     <h3 class="media-heading title text-truncate" style="margin-top:.8em;">{{ $operario->nombre }}
                     </h3>
                     <span class="text-uppercase text-muted">
-                        {{ $operario->categoria }}
-                                    <button type="button" class="btn btn-just-icon btn-simple btn-primary" 
+                        {{ $operario->categoria }}.
+                                    {{--  <button type="button" class="btn btn-just-icon btn-simple btn-primary" 
                                         data-container="body" 
                                         data-toggle="popover" 
                                         placement="bottom"
@@ -40,13 +40,30 @@
                                         data-content="{{ $operario->descripcion }} - {{ $operario->contacto }}" 
                                         style="margin:0;padding:0;">
                                     <i class="fa fa-info-circle "></i>
-                                    </button>
+                                    </button>  --}}
                     </span>
+            @if($operario->status)
+                <small>
+                    <span class="label-success " style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
+                    ACTIVO AHORA
+                </small>
+            @else
+                <small>
+                    <span class="label-default para-asignar" style="width:10px; height:10px; border-radius:50%; display:inline-block;"></span>
+                    INACTIVO
+                </small>
+            @endif
                 </div>
+              
             </div>
         </div>
-        <div class="col-sm-4">
-
+        <div class="col-sm-6">
+            <h6 class="title" style="margin:0;">Contacto.</h6>
+            <p>{{ $operario->contacto }}</p> 
+            <h6 class="title" style="margin:0;">Descripción.</h6>
+            <p>
+                {{ $operario->descripcion }}
+            </p> 
         </div>
     </div>
     <hr>
