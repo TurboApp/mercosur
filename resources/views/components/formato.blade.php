@@ -1,4 +1,4 @@
-@if ($data->tipo=="Descarga" | $data->tipo=="Trasbordo")
+@if ($data->tipo=="Descarga" || $data->tipo=="Carga")
     <table border=".5px" cellspacing="0" bordercolor="Blue Grey">
         <col style="width:100%;">
         <tr>

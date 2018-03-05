@@ -63,6 +63,7 @@
                 <div class="form-group">
                     <label class="control-label">Medida</label>
                     <select class="selectpicker" :name="name_medida_unidad(index)" data-style="select-with-transition" v-model="transporte.medida_unidad" title=" " required>
+                        <option value="9 PIES" >9 PIES</option> 
                         <option value="26 PIES" >26 PIES</option> 
                         <option value="35 PIES" >35 PIES</option> 
                         <option value="40 PIES" >40 PIES</option> 

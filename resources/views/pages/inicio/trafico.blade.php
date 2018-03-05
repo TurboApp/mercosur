@@ -24,7 +24,13 @@
                     <p class="category">Descargas</p>
                     <h3 class="card-title">{{ $resumen->descargasToday }}</h3>
                 </div>
-                
+                <div class="card-footer">
+                    <div class="stats">
+                        <a href="/servicios/nuevo/Descarga">
+                              Nueva servicio de descarga
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>        
 
@@ -37,7 +43,13 @@
                     <p class="category">Cargas</p>
                     <h3 class="card-title">{{ $resumen->cargasToday }}</h3>
                 </div>
-                
+                <div class="card-footer">
+                    <div class="stats">
+                        <a href="/servicios/nuevo/Carga">
+                              Nuevo servicio de carga
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>        
 
@@ -50,7 +62,13 @@
                     <p class="category">Trasbordos</p>
                     <h3 class="card-title">{{ $resumen->trasbordosToday }}</h3>
                 </div>
-                
+                <div class="card-footer">
+                    <div class="stats">
+                        <a href="/servicios/nuevo/Trasbordo">
+                              Nuevo servicio de trasbordo
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>        
 
@@ -63,7 +81,13 @@
                     <p class="category">Total</p>
                     <h3 class="card-title">{{  $resumen->totalToday }}</h3>
                 </div>
-                
+                <div class="card-footer">
+                    <div class="stats">
+                        <a href="/servicios/nuevo/">
+                              Nuevo servicio 
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>   
             

@@ -17,7 +17,11 @@
                                 <button type="button" @click.prevent="removeSignature" class="btn btn-just-icon btn-simple btn-danger" style="position:absolute;top:-10px;right:10px;">
                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </button>
-                                <img  class="img img-responsive img-thumbnail" :src="image" :alt="text">
+                                <img  class="img img-responsive img-thumbnail" 
+                                :src="image" 
+                                onerror='this.onerror = null; this.src="/img/no-image.jpg"'
+                                :alt="text"
+                                >
                             </div>
                         </div>
                     </div>

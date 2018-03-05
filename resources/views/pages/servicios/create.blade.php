@@ -34,6 +34,7 @@
         <!--      Wizard container        -->
         <div class="wizard-container">
             <div id="nuevoServicio" class="card wizard-card"  >
+                <template>
                 {!! Form::open(array('url' => '/servicios', 'method'=>'post', 'id'=>'formServicioNuevo', 'class'=>'form-horizontal','files'=>true, 'autocomplete'=>'off')) !!}
                     {!! Form::hidden('tipo', $data['tipo']) !!}    
                     @if( isset( $servicio->id ) )
@@ -46,7 +47,6 @@
                         </h3>
 
                         <h5 >Servicio Numero {{ $data['numero_servicio'] }}</h5>  
-
                     </div>
                     <div class="wizard-navigation">
                         <ul>
@@ -110,6 +110,7 @@
                         <div class="clearfix"></div>
                     </div>
                 {!! Form::close() !!}
+                </template>
             </div>
         </div>
         <!-- wizard container -->

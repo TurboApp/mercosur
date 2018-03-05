@@ -104,7 +104,7 @@ export default {
                 buttonsStyling: false
                 })
                 .then(function () {
-                   axios.get('/API/coordinacion/servicio/agregar_supervisor/'+ self.id +'/'+ data.id)
+                   axios.get(`/API/coordinacion/servicio/agregar_supervisor/${self.id}/${data.id}`)
                         .then(function (response) {
                             EventBus.$emit('supervisorSeleccionado',response.data);
                     });

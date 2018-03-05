@@ -53,12 +53,14 @@
                 <h4 class="category text-gray" style="margin:0;padding:0;">{{$usuario->user}}</h4>
                 <hr style="margin:0;">
               </div>
+              @if(!empty($usuario->equipo))
               <div class="form-group" style="margin:0;">
                   <label class="control-label">Equipo</label>
                   <p class="text-muted" style="font-weight:500;">
                     {{$usuario->equipo->nombre}}
                   </p>
-                </div>
+              </div>
+              @endif
               <div class="form-group" style="margin:0;">
                 <label class="control-label">Email</label>
                 <p class="text-muted" style="font-weight:500;">

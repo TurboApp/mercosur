@@ -142,6 +142,9 @@ Route::group( ['middleware' => 'auth' ], function()
   
   Route::post('/maniobra/avance/update/{maniobra}/{avance}/{activeIndex}', 'CoordinacionController@updateAvanceManiobra');
 
+
+  Route::post('/procesoManiobraFin/{servicio}', 'CoordinacionController@procesoFinManiobra');
+  Route::post('/proceso-maniobra/{servicio}/{tarea}/{index}', 'CoordinacionController@procesoManiobra');
   //Route::post('/maniobra/tarea/inicio/','');
 
   Route::get('/documentos/{id}/{archivo}', 'ServicioController@getArchivo');

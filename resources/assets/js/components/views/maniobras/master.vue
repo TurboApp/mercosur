@@ -47,7 +47,7 @@
                     :servicio-id="datos.servicio_id" 
                     :maniobra-id="datos.id"
                     :active-index="datos.indice_activo" 
-                    :avance-total="avanceTotal" 
+                    :avance-total="avance" 
                     :tareas="tareas"
                    >
                 </proceso-supervision>
@@ -64,6 +64,9 @@
             <tab name="Archivos">
                 <coordinacion-archivos :archivos="datos.servicio.archivos"></coordinacion-archivos>
             </tab>
+            <tab name="Ubicación de mercancia" v-if="datos.servicio.tipo == 'Carga'">
+                <ubicacion-mercancia :images="datos.ubicacion" ></ubicacion-mercancia>
+            </tab>
         </tabs> 
        
     </div>
@@ -78,7 +81,7 @@ import coordinacionDatosGenerales from './../servicios/show-datos-generales.vue'
 import coordinacionTransportes from './../servicios/show-transportes.vue';
 import coordinacionDocumentos from './../servicios/show-documentos.vue';
 import coordinacionArchivos from './../servicios/show-archivos.vue';
-
+import ubicacionMercancia from './ubicacion-mercancia.vue';
 var moment = require('moment');
 
 export default {
@@ -91,6 +94,7 @@ export default {
         'coordinacion-documentos': coordinacionDocumentos,
         'coordinacion-archivos': coordinacionArchivos,
         'coordinacion-transportes': coordinacionTransportes,
+        'ubicacion-mercancia' : ubicacionMercancia,
     },
     props:{
         datos:{
@@ -100,6 +104,10 @@ export default {
         tareas:{
             type:[Object, Array],
             required:true,
+        },
+        avance:{
+            type:[Number, String],
+            required:true,  
         }
         
     },
@@ -109,7 +117,7 @@ export default {
             token:'',
             intervalTimer:'',
             datosM:{},
-            avanceTotal:0,
+            avanceTotal:this.avance,
         }
     },
     created(){
@@ -119,10 +127,9 @@ export default {
         this.EventBus();
     },
     mounted(){
-
         this.backbutton();
         this.token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        this.avanceTotal = this.datos.avance_total;
+        //this.avanceTotal = this.datos.avance_total;
         this.inicioManiobra();
 
     },

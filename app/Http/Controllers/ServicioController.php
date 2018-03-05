@@ -141,7 +141,22 @@ class ServicioController extends Controller
                 'titulo' => 'Un nuevo servicio se creo recientemente',
                 'mensaje' => 'Servicio '.  $servicio->tipo . '. Num. ' . $servicio->numero_servicio,
                 'url_icon' => '/img/pushIcon/round.png',
-                'url' => '/coordinacion/'
+                'url' => '/coordinacion'
+            ]);
+            event(new notificaciones($notifi));
+            event(new ManiobraInicio($notifi));
+        }
+
+        $supervisores = User::where([ ['perfil_id',6],['equipo_id', auth()->user()->equipo_id]])->get();
+        foreach($supervisores as $supervisor)
+        {
+            $notifi = Notification::create([
+                'emisor_id' => $emisor, 
+                'receptor_id' => $supervisor->id,
+                'titulo' => 'Un nuevo servicio se creo recientemente',
+                'mensaje' => 'Servicio '.  $servicio->tipo . '. Num. ' . $servicio->numero_servicio,
+                'url_icon' => '/img/pushIcon/round.png',
+                'url' => '/maniobras'
             ]);
             event(new notificaciones($notifi));
             event(new ManiobraInicio($notifi));

@@ -34,7 +34,7 @@ class APIController extends Controller
     public function coordinacion(Request $request)
     {
         
-        if(auth()->user()->perfil->perfil !== 'coordinador' && auth()->user()->perfil->perfil !== 'admin')
+        if(auth()->user()->perfil->perfil !== 'coordinador' && auth()->user()->perfil->perfil !== 'supervisor' && auth()->user()->perfil->perfil !== 'admin')
         {
             return redirect('/');
         }
@@ -68,7 +68,6 @@ class APIController extends Controller
                     $q->where('equipo_id', auth()->user()->equipo_id);
                 })
                 ->get();
-
         }
         
         foreach($data as $item){
@@ -370,16 +369,35 @@ class APIController extends Controller
             'is_active'      => '1'
         ]);
         
-        $notifi = Notification::create([
-            'emisor_id' => $coordinacion->coordinador_id, 
-            'receptor_id' => $coordinacion->supervisor_id,
-            'titulo' => 'Se le asigno un nuevo servicio',
-            'mensaje' => 'Servicio '.  $coordinacion->servicio->tipo . '. Num. ' . $coordinacion->servicio->numero_servicio.', cliente ' . $coordinacion->servicio->cliente->nombre,
-            'url_icon' => '/img/pushIcon/settings.png',
-            'url' => '/maniobras'
-        ]);
-        event(new notificaciones($notifi));
-        event(new ManiobraInicio($notifi));
+        $supervisores = User::where([ ['perfil_id',6],['equipo_id', auth()->user()->equipo_id]])->get();
+        foreach($supervisores as $supervisor)
+        {
+            if($supervisor->id ==  $coordinacion->supervisor_id){
+                $notifi = Notification::create([
+                    'emisor_id' => $coordinacion->coordinador_id, 
+                    'receptor_id' => $coordinacion->supervisor_id,
+                    'titulo' => 'Se le asigno un nuevo servicio',
+                    'mensaje' => 'Servicio '. $coordinacion->servicio->tipo . '. Num. ' . $coordinacion->servicio->numero_servicio.', cliente ' . $coordinacion->servicio->cliente->nombre,
+                    'url_icon' => '/img/pushIcon/settings.png',
+                    'url' => '/maniobras/'.$coordinacion->id
+                ]);
+                event(new notificaciones($notifi));
+            }else{
+                $notifi = Notification::create([
+                    'emisor_id' => $coordinacion->coordinador_id, 
+                    'receptor_id' => $supervisor->id,
+                    'titulo' => 'Se le asigno un nuevo servicio',
+                    'mensaje' => 'Servicio '.  $coordinacion->servicio->tipo . '. Num. ' . $coordinacion->servicio->numero_servicio.', cliente ' . $coordinacion->servicio->cliente->nombre,
+                    'url_icon' => '/img/pushIcon/round.png',
+                    'url' => '/maniobras'
+                ]);
+            }
+            event(new ManiobraInicio($notifi));
+        }
+
+        
+        // event(new notificaciones($notifi));
+        // event(new ManiobraInicio($notifi));
 
         return $coordinacion->toJson();
     }

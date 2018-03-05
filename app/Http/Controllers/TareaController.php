@@ -443,7 +443,7 @@ class TareaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ManiobraSubtarea  $maniobraSubtarea
+     * @param  \App\Subtarea  $maniobraSubtarea
      * @return \Illuminate\Http\Response
      */
     public function edit(ManiobraSubtarea $maniobraSubtarea)

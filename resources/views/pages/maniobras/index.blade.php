@@ -73,27 +73,25 @@
         <card>
         <template>
             <div class="material-datatables">
-                <table id="servicios" class="table" cellspacing="0" width="100%" style="width:100%">
+                <table id="servicios" class="table table-no-bordered " cellspacing="0" width="100%" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Tipo</th>
+                            <th>Turno</th>
                             <th>Servicio</th>
-                            <th>Nombre de Cliente</th>
-                            <th>Recepción</th>
+                            <th>Nombre del cliente</th>
+                            <th>Supervisor</th>
                             <th>Estatus</th>
-                            <th>
-                                <span class="visible-xs">Opciones</span>
-                            </th>
+                            <th><span class="visible-xs">Opciones</span></th>
                         </tr>
                     </thead>
                     <tbody>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Tipo</th>
+                            <th>Turno</th>
                             <th>Servicio</th>
                             <th>Cliente</th>
-                            <th>Recepción</th>
+                            <th>Supervisor</th>
                             <th>Estatus</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -143,7 +141,7 @@
         fecha.on('dp.change', function(e){ 
             let date=$(this).val().replace(/[/]/g,'-');
             
-            table.ajax.url( "/API/maniobra-supervisor/"+date ).load();
+            table.ajax.url( "/API/coordinacion/"+date  ).load();
             
         });
         let table = $('#servicios').DataTable( {
@@ -175,77 +173,95 @@
                     sSortDescending: ": Activar para ordenar la columna de manera descendente"
                 }
             },
-            ajax: "/API/maniobra-supervisor/",
+            ajax: "/API/coordinacion/",
             columns:[
                 { 
-                    "data" : "servicio.tipo",
-                    "render":function(data,type,row){
+                    data : "turno",
+                    render : function(data, type, row){
+                        return `
+                            <span class="text-center yellow accent-1" style="display:block; font-size:5.2em;">`+data+`</span>
+                        `;
+                    }
+                },
+                { 
+                    data : "servicio.tipo",
+                    render :function(data,type,row){
                         return `
                             <p class="${data} letter-icon text-center" title="${data}" data-toggle="tooltip">${data.substring(0,1)}</p>
-                            
                         `;
-                    }
-                },
-                {
-                    "data" : "servicio.numero_servicio",
-                    "render" : function(data, type, row){
-                        return `
-                           <h3 class="text-center">N. ${data}</h3>
-                        `;
+                       
                     }
                 },
                 { 
-                    "data" : "servicio.cliente.nombre",
-                    "render": function(data, type, row){
+                    data : "servicio.cliente.nombre",
+                    render : function(data, type, row){
                         return `
-                            <p class="lead text-primary" style="font-weight:500;margin:0;">${data}</p>
-                        `
-                    }    
+                            <small class="text-muted">
+                              <i class="fa fa-calendar-o" aria-hidden="true"></i> ${row.servicio.date_humans} - No. de servicio ${row.servicio.numero_servicio} 
+                            </small> 
+                            <h4 class="text-uppercase text-primary">${data}</h4>
+                        `;
+                    }     
                 },
                 {
-                    "data" : "servicio.date_humans",
-                    "render" : function(data, type, row){
-                        return `
-                            <p>
-                                    ${data} 
-                            </p>
-                        `;
-                    }
-                },
-                { 
-                    "data" : "status",
-                    "render": function(data, type, row){
-                        switch (data) {
-                            case "PARA ASIGNAR": case "Para asignar": case "Para Asignar":
-                                return '<span class="label label-default '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
-
-                            case "ASIGNADO": case "Asignado": case "asignado":
-                                return '<span class="label label-default '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-user-o" aria-hidden="true"></i> '+data+'</span>'    
+                    data : null,
+                    render : function(data, type, row){
+                       
+                        if( data.supervisor_id ){
+                            if(data.supervisor_id == {{ auth()->user()->id }}){
+                                return `<h6 class="text-center"><b>${data.supervisor.nombre}</b></h6>`;
+                            }else{
+                                return `<h6 class="text-center">${data.supervisor.nombre}</h6>`;
+                            }
                             
-                            case "EN PROCESO": case "En proceso": case "En Proceso":
-                                return '<span class="label label-info '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
-                                
-                            case "EN PAUSA": case "En pausa": case "En Pasua":
-                                return '<span class="label label-warning '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
-                                
-                            case "FINALIZADO": case "Finalizado": case "Finalizado":
-                                return '<span class="label label-success '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
-                                
-                            case "CANCELADO": case "Cancelado": case "Cancelado":
-                                return '<span class="label label-danger '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
-                                
+                        }
+                        else{
+                            return '<h6 class="text-center text-danger">No asignado</h6>';
                         }
                     }
                 },
+                { 
+                    data : "status",
+                    render : function(data, type, row){
+                        switch (data) {
+                            case "PARA ASIGNAR": case "Para Asignar": case "para asignar":
+                                return '<span class="label label-default '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-clock-o" aria-hidden="true"></i> '+data+'</span>'    
+                            
+                            case "ASIGNADO": case "Asignado": case "asignado":
+                                return '<span class="label label-default '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-user-o" aria-hidden="true"></i> '+data+'</span>'    
+
+                            case "EN PROCESO": case "En proceso": case "en proceso":
+                                return '<span class="label label-info '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-play" aria-hidden="true"></i> '+data+'</span>'    
+                                
+                            case "EN PAUSA": case "En pausa": case "en pasua":
+                                return '<span class="label label-warning '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-pause" aria-hidden="true"></i> '+data+'</span>'    
+                                
+                            case "FINALIZADO": case "Finalizado": case "finalizado":
+                                return '<span class="label label-success '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-check" aria-hidden="true"></i> '+data+'</span>'    
+                                
+                            case "CANCELADO": case "Cancelado": case "cancelado":
+                                return '<span class="label label-danger '+ data.replace(" ", "-").toLowerCase() +'"><i class="fa fa-ban" aria-hidden="true"></i> '+data+'</span>'    
+                                
+                       }
+                    }
+                },
                 {
-                    "orderable": false,
-                    "data":null,
-                    "render": function(data, type, row){
-                        return `
-                            <a href="/maniobras/${data.id}" class="btn btn-primary btn-round btn-just-icon">
-                                <i class="fa fa-search-plus" aria-hidden="true"></i>
-                            </a>
-                        `;
+                    orderable: false,
+                    data :null,
+                    render : function(data, type, row){
+                        if(row.supervisor_id == {{ auth()->user()->id }} ){
+                            return `
+                                <a href="/maniobras/${data.id}" class="btn btn-primary btn-round btn-just-icon">
+                                    <i class="fa fa-search-plus" aria-hidden="true"></i>
+                                </a>
+                            `;
+                        }else{
+                            return `
+                                <button type="button" class="btn btn-default btn-round btn-just-icon" disabled>
+                                    <i class="fa fa-search-plus" aria-hidden="true"></i>
+                                </button>
+                            `;
+                        }
                     }
                 }
                 
@@ -264,7 +280,7 @@
                         table.columns(4).search("EN PROCESO").draw();     
                     break;
                 case 'pendientes':
-                        table.columns(4).search("PARA ASIGNAR|ASIGNADO|EN PAUSA", true, false, true).draw();     
+                        table.columns(4).search("PARA ASIGNAR|EN PAUSA", true, false, true).draw();     
                     break;
                 default:
                         table.columns(4).search("").draw();     
@@ -332,7 +348,7 @@
                 let date=inicio.val().replace(/[/]/g,'-')+"*"+final.val().replace(/[/]/g,'-');
                 console.log('date');
                 console.log(date);
-                table.ajax.url( "/API/maniobra-supervisor/"+date ).load();
+                table.ajax.url( "/API/coordinacion/"+date ).load();
             }
         });
 
@@ -345,6 +361,7 @@
         });  
 
         $('[data-toggle="tooltip"]').tooltip(); 
+        
 
     });
 </script>

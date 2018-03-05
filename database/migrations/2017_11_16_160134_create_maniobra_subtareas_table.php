@@ -18,7 +18,7 @@ class CreateManiobraSubtareasTable extends Migration
             $table->integer('tarea_id');
             $table->string('subtarea');
             $table->string('texto_ayuda')->nullable();
-            $table->string('value')->nullable();
+            $table->text('value')->nullable();
             $table->string('inputType',30)->nullable();
             $table->integer('limit')->length(2)->default(1);
             $table->string('options')->nullable();

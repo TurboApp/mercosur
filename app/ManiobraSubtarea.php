@@ -13,6 +13,6 @@ class ManiobraSubtarea extends Model
 
     public function attachment()
     {
-        return $this->hasMany('App\ManiobraSubtareaAttachment', 'subtarea_id','id');
+        return $this->hasMany('App\ManiobraSubtareaAttachment','subtarea_id','id');
     }
 }

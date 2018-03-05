@@ -57,7 +57,10 @@ Vue.component('form-documento', require('./components/views/trafico/forms/docume
 
 
 Vue.component('panel-coordinacion', require('./components/views/coordinacion/master.vue'));
+Vue.component('navs-supervisores', require('./components/views/coordinacion/navs-supervisores/navs-supervisores.vue'));
+
 Vue.component('maniobra-tareas', require('./components/views/maniobras/master.vue'));
+
 
 Vue.component('notificaciones-app', require('./components/views/notificaciones/master.vue'));
 Vue.component('dropdown-notification', require('./components/views/notificaciones/dropdownNotificationList.vue'));
@@ -100,13 +103,12 @@ var vm = new Vue({
             Echo.channel('notification-channel')
             
                 .listen('notificaciones', (data) => {
-                    console.log(data);
                     if(self.auth.id == data.notify.receptor_id){
                         EventBus.$emit('notificaciones');
 
                         $.notify({
                             icon: "notifications_none",
-                            message: '<h4>'+data.notify.titulo+'</h4>'+data.notify.mensaje
+                            message: `<h4><a href="${data.notify.url}">${data.notify.titulo}</a></h4>${data.notify.mensaje}`
                         },{
                             type: data.notify.type,
                             timer: 4000,
