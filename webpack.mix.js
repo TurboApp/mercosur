@@ -50,7 +50,7 @@ let mix = require('laravel-mix');
 
   mix.js('resources/assets/js/app.js', 'public/js');
    
-// mix.sass('resources/assets/sass/common.scss', 'public/css');
-// mix.sass('resources/assets/sass/dashboard.scss', 'public/css');
-// mix.sass('resources/assets/sass/mercosur.scss', 'public/css');
+mix.sass('resources/assets/sass/common.scss', 'public/css');
+mix.sass('resources/assets/sass/dashboard.scss', 'public/css');
+mix.sass('resources/assets/sass/mercosur.scss', 'public/css');
 

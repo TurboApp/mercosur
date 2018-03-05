@@ -1,4 +1,4 @@
-<page backtop="43mm" backbottom="11mm" backleft="4mm" backright="100mm">
+<page backtop="43mm" backbottom="11mm" backleft="0mm" backright="0mm">
   <page_header>
       <table style="width: 100%;" class="page_header">
           <tr>
@@ -27,6 +27,7 @@
       @component('components.formato',[
         'data' => $data,
         'fecha' => $date,
+        'tipo' => $data->tipo,
       ])
       @endcomponent()
 </page>

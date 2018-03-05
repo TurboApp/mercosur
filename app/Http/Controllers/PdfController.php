@@ -17,13 +17,13 @@ class PdfController extends Controller
         $fecha = date('d-m-Y');
         $view =  View::make($vistaurl, compact('data', 'date'))->render();
         if($tipo=='tarjeta'){
-          $html2pdf = new Html2Pdf('L', 'LETTER', 'en','UTF-8');
+          $html2pdf = new Html2Pdf('L', 'LETTER', 'en',true,'UTF-8',array(2, 2, 2, 2));
           $html2pdf->pdf->SetDisplayMode('fullpage');
           $html2pdf->pdf->IncludeJS('print(TRUE)');
           $html2pdf->writeHTML($view);
           $html2pdf->output('reporte.pdf');  
         }else{
-          $html2pdf = new Html2Pdf('P', 'LETTER', 'en','UTF-8');
+          $html2pdf = new Html2Pdf('P', 'LETTER', 'en',true,'UTF-8',array(2, 2, 2, 2));
           $html2pdf->pdf->SetDisplayMode('fullpage');
           $html2pdf->writeHTML($view);
           if($tipo=='download'){
