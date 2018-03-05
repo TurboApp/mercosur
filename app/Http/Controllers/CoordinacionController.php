@@ -7,6 +7,8 @@ use App\Coordinacion;
 use App\ManiobraTarea  as Tareas;
 use App\supervisor_activo;
 use App\LineasTransporte as Transporte;
+use App\ProduccionOperarios;
+use App\FuerzaTarea;
 
 use App\Events\ManiobraUpdate;
 use App\Events\ManiobraInicio;
@@ -77,10 +79,16 @@ class CoordinacionController extends Controller
         }
         if($servicio===null){
             $request->session()->flash('danger', 'No se encontro ningun dato');
-            return redirect('/coordinacion');
+            return back();
         }else{
             if(auth()->user()->perfil->perfil == 'coordinador'){
-                return view('pages.coordinacion.master', compact('coordinacion'));
+                $supervisores = Coordinacion::where([
+                                    ['coordinador_id',auth()->user()->id],
+                                    ['supervisor_id','!=','Null'],
+                                    ['status','!=','Finalizado']
+                                ])->with(['supervisor','tareas'])->get();
+                
+                return view('pages.coordinacion.master', compact('coordinacion', 'supervisores'));
             }else{
                 return view('pages.servicios.detalles', compact('coordinacion'));
             }
@@ -95,11 +103,12 @@ class CoordinacionController extends Controller
 
     public function maniobraTareas(Coordinacion $coordinacion, Request $request)
     {
+        
         //if( auth()->user()->id !== $coordinacion->coordinador_id && auth()->user()->id !== $coordinacion->supervisor_id )
         if( auth()->user()->id !== $coordinacion->supervisor_id )
         {
             $request->session()->flash('warning', 'Acceso denegado');
-            return redirect('/');
+            return back();
         }
         $coordinacion->servicio->cliente;
         $coordinacion->servicio->agente;
@@ -111,6 +120,17 @@ class CoordinacionController extends Controller
             $transporte['lineaTransporte'] = $lineaTransporte->nombre;
         }
         $tareas = Tareas::where('coordinacion_id',$coordinacion->id)->with('subTareas')->get();
+
+        
+        if($coordinacion->servicio->tipo == "Carga"){
+            $servicioDescarga = $coordinacion->servicio->parent;
+            $tareaProcesomaniobra = $servicioDescarga->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
+            $ubicacionMercancia = $tareaProcesomaniobra->subtareas->where('subtarea','Capture las fotos donde fue ubicada la mercancia')->first();
+            $coordinacion->ubicacion = collect();
+            foreach($ubicacionMercancia->attachment as $imagen){
+                $coordinacion->ubicacion->push($imagen->url);
+            }
+        }
         
         return view('pages.maniobras.tareas', compact('coordinacion', 'tareas'));
     }
@@ -174,4 +194,210 @@ class CoordinacionController extends Controller
         return $coordinacion->toJson();
     }
     
+    public function procesoManiobra(Request $request){
+        $tareaId = $request->tarea; 
+        $index = $request->index;
+        $now = Carbon::now();
+        $coordinacion = Coordinacion::where( 'servicio_id' , $request->servicio )->first();
+        $tareas = $coordinacion->tareas;
+        
+        $tarea  = $tareas->where('id',$tareaId)->first();
+        $avance = $tarea->avance;
+        
+        switch($index){
+            case 0: //Tarea 1: Revisión
+            case 1: //Tarea 2: Anexos Fotograficos
+            case 2: //Tarea 3: Validación
+            case 3: //Tarea 4: Seleccionar Fuerza de tarea 
+            case 4: //Tarea 5: Proceso de maniobra y activacion de fuera de tarea
+                
+                /** Verifica si el avance de la tarea es mayor o igual al del avance total de la maniobra
+                *   Si es asi entonces procede con lo siguiente
+                */ 
+
+                if( $avance >= $coordinacion->avance_total )
+                { 
+                    //Avance
+                    /** Actualiza el avance y el indice activo */
+                    $coordinacion->avance_total =  $avance; 
+                    $coordinacion->indice_activo = $index;
+                    
+                    //Inicio de tarea - si el registro inicio esta vacio
+                    if( !$tarea->inicio )
+                    {
+                        $tarea->inicio = $now;  //Actualiza la tarea de inicio
+                        $tarea->status ='en proceso'; //Actualiza el status de la tarea
+                    }
+
+                    //Fin de tarea - si el registro fin esta vacio
+                    /** Este proceso se ejecuta si el indice es mayor de cero, el indice cero contiene
+                     *  la primer tarea de la maniobra
+                      */
+                    if( $index > 0 )
+                    { 
+                        
+                        $prevTarea = $tareas->where('id', ( $tareaId - 1 ) )->first();
+                        if(!$prevTarea->final)
+                        {
+                            $prevTarea->final = $now; 
+                            $prevTarea->status ='finalizado';
+                            $prevTarea->save();
+                        }
+                    }
+
+                    if( $index === 4 )
+                    {
+                        //Activar Fuerza de tarea
+                        $produccion = ProduccionOperarios::where('coordinacion_id', $coordinacion->id )->get();
+                        if(!$produccion->isEmpty())
+                        {
+                            foreach($produccion as $p)
+                            {
+                                if(!$p->inicio) // si el registro incio esta vacio
+                                { 
+                                    $p->inicio = $now;
+                                    $p->save();
+                                } 
+                            }
+                        }
+                    }
+                }
+            break;
+            case 5: // Tarea 6: Validacion de maniobra
+                
+                if($avance >= $coordinacion->avance_total){ 
+                    //Avance
+                    $coordinacion->avance_total =  $avance; 
+                    $coordinacion->indice_activo = $index;
+                    
+                    //Inicio de tarea
+                    if(!$tarea->inicio){
+                        $tarea->inicio = $now; 
+                        $tarea->status ='en proceso';
+                    }
+                }
+
+            break;
+            case 6: // Tarea 7: Finalización
+                if($avance >= $coordinacion->avance_total){
+                    //this.avanceUpdate(6,95),
+                    //Avance
+                    $coordinacion->avance_total =  $avance; 
+                    $coordinacion->indice_activo = $index;
+                    
+                    //Inicio de tarea
+                    if(!$tarea->inicio){
+                        $tarea->inicio = $now; 
+                        $tarea->status ='en proceso';
+                    }
+
+                
+                    //Fin de tarea
+                    $prevTarea = $tareas->where('id', ( $tareaId - 1 ) )->first();
+                    if(!$prevTarea->final){
+                        $prevTarea->final = $now; 
+                        $prevTarea->status ='finalizado';
+                        $prevTarea->save();
+                    }
+                    
+                    $prevTarea2 = $tareas->where('id', ( $tareaId - 2 ) )->first();
+                    if(!$prevTarea2->final){
+                        $prevTarea2->final = $now; 
+                        $prevTarea2->status ='finalizado';
+                        $prevTarea2->save();
+                    }
+                    
+                    /**
+                     * Proceso de liberacion de operarios
+                     */
+                    $produccion = ProduccionOperarios::where([
+                        ['coordinacion_id' , $coordinacion->id],
+                        ['final', null]
+                    ])->get();
+                    
+                    if(!$produccion->isEmpty()) 
+                    {  
+                        foreach ($produccion as $fuerzatarea) {
+                            /**
+                             * Actualiza el estatus de la fuerza de tarea
+                             */
+                            $operario = FuerzaTarea::find($fuerzatarea->fuerza_tarea_id);
+                            $operario->status = '0';
+                            $operario->coordinacion_id = '0';
+                            $operario->save();
+                            
+                            if(empty($fuerzaTarea->final)){
+                                /**
+                                 * Actualiza la hora final 
+                                 */
+                                $fuerzatarea->final = $now;
+                                $fuerzatarea->save();
+                            }
+                        }
+                    }
+                }
+            break;
+        }
+
+        $tarea->save();
+        $coordinacion->save();
+        event(new ManiobraUpdate($coordinacion));
+
+        return $coordinacion->toJson();
+
+    }
+
+    public function procesoFinManiobra(Request $request){
+        $now = Carbon::now();
+        $coordinacion = Coordinacion::where( 'servicio_id' , $request->servicio )->first();
+        $tareas = $coordinacion->tareas;
+        $lastTarea = $tareas->last();
+        //Finalizar ultima tarea   
+        $lastTarea->final = $now; 
+        $lastTarea->status ='finalizado';
+        $lastTarea->save();
+      
+        if (!$coordinacion->termino_maniobra) {
+            //Finalizacion coordinacion
+            $coordinacion->termino_maniobra = $now; 
+            $coordinacion->status='Finalizado';
+            $coordinacion->avance_total =  '100'; 
+            $coordinacion->indice_activo = '6';
+            $coordinacion->save();
+            
+            //Liberar Supervisor
+            $supervisor = Supervisor_activo::where([
+                ['supervisor_id' , $coordinacion->supervisor_id],
+                ['coordinacion_id' , $coordinacion->id]
+            ])->first();
+            
+            if($supervisor){
+                $supervisor->delete();
+            }
+            
+            //Revision de tareas (por sino no se Iniciaron-Finalizaron las tareas)
+                       
+            foreach($tareas as $tarea){
+                
+                if(empty($tarea->inicio)){ 
+                    $tarea->inicio = $tarea->created_at;
+                    $tarea->save();
+                }
+                if(empty($tarea->final)){
+                    $tarea->final = $tarea->updated_at;
+                    $tarea->save();
+                }
+                if($tarea->status === 'en proceso'){
+                    $tarea->status ='finalizado';
+                    $tarea->save();
+                }
+                
+            }
+        }
+                
+        event(new ManiobraFin($coordinacion));
+        event(new ManiobraUpdate($coordinacion));
+        
+        return $coordinacion->toJson();
+    }
 }

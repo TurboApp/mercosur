@@ -35,8 +35,20 @@
                 </td>
             </tr>
             <tr>
-                <td style="{{$label}}">Me Recibieron Mercancia:</td>
-                <td style="{{$label}}" colspan="2">Me Entregaron Mercancia:</td>
+                <td style="{{$label}}">Me Recibieron Mercancia:
+                    <?php
+                            $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
+                            $recibi=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Recibi mercancia en..."]])->first();
+                    ?>
+                    <strong>{{$recibi->value}}</strong>
+                </td>
+                <td style="{{$label}}" colspan="2">Me Entregaron Mercancia:
+                    <?php
+                            $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
+                            $entrege=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Entregue mercancia en..."]])->first();
+                    ?>
+                    <strong>{{$entrege->value}}</strong>
+                </td>
             </tr>
             <tr>
                 <td style="{{$label}}" colspan="3">Mercancia del Cliente:

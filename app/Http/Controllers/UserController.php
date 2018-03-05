@@ -104,22 +104,23 @@ class UserController extends Controller
     }
 
     public function edit(Request $request, $usuario){
-      $usuario=User::find($usuario);
+      $usuario = User::find($usuario);
       if ($usuario==null) {
         $request->session()->flash('danger', 'No se encontro ningun dato');
         return redirect('/usuarios/');
       } else {
-        $puesto=$usuario->puestos;
-        $puestos=Puesto::pluck('puesto','id');
-        $puestos=$puestos->all();
+        $puesto  = $usuario->puestos;
+        $puestos = Puesto::pluck('puesto','id');
+        $puestos = $puestos->all();
 
-        $perfil=$usuario->perfil;
-        $perfiles=Perfil::pluck('descripcion','id');
-        $perfiles=$perfiles->all();
+        //$perfil   = $usuario->perfil;
+        $perfiles = Perfil::all();
 
-        $equipo=$usuario->equipo;
-        $equipos=Equipo::pluck('nombre','id');
-        $equipos=$equipos->all();
+        $equipoUsuario  = $usuario->equipo;
+        $equipos = Equipo::all();
+        //$equipos = $equipos->all();
+
+        //dd($usuario->equipo);
         // $puestos=$puestos->toArray();
         // dd($puestos);
         return view('pages.usuarios.edit',array("id"=>$usuario->id,"usuario"=>$usuario,"perfiles"=>$perfiles,"puestos"=>$puestos,"equipos"=>$equipos));
@@ -128,26 +129,35 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $usuario){
+      
       $this->validate($request,[
           'nombre' => 'required',
           'apellido' => 'required',
           'direccion' => 'required',
           'celular' => 'required',
           'id_puesto' => 'required',
-          'id_perfil' => 'required',
-          'equipo_id' => 'required',
+          'perfil_id' => 'required',
+          //'equipo_id' => 'required',
           'user' => ['required',Rule::unique('users')->ignore($usuario->id)],
           'email' => ['nullable','email',Rule::unique('users')->ignore($usuario->id)],
           'url_avatar' => 'image',
           'password' => 'nullable|min:6' 
       ]);
 
-      $usuario=User::findOrFail($usuario->id);
-      if($request->hasFile('url_avatar')){
-        $usuario->url_avatar=$request->file('url_avatar')->store('public');
-      }
+      $usuario = User::findOrFail($usuario->id);
+      
+      $usuario->update($request->only('nombre','apellido','email','direccion','telefono','celular','user'));
 
-      $usuario->update($request->only('nombre','apellido','email','direccion','telefono','celular','user','id_perfil','equipo_id'));
+      $usuario->perfil_id = $request->perfil_id;
+      $usuario->save();  
+      
+      if( $request->equipo_id && $request->perfil_id > 3 ){
+        $usuario->equipo_id = $request->equipo_id;
+        $usuario->save();  
+      }else{
+        $usuario->equipo_id = Null;
+        $usuario->save();  
+      }
       
       if( $request->password ){
           $usuario->password = Hash::make($request->password) ;

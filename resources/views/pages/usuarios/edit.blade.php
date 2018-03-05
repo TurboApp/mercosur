@@ -68,12 +68,6 @@
                   {!!Form::select('id_puesto[]',$puestos,$usuario->puestos->pluck('id')->toArray(),['multiple'=>'multiple','value'=>'id_puesto','class'=>'selectpicker','data-style'=>'select-with-transition','required'=>'required'])!!}
                 </div>
               </div>  
-              <div class="form-group">
-                <label class="col-md-2 control-label">Equipo</label>
-                <div class="col-md-10">
-                  {!!Form::select('equipo_id',$equipos,$usuario->equipo->id,['value'=>'equipo_id','class'=>'selectpicker','data-style'=>'select-with-transition','required'=>'required'])!!}
-                </div>
-              </div>  
             </div><!-- ./form-horizontal -->
           </div><!-- ./card-content -->    
         </div><!-- ./card -->      
@@ -98,6 +92,7 @@
                       </div>
                     </div>
                 </div>  --}}
+                
             <div class="form-group">
               <label class="col-md-2 control-label">User</label>
               <div class="col-md-10">
@@ -107,7 +102,40 @@
             <div class="form-group">
               <label class="col-md-2 control-label">Perfil</label>
               <div class="col-md-10">
-                {!!Form::select('id_perfil',$perfiles,$usuario->perfil->id,['class'=>'selectpicker','data-style'=>'select-with-transition','required'=>'required'])!!}
+                {{--  {!!Form::select('id_perfil', $perfiles, $usuario->perfil->id, ['id'=>'perfil_id','class'=>'selectpicker','data-style'=>'select-with-transition','required'=>'required'])!!}  --}}
+                <select class="selectpicker" id="perfil_id" name="perfil_id" data-style="select-with-transition" title="Seleccione un equipo" required>
+                  @foreach ($perfiles as $perfil)
+                    <option 
+                      value = "{{$perfil->id}}"  
+                      @if( $perfil->id == $usuario->perfil->id ) 
+                        selected  
+                      @endif 
+                      > 
+                      {{ $perfil->descripcion }} 
+                    </option>
+                  @endforeach
+                </select>  
+              </div>
+            </div>
+
+            <div id="equipoForm" class="form-group">
+              <label class="col-md-2 control-label"><span class="text-danger">*</span> Equipo</label>
+              <div class="col-md-10">
+                <select class="selectpicker " id="equipo_id" name="equipo_id" data-style="select-with-transition" title="Seleccione un equipo" required>
+                  @foreach ($equipos as $equipo)
+                    <option 
+                      value = "{{$equipo->id}}"  
+                      @if(!empty($usuario->equipo))
+                        @if( $equipo->id == $usuario->equipo->id ) 
+                          selected  
+                        @endif 
+                      @endif 
+                      
+                      > 
+                      {{ $equipo->nombre }} 
+                    </option>
+                  @endforeach
+                </select>  
               </div>
             </div>
             <div class="form-group">
@@ -161,6 +189,24 @@
           $('#password').attr('type','password');
         }
       });
+
+      @if($usuario->perfil->id < 4)
+        $("#equipoForm").hide();                  
+      @endif
+
+      $("#perfil_id").on('change', function(){
+          let val = $(this).val();
+          if( val > 3){
+            $("#equipo_id").prop("disabled", false);
+            $("#equipoForm").show();
+          }else{
+            $("#equipoForm").hide();
+            $("#equipo_id").val('null');
+            $("#equipo_id").prop("disabled", true);
+          }
+          //$('#equipo_id').selectpicker('refresh');
+          $('.selectpicker').selectpicker('refresh');
+        });
 
   });
   </script>

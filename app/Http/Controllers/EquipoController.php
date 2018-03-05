@@ -23,7 +23,8 @@ class EquipoController extends Controller
     public function storeEquipo(Request $request)
     {
       $this->validate(request(),[
-        'nombre' => 'required|unique:equipos|max:199'
+        'nombre' => 'required|unique:equipos|max:199',
+        //'descripcion' => 'required'
         ]);
       $equipo=(new Equipo)->fill($request->all());
       $equipo->save();

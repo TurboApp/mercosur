@@ -1,9 +1,9 @@
 <template>
     <div class="row">
-        <div class="col-xs-8 col-sm-9 col-md-10">
+        <div class="col-xs-8 col-sm-8 col-md-10">
             <h4 v-text="title"></h4>    
         </div>
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-xs-4 col-sm-4 col-md-2 text-right">
                <select 
                     class="selectpicker"
                     v-model="input"

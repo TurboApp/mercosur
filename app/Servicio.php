@@ -99,9 +99,9 @@ class Servicio extends Model
         $date = date( 'Y-m-d' , strtotime($date) );
         //$coordinacion = Coordinacion::whereDate( 'created_at', $date )->orderBy('turno','desc')->first();
         $equipoID = auth()->user()->equipo_id;
-        $coordinacion = Coordinacion::whereDate( 'created_at', $date )
+        $coordinacion = Coordinacion::whereDate( 'fecha_servicio', $date )
                     ->whereHas('servicio.autor', function($q) use ($equipoID){
-                        $q->where('equipo_id', $equipoID );
+                        $q->where( 'equipo_id' , $equipoID );
                     })
                     ->orderBy('turno','desc')->first();
         if($coordinacion){
@@ -221,7 +221,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Recepción",
                     "titulo_largo" => "Recepción y revisión de ordenes",
-                    "avance" => 5,
+                    "avance" => 0,
                     "icono" => "fa fa-file-text-o",
                 ],
                 "subtareas" =>  [
@@ -294,7 +294,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Validación Previa",
                     "titulo_largo" => "Previa validación de la descarga",
-                    "avance" => 5,
+                    "avance" => 10,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
@@ -306,7 +306,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Fuerza de tarea",
                     "titulo_largo" => "Seleción y activación de la fuerza de tarea",
-                    "avance" => 5,
+                    "avance" => 15,
                     "icono" => "fa fa-users",
                 ],
                 "subtareas" => [
@@ -318,7 +318,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Proceso de maniobra",
                     "titulo_largo" => "Proceso de supervisión y verificación de mercancia",
-                    "avance" => 70,
+                    "avance" => 20,
                     "icono" => "fa fa-cog",
                 ],
                 "subtareas" => [
@@ -334,6 +334,8 @@ class Servicio extends Model
                     ["subtarea" => "Capture fotos de evidencia de irregularidades", "texto_ayuda" => "En caso que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
                     //6.- Ubicacion de mercancia
                     ["subtarea" => "Capture las fotos donde fue ubicada la mercancia", "texto_ayuda" => "",  "inputType" => "photos", "limit"=> 20],
+                    //7.- Me recibieron
+                    ["subtarea" => "Recibi mercancia en... ", "texto_ayuda" => "",  "inputType" => "select", "options"=>"Buen estado, Mal estado"],        
                 ]
             ],
             [
@@ -341,7 +343,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Validación",
                     "titulo_largo" => "Validación del proceso de descarga",
-                    "avance" => 5,
+                    "avance" => 90,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
@@ -353,7 +355,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Finalización",
                     "titulo_largo" => "Cierre de la maniobra",
-                    "avance" => 5,
+                    "avance" => 95,
                     "icono" => "fa fa-flag-checkered",
                 ],
                 "subtareas" => [
@@ -373,7 +375,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Recepción",
                     "titulo_largo" => "Recepción y revisión de ordenes",
-                    "avance" => 5,
+                    "avance" => 0,
                     "icono" => "fa fa-file-text-o",
                 ],
                 "subtareas" =>  [
@@ -441,9 +443,9 @@ class Servicio extends Model
             [
                 "tarea" => [
                     "coordinacion_id" => $coordinacion_id,
-                    "titulo_corto" => "Validación",
+                    "titulo_corto" => "Validación Previa",
                     "titulo_largo" => "Previa validación de la descarga",
-                    "avance" => 5,
+                    "avance" => 10,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
@@ -455,7 +457,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Fuerza de tarea",
                     "titulo_largo" => "Selleción y activación de la fuerza de tarea",
-                    "avance" => 5,
+                    "avance" => 15,
                     "icono" => "fa fa-users",
                 ],
                 "subtareas" => [
@@ -467,7 +469,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Proceso de maniobra",
                     "titulo_largo" => "Proceso de supervisión y verificación de mercancia",
-                    "avance" => 70,
+                    "avance" => 20,
                     "icono" => "fa fa-cog",
                 ],
                 "subtareas" => [
@@ -479,6 +481,8 @@ class Servicio extends Model
                     ["subtarea" => "Escriba las observaciones de la mercancia", "texto_ayuda" => "",  "inputType" => "textarea"],
                     //4.- Evidencia de irregularidades
                     ["subtarea" => "Capture fotos de evidencia de irregularidades", "texto_ayuda" => "En caso que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
+                    //5.- Entregue mercancia
+                    ["subtarea" => "Entregue mercancia en... ", "texto_ayuda" => "",  "inputType" => "select", "options"=>"Buen estado, Mal estado"],        
                 ]
             ],
             [
@@ -486,7 +490,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Validación",
                     "titulo_largo" => "Validación del proceso de carga",
-                    "avance" => 5,
+                    "avance" => 90,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
@@ -498,7 +502,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Finalización",
                     "titulo_largo" => "Cierre de la maniobra",
-                    "avance" => 5,
+                    "avance" => 95,
                     "icono" => "fa fa-flag-checkered",
                 ],
                 "subtareas" => [
@@ -526,7 +530,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Recepción",
                     "titulo_largo" => "Recepción y revisión de ordenes",
-                    "avance" => 5,
+                    "avance" => 0,
                     "icono" => "fa fa-file-text-o",
                     "tipo" => "doble"
                 ],
@@ -656,7 +660,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Validación Previa",
                     "titulo_largo" => "Previa validación del trasbordo",
-                    "avance" => 5,
+                    "avance" => 10,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
@@ -668,7 +672,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Fuerza de tarea",
                     "titulo_largo" => "Selleción y activación de la fuerza de tarea",
-                    "avance" => 5,
+                    "avance" => 15,
                     "icono" => "fa fa-users",
                 ],
                 "subtareas" => [
@@ -680,7 +684,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Proceso de maniobra",
                     "titulo_largo" => "Proceso de supervisión y verificación de mercancia",
-                    "avance" => 70,
+                    "avance" => 20,
                     "icono" => "fa fa-cog",
                     "tipo" => "doble"
                 ],
@@ -696,6 +700,8 @@ class Servicio extends Model
                         ["subtarea" => "Observaciones de la mercancia", "texto_ayuda" => "Escriba las observaciones de la mercancia",  "inputType" => "textarea"],
                         //5.- Evidencia de irregularidades
                         ["subtarea" => "Evidencia de irregularidades", "texto_ayuda" => "Encaso de que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
+                        //6.- Recibi mercancia
+                        ["subtarea" => "Recibi mercancia en... ", "texto_ayuda" => "",  "inputType" => "select", "options"=>"Buen estado, Mal estado"],        
                     ],
                     "CENTROAMERICANO" => [
                         //1.- Toma de foto inicial
@@ -706,6 +712,8 @@ class Servicio extends Model
                         ["subtarea" => "Observaciones de la mercancia", "texto_ayuda" => "Escriba las observaciones de la mercancia",  "inputType" => "textarea"],
                         //4.- Evidencia de irregularidades
                         ["subtarea" => "Evidencia de irregularidades", "texto_ayuda" => "Encaso de que haya irregularidades capture las fotos necesarias",  "inputType" => "photos", "limit"=>99, "required" => 0 ],
+                        //5.- Entregue mercancia
+                        ["subtarea" => "Entregue mercancia en... ", "texto_ayuda" => "",  "inputType" => "select", "options"=>"Buen estado, Mal estado"],        
                     ]
                 ]
             ],
@@ -714,7 +722,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Validación",
                     "titulo_largo" => "Validación y almacenamiento de la descarga",
-                    "avance" => 5,
+                    "avance" => 90,
                     "icono" => "fa fa-check",
                 ],
                 "subtareas" => [
@@ -726,7 +734,7 @@ class Servicio extends Model
                     "coordinacion_id" => $coordinacion_id,
                     "titulo_corto" => "Finalización",
                     "titulo_largo" => "Cierre de la maniobra",
-                    "avance" => 5,
+                    "avance" => 95,
                     "icono" => "fa fa-flag-checkered",
                 ],
                 "subtareas" => [

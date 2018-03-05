@@ -11,6 +11,11 @@
 @endsection
 @section('content')
 
+    @if ( $coordinacion->coordinador_id === auth()->user()->id )
+        <navs-supervisores :supervisores="{{$supervisores}}">
+
+        </navs-supervisores>
+    @endif
     <template>
     <panel-coordinacion 
         :datos = "{{$coordinacion}}" 
