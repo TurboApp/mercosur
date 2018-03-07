@@ -45391,9 +45391,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(173);
-__webpack_require__(420);
-__webpack_require__(421);
-module.exports = __webpack_require__(422);
+__webpack_require__(426);
+__webpack_require__(427);
+module.exports = __webpack_require__(428);
 
 
 /***/ }),
@@ -45680,7 +45680,7 @@ window.io = __webpack_require__(199);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'socket.io',
     host: 'http://127.0.0.1:6001'
-    //host: 'http://192.168.0.3:6001'
+    // host: 'http://192.168.8.109:6001'
 });
 
 /***/ }),
@@ -94691,19 +94691,19 @@ if (false) {
 }
 
 /***/ }),
-/* 420 */
+/* 426 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 421 */
+/* 427 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 422 */
+/* 428 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

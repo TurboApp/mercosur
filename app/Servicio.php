@@ -250,7 +250,7 @@ class Servicio extends Model
                     //12.- Peso total
                     ["subtarea" => "Ingrese el peso total de la mercancia de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
                     //13.- Cantidad de bultos
-                    ["subtarea" => "Ingrese la cantidad de bultos", "texto_ayuda" => "", "inputType" => "text"],
+                    ["subtarea" => "Ingrese la cantidad de bultos de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
                 ]
             ],
             [
@@ -400,9 +400,9 @@ class Servicio extends Model
                     // 10.- Ubicacion de la mercancia - checkbox
                     ["subtarea" => "¿La mercancia ya fue ubicada?", "texto_ayuda" => "",  "inputType" => "check"],
                     // 11.- Cantidad de bultos - checkbox
-                    ["subtarea" => "Ingrese la cantidad de bultos de acuerdo a la documentación", "texto_ayuda" => "",  "inputType" => "check"],
+                    ["subtarea" => "Ingrese la cantidad de bultos de acuerdo a la documentación", "texto_ayuda" => "",  "inputType" => "text"],
                     // 12.- Peso Total - text
-                    ["subtarea" => "Ingrese el peso total de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
+                    ["subtarea" => "Ingrese el peso total de la mercancia de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
                 ]
             ],
             [
@@ -559,9 +559,9 @@ class Servicio extends Model
                         // 11.- Foto de Sellos	Fotos(3)
                         ["subtarea" => "Antes de retirar los sellos tome unas fotografias", "texto_ayuda" => "",  "inputType" => "photos", "limit" => 12],            
                         // 12.- Peso total	
-                        ["subtarea" => "Ingrese el peso total de la mercancia", "texto_ayuda" => "", "inputType" => "text"],
+                        ["subtarea" => "Ingrese el peso total de la mercancia de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
                         // 13.- Cantidad de bultos	
-                        ["subtarea" => "Ingrese la cantidad de bultos", "texto_ayuda" => "", "inputType" => "text"],
+                        ["subtarea" => "Ingrese la cantidad de bultos de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
                     ],
                     "CENTROAMERICANO" => [
                         // 1.- Documentacion
@@ -583,9 +583,9 @@ class Servicio extends Model
                         // 9.- Medida de Caja 56 o 43"	Fotos(3)
                         ["subtarea" => "Capture las fotos de la medida de la caja 56' o 43'", "texto_ayuda" => "Como maximo deben ser tres",  "inputType" => "photos", "limit" => 3],        
                         // 10.- Peso total	Fotos (2)
-                        ["subtarea" => "Ingrese el peso total de la mercancia", "texto_ayuda" => "", "inputType" => "text"],
+                        ["subtarea" => "Ingrese el peso total de la mercancia de acuerdo a la documentación", "texto_ayuda" => "", "inputType" => "text"],
                         // 11.- Cantidad de bultos	
-                        ["subtarea" => "Ingrese la cantidad de bultos", "texto_ayuda" => "",  "inputType" => "text"],
+                        ["subtarea" => "Ingrese la cantidad de bultos de acuerdo a la documentación", "texto_ayuda" => "",  "inputType" => "text"],
 
                     ]
                 ]

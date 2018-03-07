@@ -66,7 +66,7 @@
                 <td style="{{$label}}">Con peso de:
                     <?php
                             $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                            $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia"],["tipo_transporte","C"]])->first();
+                            $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia de acuerdo a la documentación"],["tipo_transporte","C"]])->first();
                     ?>
                     <strong>{{$peso->value}} KG</strong>
                 </td>
@@ -78,7 +78,7 @@
                 <td style="{{$label}}">cant/bts:
                     <?php
                         $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                        $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos"],["tipo_transporte","C"]])->first();
+                        $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos de acuerdo a la documentación"],["tipo_transporte","C"]])->first();
                     ?>
                     <strong>{{$bultos->value}}</strong>
                 </td>

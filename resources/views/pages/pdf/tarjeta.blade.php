@@ -56,7 +56,7 @@
                             <td style='{{$dato}}'>
                                 <?php
                                     $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                                    $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos"]])->first();
+                                    $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos de acuerdo a la documentación"]])->first();
                                 ?>
                                 {{$bultos->value}}
                             </td>
