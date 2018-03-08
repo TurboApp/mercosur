@@ -30,7 +30,7 @@ class ServicioController extends Controller
     {   
         $data = Date::instance(Carbon::now());
         
-        if( auth()->user()->perfil->perfil == 'go' || auth()->user()->perfil->perfil == 'directivo' )
+        if( auth()->user()->perfil_id < 4  )
         {   
             $equipos = Equipo::paginate(16);
             
@@ -51,7 +51,7 @@ class ServicioController extends Controller
                 $equipo->trasbordos = $trasbordos;
             }
 
-            return view('pages.productividad.servicios.teams', compact('data','equipos'));
+            return view('pages.servicios.teams', compact('data','equipos'));
         }
         return view('pages.servicios.index', compact('data'));
     }
@@ -61,7 +61,7 @@ class ServicioController extends Controller
         
         $data = Date::instance(Carbon::now());
         $equipo = Equipo::find($request->equipo);
-        return view('pages.productividad.servicios.index', compact('data','equipo'));
+        return view('pages.servicios.indexTiempo', compact('data','equipo'));
     }
 
     public function almacen()
@@ -188,6 +188,23 @@ class ServicioController extends Controller
         
         if ($servicio) {
             return view('pages.servicios.edit', compact('servicio'));
+        }
+        else
+        {
+            $request->session()->flash('danger', 'No se encontro ningun dato');
+            return redirect('/servicios');
+        }
+    }
+
+    
+    
+    public function editProductividad(Request $request, $servicio)
+    {
+        $servicio = Servicio::find($servicio);
+        if ($servicio) {
+            $coordinacion = $servicio->coordinacion;
+            //dd($coordinacion->created_at);
+            return view('pages.servicios.editProductividad', compact('servicio', 'coordinacion'));
         }
         else
         {

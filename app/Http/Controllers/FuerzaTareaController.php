@@ -93,17 +93,17 @@ class FuerzaTareaController extends Controller
       $fuerzas = FuerzaTarea::latest()->paginate(16);
       $fuerzas->count = FuerzaTarea::all()->count();
       
-      return view('pages.productividad.operarios.index',compact('fuerzas'));
+      return view('pages.fuerzaTarea.operarios.index',compact('fuerzas'));
     }
     public function operariosProduccionActivos(){
       $fuerzas=FuerzaTarea::where('status','1')->latest()->paginate(16);
       $fuerzas->count = FuerzaTarea::where('status','1')->count();
-      return view('pages.productividad.operarios.indexActivos',compact('fuerzas'));
+      return view('pages.fuerzaTarea.operarios.indexActivos',compact('fuerzas'));
     }
     public function operariosProduccionInactivos(){
       $fuerzas = FuerzaTarea::where('status','0')->latest()->paginate(16);
       $fuerzas->count = FuerzaTarea::where('status','0')->count();
-      return view('pages.productividad.operarios.indexInactivos',compact('fuerzas'));
+      return view('pages.fuerzaTarea.operarios.indexInactivos',compact('fuerzas'));
     }
 
     public function searchOperariosProduccion(Request $request)
@@ -111,7 +111,7 @@ class FuerzaTareaController extends Controller
        $fuerzas = FuerzaTarea::where('nombre', 'LIKE','%'.$request->s.'%')->paginate(16);
        $fuerzas->appends( [ 's' => $request->s ] );
 
-       return view('pages.productividad.operarios.search', compact('fuerzas','request'));
+       return view('pages.fuerzaTarea.operarios.search', compact('fuerzas','request'));
     }
 
     public function showOperario(Request $request, $operario){
@@ -149,7 +149,7 @@ class FuerzaTareaController extends Controller
      
      if($produccion->isEmpty()){
          $productividad->semana = $week;
-         return view('pages.productividad.operarios.show', compact('operario', 'productividad'));
+         return view('pages.fuerzaTarea.operarios.show', compact('operario', 'productividad'));
      }
       
       $tiempoTotal=0;
@@ -224,7 +224,7 @@ class FuerzaTareaController extends Controller
         $productividad->semana = $week;
 
       
-      return view('pages.productividad.operarios.show', compact('operario', 'productividad'));
+      return view('pages.fuerzaTarea.operarios.show', compact('operario', 'productividad'));
     }
 
     public function getDataOperario(Request $request, $operario)
@@ -291,7 +291,7 @@ class FuerzaTareaController extends Controller
       $supervisores=User::whereHas('perfil', function($q){
         $q->where('perfil','supervisor');
       })->paginate(16);
-      return view('pages.productividad.supervisores.index',compact('supervisores'));
+      return view('pages.fuerzaTarea.supervisores.index',compact('supervisores'));
     }
 
     public function searchSupervisoresProduccion(Request $request)
@@ -305,7 +305,7 @@ class FuerzaTareaController extends Controller
        
        $supervisores->appends( [ 's' => $request->s ] );
 
-       return view('pages.productividad.supervisores.search', compact('supervisores','request'));
+       return view('pages.fuerzaTarea.supervisores.search', compact('supervisores','request'));
     }
 
     public function showSupervisor(Request $request, $supervisor){
@@ -344,7 +344,7 @@ class FuerzaTareaController extends Controller
      
      if($produccion->isEmpty()){
          $productividad->semana = $week;
-         return view('pages.productividad.supervisores.show', compact('supervisor', 'productividad'));
+         return view('pages.fuerzaTarea.supervisores.show', compact('supervisor', 'productividad'));
      }
       
       $tiempoTotal=0;
@@ -420,7 +420,7 @@ class FuerzaTareaController extends Controller
       
       $productividad->semana = $week;
       
-      return view('pages.productividad.supervisores.show', compact('supervisor', 'productividad'));
+      return view('pages.fuerzaTarea.supervisores.show', compact('supervisor', 'productividad'));
     }
 
 
@@ -488,7 +488,7 @@ class FuerzaTareaController extends Controller
       $coordinadores=User::whereHas('perfil', function($q){
         $q->where('perfil','coordinador');
       })->paginate(16);
-      return view('pages.productividad.coordinadores.index',compact('coordinadores'));
+      return view('pages.fuerzaTarea.coordinadores.index',compact('coordinadores'));
     }
 
     
@@ -503,7 +503,7 @@ class FuerzaTareaController extends Controller
        
        $coordinadores->appends( [ 's' => $request->s ] );
 
-       return view('pages.productividad.coordinadores.search', compact('coordinadores','request'));
+       return view('pages.fuerzaTarea.coordinadores.search', compact('coordinadores','request'));
     }
 
     public function showCoordinador(Request $request, $coordinador){
@@ -541,7 +541,7 @@ class FuerzaTareaController extends Controller
      
       if($produccion->isEmpty()){
          $productividad->semana = $week;
-         return view('pages.productividad.coordinadores.show', compact('coordinador', 'productividad'));
+         return view('pages.fuerzaTarea.coordinadores.show', compact('coordinador', 'productividad'));
       }
       
       $tiempoTotal=0;
@@ -617,7 +617,7 @@ class FuerzaTareaController extends Controller
       
       $productividad->semana = $week;
       
-      return view('pages.productividad.coordinadores.show', compact('coordinador', 'productividad'));
+      return view('pages.fuerzaTarea.coordinadores.show', compact('coordinador', 'productividad'));
     }
 
     public function getDataCoordinador(Request $request, $coordinador)

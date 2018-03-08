@@ -3,7 +3,7 @@
         <div class="card card-profile card-plain card-supervisor">
             <div class="col-xs-5 ">
                 <div class="text-center">
-                    <img class="img img-responsive img-circle z-depth-3" :src="supervisor.url_avatar.replace('public/','/storage/')" onerror='this.onerror = null; this.src="/img/supervisor.png"' style="max-width:200px;margin:0 auto;">
+                    <img class="img img-responsive img-circle z-depth-3" src="/img/supervisor.png"  style="max-width:200px;margin:0 auto;">
                 </div>
             </div>
             <div class="col-xs-7 ">
@@ -28,5 +28,3 @@ export default {
    
 }
 </script>
-
-

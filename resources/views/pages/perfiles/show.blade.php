@@ -71,14 +71,16 @@
                       </div>
                     </div>
                   </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <label class="col-md-2 label-on-left">Equipo</label>
-                    <div class="col-md-10">
-                      <input type="text" class="form-control" value="{{auth()->user()->equipo->nombre}}" disabled>
+                @if (!empty(auth()->user()->equipo))
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="col-md-2 label-on-left">Equipo</label>
+                      <div class="col-md-10">
+                        <input type="text" class="form-control" value="{{auth()->user()->equipo->nombre}}" disabled>
+                      </div>
                     </div>
                   </div>
-                </div>
+                @endif  
                 <br>
               </div>
             </div>

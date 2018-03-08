@@ -105,6 +105,7 @@ Route::group( ['middleware' => 'auth' ], function()
   Route::post('/servicios', 'ServicioController@store')->name('servicioGuardar');
   Route::get('/servicios/{servicio}', 'ServicioController@show');
   Route::get('/servicios/{servicio}/editar', 'ServicioController@edit');
+  Route::get('/servicios/{servicio}/editarProductividad', 'ServicioController@editProductividad');
   Route::get('/servicios/detalles/{servicio}', 'CoordinacionController@maniobra');
 
   Route::get('/almacen', 'ServicioController@almacen');

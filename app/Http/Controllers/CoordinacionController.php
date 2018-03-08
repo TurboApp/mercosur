@@ -145,7 +145,6 @@ class CoordinacionController extends Controller
             $maniobra->save();
             event(new ManiobraInicio($maniobra));
         }       
-        
         return $maniobra->toJson();
     }
     public function maniobraFin(Request $request)
@@ -168,6 +167,7 @@ class CoordinacionController extends Controller
             
             event(new ManiobraFin($maniobra));
             event(new ManiobraUpdate($maniobra));
+            
             foreach($maniobra->tareas as $tarea){
                 if(empty($tarea->inicio)){
                     $tarea->inicio = $tarea->created_at;
@@ -178,6 +178,8 @@ class CoordinacionController extends Controller
                     $tarea->save();
                 }
             }
+            
+
         }
         return $maniobra->toJson();
     }

@@ -65,7 +65,7 @@
                 <div class="card-footer">
                     <div class="stats">
                         <a href="/servicios/nuevo/Trasbordo">
-                              Nuevo servicio de trasbordo
+                            Nuevo servicio de trasbordo
                         </a>
                     </div>
                 </div>

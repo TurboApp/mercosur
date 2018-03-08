@@ -1,7 +1,0 @@
-   
-  contenido del supervisor
-        
-
-
-
-    

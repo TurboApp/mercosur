@@ -138,7 +138,7 @@
             </div><!-- ./card-content -->
           </div><!-- ./card -->
         </div><!-- ./col-md -->
-        <div class="col-md-12 text-right">
+        <div class="col-md-10 col-sm-12  col-md-offset-1 text-right">
             <button type="submit" class="btn btn-primary">
               <i class="material-icons">save</i>
                Guardar
