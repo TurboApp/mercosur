@@ -8,7 +8,7 @@
                         <span>
                             <?php
                             $tarea=$data->coordinacion->tareas->where('titulo_corto','Finalización')->first();
-                            $firma_operaor=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Firma del operador Nacional"]])->first();
+                            $firma_operaor=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Firma del operador Centroamericano"]])->first();
                             ?>
                             <img src="{{storage_path('app/'.$firma_operaor->value)}}" style="width:150px; " />
                             </span><br>

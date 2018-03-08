@@ -5,7 +5,7 @@
 @if ($tipo=="Descarga" || $tipo=="Carga")
     <tr>
             <td colspan="3" style="{{$titulo}}">DATOS DE LA  MERCANCIA QUE SE ENTREGO O RECIBIO EN BODEGA</td>
-        </tr>
+    </tr>
         <tr>
             <td style="{{$label}}" colspan="3">Ciudad Hidalgo, Chiapas: <strong>{{$fecha}}</strong></td>
         </tr>
@@ -38,20 +38,31 @@
             </td>
         </tr>
         <tr>
-            <td style="{{$label}}">Me Recibieron Mercancia:
-                <?php
-                        $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
-                        $recibi=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Recibi mercancia en..."]])->first();
-                ?>
-                <strong>{{$recibi->value}}</strong>
-            </td>
-            <td style="{{$label}}" colspan="2">Me Entregaron Mercancia:
-                <?php
-                        $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
-                        $entrege=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Entregue mercancia en..."]])->first();
-                ?>
-                <strong>{{$entrege->value}}</strong>
-            </td>
+            @if ($tipo=="Carga")
+                <td style="{{$label}}" colspan="3">Me Entregaron Mercancia:
+                    <?php
+                            $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
+                            $entrege=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Entregue mercancia en... "]])->first();
+                    ?>
+                    @if (!empty($entrege->value))
+                        <strong>{{$entrege->value}}</strong>
+                    @else
+                        <strong>...</strong>
+                    @endif
+                </td>    
+            @else
+                <td style="{{$label}}" colspan="3">Me Recibieron Mercancia:
+                    <?php
+                            $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
+                            $recibi=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Recibi mercancia en..."]])->first();
+                    ?>
+                    @if (!empty($recibi->value))
+                        <strong>{{$recibi->value}}</strong>
+                    @else
+                        <strong>...</strong>
+                    @endif
+                </td>   
+            @endif
         </tr>
         <tr>
             <td style="{{$label}}" colspan="3">Mercancia del Cliente:
@@ -71,15 +82,23 @@
                         $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
                         $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia de acuerdo a la documentación"]])->first();
             ?>
-            <strong>{{$peso->value}} KG</strong>
+            @if (!empty($peso->value))
+                <strong>{{$peso->value}} KG</strong>
+            @else
+                <strong>...</strong>
+            @endif
             </td>
             <td style="{{$label}}">Cant/Bts:
                 <strong>
                     <?php
                         $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                        $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos"]])->first();
+                        $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos de acuerdo a la documentación"]])->first();
                     ?>
-                    <strong>{{$bultos->value}}</strong>
+                    @if (!empty($bultos->value))
+                        <strong>...</strong>
+                    @else
+                        <strong>{{$bultos->value}}</strong>
+                    @endif  
                 </strong>
             </td>
             <td style="{{$label}}">Talon:
@@ -143,16 +162,24 @@
             <td style="{{$label}}">Me Recibieron Mercancia:
                 <?php
                         $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
-                        $recibi=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Recibi mercancia en..."]])->first();
+                        $recibi=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Recibi mercancia en..."],["tipo_transporte","N"]])->first();
                 ?>
-                <strong>{{$recibi->value}}</strong>
+                @if ($recibi->tipo_transporte=="N")
+                    <strong>{{$recibi->value}}</strong>
+                @else
+                    <strong>...</strong>
+                @endif
             </td>
             <td style="{{$label}}" colspan="2">Me Entregaron Mercancia:
                 <?php
                         $tarea=$data->coordinacion->tareas->where('titulo_corto','Proceso de maniobra')->first();
-                        $entrege=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Entregue mercancia en..."]])->first();
+                        $entrege=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Entregue mercancia en..."],["tipo_transporte","C"]])->first();
                 ?>
-                <strong>{{$entrege->value}}</strong>
+                @if ($entrege->tipo_transporte=="C")
+                    <strong>{{$entrege->value}}</strong>
+                @else
+                    <strong>...</strong>
+                @endif
             </td>
         </tr>
         <tr>
@@ -171,7 +198,7 @@
             <td style="{{$label}}">Con peso de:
                 <?php
                         $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                        $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia"],["tipo_transporte","N"]])->first();
+                        $peso=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese el peso total de la mercancia de acuerdo a la documentación"],["tipo_transporte","N"]])->first();
                 ?>
                 <strong>{{$peso->value}} KG</strong>
             </td>
@@ -183,7 +210,7 @@
             <td style="{{$label}}">cant/bts:
                 <?php
                     $tarea=$data->coordinacion->tareas->where('titulo_corto','Recepción')->first();
-                    $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos"],["tipo_transporte","N"]])->first();
+                    $bultos=App\ManiobraSubtarea::where([["tarea_id",$tarea->id],["subtarea","Ingrese la cantidad de bultos de acuerdo a la documentación"],["tipo_transporte","N"]])->first();
                 ?>
                 <strong>{{$bultos->value}}</strong>
             </td>

@@ -45791,7 +45791,7 @@ window.io = __webpack_require__(199);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'socket.io',
     host: 'http://127.0.0.1:6001'
-    //host: 'http://192.168.0.3:6001'
+    // host: 'http://192.168.8.109:6001'
 });
 
 /***/ }),
